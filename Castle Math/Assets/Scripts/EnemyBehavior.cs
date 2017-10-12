@@ -22,6 +22,9 @@ public class EnemyBehavior : MonoBehaviour {
 	private Animator Anim; 
 
 	private doorHealth dH;
+	public GameObject doorTarget;
+	public int damageVal;
+
 	private float nextActionTime = 0.0f;
 	public float period = 2f;
 	
@@ -42,6 +45,9 @@ public class EnemyBehavior : MonoBehaviour {
 		int RanNum = Random.Range (0, Targets.Length);
 
 		Target = Targets [RanNum];
+
+		//attaching gate1 as target
+		doorTarget = GameObject.Find ("gate1");
 
 		StartCoroutine (WalkToTarget());
 	}
@@ -121,12 +127,13 @@ public class EnemyBehavior : MonoBehaviour {
 			isMoving = false;
 			this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			Anim.SetBool ("isMoving", false);
-
+			/*
 			 if (Time.time > nextActionTime ) {
 				nextActionTime = Time.time + period; 
-				dH.health -= 8;
+				dH.Health -= 8;
 			 }
-			print(dH.health);
+			print(dH.Health);
+			*/
 			Anim.SetBool ("isAttacking", true);
 			//ChooseWalkPoint ();
 		}
@@ -174,6 +181,13 @@ public class EnemyBehavior : MonoBehaviour {
 		Destroy (this.gameObject);
 
 
+	}
+
+	public void DamageGate(int damage) {
+		Debug.Log ("Damage Gate");
+
+		//Damage GateHealth by 15
+		dH.TakeDamageGate (damage);
 	}
 
 
