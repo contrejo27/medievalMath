@@ -9,23 +9,24 @@ public class doorHealth : MonoBehaviour {
 	public int Health = 100;
 	
 	private gameStateManager GameManager;
+	private ExampleGUIAspectsController doorHealthBar;
 
 	// Use this for initialization
 	void Start () {
 			GameManager = GameObject.FindObjectOfType<gameStateManager> ();
+			doorHealthBar = GameObject.FindObjectOfType<ExampleGUIAspectsController> ();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		doorHealthText.text = "Door Health " + Health.ToString();
 		if(Health<1) GameManager.LoseState ();
 
 	}
 
 	//Update health
 	public void TakeDamageGate(int damage) {
-		Debug.Log ("Health: " + Health);
+		doorHealthBar.updateHealth(damage);
 		Health -= damage;
 	}
 }

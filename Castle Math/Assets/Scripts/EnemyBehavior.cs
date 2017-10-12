@@ -175,9 +175,6 @@ public class EnemyBehavior : MonoBehaviour {
 	{
 
 		yield return new WaitForSeconds (2);
-
-
-
 		Destroy (this.gameObject);
 
 
