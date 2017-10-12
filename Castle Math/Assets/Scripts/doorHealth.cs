@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class doorHealth : MonoBehaviour {
 	public Text doorHealthText;
-
+	public bool destroyed = false;
 	public int Health = 100;
 	
 	private gameStateManager GameManager;
@@ -28,5 +28,11 @@ public class doorHealth : MonoBehaviour {
 	public void TakeDamageGate(int damage) {
 		doorHealthBar.updateHealth(damage);
 		Health -= damage;
+
+		if (Health < 0) {
+			this.gameObject.GetComponent<Renderer> ().enabled = false;
+			Debug.Log ("destroyed dh");
+			this.destroyed = true;
+		}
 	}
 }
