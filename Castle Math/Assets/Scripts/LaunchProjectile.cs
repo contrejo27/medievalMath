@@ -7,6 +7,8 @@ public class LaunchProjectile : MonoBehaviour {
 	public AudioClip LaunchSound;
 	public AudioClip ReloadSound;
 
+	public List<ArrowModifier> CurrentArrowModifiers; 
+	private int[] ModiferEffectCounter;
 
 	public GameObject[] Projectiles;
 	public GameObject FirePoint;
@@ -25,6 +27,8 @@ public class LaunchProjectile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		ModiferEffectCounter = new int[System.Enum.GetValues (typeof(ArrowModifier)).Length];
+
 		isAlive = true;
 
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
@@ -64,6 +68,39 @@ public class LaunchProjectile : MonoBehaviour {
 		
 	}
 
+	//adds a modification and sets how long that mod will last
+	public void AddModifier(ArrowModifier newModification, int ArrowDuration)
+	{
+		CurrentArrowModifiers.Add (newModification);
+
+		//set the counter of the associated int
+		ModiferEffectCounter [(int)newModification] = ArrowDuration;
+
+	}
+
+	public void ClearModifiers()
+	{
+		CurrentArrowModifiers.Clear ();
+
+		//set all array values to zero
+		for (int i = 0; i < ModiferEffectCounter.Length; i++) {
+			ModiferEffectCounter [i] = 0;
+		}
+
+	}
+
+	public void RemoveModifier(ArrowModifier removeModification)
+	{
+		//reduce count by 1
+		ModiferEffectCounter[(int)(removeModification)] -= 1;
+
+		//if the count reaches zero, remove this modifier
+		if (ModiferEffectCounter [(int)(removeModification)] <= 0) {
+			CurrentArrowModifiers.Remove (removeModification);
+		}
+	}
+
+
 	public void SetLookingAtInterface(bool isLooking)
 	{
 		//Debug.Log ("Here");
@@ -78,6 +115,28 @@ public class LaunchProjectile : MonoBehaviour {
 		ArrowToLaunch.transform.parent = FirePoint.transform;
 		ArrowToLaunch.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
 
+		//go through the list of modifiers and add them to the Arrow to give special abilities
+		for (int i = 0; i < CurrentArrowModifiers.Count; i++) {
+			switch(CurrentArrowModifiers[i])
+			{
+			case ArrowModifier.Bomb:
+				RemoveModifier (ArrowModifier.Bomb);
+				ArrowToLaunch.AddComponent<BombArrow> ();
+				break;
+
+			case ArrowModifier.Homing:
+				RemoveModifier (ArrowModifier.Homing);
+				ArrowToLaunch.AddComponent<HomingArrow> ();
+				break;
+
+			case ArrowModifier.Burst:
+				RemoveModifier (ArrowModifier.Burst);
+				ArrowToLaunch.AddComponent<BurstArrow> ();
+				break;
+
+			}
+		}
+
 		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = true;
 
 		ArrowToLaunch.GetComponent<BoxCollider> ().enabled = false; 
@@ -90,7 +149,6 @@ public class LaunchProjectile : MonoBehaviour {
 		ArrowToLaunch.transform.parent = null;
 
 		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
-
 
 		//ArrowToLaunch.GetComponent<Rigidbody> ().useGravity = true;
 

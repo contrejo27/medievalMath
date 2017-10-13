@@ -26,7 +26,7 @@ public class BurstArrow : ArrowClass {
 	IEnumerator DelayCreate(float Direction, GameObject Arrow)
 	{
 
-		yield return new WaitForSeconds (.01f);
+		yield return new WaitForSeconds (.03f);
 
 		GameObject newArrow = Instantiate (Arrow, this.transform.position + this.transform.right*Direction, this.transform.rotation);
 

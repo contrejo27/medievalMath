@@ -6,7 +6,6 @@ public class ProjectileBehavior : MonoBehaviour {
 
 
 	public bool isGrounded { get; set;}
-	public bool isBomb;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +17,7 @@ public class ProjectileBehavior : MonoBehaviour {
 			return;
 		}
 
+		//orient the arrow in the direction of motion
 		transform.rotation = Quaternion.LookRotation (this.GetComponent<Rigidbody>().velocity);
 
 	}
@@ -27,52 +27,34 @@ public class ProjectileBehavior : MonoBehaviour {
 	{
 		if (isGrounded == false) {
 
-			if (isBomb == false) {
-
 				isGrounded = true;
 
 				this.gameObject.GetComponent<BoxCollider> ().enabled = false;
 				this.gameObject.GetComponent<Rigidbody> ().isKinematic = true;
-
+				
+				//an arrow can have multiple arrow class components
+				ArrowClass[] ArrowModifers = this.GetComponents<ArrowClass> ();
+				for (int i = 0; i < ArrowModifers.Length; i++) {
+				ArrowModifers [i].ArrowImpact ();
+				}
 
 				if (otherCollision.transform.tag == "Enemy") {
 					otherCollision.gameObject.GetComponent<EnemyBehavior> ().TakeDamage ();
 
 					this.transform.parent = otherCollision.transform;
 
-				} else {
-
-					StartCoroutine (WaitToDestroy ());
-				}
-			} else {
-
-				this.transform.GetChild (0).gameObject.SetActive (true);
-				//get all the colliders within a 10 radius
-				Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 15);
-
-				int i = 0;
-				while (i < hitColliders.Length)
-				{
-					if (hitColliders [i].gameObject.tag == "Enemy") {
-						hitColliders [i].gameObject.GetComponent<Rigidbody> ().AddExplosionForce (1000, this.transform.position, 15);
-						hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().TakeDamage ();
-
-					}
-					i += 1;
-				}
-
-				StartCoroutine (WaitToDestroy ());
-
-			}
-		}
+				} 
+				
+			StartCoroutine (WaitToDestroy ());
+		} 
+			
 	}
+
 
 	IEnumerator WaitToDestroy()
 	{
 		yield return new WaitForSeconds (5);
 		Destroy (this.gameObject);
-
-
 	}
 
 

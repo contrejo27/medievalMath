@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ArrowModifier{Burst, Bomb, Homing}
+
 public class ArrowClass : MonoBehaviour {
 
 	// Use this for initialization
@@ -15,4 +17,10 @@ public class ArrowClass : MonoBehaviour {
 
 	}
 
+
+	//Called when an arrow Hits an enemy something
+	public virtual void ArrowImpact()
+	{
+
+	}
 }
