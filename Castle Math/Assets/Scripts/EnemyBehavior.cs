@@ -74,7 +74,7 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 		
 
-	public void TakeDamage()
+	public void TakeDamage(int DMG)
 	{
 //		Anim.SetBool ("isHit", true);
 		if(!Anim.GetCurrentAnimatorStateInfo(0).IsName("death")) Anim.Play("wound1");
@@ -82,8 +82,8 @@ public class EnemyBehavior : MonoBehaviour {
 		//Anim.SetBool ("isMoving", false);
 		//Anim.SetBool ("isHit", true);
 
-		HitPoints -= 1;
-		if (HitPoints == 0) {
+		HitPoints -= DMG;
+		if (HitPoints <= 0) {
 			Killed ();
 		}
 

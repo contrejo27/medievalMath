@@ -5,11 +5,12 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour {
 
 
+	public int ArrowDamge { get; set;}
 	public bool isGrounded { get; set;}
 
 	// Use this for initialization
 	void Start () {
-		
+		ArrowDamge = 1;
 	}
 
 	void Update(){
@@ -39,7 +40,7 @@ public class ProjectileBehavior : MonoBehaviour {
 				}
 
 				if (otherCollision.transform.tag == "Enemy") {
-					otherCollision.gameObject.GetComponent<EnemyBehavior> ().TakeDamage ();
+				otherCollision.gameObject.GetComponent<EnemyBehavior> ().TakeDamage (ArrowDamge);
 
 					this.transform.parent = otherCollision.transform;
 

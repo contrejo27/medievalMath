@@ -18,24 +18,28 @@ public class BurstArrow : ArrowClass {
 
 		GameObject Arrow = this.gameObject;
 
-		StartCoroutine (DelayCreate(1.5f, Arrow));
-		StartCoroutine (DelayCreate(-1.5f, Arrow));
+		StartCoroutine (DelayCreate (Arrow));
 
 	}
 
-	IEnumerator DelayCreate(float Direction, GameObject Arrow)
+	IEnumerator DelayCreate(GameObject Arrow)
 	{
 
 		yield return new WaitForSeconds (.03f);
 
-		GameObject newArrow = Instantiate (Arrow, this.transform.position + this.transform.right*Direction, this.transform.rotation);
+		GameObject newArrow = Instantiate (Arrow, this.transform.position - (transform.forward * 1.5f), this.transform.rotation);
 
 		newArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
 
 		newArrow.GetComponent<Rigidbody> ().AddForce (transform.forward * 7000);
 
-		Debug.Log ("Here");
+		yield return new WaitForSeconds (.03f);
 
+		newArrow = Instantiate (Arrow, this.transform.position - (transform.forward * 2.75f), this.transform.rotation);
+
+		newArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
+
+		newArrow.GetComponent<Rigidbody> ().AddForce (transform.forward * 7000);
 
 	}
 
