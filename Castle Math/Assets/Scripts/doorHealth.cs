@@ -7,17 +7,17 @@ public class doorHealth : MonoBehaviour {
 	public Text doorHealthText;
 	public bool destroyed = false;
 	public int Health = 100;
-	
+
 	private gameStateManager GameManager;
 	private ExampleGUIAspectsController doorHealthBar;
 
 	// Use this for initialization
 	void Start () {
-			GameManager = GameObject.FindObjectOfType<gameStateManager> ();
-			doorHealthBar = GameObject.FindObjectOfType<ExampleGUIAspectsController> ();
+		GameManager = GameObject.FindObjectOfType<gameStateManager> ();
+		doorHealthBar = GameObject.FindObjectOfType<ExampleGUIAspectsController> ();
 
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if(Health<1) GameManager.LoseState ();
