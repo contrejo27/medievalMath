@@ -71,7 +71,7 @@ public class EnemyBehavior : MonoBehaviour {
 			}
 		}
 		
-		if (dH.destroyed == true) {
+		if (dH.GetComponent<Renderer> ().enabled == false) {
 			Debug.Log ("destroyed in EnemyBehavior");
 			Anim.SetBool ("isMoving", true);
 			Anim.Play ("move");
