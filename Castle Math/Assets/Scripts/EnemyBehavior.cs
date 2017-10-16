@@ -70,6 +70,14 @@ public class EnemyBehavior : MonoBehaviour {
 				}
 			}
 		}
+		
+		if (dH.destroyed == true) {
+			Debug.Log ("destroyed in EnemyBehavior");
+			Anim.SetBool ("isMoving", true);
+			Anim.Play ("move");
+			this.GetComponent<Rigidbody> ().velocity = transform.forward * MoveSpeed;
+
+		}
 
 	}
 		
