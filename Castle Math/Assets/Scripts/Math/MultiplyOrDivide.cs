@@ -9,6 +9,15 @@ public class MultiplyOrDivide : MonoBehaviour {
 	public Text QuestionText;
 	public Text QuestionText_hud;
 	public Text FeedbackText;
+	public Text ChoiceBox1;
+	public Text ChoiceBox2;
+	public Text ChoiceBox3;
+	public Text ChoiceBox4;
+
+	public Button Button1;
+	public Button Button2;
+	public Button Button3;
+	public Button Button4;
 
 	private int FirstNum;
 	private int SecondNum;
@@ -28,6 +37,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 		GenerateQuestion ();
 
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
@@ -35,6 +45,12 @@ public class MultiplyOrDivide : MonoBehaviour {
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
+		QuestionText = GameObject.Find ("question").GetComponent<Text>();
+
+		ChoiceBox1 = GameObject.Find ("answer1").GetComponent<Text>();
+		ChoiceBox2 = GameObject.Find ("answer2").GetComponent<Text>();
+		ChoiceBox3 = GameObject.Find ("answer3").GetComponent<Text>();
+		ChoiceBox4 = GameObject.Find ("answer4").GetComponent<Text>();
 	}
 	
 	void GenerateQuestion () {
@@ -53,6 +69,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 			QuestionText.text = FirstNum.ToString () + " / " + SecondNum.ToString () + " =";
 			QuestionText_hud.text = FirstNum.ToString () + " / " + SecondNum.ToString ();
+			GenerateChoices ();
 		} 
 		else {
 			FirstNum = Random.Range (0, 11);
@@ -62,7 +79,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 			QuestionText.text = FirstNum.ToString () + " * " + SecondNum.ToString () + " =";
 			QuestionText_hud.text = FirstNum.ToString () + " * " + SecondNum.ToString ();
-
+			GenerateChoices ();
 		}
 	}
 
@@ -99,6 +116,25 @@ public class MultiplyOrDivide : MonoBehaviour {
 			}
 		}
 		AnswerChoices = new int[] {Choice1, Choice2, Choice3, CorrectAnswer};
+
+		DisplayChoices ();
+	}
+
+	void DisplayChoices () {
+		print ("Test");
+		//Shuffle array randomly
+		for (int i = 0; i < AnswerChoices.Length; i++ ) {
+			int temp = AnswerChoices[i];
+			int r = Random.Range(i, AnswerChoices.Length);
+			AnswerChoices[i] = AnswerChoices[r];
+			AnswerChoices[r] = temp;
+		}
+
+		ChoiceBox1.text = AnswerChoices [0].ToString();
+		ChoiceBox2.text = AnswerChoices [1].ToString();
+		ChoiceBox3.text = AnswerChoices [2].ToString();
+		ChoiceBox4.text = AnswerChoices [3].ToString();
+
 	}
 		
 	void CheckAnswer(int Answer) {

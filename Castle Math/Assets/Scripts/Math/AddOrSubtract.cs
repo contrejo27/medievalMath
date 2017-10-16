@@ -8,6 +8,15 @@ public class AddOrSubtract : MonoBehaviour {
 	public Text QuestionText;
 	public Text QuestionText_hud;
 	public Text FeedbackText;
+	public Text ChoiceBox1;
+	public Text ChoiceBox2;
+	public Text ChoiceBox3;
+	public Text ChoiceBox4;
+
+	public Button Button1;
+	public Button Button2;
+	public Button Button3;
+	public Button Button4;
 
 	private int FirstNum;
 	private int SecondNum;
@@ -34,10 +43,14 @@ public class AddOrSubtract : MonoBehaviour {
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
+
+		QuestionText = GameObject.Find ("question").GetComponent<Text>();
+
 	}
 	
 	// Update is called once per frame
 	void GenerateQuestion () {
+		Debug.Log ("Gen Questions");
 		isSubtract = Random.Range (0, 1);
 
 		if (isSubtract == 0) {
@@ -47,7 +60,8 @@ public class AddOrSubtract : MonoBehaviour {
 			CorrectAnswer = FirstNum - SecondNum;
 
 			QuestionText.text = FirstNum.ToString () + " - " + SecondNum.ToString () + " =";
-			QuestionText_hud.text = FirstNum.ToString () + " - " + SecondNum.ToString ();
+			//QuestionText_hud.text = FirstNum.ToString () + " - " + SecondNum.ToString ();
+			GenerateChoices ();
 		} 
 		else {
 			FirstNum = Random.Range (0, 11);
@@ -56,12 +70,15 @@ public class AddOrSubtract : MonoBehaviour {
 			CorrectAnswer = FirstNum + SecondNum;
 
 			QuestionText.text = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
-			QuestionText_hud.text = FirstNum.ToString () + " + " + SecondNum.ToString ();
+			//QuestionText_hud.text = FirstNum.ToString () + " + " + SecondNum.ToString ();
+			GenerateChoices ();
 
 		}
+		Debug.Log ("End Gen Choices");
 	}
 
 	void GenerateChoices() {
+		Debug.Log ("Gen Choices");
 
 		int Choice1;
 		int Choice2;
@@ -94,12 +111,28 @@ public class AddOrSubtract : MonoBehaviour {
 		}
 		AnswerChoices = new int[] {Choice1, Choice2, Choice3, CorrectAnswer};
 
-		for (int i = 0; i < 4; i++) {
-			Debug.Log (AnswerChoices [i]);
-		}
+		DisplayChoices ();
 	}
 
-	void CheckAnswer(int Answer) {
+	void DisplayChoices () {
+		Debug.Log ("Display");
+		//Shuffle array randomly
+		for (int i = 0; i < AnswerChoices.Length; i++ ) {
+			int temp = AnswerChoices[i];
+			int r = Random.Range(i, AnswerChoices.Length);
+			AnswerChoices[i] = AnswerChoices[r];
+			AnswerChoices[r] = temp;
+		}
+
+		ChoiceBox1.text = AnswerChoices [0].ToString();
+		ChoiceBox2.text = AnswerChoices [1].ToString();
+		ChoiceBox3.text = AnswerChoices [2].ToString();
+		ChoiceBox4.text = AnswerChoices [3].ToString();
+
+	}
+
+	public void CheckAnswer(int Answer) {
+		
 		if (Answer == CorrectAnswer) {
 
 			FeedbackText.text = "Correct";
@@ -130,8 +163,6 @@ public class AddOrSubtract : MonoBehaviour {
 			A_Source.Play ();
 
 			Math_Stats.IncorrectlyAnswered ();
-
-			A_Input.ClearAnswer ();
 
 		}
 	}
