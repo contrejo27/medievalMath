@@ -77,8 +77,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 			CorrectAnswer = FirstNum * SecondNum;
 
-			QuestionText.text = FirstNum.ToString () + " * " + SecondNum.ToString () + " =";
-			QuestionText_hud.text = FirstNum.ToString () + " * " + SecondNum.ToString ();
+			QuestionText.text = FirstNum.ToString () + " X " + SecondNum.ToString () + " =";
+			QuestionText_hud.text = FirstNum.ToString () + " X " + SecondNum.ToString ();
 			GenerateChoices ();
 		}
 	}
@@ -121,7 +121,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 	}
 
 	void DisplayChoices () {
-		print ("Test");
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
 			int temp = AnswerChoices[i];
@@ -137,8 +136,9 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 	}
 		
-	void CheckAnswer(int Answer) {
-		if (Answer == CorrectAnswer) {
+	public void CheckAnswer(Text Answer) {
+		int answerAsInt = int.Parse(Answer.text.ToString());
+		if (answerAsInt == CorrectAnswer) {
 
 			FeedbackText.text = "Correct";
 			FeedbackText.color = Color.green;
@@ -147,7 +147,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 			A_Input.ClearAnswer ();
 
-			//A_Supply.CreateArrow (ProblemType);
+			A_Supply.CreateArrow (0);
 
 			A_Source.clip = CorrectSound;
 			A_Source.Play ();

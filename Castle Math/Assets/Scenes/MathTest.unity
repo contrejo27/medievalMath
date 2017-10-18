@@ -839,15 +839,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 95208963}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.000355, y: 1.0003554, z: 1.0003552}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00038704314}
+  m_LocalScale: {x: 1.6659095, y: 1.6659092, z: 1.665909}
   m_Children: []
-  m_Father: {fileID: 777428184}
-  m_RootOrder: 7
+  m_Father: {fileID: 476322699}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -243, y: 118}
+  m_AnchoredPosition: {x: -1.6654053, y: 3.3305511}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &95208965
@@ -882,7 +882,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 1
 --- !u!222 &95208966
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1031,7 +1031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2061ac9e86b9f46cb8fc600f20b56eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumberToSpawn: 10
+  NumberToSpawn: 6
   SpawnSound: {fileID: 8300000, guid: a8d8f7bca1e81498398343032bd64578, type: 3}
   NumberOfArrows: 0
   ArrowToSpawn:
@@ -3013,7 +3013,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6004858, y: 0.6004861, z: 0.6004861}
-  m_Children: []
+  m_Children:
+  - {fileID: 95208964}
   m_Father: {fileID: 777428184}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3115,6 +3116,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 96d64f0c1309248f691087e7870d53fc,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1869398081}
+        m_MethodName: CheckAnswer
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 95208965}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3721,7 +3733,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 542802104}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -4085,7 +4097,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 777428184}
-  m_RootOrder: 11
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4220,15 +4232,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 693799663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.000355, y: 1.0003554, z: 1.0003552}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00010643687}
+  m_LocalScale: {x: 1.6659095, y: 1.6659092, z: 1.665909}
   m_Children: []
-  m_Father: {fileID: 777428184}
-  m_RootOrder: 8
+  m_Father: {fileID: 1230868015}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14, y: 118}
+  m_AnchoredPosition: {x: 6.6605587, y: 3.3305206}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &693799665
@@ -4263,7 +4275,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 1
 --- !u!222 &693799666
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4294,15 +4306,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 699373679}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.000355, y: 1.0003554, z: 1.0003552}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00030963452}
+  m_LocalScale: {x: 1.6659095, y: 1.6659092, z: 1.665909}
   m_Children: []
-  m_Father: {fileID: 777428184}
-  m_RootOrder: 9
+  m_Father: {fileID: 1637152540}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -239, y: 6}
+  m_AnchoredPosition: {x: 4.9959717, y: -0.00010442734}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &699373681
@@ -4617,10 +4629,6 @@ RectTransform:
   - {fileID: 1637152540}
   - {fileID: 476322699}
   - {fileID: 1230868015}
-  - {fileID: 95208964}
-  - {fileID: 693799664}
-  - {fileID: 699373680}
-  - {fileID: 1557274094}
   - {fileID: 678029938}
   - {fileID: 2146596609}
   - {fileID: 1465150518}
@@ -4899,7 +4907,7 @@ RectTransform:
   m_GameObject: {fileID: 850214289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 255314445}
   - {fileID: 639272937}
@@ -5752,7 +5760,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
-  m_Children: []
+  m_Children:
+  - {fileID: 1557274094}
   m_Father: {fileID: 777428184}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5854,6 +5863,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 96d64f0c1309248f691087e7870d53fc,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1869398081}
+        m_MethodName: CheckAnswer
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1557274095}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7109,7 +7129,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6004858, y: 0.6004861, z: 0.6004861}
-  m_Children: []
+  m_Children:
+  - {fileID: 693799664}
   m_Father: {fileID: 777428184}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7211,6 +7232,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 96d64f0c1309248f691087e7870d53fc,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1869398081}
+        m_MethodName: CheckAnswer
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 693799665}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9259,7 +9291,7 @@ RectTransform:
   m_LocalScale: {x: 1.1533923, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 777428184}
-  m_RootOrder: 13
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9931,15 +9963,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1557274093}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.000355, y: 1.0003554, z: 1.0003552}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000082313294}
+  m_LocalScale: {x: 1.6672585, y: 1.6672587, z: 1.6672586}
   m_Children: []
-  m_Father: {fileID: 777428184}
-  m_RootOrder: 10
+  m_Father: {fileID: 1008106970}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15, y: 6}
+  m_AnchoredPosition: {x: 0.000995636, y: 0.00003528595}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1557274095
@@ -10314,7 +10346,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6004858, y: 0.6004861, z: 0.6004861}
-  m_Children: []
+  m_Children:
+  - {fileID: 699373680}
   m_Father: {fileID: 777428184}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10416,6 +10449,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 96d64f0c1309248f691087e7870d53fc,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1869398081}
+        m_MethodName: CheckAnswer
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 699373681}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12019,6 +12063,7 @@ GameObject:
   - component: {fileID: 1869398077}
   - component: {fileID: 1869398079}
   - component: {fileID: 1869398080}
+  - component: {fileID: 1869398081}
   m_Layer: 0
   m_Name: MathManager
   m_TagString: Untagged
@@ -12081,6 +12126,30 @@ MonoBehaviour:
   PercentageText: {fileID: 2076425902}
   CorrectText: {fileID: 1124957283}
   IncorrectText: {fileID: 1539418482}
+--- !u!114 &1869398081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1869398076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1043d9b49241c49f3abcf20d7b939f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestionText: {fileID: 1966943073}
+  QuestionText_hud: {fileID: 102792146}
+  FeedbackText: {fileID: 1311783785}
+  ChoiceBox1: {fileID: 95208965}
+  ChoiceBox2: {fileID: 693799665}
+  ChoiceBox3: {fileID: 699373681}
+  ChoiceBox4: {fileID: 1557274095}
+  Button1: {fileID: 476322701}
+  Button2: {fileID: 1230868017}
+  Button3: {fileID: 1637152542}
+  Button4: {fileID: 1008106972}
+  CorrectSound: {fileID: 0}
+  IncorrectSound: {fileID: 0}
 --- !u!1 &1892618200
 GameObject:
   m_ObjectHideFlags: 0
@@ -14137,7 +14206,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 777428184}
-  m_RootOrder: 12
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
