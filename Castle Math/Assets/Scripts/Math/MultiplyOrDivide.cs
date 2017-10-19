@@ -33,10 +33,12 @@ public class MultiplyOrDivide : MonoBehaviour {
 	private PlayerMathStats Math_Stats;
 
 	private AudioSource A_Source;
+	private ManaBar PlayerPerkGiver;
 
 
 	// Use this for initialization
 	void Start () {
+		PlayerPerkGiver = FindObjectOfType<ManaBar> ();
 
 		GenerateQuestion ();
 
@@ -153,6 +155,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 			A_Source.Play ();
 
 			Math_Stats.CorrectlyAnswered ();
+
+			PlayerPerkGiver.QuestionAnswered ();
 
 			GenerateQuestion ();
 		} 

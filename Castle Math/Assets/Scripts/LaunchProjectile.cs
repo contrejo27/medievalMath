@@ -134,6 +134,11 @@ public class LaunchProjectile : MonoBehaviour {
 				ArrowToLaunch.AddComponent<BurstArrow> ();
 				break;
 
+			case ArrowModifier.Shotgun:
+				RemoveModifier (ArrowModifier.Shotgun);
+				ArrowToLaunch.AddComponent<ShotgunArrow> ();
+				break;
+
 			}
 		}
 
