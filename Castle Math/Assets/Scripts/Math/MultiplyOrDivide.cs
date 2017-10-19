@@ -57,8 +57,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 	
 	void GenerateQuestion () {
 
-		isDivide = Random.Range (0, 1);
-
+		isDivide = Random.Range (0, 2);
+		print("isDivide: " + isDivide);
 		if (isDivide == 0) {
 			FirstNum = Random.Range (0, 11);
 			SecondNum = Random.Range (0, 11);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ManaBar : MonoBehaviour {
 
 	public int NumberOfQuestions;
+	public GameObject manaBarEnd;
 	private int CurrentNumber;
 	private LaunchProjectile ProjectileLauncher;
 
@@ -15,7 +16,6 @@ public class ManaBar : MonoBehaviour {
 
 	public void QuestionAnswered()
 	{
-
 		CurrentNumber += 1;
 
 		if (CurrentNumber >= NumberOfQuestions) {
@@ -26,6 +26,7 @@ public class ManaBar : MonoBehaviour {
 
 			if (RanMod == 0) {
 				newMod = ArrowModifier.Bomb;
+				//todo: add visual cue
 			} else if (RanMod == 1) {
 				newMod = ArrowModifier.Burst;
 			}else if (RanMod == 2) {
@@ -36,10 +37,11 @@ public class ManaBar : MonoBehaviour {
 
 			//give player perk
 			ProjectileLauncher.AddModifier (newMod, 10);
-
 		}
 
-		transform.localScale = Vector3.Lerp (new Vector3 (.05f, .75f, 1), Vector3.one, (CurrentNumber * 1f) / NumberOfQuestions);
+		float percent = (CurrentNumber * 1f) / NumberOfQuestions;
+		transform.localScale = Vector3.Lerp (new Vector3 (.05f, .75f, 1f), new Vector3 (.8f, .75f, 1f), percent);
+		//manaBarEnd.transform.position = ;
 
 
 	}
