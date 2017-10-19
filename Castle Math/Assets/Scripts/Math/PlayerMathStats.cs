@@ -41,6 +41,9 @@ public class PlayerMathStats : MonoBehaviour {
 		PercentageText.text = "Accuracy: " + ((int)(((CorrectAnswers* 1f) / (CorrectAnswers + IncorrectAnswers)) * 100)).ToString ();
 
 	}
-	
+
+	public int GetIncorrectAnswers() {
+		return this.IncorrectAnswers;
+	}
 
 }

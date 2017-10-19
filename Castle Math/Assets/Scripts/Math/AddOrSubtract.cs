@@ -47,15 +47,15 @@ public class AddOrSubtract : MonoBehaviour {
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
 	}
-	
+
 	// Update is called once per frame
 	void GenerateQuestion () {
 		Debug.Log ("Gen Questions");
-		isSubtract = Random.Range (0, 1);
+		isSubtract = Random.Range (0, 2);
 
 		if (isSubtract == 0) {
-			FirstNum = Random.Range (0, 11);
-			SecondNum = Random.Range (0, 11);
+			FirstNum = Random.Range (0, 13);
+			SecondNum = Random.Range (0, 13);
 
 			CorrectAnswer = FirstNum - SecondNum;
 
@@ -64,8 +64,8 @@ public class AddOrSubtract : MonoBehaviour {
 			GenerateChoices ();
 		} 
 		else {
-			FirstNum = Random.Range (0, 11);
-			SecondNum = Random.Range (0, 11);
+			FirstNum = Random.Range (0, 13);
+			SecondNum = Random.Range (0, 13);
 
 			CorrectAnswer = FirstNum + SecondNum;
 
@@ -87,7 +87,7 @@ public class AddOrSubtract : MonoBehaviour {
 		if (isSubtract == 0) {
 			Choice1 = FirstNum + SecondNum;
 
-			int PlusOrMinus = Random.Range (0, 1);
+			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
 				Choice2 = CorrectAnswer - 1;
@@ -99,7 +99,7 @@ public class AddOrSubtract : MonoBehaviour {
 		} else {
 			Choice1 = FirstNum - SecondNum;
 
-			int PlusOrMinus = Random.Range (0, 1);
+			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
 				Choice2 = CorrectAnswer - 1;
@@ -132,7 +132,7 @@ public class AddOrSubtract : MonoBehaviour {
 	}
 
 	public void CheckAnswer(int Answer) {
-		
+
 		if (Answer == CorrectAnswer) {
 
 			FeedbackText.text = "Correct";
