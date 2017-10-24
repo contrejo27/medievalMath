@@ -24,9 +24,11 @@ public class LaunchProjectile : MonoBehaviour {
 	private bool ArrowLoaded;
 
 	private AudioSource A_Source;
+	private ManaBar PowerUpDisplay;
 
 	// Use this for initialization
 	void Start () {
+		PowerUpDisplay = FindObjectOfType<ManaBar> ();
 		ModiferEffectCounter = new int[System.Enum.GetValues (typeof(ArrowModifier)).Length];
 
 		isAlive = true;
@@ -69,12 +71,23 @@ public class LaunchProjectile : MonoBehaviour {
 	}
 
 	//adds a modification and sets how long that mod will last
-	public void AddModifier(ArrowModifier newModification, int ArrowDuration)
+	public void AddModifier(ArrowModifier newModification, int PowerUpIndex)
 	{
 		CurrentArrowModifiers.Add (newModification);
 
+		StartCoroutine (DelayRemovePowerUp (newModification, PowerUpIndex));
+
 		//set the counter of the associated int
-		ModiferEffectCounter [(int)newModification] = ArrowDuration;
+		//ModiferEffectCounter [(int)newModification] = ArrowDuration;
+
+	}
+
+	IEnumerator DelayRemovePowerUp(ArrowModifier removeModification, int PowerUpIndex)
+	{
+		yield return new WaitForSeconds (30);
+
+		RemoveModifier (removeModification);
+		PowerUpDisplay.ClearPowerUp (PowerUpIndex);
 
 	}
 
@@ -92,12 +105,12 @@ public class LaunchProjectile : MonoBehaviour {
 	public void RemoveModifier(ArrowModifier removeModification)
 	{
 		//reduce count by 1
-		ModiferEffectCounter[(int)(removeModification)] -= 1;
+		//ModiferEffectCounter[(int)(removeModification)] -= 1;
 
 		//if the count reaches zero, remove this modifier
-		if (ModiferEffectCounter [(int)(removeModification)] <= 0) {
-			CurrentArrowModifiers.Remove (removeModification);
-		}
+		//if (ModiferEffectCounter [(int)(removeModification)] <= 0) {
+		CurrentArrowModifiers.Remove (removeModification);
+		//}
 	}
 
 
@@ -120,23 +133,28 @@ public class LaunchProjectile : MonoBehaviour {
 			switch(CurrentArrowModifiers[i])
 			{
 			case ArrowModifier.Bomb:
-				RemoveModifier (ArrowModifier.Bomb);
+				//RemoveModifier (ArrowModifier.Bomb);
 				ArrowToLaunch.AddComponent<BombArrow> ();
 				break;
 
 			case ArrowModifier.Homing:
-				RemoveModifier (ArrowModifier.Homing);
+				//RemoveModifier (ArrowModifier.Homing);
 				ArrowToLaunch.AddComponent<HomingArrow> ();
 				break;
 
 			case ArrowModifier.Burst:
-				RemoveModifier (ArrowModifier.Burst);
+				//RemoveModifier (ArrowModifier.Burst);
 				ArrowToLaunch.AddComponent<BurstArrow> ();
 				break;
 
 			case ArrowModifier.Shotgun:
-				RemoveModifier (ArrowModifier.Shotgun);
+				//RemoveModifier (ArrowModifier.Shotgun);
 				ArrowToLaunch.AddComponent<ShotgunArrow> ();
+				break;
+
+			case ArrowModifier.Giant:
+				//RemoveModifier (ArrowModifier.Giant);
+				ArrowToLaunch.AddComponent<GiantSlayerArrow> ();
 				break;
 
 			}

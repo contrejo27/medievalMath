@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ArrowModifier{Burst, Bomb, Homing, Shotgun}
+public enum ArrowModifier{Burst, Bomb, Homing, Shotgun, Giant}
 
 public class ArrowClass : MonoBehaviour {
 

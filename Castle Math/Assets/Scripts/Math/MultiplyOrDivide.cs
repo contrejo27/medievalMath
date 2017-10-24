@@ -36,9 +36,11 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 	private AudioSource A_Source;
 
-
+	private ManaBar PowerUp;
 	// Use this for initialization
 	void Start () {
+
+		PowerUp = FindObjectOfType<ManaBar> ();
 
 		GenerateQuestion ();
 
@@ -146,6 +148,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 			int r = Random.Range(i, AnswerChoices.Length);
 			AnswerChoices[i] = AnswerChoices[r];
 			AnswerChoices[r] = temp;
+
 		}
 
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
@@ -178,7 +181,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 			A_Input.ClearAnswer ();
 
-			//A_Supply.CreateArrow (ProblemType);
+			A_Supply.CreateArrow ();
 
 			A_Source.clip = CorrectSound;
 			A_Source.Play ();
@@ -186,6 +189,9 @@ public class MultiplyOrDivide : MonoBehaviour {
 			Math_Stats.CorrectlyAnswered ();
 
 			GenerateQuestion ();
+
+			PowerUp.QuestionAnswered ();
+
 		} 
 		//got the question wrong
 		else {

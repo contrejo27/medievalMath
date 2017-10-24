@@ -26,18 +26,18 @@ public class ArrowSupplier : MonoBehaviour {
 
 		Arrows = new GameObject[0];
 
-		CreateArrow (0);
+		CreateArrow ();
 
 	}
 
 
-	public void CreateArrow(int Index)
+	public void CreateArrow()
 	{
 		NumberOfArrows += NumberToSpawn;
 
 		GroupResize (NumberOfArrows,ref Arrows);
 
-		StartCoroutine (DelaySpawn (Index));
+		StartCoroutine (DelaySpawn (0));
 	}
 
 	IEnumerator DelaySpawn(int Index)

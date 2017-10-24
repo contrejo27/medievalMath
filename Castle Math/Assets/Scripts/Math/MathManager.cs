@@ -89,7 +89,7 @@ public class MathManager : MonoBehaviour {
 
 			A_Input.ClearAnswer ();
 
-			A_Supply.CreateArrow (ProblemType);
+			A_Supply.CreateArrow ();
 
 			A_Source.clip = CorrectSound;
 			A_Source.Play ();
