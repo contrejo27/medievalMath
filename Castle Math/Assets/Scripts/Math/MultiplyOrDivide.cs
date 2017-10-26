@@ -34,6 +34,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 	private ArrowSupplier A_Supply;
 	private PlayerMathStats Math_Stats;
 
+	private int IncorrectAnswersPerQuestion;
+
 	private AudioSource A_Source;
 
 	private ManaBar PowerUp;
@@ -51,15 +53,11 @@ public class MultiplyOrDivide : MonoBehaviour {
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
-		/*
-		ChoiceBox1 = GameObject.Find ("answer1").GetComponent<Text>();
-		ChoiceBox2 = GameObject.Find ("answer2").GetComponent<Text>();
-		ChoiceBox3 = GameObject.Find ("answer3").GetComponent<Text>();
-		ChoiceBox4 = GameObject.Find ("answer4").GetComponent<Text>();
-		*/
 	}
 
 	void GenerateQuestion () {
+		//reset incorrect answer count
+		IncorrectAnswersPerQuestion = 0;
 
 		isDivide = Random.Range (0, 2);
 
@@ -67,6 +65,11 @@ public class MultiplyOrDivide : MonoBehaviour {
 		if (isDivide == 0) {
 			FirstNum = Random.Range (0, 13);
 			SecondNum = Random.Range (0, 13);
+
+			//check for division by zero
+			while (SecondNum == 0) {
+				SecondNum = Random.Range (0, 13);
+			}
 
 			while (FirstNum % SecondNum != 0) {
 				FirstNum = Random.Range (0, 13);
@@ -93,7 +96,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 
 	void GenerateChoices() {
-
 		int Choice1;
 		int Choice2;
 		int Choice3;
@@ -112,6 +114,10 @@ public class MultiplyOrDivide : MonoBehaviour {
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
 		} else {
+			//if SecondNum is zero, set default to 2 to avoid divison by 0
+			if (SecondNum == 0)
+				SecondNum = 2;
+			
 			Choice1 = FirstNum / SecondNum;
 
 			int PlusOrMinus = Random.Range (0, 2);
@@ -124,9 +130,25 @@ public class MultiplyOrDivide : MonoBehaviour {
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
 		}
-		//populate AnswerChoices array
-		this.AnswerChoices = new int[] {Choice1, Choice2, Choice3, CorrectAnswer};
 
+		bool UniqueValues = true;
+		//populate AnswerChoices array
+
+		this.AnswerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
+
+		int size = AnswerChoices.Length;
+
+		for (int i = 0; i < size - 1; i++){
+			Debug.Log ("first for");
+			for (int j = i + 1; j < size; j++) {
+				if ( AnswerChoices [i] == AnswerChoices [j]) {
+					Debug.Log("Before:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+					AnswerChoices [i] += Random.Range(1, 4);
+					Debug.Log("After:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+
+				}
+			}
+		}
 		DisplayChoices ();
 	}
 
@@ -160,14 +182,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 			ChoiceBox.text = AnswerChoices [i - 1].ToString ();
 		}
 
-
-		/*
-		ChoiceBox1.text = AnswerChoices [0].ToString();
-		ChoiceBox2.text = AnswerChoices [1].ToString();
-		ChoiceBox3.text = AnswerChoices [2].ToString();
-		ChoiceBox4.text = AnswerChoices [3].ToString();
-		*/
-
 	}
 
 	void CheckAnswer(Text Answer) {
@@ -195,7 +209,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 		} 
 		//got the question wrong
 		else {
-
+			IncorrectAnswersPerQuestion++;
 			FeedbackText.text = "Incorrect";
 			FeedbackText.color = Color.red;
 			FeedbackText.gameObject.SetActive (true);
@@ -210,16 +224,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 			ClearChoices ();
 
 		}
-	}
 
-
-	IEnumerator DisplayFeedback()
-	{
-		yield return new WaitForSeconds (2);
-
-		FeedbackText.gameObject.SetActive (false);
-
-		if (Math_Stats.GetIncorrectAnswers() > 2) {
+		if (this.IncorrectAnswersPerQuestion > 2) {
 			//display tip graphic
 
 			//Find random index at which to remove an answer choice
@@ -245,6 +251,16 @@ public class MultiplyOrDivide : MonoBehaviour {
 			//Resassign answer choices to new array
 			this.AnswerChoices = AnswerChoicesCopy;
 		}
+
 		DisplayChoices ();
+	}
+
+
+	IEnumerator DisplayFeedback()
+	{
+		yield return new WaitForSeconds (2);
+
+		FeedbackText.gameObject.SetActive (false);
+
 	}
 }
