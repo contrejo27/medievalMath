@@ -35,9 +35,6 @@ public class ShotgunArrow : ArrowClass {
 
 		newArrow.GetComponent<Rigidbody> ().AddForce (transform.forward * 7000);
 
-		Debug.Log ("Here");
-
-
 	}
 
 

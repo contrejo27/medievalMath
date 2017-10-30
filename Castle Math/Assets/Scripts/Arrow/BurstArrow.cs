@@ -17,7 +17,6 @@ public class BurstArrow : ArrowClass {
 	{
 
 		GameObject Arrow = this.gameObject;
-
 		StartCoroutine (DelayCreate (Arrow));
 
 	}
@@ -25,7 +24,7 @@ public class BurstArrow : ArrowClass {
 	IEnumerator DelayCreate(GameObject Arrow)
 	{
 
-		yield return new WaitForSeconds (.03f);
+		yield return new WaitForSeconds (.1f);
 
 		GameObject newArrow = Instantiate (Arrow, this.transform.position - (transform.forward * 1.5f), this.transform.rotation);
 
@@ -33,7 +32,7 @@ public class BurstArrow : ArrowClass {
 
 		newArrow.GetComponent<Rigidbody> ().AddForce (transform.forward * 7000);
 
-		yield return new WaitForSeconds (.03f);
+		yield return new WaitForSeconds (.1f);
 
 		newArrow = Instantiate (Arrow, this.transform.position - (transform.forward * 2.75f), this.transform.rotation);
 

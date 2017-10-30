@@ -137,10 +137,10 @@ public class LaunchProjectile : MonoBehaviour {
 				ArrowToLaunch.AddComponent<BombArrow> ();
 				break;
 
-			case ArrowModifier.Homing:
+		/*	case ArrowModifier.Homing:
 				//RemoveModifier (ArrowModifier.Homing);
 				ArrowToLaunch.AddComponent<HomingArrow> ();
-				break;
+				break;*/
 
 			case ArrowModifier.Burst:
 				//RemoveModifier (ArrowModifier.Burst);

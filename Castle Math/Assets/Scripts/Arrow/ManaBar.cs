@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ManaBar : MonoBehaviour {
-
+	public Text perk;
 	public int NumberOfQuestions;
 	public GameObject manaBarEnd;
 
@@ -43,23 +44,27 @@ public class ManaBar : MonoBehaviour {
 
 			if (RanMod == 0) {
 				newMod = ArrowModifier.Bomb;
-				//todo: add visual cue
+				perk.text = "Bomb";
 			} else if (RanMod == 1) {
 				newMod = ArrowModifier.Burst;
+				perk.text = "Burst";
 			} else if (RanMod == 2) {
 				newMod = ArrowModifier.Homing;
+				perk.text = "Homing";
 			} else if (RanMod == 3) {
 				newMod = ArrowModifier.Shotgun;
+				perk.text = "Spread";
 			} else {
 				newMod = ArrowModifier.Giant;
+				perk.text = "Giant Stopper";
 			}
-
+			
 			PowerUpDisplays [PowerUpCount].SetActive (true);
 			PowerUpDisplays [PowerUpCount].GetComponent<SpriteRenderer> ().sprite = PowerUpIcons [RanMod];
 
 			//give player perk
 			ProjectileLauncher.AddModifier (newMod, PowerUpCount);
-
+			StartCoroutine(erasePerkText());
 			A_Source.clip = PowerUpSound;
 			A_Source.Play ();
 
@@ -74,8 +79,11 @@ public class ManaBar : MonoBehaviour {
 		float percent = (CurrentNumber * 1f) / NumberOfQuestions;
 		transform.localScale = Vector3.Lerp (new Vector3 (.05f, .75f, 1f), new Vector3 (.8f, .75f, 1f), percent);
 		//manaBarEnd.transform.position = ;
-
+	}
+	IEnumerator erasePerkText()
+	{
+		yield return new WaitForSeconds (3f);
+		perk.text = "";
 
 	}
-
 }

@@ -18,7 +18,7 @@ public class BombArrow : ArrowClass {
 
 	public override void ArrowImpact()
 	{
-		int ranNum = Random.Range (0, 5);
+		int ranNum = Random.Range (0, 4);
 
 		//1 in 5 chance the bomb arrow actually blows up
 		if (ranNum == 0) {

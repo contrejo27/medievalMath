@@ -64,12 +64,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 		//check for division
 		if (isDivide == 0) {
 			FirstNum = Random.Range (0, 13);
-			SecondNum = Random.Range (0, 13);
-
-			//check for division by zero
-			while (SecondNum == 0) {
-				SecondNum = Random.Range (0, 13);
-			}
+			SecondNum = Random.Range (1, 13);
 
 			while (FirstNum % SecondNum != 0) {
 				FirstNum = Random.Range (0, 13);
@@ -114,9 +109,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
 		} else {
-			//if SecondNum is zero, set default to 2 to avoid divison by 0
-			if (SecondNum == 0)
-				SecondNum = 2;
 			
 			Choice1 = FirstNum / SecondNum;
 
@@ -139,12 +131,12 @@ public class MultiplyOrDivide : MonoBehaviour {
 		int size = AnswerChoices.Length;
 
 		for (int i = 0; i < size - 1; i++){
-			Debug.Log ("first for");
+			//Debug.Log ("first for");
 			for (int j = i + 1; j < size; j++) {
 				if ( AnswerChoices [i] == AnswerChoices [j]) {
-					Debug.Log("Before:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+					//Debug.Log("Before:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
 					AnswerChoices [i] += Random.Range(1, 4);
-					Debug.Log("After:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+					//Debug.Log("After:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
 
 				}
 			}
@@ -163,7 +155,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 	}
 
 	void DisplayChoices () {
-		print ("Test");
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
 			int temp = AnswerChoices[i];
