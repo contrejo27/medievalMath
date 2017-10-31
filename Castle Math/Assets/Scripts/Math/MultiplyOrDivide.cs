@@ -78,7 +78,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 		} 
 		else {
 			FirstNum = Random.Range (0, 13);
-			SecondNum = Random.Range (0, 13);
+			SecondNum = Random.Range (1, 13);
 
 			CorrectAnswer = FirstNum * SecondNum;
 

@@ -110,12 +110,6 @@ public class EnemyBehavior : MonoBehaviour {
 			//Calculate the current heading, normalized
 			heading = (Target.transform.position  - this.transform.position).normalized;
 
-
-			//rotate the character correctly in the direction of the heading
-			//Quaternion newRot= Quaternion.LookRotation (Target.transform.position - this.transform.position);
-
-			//transform.rotation = Quaternion.Euler (new Vector3 (0, newRot.eulerAngles.y, 0));
-
 			//what is the current distance between the characters
 			distance = Mathf.Abs(Vector3.Distance (this.transform.position, Target.transform.position));
 
@@ -128,6 +122,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 		//make sure this only happens when the soldier is alive
 		if (HitPoints > 0) {
+
 			//Add an enemy to the gate
 			AtTarget = true;
 
@@ -163,8 +158,11 @@ public class EnemyBehavior : MonoBehaviour {
 		A_Source.clip = DeathSounds[Random.Range(0, DeathSounds.Length)];
 		A_Source.Play ();
 
-		//his.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
-		//this.GetComponent<Rigidbody> ().AddForce (-transform.up * 20);
+		Collider enemyHitbox = this.GetComponent<Collider>();
+		Destroy(enemyHitbox);
+		
+		this.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;		
+		
 		Anim.SetBool ("isAttacking", false);
 		Anim.SetBool ("isMoving", false);
 
@@ -172,7 +170,6 @@ public class EnemyBehavior : MonoBehaviour {
 		Anim.Play("death");
 
 		GameManager.EnemyKilled ();
-
 		StartCoroutine (WaitToDestroy());
 
 	}

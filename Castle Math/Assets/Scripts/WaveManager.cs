@@ -44,8 +44,7 @@ public class WaveManager : MonoBehaviour {
 		//the wave size increases by two men each wave
 		WaveSize = FirstWaveSize + (WaveIndex * 3);
 
-		//Let the game manager know how many enemies were spawned
-		GameManager.SetNumberOfEnemies (WaveSize);
+
 
 		//Create all of the enemies
 		StartCoroutine (ActivateEnemies(WaveSize));
@@ -59,7 +58,7 @@ public class WaveManager : MonoBehaviour {
 		//delay so the player can breather/ do math
 		yield return new WaitForSeconds (5);
 		int randomSpawn =0;
-
+		int specialCharacters=0;
 		for (int i = 0; i <  WaveSize; i++) {
 			randomSpawn = Random.Range (0, SpawnPoints.Length);
 			Instantiate (KnightPrefab, SpawnPoints[randomSpawn].position + new Vector3(Random.Range(-15, 12), 0,0), SpawnPoints[randomSpawn].rotation);
@@ -69,6 +68,7 @@ public class WaveManager : MonoBehaviour {
         if (CurrentWave % 3 == 0 && CurrentWave != 0){
             for (int i = 0; i < CurrentWave / 3; i++) { 
                 Instantiate(trollPrefab, SpawnPoints[randomSpawn].position, SpawnPoints[randomSpawn].rotation);
+				specialCharacters++;
                 yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));
                 randomSpawn = Random.Range(0, SpawnPoints.Length);
             }
@@ -79,12 +79,15 @@ public class WaveManager : MonoBehaviour {
             for (int i = 0; i < CurrentWave / 2; i++)
             {
                 Instantiate(horseRiderPrefab, SpawnPoints[randomSpawn].position, SpawnPoints[randomSpawn].rotation);
+				specialCharacters++;
                 yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));
                 randomSpawn = Random.Range(0, SpawnPoints.Length);
             }
         }
 
 
+		//Let the game manager know how many enemies were spawned
+		GameManager.SetNumberOfEnemies (WaveSize+specialCharacters);
 		
 		//leave the title up for another second
 		yield return new WaitForSeconds (1);

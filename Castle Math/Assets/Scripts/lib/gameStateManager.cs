@@ -52,7 +52,7 @@ public class gameStateManager : MonoBehaviour {
 		//if all enemies were killed
 		if (CurrentEnemies <= 0) {
 
-			W_Manager.NextWave ();
+			W_Manager.NextWave();
 
 			A_Source.clip = WaveCleared;
 			A_Source.Play ();
