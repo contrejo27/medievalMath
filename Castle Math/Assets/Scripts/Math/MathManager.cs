@@ -16,30 +16,75 @@ public class MathManager : MonoBehaviour {
 
 	private int ProblemType;
 
-	private int FirstNumber;
-	private int SecondNumber;
-
 	private int CorrectAnswer;
 
 	private AnswerInput A_Input;
 	private ArrowSupplier A_Supply;
 	private PlayerMathStats Math_Stats;
 
+	private MultiplyOrDivide Multi_Divide;
+	private AddOrSubtract Add_Sub;
+	public int QuestionType;
+	public int IncorrectAnswersPerQuestion;
+
 	private AudioSource A_Source;
 
 	// Use this for initialization
 	void Start () {
 
-		GenerateProblem ();
-
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
-
+		//QuestionText_hud = GameObject.Find ("Question_hud").GetComponent<Text> ();
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
+
+		this.Multi_Divide = new MultiplyOrDivide();
+		this.Add_Sub = new AddOrSubtract();
+
+		this.Multi_Divide.Start ();
+		this.Add_Sub.Start ();
+
+		A_Input.Start ();
+
+		GenerateProblem (this.QuestionType);
 	}
 
 
+	public void GenerateProblem(int QuestionType)
+	{
+		IncorrectAnswersPerQuestion = 0;
+		this.QuestionType = QuestionType;
+		Debug.Log (this.QuestionType);
+
+		//0 = Add or subtract question
+		if (this.QuestionType == 0) {
+			this.Add_Sub.GenerateQuestion ();
+			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
+			QuestionText_hud.text = Add_Sub.GetQuestionString ();
+			Debug.Log (Multi_Divide.GetQuestionString ());
+
+				
+		} else {
+			this.Multi_Divide.GenerateQuestion ();
+			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
+			QuestionText_hud.text = Multi_Divide.GetQuestionString ();
+			Debug.Log (Multi_Divide.GetQuestionString ());
+		}
+
+	}
+
+	public int GetQuestionType() {
+		return this.QuestionType;
+	}
+
+	public int GetIncorrectAnswersPerQuestion() {
+		return this.IncorrectAnswersPerQuestion;
+	}
+
+	public void IncorrectAnswer() {
+		this.IncorrectAnswersPerQuestion++;
+	}
+	/*
 	public void GenerateProblem()
 	{
 
@@ -76,6 +121,7 @@ public class MathManager : MonoBehaviour {
 		}
 	}
 
+	
 
 	public void CheckAnswer(int Answer)
 	{
@@ -96,7 +142,7 @@ public class MathManager : MonoBehaviour {
 
 			Math_Stats.CorrectlyAnswered ();
 
-			GenerateProblem ();
+			GenerateProblem (this.QuestionType);
 		} 
 		//got the question wrong
 		else {
@@ -126,5 +172,6 @@ public class MathManager : MonoBehaviour {
 		FeedbackText.gameObject.SetActive (false);
 
 	}
+	*/
 
 }

@@ -7,49 +7,52 @@ public class AddOrSubtract : MonoBehaviour {
 
 	public Text QuestionText;
 	public Text QuestionText_hud;
-	public Text FeedbackText;
-	public Text ChoiceBox1;
-	public Text ChoiceBox2;
-	public Text ChoiceBox3;
-	public Text ChoiceBox4;
-
-	public Button Button1;
-	public Button Button2;
-	public Button Button3;
-	public Button Button4;
 
 	private int FirstNum;
 	private int SecondNum;
 	private int CorrectAnswer;
 	private int isSubtract;
 	private int [] AnswerChoices;
-
-	public AudioClip CorrectSound;
-	public AudioClip IncorrectSound;
+	private string QuestionString;
 
 	private AnswerInput A_Input;
-	private ArrowSupplier A_Supply;
-	private PlayerMathStats Math_Stats;
 
-	private AudioSource A_Source;
+	//public QuestionGenerator QG;
 
+	public AddOrSubtract() {
+	} 
 
 	// Use this for initialization
-	void Start () {
-		GenerateQuestion ();
-
+	public void Start () {
+		/*
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
 
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
+		//QuestionText_hud = GameObject.Find ("Question_hud").GetComponent<Text> ();
+		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
+		//GenerateQuestion ();
+		*/
+		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
 	}
+	/*
+	public void GenerateQuestion() {
+		isSubtract = Random.Range (0, 2);
+
+		if (isSubtract == 0) {
+			QG.GenerateQuestion ("subtract");
+		} else {
+			QG.GenerateQuestion ("add");
+		}
+	}
+    */
 
 	// Update is called once per frame
-	void GenerateQuestion () {
+	public void GenerateQuestion () {
 		Debug.Log ("Gen Questions");
 		isSubtract = Random.Range (0, 2);
 
@@ -58,9 +61,10 @@ public class AddOrSubtract : MonoBehaviour {
 			SecondNum = Random.Range (0, 13);
 
 			CorrectAnswer = FirstNum - SecondNum;
+			QuestionString = FirstNum.ToString () + " - " + SecondNum.ToString () + " =";
 
-			QuestionText.text = FirstNum.ToString () + " - " + SecondNum.ToString () + " =";
-			//QuestionText_hud.text = FirstNum.ToString () + " - " + SecondNum.ToString ();
+			QuestionText.text = QuestionString;
+
 			GenerateChoices ();
 		} 
 		else {
@@ -69,14 +73,14 @@ public class AddOrSubtract : MonoBehaviour {
 
 			CorrectAnswer = FirstNum + SecondNum;
 
-			QuestionText.text = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
-			//QuestionText_hud.text = FirstNum.ToString () + " + " + SecondNum.ToString ();
+			QuestionString = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
+			QuestionText.text = QuestionString;
 			GenerateChoices ();
 
 		}
 		Debug.Log ("End Gen Choices");
 	}
-
+		
 	void GenerateChoices() {
 		Debug.Log ("Gen Choices");
 
@@ -111,68 +115,39 @@ public class AddOrSubtract : MonoBehaviour {
 		}
 		AnswerChoices = new int[] {Choice1, Choice2, Choice3, CorrectAnswer};
 
-		DisplayChoices ();
-	}
+		int size = AnswerChoices.Length;
 
-	void DisplayChoices () {
-		Debug.Log ("Display");
+		for (int i = 0; i < size - 1; i++){
+			Debug.Log ("first for");
+			for (int j = i + 1; j < size; j++) {
+				if ( AnswerChoices [i] == AnswerChoices [j]) {
+					Debug.Log("Before:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+					AnswerChoices [i] += Random.Range(1, 4);
+					Debug.Log("After:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+
+				}
+			}
+		}
+
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
 			int temp = AnswerChoices[i];
 			int r = Random.Range(i, AnswerChoices.Length);
 			AnswerChoices[i] = AnswerChoices[r];
 			AnswerChoices[r] = temp;
-		}
-
-		ChoiceBox1.text = AnswerChoices [0].ToString();
-		ChoiceBox2.text = AnswerChoices [1].ToString();
-		ChoiceBox3.text = AnswerChoices [2].ToString();
-		ChoiceBox4.text = AnswerChoices [3].ToString();
-
-	}
-
-	public void CheckAnswer(int Answer) {
-
-		if (Answer == CorrectAnswer) {
-
-			FeedbackText.text = "Correct";
-			FeedbackText.color = Color.green;
-			FeedbackText.gameObject.SetActive (true);
-			StartCoroutine (DisplayFeedback ());
-
-			A_Input.ClearAnswer ();
-
-			//A_Supply.CreateArrow (ProblemType);
-
-			A_Source.clip = CorrectSound;
-			A_Source.Play ();
-
-			Math_Stats.CorrectlyAnswered ();
-
-			GenerateQuestion ();
-		} 
-		//got the question wrong
-		else {
-
-			FeedbackText.text = "Incorrect";
-			FeedbackText.color = Color.red;
-			FeedbackText.gameObject.SetActive (true);
-			StartCoroutine (DisplayFeedback ());
-
-			A_Source.clip = IncorrectSound;
-			A_Source.Play ();
-
-			Math_Stats.IncorrectlyAnswered ();
 
 		}
+
+		A_Input.DisplayChoices (AnswerChoices);
+	}
+
+	public string GetQuestionString() {
+		return this.QuestionString;
+	}
+
+	public int getCorrectAnswer() {
+		return this.CorrectAnswer;
 	}
 
 
-	IEnumerator DisplayFeedback()
-	{
-		yield return new WaitForSeconds (2);
-
-		FeedbackText.gameObject.SetActive (false);
-
-	}
 }

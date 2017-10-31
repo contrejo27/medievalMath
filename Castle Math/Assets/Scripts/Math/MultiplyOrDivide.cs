@@ -8,43 +8,27 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 	public Text QuestionText;
 	public Text QuestionText_hud;
-	public Text FeedbackText;
-	public Text ChoiceBox;
-
-	public Text ChoiceBox1;
-	public Text ChoiceBox2;
-	public Text ChoiceBox3;
-	public Text ChoiceBox4;
-
-	public Button Button1;
-	public Button Button2;
-	public Button Button3;
-	public Button Button4;
 
 	private int FirstNum;
 	private int SecondNum;
 	private int CorrectAnswer;
 	private int isDivide;
 	private int [] AnswerChoices;
-
-	public AudioClip CorrectSound;
-	public AudioClip IncorrectSound;
+	private string QuestionString;
 
 	private AnswerInput A_Input;
-	private ArrowSupplier A_Supply;
-	private PlayerMathStats Math_Stats;
 
 	private int IncorrectAnswersPerQuestion;
 
-	private AudioSource A_Source;
 
-	private ManaBar PowerUp;
+	//public QuestionGenerator QG;
 	// Use this for initialization
-	void Start () {
+	public MultiplyOrDivide() {
+	}
 
+	public void Start () {
+		/*
 		PowerUp = FindObjectOfType<ManaBar> ();
-
-		GenerateQuestion ();
 
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
 
@@ -52,10 +36,27 @@ public class MultiplyOrDivide : MonoBehaviour {
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
+		QuestionText_hud = GameObject.Find ("Question_hud").GetComponent<Text> ();
+
+
+		//GenerateQuestion ();
+		*/
+		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
+		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
 	}
+	/*
+	public void GenerateQuestion() {
+		isDivide = Random.Range (0, 2);
 
-	void GenerateQuestion () {
+		if (isDivide == 0) {
+			QG.GenerateQuestion ("divide");
+		} else {
+			QG.GenerateQuestion ("mulitply");
+		}
+	}
+	*/
+	public void GenerateQuestion () {
 		//reset incorrect answer count
 		IncorrectAnswersPerQuestion = 0;
 
@@ -72,8 +73,9 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 			CorrectAnswer = FirstNum / SecondNum;
 
-			QuestionText.text = FirstNum.ToString () + " / " + SecondNum.ToString () + " =";
-			QuestionText_hud.text = FirstNum.ToString () + " / " + SecondNum.ToString ();
+			QuestionString = FirstNum.ToString () + " / " + SecondNum.ToString () + " =";
+			QuestionText.text = QuestionString;
+
 			GenerateChoices ();
 		} 
 		else {
@@ -82,15 +84,15 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 			CorrectAnswer = FirstNum * SecondNum;
 
-			QuestionText.text = FirstNum.ToString () + " * " + SecondNum.ToString () + " =";
-			QuestionText_hud.text = FirstNum.ToString () + " * " + SecondNum.ToString ();
+			QuestionString = FirstNum.ToString () + " * " + SecondNum.ToString () + " =";
+			QuestionText.text = QuestionString;
 
 			GenerateChoices ();
 		}
 	}
 
 
-	void GenerateChoices() {
+	public void GenerateChoices() {
 		int Choice1;
 		int Choice2;
 		int Choice3;
@@ -141,6 +143,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 				}
 			}
 		}
+<<<<<<< HEAD
+=======
 		DisplayChoices ();
 	}
 
@@ -155,6 +159,10 @@ public class MultiplyOrDivide : MonoBehaviour {
 	}
 
 	void DisplayChoices () {
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
 			int temp = AnswerChoices[i];
@@ -164,94 +172,16 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 		}
 
-		for (int i = 1; i <= AnswerChoices.Length; i++) {
-			//iterate through choices boxes, assigning each text component
-			//dynamically according to AnswerChoices
-			string boxName = "answer" + i;
-			ChoiceBox = GameObject.Find (boxName).GetComponent<Text>();
-
-			ChoiceBox.text = AnswerChoices [i - 1].ToString ();
-		}
-
+		A_Input.DisplayChoices (AnswerChoices);
 	}
 
-	void CheckAnswer(Text Answer) {
-		int answerAsInt = int.Parse(Answer.text.ToString());
-		if (answerAsInt == CorrectAnswer) {
+	public string GetQuestionString() {
+		return this.QuestionString;
+	}
 
-			FeedbackText.text = "Correct";
-			FeedbackText.color = Color.green;
-			FeedbackText.gameObject.SetActive (true);
-			StartCoroutine (DisplayFeedback ());
-
-			A_Input.ClearAnswer ();
-
-			A_Supply.CreateArrow ();
-
-			A_Source.clip = CorrectSound;
-			A_Source.Play ();
-
-			Math_Stats.CorrectlyAnswered ();
-
-			GenerateQuestion ();
-
-			PowerUp.QuestionAnswered ();
-
-		} 
-		//got the question wrong
-		else {
-			IncorrectAnswersPerQuestion++;
-			FeedbackText.text = "Incorrect";
-			FeedbackText.color = Color.red;
-			FeedbackText.gameObject.SetActive (true);
-			StartCoroutine (DisplayFeedback ());
-
-			A_Source.clip = IncorrectSound;
-			A_Source.Play ();
-
-			Math_Stats.IncorrectlyAnswered ();
-
-			A_Input.ClearAnswer ();
-			ClearChoices ();
-
-		}
-
-		if (this.IncorrectAnswersPerQuestion > 2) {
-			//display tip graphic
-
-			//Find random index at which to remove an answer choice
-			int index = Random.Range (0, AnswerChoices.Length);
-
-			//Check that the answer at that index is not the correct one
-			while (AnswerChoices [index] == CorrectAnswer) {
-				index = Random.Range (0, AnswerChoices.Length);
-			}
-
-			//Create new array, one index shorter than AnswerChoices
-			int[] AnswerChoicesCopy = new int[AnswerChoices.Length - 1];
-
-			for (int i = 0, j = 0; i < AnswerChoicesCopy.Length; i++, j++) {
-				//Skip if that is the element to remove
-				if (i == index) {
-					j++;
-				}
-
-				//Assign answer choices to new array, minus element removed
-				AnswerChoicesCopy [i] = AnswerChoices [j];
-			}
-			//Resassign answer choices to new array
-			this.AnswerChoices = AnswerChoicesCopy;
-		}
-
-		DisplayChoices ();
+	public int getCorrectAnswer() {
+		return this.CorrectAnswer;
 	}
 
 
-	IEnumerator DisplayFeedback()
-	{
-		yield return new WaitForSeconds (2);
-
-		FeedbackText.gameObject.SetActive (false);
-
-	}
 }
