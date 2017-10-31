@@ -143,22 +143,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 				}
 			}
 		}
-<<<<<<< HEAD
-=======
-		DisplayChoices ();
-	}
-
-	void ClearChoices() {
-		for (int i = 1; i <= AnswerChoices.Length; i++) {
-			//Iterate through each choice box and set text to empty string
-			string boxName = "answer" + i;
-			ChoiceBox = GameObject.Find (boxName).GetComponent<Text>();
-
-			ChoiceBox.text = "";
-		}
-	}
-
-	void DisplayChoices () {
 
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
