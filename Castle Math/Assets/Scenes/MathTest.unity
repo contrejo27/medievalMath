@@ -2993,7 +2993,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1869398081}
+      - m_Target: {fileID: 1869398079}
         m_MethodName: CheckAnswer
         m_Mode: 2
         m_Arguments:
@@ -5936,7 +5936,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1869398081}
+      - m_Target: {fileID: 1869398079}
         m_MethodName: CheckAnswer
         m_Mode: 2
         m_Arguments:
@@ -7452,11 +7452,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1869398081}
+      - m_Target: {fileID: 1869398079}
         m_MethodName: CheckAnswer
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 693799665}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -10869,11 +10869,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1869398081}
+      - m_Target: {fileID: 1869398079}
         m_MethodName: CheckAnswer
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 699373681}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -12352,6 +12352,7 @@ GameObject:
   - component: {fileID: 1869398079}
   - component: {fileID: 1869398080}
   - component: {fileID: 1869398081}
+  - component: {fileID: 1869398082}
   m_Layer: 0
   m_Name: MathManager
   m_TagString: Untagged
@@ -12375,6 +12376,8 @@ MonoBehaviour:
   FeedbackText: {fileID: 1375870590}
   CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
   IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
+  QuestionType: 0
+  IncorrectAnswersPerQuestion: 0
 --- !u!4 &1869398078
 Transform:
   m_ObjectHideFlags: 0
@@ -12400,6 +12403,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnswerText: {fileID: 1558389199}
+  QuestionText: {fileID: 0}
+  QuestionText_hud: {fileID: 0}
+  FeedbackText: {fileID: 0}
+  ChoiceBox: {fileID: 0}
+  CorrectSound: {fileID: 0}
+  IncorrectSound: {fileID: 0}
 --- !u!114 &1869398080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12427,18 +12436,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestionText: {fileID: 1966943073}
   QuestionText_hud: {fileID: 102792146}
-  FeedbackText: {fileID: 1311783785}
-  ChoiceBox: {fileID: 0}
-  ChoiceBox1: {fileID: 95208965}
-  ChoiceBox2: {fileID: 693799665}
-  ChoiceBox3: {fileID: 699373681}
-  ChoiceBox4: {fileID: 1557274095}
-  Button1: {fileID: 476322701}
-  Button2: {fileID: 1230868017}
-  Button3: {fileID: 1637152542}
-  Button4: {fileID: 1008106972}
-  CorrectSound: {fileID: 0}
-  IncorrectSound: {fileID: 0}
+--- !u!114 &1869398082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1869398076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e133c8dbfec947128963b69f2d0e9fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestionText: {fileID: 1966943073}
+  QuestionText_hud: {fileID: 102792146}
 --- !u!1 &1892618200
 GameObject:
   m_ObjectHideFlags: 0
@@ -12769,7 +12779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980db803c830b476e886db8c1fdfd9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perk: {fileID: 1437278491}
+  perk: {fileID: 0}
   NumberOfQuestions: 5
   manaBarEnd: {fileID: 1203133989}
   PowerUpIcons:
