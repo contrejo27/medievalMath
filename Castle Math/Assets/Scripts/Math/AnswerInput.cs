@@ -151,8 +151,6 @@ public class AnswerInput : MonoBehaviour {
 			A_Source.clip = IncorrectSound;
 			A_Source.Play ();
 
-			Math_Stats.IncorrectlyAnswered ();
-
 			ClearAnswer ();
 			ClearChoices ();
 
@@ -184,6 +182,7 @@ public class AnswerInput : MonoBehaviour {
 			//Resassign answer choices to new array
 			this.AnswerChoices = AnswerChoicesCopy;
 		} else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3) {
+			Math_Stats.IncorrectlyAnswered ();
 			M_Manager.GenerateProblem (M_Manager.GetQuestionType());
 		}
 
