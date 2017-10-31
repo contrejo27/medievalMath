@@ -159,10 +159,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 	}
 
 	void DisplayChoices () {
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
+
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
 			int temp = AnswerChoices[i];
