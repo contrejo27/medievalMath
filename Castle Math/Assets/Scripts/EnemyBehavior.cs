@@ -27,7 +27,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 	private float nextActionTime = 0.0f;
 	public float period = 2f;
-	
+	bool dead = false;
 	// Use this for initialization
 	void Start () {
 
@@ -91,9 +91,11 @@ public class EnemyBehavior : MonoBehaviour {
 
 		HitPoints -= DMG;
 		if (HitPoints <= 0) {
-			Killed ();
+			if(!dead){
+				Killed ();
+				dead=true;
+			}
 		}
-
 	}
 
 	IEnumerator WalkToTarget()

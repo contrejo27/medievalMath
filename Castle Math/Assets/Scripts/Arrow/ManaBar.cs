@@ -39,7 +39,7 @@ public class ManaBar : MonoBehaviour {
 		if (CurrentNumber >= NumberOfQuestions) {
 			CurrentNumber = 0;
 
-			int RanMod = Random.Range (0, 5);
+			int RanMod = Random.Range (0, 4);
 			ArrowModifier newMod;
 
 			if (RanMod == 0) {
@@ -49,9 +49,6 @@ public class ManaBar : MonoBehaviour {
 				newMod = ArrowModifier.Burst;
 				perk.text = "Burst";
 			} else if (RanMod == 2) {
-				newMod = ArrowModifier.Homing;
-				perk.text = "Homing";
-			} else if (RanMod == 3) {
 				newMod = ArrowModifier.Shotgun;
 				perk.text = "Spread";
 			} else {

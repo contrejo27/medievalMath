@@ -37,7 +37,7 @@ public class LaunchProjectile : MonoBehaviour {
 
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 
-		//CreateShot ();
+		CreateShot ();
 	}
 	
 	// Update is called once per frame
@@ -51,13 +51,7 @@ public class LaunchProjectile : MonoBehaviour {
 					CreateShot ();
 				}
 
-				A_Source.clip = LaunchSound;
-				A_Source.volume = .5f;
-				A_Source.pitch = .5f;
-
-				A_Source.Play ();
-
-
+				playShootingSound();
 				Launch ();
 			} else {
 				A_Source.clip = ReloadSound;
@@ -79,9 +73,16 @@ public class LaunchProjectile : MonoBehaviour {
 
 		//set the counter of the associated int
 		//ModiferEffectCounter [(int)newModification] = ArrowDuration;
-
 	}
-
+	
+	void setModifiers(){
+		//an arrow can have multiple arrow class components
+		ArrowClass[] ArrowModifiers = ArrowToLaunch.GetComponents<ArrowClass> ();
+		for (int i = 0; i < ArrowModifiers.Length; i++) {
+			ArrowModifiers [i].ArrowLaunched();
+		}
+	}
+	
 	IEnumerator DelayRemovePowerUp(ArrowModifier removeModification, int PowerUpIndex)
 	{
 		yield return new WaitForSeconds (30);
@@ -136,15 +137,10 @@ public class LaunchProjectile : MonoBehaviour {
 				//RemoveModifier (ArrowModifier.Bomb);
 				ArrowToLaunch.AddComponent<BombArrow> ();
 				break;
-
-		/*	case ArrowModifier.Homing:
-				//RemoveModifier (ArrowModifier.Homing);
-				ArrowToLaunch.AddComponent<HomingArrow> ();
-				break;*/
-
 			case ArrowModifier.Burst:
 				//RemoveModifier (ArrowModifier.Burst);
 				ArrowToLaunch.AddComponent<BurstArrow> ();
+				LaunchBurst();
 				break;
 
 			case ArrowModifier.Shotgun:
@@ -159,47 +155,69 @@ public class LaunchProjectile : MonoBehaviour {
 
 			}
 		}
-
 		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = true;
-
 		ArrowToLaunch.GetComponent<BoxCollider> ().enabled = false; 
-
 		ArrowToLaunch.GetComponent<Rigidbody> ().useGravity = false;
 	}
 
-	void Launch()
+	public void Launch()
 	{
 		ArrowToLaunch.transform.parent = null;
-
 		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
-
-		//ArrowToLaunch.GetComponent<Rigidbody> ().useGravity = true;
-
+		setModifiers();
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
 		ArrowToLaunch.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -7000);
-
 		ArrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
 
-		//an arrow can have multiple arrow class components
-		ArrowClass[] ArrowModifers = ArrowToLaunch.GetComponents<ArrowClass> ();
-		for (int i = 0; i < ArrowModifers.Length; i++) {
-			ArrowModifers [i].ArrowLaunched ();
-		}
-
 		StartCoroutine (ReloadTime ());
-	
-
 	}
 
+	public void LaunchBurst()
+	{
 
-	IEnumerator ReloadTime()
+		StartCoroutine (burstShot());
+	}
+	
+	IEnumerator burstShot()
 	{
 		yield return new WaitForSeconds (.2f);
+				//we Instantiate(create) a bullet at the postion and rotation of fire point
+		GameObject burstArrow = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
+		burstArrow.transform.parent = FirePoint.transform;
+		burstArrow.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
+		burstArrow.transform.parent = null;
+		burstArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
+		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
+		burstArrow.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -7000);
+		burstArrow.GetComponent<BoxCollider> ().enabled = true; 
+		playShootingSound();
+		yield return new WaitForSeconds (.2f);
+		GameObject burstArrow2 = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
+
+		burstArrow2.transform.parent = FirePoint.transform;
+		burstArrow2.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
+		burstArrow2.transform.parent = null;
+		burstArrow2.GetComponent<ProjectileBehavior> ().isGrounded = false;
+		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
+		burstArrow2.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -7000);
+		burstArrow2.GetComponent<BoxCollider> ().enabled = true; 
+		playShootingSound();
+	}
+
+	void playShootingSound(){
+					A_Source.clip = LaunchSound;
+				A_Source.volume = .5f;
+				A_Source.pitch = .5f;
+
+				A_Source.Play ();
+	}
+	IEnumerator ReloadTime()
+	{
+		yield return new WaitForSeconds (.3f);
 
 		A_Supply.UseArrow ();
 
 		if (A_Supply.NumberOfArrows > 0) {
-			
 			CreateShot ();
 			ArrowLoaded = true;
 		} else {

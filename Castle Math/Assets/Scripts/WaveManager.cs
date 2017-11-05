@@ -44,8 +44,6 @@ public class WaveManager : MonoBehaviour {
 		//the wave size increases by two men each wave
 		WaveSize = FirstWaveSize + (WaveIndex * 3);
 
-
-
 		//Create all of the enemies
 		StartCoroutine (ActivateEnemies(WaveSize));
 	}
@@ -84,11 +82,17 @@ public class WaveManager : MonoBehaviour {
                 randomSpawn = Random.Range(0, SpawnPoints.Length);
             }
         }
+		
+		if(CurrentWave > 3){
+		    Instantiate(horseRiderPrefab, SpawnPoints[randomSpawn].position, SpawnPoints[randomSpawn].rotation);
+		}
 
-
+		if(CurrentWave > 5){
+		    Instantiate(trollPrefab, SpawnPoints[randomSpawn].position, SpawnPoints[randomSpawn].rotation);
+		}
 		//Let the game manager know how many enemies were spawned
 		GameManager.SetNumberOfEnemies (WaveSize+specialCharacters);
-		
+		specialCharacters =0;
 		//leave the title up for another second
 		yield return new WaitForSeconds (1);
 
