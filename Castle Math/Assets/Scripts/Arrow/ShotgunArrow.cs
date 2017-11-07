@@ -17,11 +17,18 @@ public class ShotgunArrow : ArrowClass {
 	{
 
 		GameObject Arrow = this.gameObject;
+		/*
+		StartCoroutine (DelayCreate(transform.position, Arrow));
+		StartCoroutine (DelayCreate(transform.position, Arrow));
+		StartCoroutine (DelayCreate(transform.position, Arrow));
+		StartCoroutine (DelayCreate(transform.position, Arrow));
+		*/
 
 		StartCoroutine (DelayCreate(transform.right * 1, Arrow));
 		StartCoroutine (DelayCreate(transform.right * -1, Arrow));
 		StartCoroutine (DelayCreate(transform.up * 1, Arrow));
 		StartCoroutine (DelayCreate(transform.up * -1, Arrow));
+
 	}
 
 	IEnumerator DelayCreate(Vector3 Direction, GameObject Arrow)
@@ -35,6 +42,21 @@ public class ShotgunArrow : ArrowClass {
 
 		newArrow.GetComponent<Rigidbody> ().AddForce (transform.forward * 7000);
 
+		/*
+		int x = Random.Range (1, 3);
+		int y = Random.Range (-2, 2);
+		int z = Random.Range (-2, 2);
+
+		yield return new WaitForSeconds (.03f);
+		GameObject newArrow = Instantiate (Arrow, this.transform.position, this.transform.rotation);
+
+		newArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
+
+		newArrow.transform.Rotate(x, y, z);
+
+		newArrow.GetComponent<Rigidbody> ().AddForce (transform.forward * 7000);
+
+	*/
 	}
 
 
