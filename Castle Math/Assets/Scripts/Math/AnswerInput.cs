@@ -103,8 +103,6 @@ public class AnswerInput : MonoBehaviour {
 
 	public void DisplayChoices (int [] AnswerChoices) {
 		this.AnswerChoices = AnswerChoices;
-		print ("Test");
-
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//iterate through choices boxes, assigning each text component
 			//dynamically according to AnswerChoices
@@ -122,7 +120,7 @@ public class AnswerInput : MonoBehaviour {
 		if (answerAsInt == CorrectAnswer) {
 
 			FeedbackText.text = "Correct";
-			FeedbackText.color = Color.green;
+			FeedbackText.color =  new Color(.188f, .44f, .1f);
 			FeedbackText.gameObject.SetActive (true);
 			StartCoroutine (DisplayFeedback ());
 
@@ -144,7 +142,7 @@ public class AnswerInput : MonoBehaviour {
 		else {
 			M_Manager.IncorrectAnswer ();
 			FeedbackText.text = "Incorrect";
-			FeedbackText.color = Color.red;
+			FeedbackText.color =  new Color(.756f,.278f, .29f);
 			FeedbackText.gameObject.SetActive (true);
 			StartCoroutine (DisplayFeedback ());
 

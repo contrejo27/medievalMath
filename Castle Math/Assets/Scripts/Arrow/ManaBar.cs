@@ -57,8 +57,14 @@ public class ManaBar : MonoBehaviour {
 			}
 			
 			PowerUpDisplays [PowerUpCount].SetActive (true);
-			PowerUpDisplays [PowerUpCount].GetComponent<SpriteRenderer> ().sprite = PowerUpIcons [RanMod];
-
+			PowerUpDisplays [PowerUpCount].GetComponent<Image>().sprite = PowerUpIcons [RanMod];
+			
+			//making ui show on top of everything else
+			RectTransform theRectTransform;
+			theRectTransform = PowerUpDisplays[PowerUpCount].transform as RectTransform; // Cast it to RectTransform
+			theRectTransform.SetAsLastSibling(); // Make the panel show on top.
+			
+			
 			//give player perk
 			ProjectileLauncher.AddModifier (newMod, PowerUpCount);
 			StartCoroutine(erasePerkText());
