@@ -147,12 +147,6 @@ public class LaunchProjectile : MonoBehaviour {
 				//RemoveModifier (ArrowModifier.Shotgun);
 				ArrowToLaunch.AddComponent<ShotgunArrow> ();
 				break;
-
-			case ArrowModifier.Giant:
-				//RemoveModifier (ArrowModifier.Giant);
-				ArrowToLaunch.AddComponent<GiantSlayerArrow> ();
-				break;
-
 			}
 		}
 		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = true;

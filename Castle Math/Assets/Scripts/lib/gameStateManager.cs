@@ -22,6 +22,9 @@ public class gameStateManager : MonoBehaviour {
 	public AudioClip[] CastleScreams;
 
 	private AudioSource A_Source;
+	
+	public AudioSource music;
+	public AudioClip gameplaySong;
 
 	private WaveManager W_Manager;
 
@@ -42,6 +45,8 @@ public class gameStateManager : MonoBehaviour {
 	public void StartGame(){
 		mainMenuEffects.fadeOut(1.5f);
 		notificationEffects.fadeIn(1.5f);
+		music.clip = gameplaySong;
+		music.Play ();
 	}
 
 

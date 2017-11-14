@@ -54,21 +54,19 @@ public class MathManager : MonoBehaviour {
 	{
 		IncorrectAnswersPerQuestion = 0;
 		this.QuestionType = QuestionType;
-		Debug.Log (this.QuestionType);
+		//Debug.Log (this.QuestionType);
 
 		//0 = Add or subtract question
 		if (this.QuestionType == 0) {
 			this.Add_Sub.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
 			QuestionText_hud.text = Add_Sub.GetQuestionString ();
-			Debug.Log (Multi_Divide.GetQuestionString ());
-
-				
+			//Debug.Log (Multi_Divide.GetQuestionString ());
 		} else {
 			this.Multi_Divide.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
 			QuestionText_hud.text = Multi_Divide.GetQuestionString ();
-			Debug.Log (Multi_Divide.GetQuestionString ());
+			//Debug.Log (Multi_Divide.GetQuestionString ());
 		}
 
 	}

@@ -23,7 +23,7 @@ public class BurstArrow : ArrowClass {
 
 	IEnumerator DelayCreate(GameObject Arrow)
 	{
-		yield return new WaitForSeconds (.1f);
+		yield return new WaitForSeconds (.05f);
 
 		for (int i = 0; i < 3; i++) {
 			GameObject newArrow = Instantiate (Arrow, this.transform.position - (transform.forward * (i + 1.5f)), this.transform.rotation);
@@ -31,7 +31,7 @@ public class BurstArrow : ArrowClass {
 
 			newArrow.GetComponent<Rigidbody> ().AddForce (transform.forward * 7000);
 
-			yield return new WaitForSeconds (.1f);
+			yield return new WaitForSeconds (.05f);
 		}
 /*
 		yield return new WaitForSeconds (.1f);
@@ -49,7 +49,7 @@ public class BurstArrow : ArrowClass {
 		newArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
 
 		newArrow.GetComponent<Rigidbody> ().AddForce (transform.forward * 7000);*/
-		yield return new WaitForSeconds (.1f);
+		//yield return new WaitForSeconds (.1f);
 
 	}
 

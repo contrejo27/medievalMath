@@ -53,7 +53,7 @@ public class AddOrSubtract : MonoBehaviour {
 
 	// Update is called once per frame
 	public void GenerateQuestion () {
-		Debug.Log ("Gen Questions");
+		//Debug.Log ("Gen Questions");
 		isSubtract = Random.Range (0, 2);
 
 		if (isSubtract == 0) {
@@ -78,11 +78,11 @@ public class AddOrSubtract : MonoBehaviour {
 			GenerateChoices ();
 
 		}
-		Debug.Log ("End Gen Choices");
+		//Debug.Log ("End Gen Choices");
 	}
 		
 	void GenerateChoices() {
-		Debug.Log ("Gen Choices");
+		//Debug.Log ("Gen Choices");
 
 		int Choice1;
 		int Choice2;
@@ -118,12 +118,12 @@ public class AddOrSubtract : MonoBehaviour {
 		int size = AnswerChoices.Length;
 
 		for (int i = 0; i < size - 1; i++){
-			Debug.Log ("first for");
+			//Debug.Log ("first for");
 			for (int j = i + 1; j < size; j++) {
 				if ( AnswerChoices [i] == AnswerChoices [j]) {
-					Debug.Log("Before:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+					//Debug.Log("Before:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
 					AnswerChoices [i] += Random.Range(1, 4);
-					Debug.Log("After:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+					//Debug.Log("After:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
 
 				}
 			}

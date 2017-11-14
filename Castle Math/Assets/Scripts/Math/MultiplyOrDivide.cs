@@ -66,7 +66,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 		if (isDivide == 0) {
 			FirstNum = Random.Range (0, 13);
 			SecondNum = Random.Range (1, 13);
-
+			
 			while (FirstNum % SecondNum != 0) {
 				FirstNum = Random.Range (0, 13);
 			}
@@ -84,7 +84,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 			CorrectAnswer = FirstNum * SecondNum;
 
-			QuestionString = FirstNum.ToString () + " * " + SecondNum.ToString () + " =";
+			QuestionString = FirstNum.ToString () + " x " + SecondNum.ToString () + " =";
 			QuestionText.text = QuestionString;
 
 			GenerateChoices ();

@@ -7,7 +7,7 @@ public class ManaBar : MonoBehaviour {
 	public Text perk;
 	public int NumberOfQuestions;
 	public GameObject manaBarEnd;
-
+	public CanvasGroup mathCanvas;
 	public Sprite[] PowerUpIcons;
 
 	private int CurrentNumber;
@@ -22,8 +22,6 @@ public class ManaBar : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		A_Source = GameObject.Find ("UIAudio").GetComponent<AudioSource> ();
-
-
 		ProjectileLauncher = FindObjectOfType<LaunchProjectile> ();
 	}
 
@@ -39,23 +37,20 @@ public class ManaBar : MonoBehaviour {
 		if (CurrentNumber >= NumberOfQuestions) {
 			CurrentNumber = 0;
 
-			int RanMod = Random.Range (0, 4);
+			int RanMod = Random.Range (0, 3);
 			ArrowModifier newMod;
-
 			if (RanMod == 0) {
-				newMod = ArrowModifier.Bomb;
+				newMod = ArrowModifier.Shotgun;
 				perk.text = "Bomb";
 			} else if (RanMod == 1) {
-				newMod = ArrowModifier.Burst;
+				newMod = ArrowModifier.Shotgun;
 				perk.text = "Burst";
-			} else if (RanMod == 2) {
+			} else {
 				newMod = ArrowModifier.Shotgun;
 				perk.text = "Spread";
-			} else {
-				newMod = ArrowModifier.Giant;
-				perk.text = "Giant Stopper";
-			}
-			
+			} 
+			mathCanvas.alpha = 0.0f;
+
 			PowerUpDisplays [PowerUpCount].SetActive (true);
 			PowerUpDisplays [PowerUpCount].GetComponent<Image>().sprite = PowerUpIcons [RanMod];
 			
@@ -80,12 +75,13 @@ public class ManaBar : MonoBehaviour {
 		}
 
 		float percent = (CurrentNumber * 1f) / NumberOfQuestions;
-		transform.localScale = Vector3.Lerp (new Vector3 (.05f, .75f, 1f), new Vector3 (.8f, .75f, 1f), percent);
+		transform.localScale = Vector3.Lerp (new Vector3 (.05f, .5f, 1f), new Vector3 (.8f, .5f, 1f), percent);
 		//manaBarEnd.transform.position = ;
 	}
 	IEnumerator erasePerkText()
 	{
 		yield return new WaitForSeconds (3f);
+		mathCanvas.alpha = 1.0f;
 		perk.text = "";
 
 	}

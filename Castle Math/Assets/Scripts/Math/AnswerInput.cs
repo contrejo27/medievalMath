@@ -115,7 +115,6 @@ public class AnswerInput : MonoBehaviour {
 	}
 
 	public void CheckAnswer(Text Answer) {
-		Debug.Log ("Check Answer");
 		int answerAsInt = int.Parse(Answer.text.ToString());
 		if (answerAsInt == CorrectAnswer) {
 
