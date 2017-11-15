@@ -35,7 +35,7 @@ public class ShotgunArrow : ArrowClass {
 	{
 		
 		GameObject newArrow = Instantiate (Arrow, this.transform.position, this.transform.rotation);
-		newArrow.transform.Rotate(Random.Range(-30.0f, 30.0f), 180f, Random.Range(-30.0f, 30.0f));
+		//newArrow.transform.Rotate(Random.Range(-30.0f, 30.0f), 180f, Random.Range(-30.0f, 30.0f));
 		newArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
 		newArrow.GetComponent<Rigidbody> ().AddForce (newArrow.transform.forward * 7000);
 	}
