@@ -25,7 +25,7 @@ public class WaveManager : MonoBehaviour {
 	private AudioSource A_Source;
 	
 	public AudioSource enemySounds;
-	public AudioClip horseRiderSpawn;
+	public AudioClip horseRiderSpawnSound;
 	
 	// Use this for initialization
 	void Start () {
@@ -60,9 +60,14 @@ public class WaveManager : MonoBehaviour {
 		//display the wave number 
 		
 		//delay so the player can breather/ do math
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (3.5f);
+		if(CurrentWave != 0){
+		A_Source.clip = AnotherWave;
+		A_Source.Play ();
+		}
+			
 		int randomSpawn =0;
-		int specialCharacters=0;
+		GameManager.SetNumberOfEnemies (WaveSize);
 		for (int i = 0; i <  WaveSize; i++) {
 			spawnEnemy(KnightPrefab, null);
 			yield return new WaitForSeconds (Random.Range (0.2f, 0.8f));
@@ -70,8 +75,9 @@ public class WaveManager : MonoBehaviour {
 
         if (CurrentWave % 3 == 0 && CurrentWave != 0){
             for (int i = 0; i < CurrentWave / 3; i++) { 
-			    spawnEnemy(trollPrefab, horseRiderSpawn);
-				specialCharacters++;
+			    spawnEnemy(trollPrefab, horseRiderSpawnSound);
+				GameManager.addEnemyToWaveSize();
+
                 yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));
                 randomSpawn = Random.Range(0, SpawnPoints.Length);
             }
@@ -81,8 +87,8 @@ public class WaveManager : MonoBehaviour {
         {
             for (int i = 0; i < CurrentWave / 2; i++)
             {
-                spawnEnemy(horseRiderPrefab, horseRiderSpawn);
-				specialCharacters++;
+                spawnEnemy(horseRiderPrefab, horseRiderSpawnSound);
+				GameManager.addEnemyToWaveSize();
 				
 				yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));
                 randomSpawn = Random.Range(0, SpawnPoints.Length);
@@ -91,32 +97,25 @@ public class WaveManager : MonoBehaviour {
         }
 		
 		if(CurrentWave > 3){
-		    spawnEnemy(horseRiderPrefab, horseRiderSpawn);
-				specialCharacters++;
+		    spawnEnemy(horseRiderPrefab, horseRiderSpawnSound);
+			GameManager.addEnemyToWaveSize();
 		}
 
 		if(CurrentWave > 5){
-		    spawnEnemy(trollPrefab, horseRiderSpawn);
-				specialCharacters++;
+		    spawnEnemy(trollPrefab, horseRiderSpawnSound);
+			GameManager.addEnemyToWaveSize();
 		}
-		//Let the game manager know how many enemies were spawned
-		GameManager.SetNumberOfEnemies (WaveSize+specialCharacters);
-		specialCharacters =0;
+		
 		//leave the title up for another second
 		yield return new WaitForSeconds (1);
 
-		//play another wave audio
-		if (CurrentWave != 0) {
-			A_Source.clip = AnotherWave;
-			A_Source.Play ();
-		}
 		WaveTitle.text = "";
 		//waveEffect.alpha = 1f;
 	}
 
 	void spawnEnemy(GameObject enemy, AudioClip spawnSound){
 		int randomSpawn = Random.Range(0, SpawnPoints.Length);
-		Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-15, 12), 0,0), SpawnPoints[randomSpawn].rotation);
+		Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-30, 20), 0,0), SpawnPoints[randomSpawn].rotation);
 		if(spawnSound != null){
 			enemySounds.clip = spawnSound;
 			enemySounds.Play ();

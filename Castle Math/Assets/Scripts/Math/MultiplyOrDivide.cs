@@ -128,7 +128,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 		bool UniqueValues = true;
 		//populate AnswerChoices array
 
-		this.AnswerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
+		AnswerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
 
 		int size = AnswerChoices.Length;
 
@@ -157,11 +157,11 @@ public class MultiplyOrDivide : MonoBehaviour {
 	}
 
 	public string GetQuestionString() {
-		return this.QuestionString;
+		return QuestionString;
 	}
 
 	public int getCorrectAnswer() {
-		return this.CorrectAnswer;
+		return CorrectAnswer;
 	}
 
 

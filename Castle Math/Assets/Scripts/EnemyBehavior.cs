@@ -150,7 +150,6 @@ public class EnemyBehavior : MonoBehaviour {
 	{
         this.transform.parent = Target.transform.GetChild (0).transform;
         this.transform.position = Target.transform.GetChild (0).transform.position;
-
 	}
 
 
@@ -173,22 +172,16 @@ public class EnemyBehavior : MonoBehaviour {
 
 		GameManager.EnemyKilled ();
 		StartCoroutine (WaitToDestroy());
-
 	}
 
 	//wait to 
 	IEnumerator WaitToDestroy()
 	{
-
 		yield return new WaitForSeconds (2);
 		Destroy (this.gameObject);
-
-
 	}
 
 	public void DamageGate(int damage) {
-		Debug.Log ("Damage Gate");
-
 		//Damage GateHealth by 15
 		dH.TakeDamageGate (damage);
 	}

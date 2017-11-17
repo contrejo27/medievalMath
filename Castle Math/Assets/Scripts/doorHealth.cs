@@ -31,7 +31,6 @@ public class doorHealth : MonoBehaviour {
 
 		if (Health < 0) {
 			this.gameObject.GetComponent<Renderer> ().enabled = false;
-			Debug.Log ("destroyed dh");
 		}
 	}
 }

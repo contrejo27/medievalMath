@@ -8,7 +8,6 @@ public class MathManager : MonoBehaviour {
 
 
 	public Text QuestionText;
-	public Text QuestionText_hud;
 	public Text FeedbackText;
 
 	public AudioClip CorrectSound;
@@ -33,54 +32,51 @@ public class MathManager : MonoBehaviour {
 	void Start () {
 
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
-		//QuestionText_hud = GameObject.Find ("Question_hud").GetComponent<Text> ();
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
+		Multi_Divide = GameObject.FindObjectOfType<MultiplyOrDivide> ();
+		Add_Sub = GameObject.FindObjectOfType<AddOrSubtract> ();
 
-		this.Multi_Divide = new MultiplyOrDivide();
-		this.Add_Sub = new AddOrSubtract();
 
-		this.Multi_Divide.Start ();
-		this.Add_Sub.Start ();
+		Multi_Divide.Start ();
+		Add_Sub.Start ();
 
 		A_Input.Start ();
 
-		GenerateProblem (this.QuestionType);
+		GenerateProblem (QuestionType);
 	}
 
 
 	public void GenerateProblem(int QuestionType)
 	{
 		IncorrectAnswersPerQuestion = 0;
-		this.QuestionType = QuestionType;
+		QuestionType = QuestionType;
 		//Debug.Log (this.QuestionType);
 
 		//0 = Add or subtract question
-		if (this.QuestionType == 0) {
-			this.Add_Sub.GenerateQuestion ();
+		if (QuestionType == 0) {
+			Add_Sub.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
-			QuestionText_hud.text = Add_Sub.GetQuestionString ();
 			//Debug.Log (Multi_Divide.GetQuestionString ());
 		} else {
-			this.Multi_Divide.GenerateQuestion ();
+			Multi_Divide.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
-			QuestionText_hud.text = Multi_Divide.GetQuestionString ();
 			//Debug.Log (Multi_Divide.GetQuestionString ());
 		}
 
 	}
 
 	public int GetQuestionType() {
-		return this.QuestionType;
+		return QuestionType;
 	}
 
 	public int GetIncorrectAnswersPerQuestion() {
-		return this.IncorrectAnswersPerQuestion;
+		return IncorrectAnswersPerQuestion;
 	}
 
 	public void IncorrectAnswer() {
-		this.IncorrectAnswersPerQuestion++;
+		IncorrectAnswersPerQuestion++;
 	}
 	/*
 	public void GenerateProblem()

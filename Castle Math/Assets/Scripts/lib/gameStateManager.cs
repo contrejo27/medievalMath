@@ -53,10 +53,8 @@ public class gameStateManager : MonoBehaviour {
 	public void EnemyKilled()
 	{
 		CurrentEnemies -= 1;
-
 		//if all enemies were killed
 		if (CurrentEnemies <= 0) {
-
 			W_Manager.NextWave();
 
 			A_Source.clip = WaveCleared;
@@ -98,7 +96,11 @@ public class gameStateManager : MonoBehaviour {
 		CurrentEnemies = SizeOfWave;
 	}
 
-
+	public void addEnemyToWaveSize()
+	{
+		CurrentEnemies++;
+	}
+	
 	IEnumerator PlaySounds(float delay)
 	{
 

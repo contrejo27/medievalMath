@@ -85,7 +85,7 @@ public class LaunchProjectile : MonoBehaviour {
 	
 	IEnumerator DelayRemovePowerUp(ArrowModifier removeModification, int PowerUpIndex)
 	{
-		yield return new WaitForSeconds (30);
+		yield return new WaitForSeconds (15);
 
 		RemoveModifier (removeModification);
 		PowerUpDisplay.ClearPowerUp (PowerUpIndex);
