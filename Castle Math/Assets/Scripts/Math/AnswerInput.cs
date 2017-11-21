@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +20,8 @@ public class AnswerInput : MonoBehaviour {
 	public Text FeedbackText;
 	public Text ChoiceBox;
 
-	private int CorrectAnswer;
-	private int [] AnswerChoices;
+	private string CorrectAnswer;
+	private string [] AnswerChoices;
 
 	public AudioClip CorrectSound;
 	public AudioClip IncorrectSound;
@@ -49,7 +49,7 @@ public class AnswerInput : MonoBehaviour {
 
 	}
 
-	public void SetCorrectAnswer(int Answer) {
+	public void SetCorrectAnswer(string Answer) {
 		this.CorrectAnswer = Answer;
 	}
 
@@ -101,7 +101,7 @@ public class AnswerInput : MonoBehaviour {
 		}
 	}
 
-	public void DisplayChoices (int [] AnswerChoices) {
+	public void DisplayChoices (String [] AnswerChoices) {
 		this.AnswerChoices = AnswerChoices;
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//iterate through choices boxes, assigning each text component
@@ -115,8 +115,9 @@ public class AnswerInput : MonoBehaviour {
 	}
 
 	public void CheckAnswer(Text Answer) {
-		int answerAsInt = int.Parse(Answer.text.ToString());
-		if (answerAsInt == CorrectAnswer) {
+		//int answerAsInt = int.Parse(Answer.text.ToString());
+		String answerText = Answer.text.ToString();
+		if (answerText == CorrectAnswer) {
 
 			FeedbackText.text = "Correct";
 			FeedbackText.color =  new Color(.188f, .44f, .1f);
@@ -165,7 +166,7 @@ public class AnswerInput : MonoBehaviour {
 			}
 
 			//Create new array, one index shorter than AnswerChoices
-			int[] AnswerChoicesCopy = new int[AnswerChoices.Length - 1];
+			string[] AnswerChoicesCopy = new string[AnswerChoices.Length - 1];
 
 			for (int i = 0, j = 0; i < AnswerChoicesCopy.Length; i++, j++) {
 				//Skip if that is the element to remove
