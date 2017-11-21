@@ -12,7 +12,7 @@ public class AddOrSubtract : MonoBehaviour {
 	private int SecondNum;
 	private int CorrectAnswer;
 	private int isSubtract;
-	private int [] AnswerChoices;
+	private string [] AnswerChoices;
 	private string QuestionString;
 
 	private AnswerInput A_Input;
@@ -113,7 +113,8 @@ public class AddOrSubtract : MonoBehaviour {
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
 		}
-		AnswerChoices = new int[] {Choice1, Choice2, Choice3, CorrectAnswer};
+		AnswerChoices = new string[] {Choice1.ToString(), Choice2.ToString(), 
+										Choice3.ToString(), CorrectAnswer.ToString()};
 
 		int size = AnswerChoices.Length;
 
@@ -131,7 +132,7 @@ public class AddOrSubtract : MonoBehaviour {
 
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
-			int temp = AnswerChoices[i];
+			string temp = AnswerChoices[i];
 			int r = Random.Range(i, AnswerChoices.Length);
 			AnswerChoices[i] = AnswerChoices[r];
 			AnswerChoices[r] = temp;
@@ -145,8 +146,8 @@ public class AddOrSubtract : MonoBehaviour {
 		return this.QuestionString;
 	}
 
-	public int getCorrectAnswer() {
-		return this.CorrectAnswer;
+	public string getCorrectAnswer() {
+		return this.CorrectAnswer.ToString();
 	}
 
 
