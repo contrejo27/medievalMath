@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +15,7 @@ public class MathManager : MonoBehaviour {
 
 	private int ProblemType;
 
-	private int CorrectAnswer;
+	private string CorrectAnswer;
 
 	private AnswerInput A_Input;
 	private ArrowSupplier A_Supply;
@@ -23,6 +23,7 @@ public class MathManager : MonoBehaviour {
 
 	private MultiplyOrDivide Multi_Divide;
 	private AddOrSubtract Add_Sub;
+	private Compare Comparision;
 	public int QuestionType;
 	public int IncorrectAnswersPerQuestion;
 
@@ -36,11 +37,13 @@ public class MathManager : MonoBehaviour {
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
 		Multi_Divide = GameObject.FindObjectOfType<MultiplyOrDivide> ();
+		Comparision = GameObject.FindObjectOfType<Compare> ();
 		Add_Sub = GameObject.FindObjectOfType<AddOrSubtract> ();
 
 
 		Multi_Divide.Start ();
 		Add_Sub.Start ();
+		Comparision.Start ();
 
 		A_Input.Start ();
 
@@ -52,17 +55,20 @@ public class MathManager : MonoBehaviour {
 	{
 		IncorrectAnswersPerQuestion = 0;
 		QuestionType = QuestionType;
-		//Debug.Log (this.QuestionType);
 
 		//0 = Add or subtract question
 		if (QuestionType == 0) {
 			Add_Sub.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
 			//Debug.Log (Multi_Divide.GetQuestionString ());
-		} else {
+		} else if (QuestionType == 1) {
 			Multi_Divide.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
 			//Debug.Log (Multi_Divide.GetQuestionString ());
+		} else {
+			Debug.Log (Comparision.GetQuestionString ());
+			Comparision.GenerateQuestion ();
+			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
 		}
 
 	}
