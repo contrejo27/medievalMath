@@ -13,7 +13,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 	private int SecondNum;
 	private int CorrectAnswer;
 	private int isDivide;
-	private int [] AnswerChoices;
+	private string [] AnswerChoices;
 	private string QuestionString;
 
 	private AnswerInput A_Input;
@@ -128,7 +128,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 		bool UniqueValues = true;
 		//populate AnswerChoices array
 
-		AnswerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
+		AnswerChoices = new string[] { Choice1.ToString(), Choice2.ToString(), 
+										Choice3.ToString(), CorrectAnswer.ToString() };
 
 		int size = AnswerChoices.Length;
 
@@ -146,7 +147,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
-			int temp = AnswerChoices[i];
+			string temp = AnswerChoices[i];
 			int r = Random.Range(i, AnswerChoices.Length);
 			AnswerChoices[i] = AnswerChoices[r];
 			AnswerChoices[r] = temp;
@@ -160,8 +161,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 		return QuestionString;
 	}
 
-	public int getCorrectAnswer() {
-		return CorrectAnswer;
+	public string getCorrectAnswer() {
+		return CorrectAnswer.ToString();
 	}
 
 
