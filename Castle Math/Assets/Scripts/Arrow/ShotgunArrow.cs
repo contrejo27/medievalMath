@@ -36,7 +36,7 @@ public class ShotgunArrow : ArrowClass {
 		GameObject[] spreadArrows = new GameObject[4];
 		for (int i = 0; i < 4; i++) {
 			spreadArrows[i] = Instantiate (Arrow, this.transform.position , this.transform.rotation);
-			spreadArrows[i].transform.Rotate(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
+			spreadArrows[i].transform.Rotate(Random.Range(-20.0f, 20.0f), Random.Range(-5.0f, 5.0f), Random.Range(-10.0f, 10.0f));
 			spreadArrows[i].GetComponent<ProjectileBehavior> ().isGrounded = false;
 			spreadArrows[i].GetComponent<Rigidbody> ().AddForce (spreadArrows[i].transform.forward * 7000);
 			StartCoroutine (delayedCollider(spreadArrows[i]));

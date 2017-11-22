@@ -25,7 +25,8 @@ public class LaunchProjectile : MonoBehaviour {
 
 	private AudioSource A_Source;
 	private ManaBar PowerUpDisplay;
-
+	
+	private bool burst;
 	// Use this for initialization
 	void Start () {
 		PowerUpDisplay = FindObjectOfType<ManaBar> ();
@@ -111,13 +112,13 @@ public class LaunchProjectile : MonoBehaviour {
 		//if the count reaches zero, remove this modifier
 		//if (ModiferEffectCounter [(int)(removeModification)] <= 0) {
 		CurrentArrowModifiers.Remove (removeModification);
+		burst = false;
 		//}
 	}
 
 
 	public void SetLookingAtInterface(bool isLooking)
 	{
-		//Debug.Log ("Here");
 		lookingAtMathInterface = isLooking;
 	}
 
@@ -140,7 +141,7 @@ public class LaunchProjectile : MonoBehaviour {
 			case ArrowModifier.Burst:
 				//RemoveModifier (ArrowModifier.Burst);
 				ArrowToLaunch.AddComponent<BurstArrow> ();
-				LaunchBurst();
+				burst = true;
 				break;
 
 			case ArrowModifier.Shotgun:
@@ -159,6 +160,7 @@ public class LaunchProjectile : MonoBehaviour {
 		ArrowToLaunch.transform.parent = null;
 		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
 		setModifiers();
+		if(burst) LaunchBurst();
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
 		ArrowToLaunch.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -7000);
 		ArrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 

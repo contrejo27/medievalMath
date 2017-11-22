@@ -46,17 +46,17 @@ public class ProjectileBehavior : MonoBehaviour {
 
 				} 
 				
-			StartCoroutine (WaitToDestroy ());
+		Destroy (this.gameObject);
 		} 
 			
 	}
 
-
+/*
 	IEnumerator WaitToDestroy()
 	{
 		yield return new WaitForSeconds (3);
 		Destroy (this.gameObject);
-	}
+	}*/
 
 
 }

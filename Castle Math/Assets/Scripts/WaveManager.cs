@@ -4,28 +4,32 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour {
+	
+	private gameStateManager GameManager;
+	
+	//enemies
 	public GameObject KnightPrefab;
 	public GameObject trollPrefab;
 	public GameObject horseRiderPrefab;
-
-	public CanvasGroup waveEffect;
-	public Transform[] SpawnPoints;
-
 	public int FirstWaveSize = 8;
-
-	public AudioClip AnotherWave;
-
 	private int WaveSize;
 	private int CurrentWave = 0;
-
-	private gameStateManager GameManager;
-
-	public Text WaveTitle;
-
-	private AudioSource A_Source;
 	
+	
+	//Environment 
+	public Transform[] SpawnPoints;
+
+	//Audio
+	public AudioClip AnotherWave;
+	private AudioSource A_Source;
 	public AudioSource enemySounds;
 	public AudioClip horseRiderSpawnSound;
+
+	//UI
+	public Text WaveTitle;
+	public CanvasGroup waveEffect;
+
+
 	
 	// Use this for initialization
 	void Start () {
@@ -33,7 +37,6 @@ public class WaveManager : MonoBehaviour {
 		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
 		GameManager = GameObject.FindObjectOfType<gameStateManager> ();
     }
-
 
     public void NextWave()
 	{
@@ -60,7 +63,7 @@ public class WaveManager : MonoBehaviour {
 		//display the wave number 
 		
 		//delay so the player can breather/ do math
-		yield return new WaitForSeconds (3.5f);
+		yield return new WaitForSeconds (4f);
 		if(CurrentWave != 0){
 		A_Source.clip = AnotherWave;
 		A_Source.Play ();
@@ -113,6 +116,10 @@ public class WaveManager : MonoBehaviour {
 		//waveEffect.alpha = 1f;
 	}
 
+	public void ResetWave()
+	{
+		CurrentWave = 0;
+	}
 	void spawnEnemy(GameObject enemy, AudioClip spawnSound){
 		int randomSpawn = Random.Range(0, SpawnPoints.Length);
 		Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-30, 20), 0,0), SpawnPoints[randomSpawn].rotation);

@@ -63,7 +63,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 
 			if (isMoving == false) {//distance > 8f && 
-				StartCoroutine (WalkToTarget ());
+				StartCoroutine (WalkToTarget());
 
 				if (AtTarget == true && HitPoints > 0) {
 					//trigger hitting animation
