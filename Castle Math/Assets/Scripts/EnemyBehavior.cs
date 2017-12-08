@@ -32,7 +32,7 @@ public class EnemyBehavior : MonoBehaviour {
 	void Start () {
 
 		Anim = GetComponent<Animator> ();
-		dH = GameObject.Find ("gate1").GetComponent<doorHealth>();
+		dH = GameObject.Find ("gateCollision").GetComponent<doorHealth>();
 
 		isMoving = false;
 		GameManager = GameObject.FindObjectOfType<gameStateManager> ();
@@ -47,7 +47,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Target = Targets [RanNum];
 
 		//attaching gate1 as target
-		doorTarget = GameObject.Find ("gate1");
+		doorTarget = GameObject.Find ("gateCollision");
 
 		StartCoroutine (WalkToTarget());
 	}
@@ -182,7 +182,6 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 
 	public void DamageGate(int damage) {
-		//Damage GateHealth by 15
 		dH.TakeDamageGate (damage);
 	}
 

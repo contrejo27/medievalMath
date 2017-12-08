@@ -34,6 +34,7 @@ public class gameStateManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		RenderSettings.skybox.SetFloat("_Exposure", 1.0f);
 
 		Player = GameObject.FindObjectOfType<LaunchProjectile> ();
 
@@ -66,12 +67,12 @@ public class gameStateManager : MonoBehaviour {
 
 	}
 
-	public void LoseState()
-	{
-		A_Source.clip = LostTheCastle;
-		A_Source.Play ();
-
-		StartCoroutine (PlaySounds (A_Source.clip.length));
+	public void LoseState(){
+	
+/*
+		music.Stop ();
+		music.clip = LostTheCastle;
+		music.Play ();*/
 
 		Player.isAlive = false;
 		LoseScreen.SetActive (true);
@@ -91,6 +92,7 @@ public class gameStateManager : MonoBehaviour {
 
 	public void Retry()
 	{
+		RenderSettings.skybox.SetFloat("_Exposure", 1.0f);
 		SceneManager.LoadScene (0);/*
 		fadeWorldIn();
 		W_Manager.ResetWave();
@@ -197,19 +199,5 @@ public class gameStateManager : MonoBehaviour {
 	{
 		CurrentEnemies++;
 	}
-	
-	IEnumerator PlaySounds(float delay)
-	{
 
-		float delayMultiplier = Random.Range (1, 6);
-
-		yield return new WaitForSeconds (delay * delayMultiplier);
-
-		A_Source.clip = CastleScreams [Random.Range (0, CastleScreams.Length)];
-
-		A_Source.Play ();
-
-		StartCoroutine (PlaySounds (A_Source.clip.length));
-
-	}
 }

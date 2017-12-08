@@ -24,7 +24,7 @@ public class Compare : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
-		Debug.Log ("Start compare");
+		//Debug.Log ("Start compare");
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
@@ -33,28 +33,28 @@ public class Compare : MonoBehaviour {
 	// Update is called once per frame
 	public void GenerateQuestion () {
 
-        this.leftCompare = Random.Range(0.0f, 1.0f);
+        this.leftCompare = Random.Range(0.0f, 1.0f);  //.3544
         
-        int decimalPlaces = Random.Range(2, 5);
+        int decimalPlaces = Random.Range(2, 5); //3
 
-		int step = Random.Range (0, 4);
+		int step = Random.Range (0, 4); //2
         int multiple = 10;
 
         for (int i = 0; i < step; i++) {
-            multiple *= multiple;
+            multiple *= multiple; //100,1000
         }
 
-		leftCompare = System.Math.Round(leftCompare, decimalPlaces);
+		leftCompare = System.Math.Round(leftCompare, decimalPlaces);//.354
 
-        this.rightCompare = leftCompare * multiple;
+        this.rightCompare = leftCompare * multiple; //354
 
         QuestionString = "Which symbol makes this comparision true?\n" 
-                            + leftCompare.ToString () + " ____ " + rightCompare.ToString ();
+                            + leftCompare.ToString () + " __ " + rightCompare.ToString ();
 
 		QuestionText.text = QuestionString;
 		GenerateChoices ();
 
-        Debug.Log(QuestionString);
+        //Debug.Log(QuestionString);
 	}
 
     string getCorrectSymbol() {
@@ -63,15 +63,15 @@ public class Compare : MonoBehaviour {
 
 		if (leftCompare < rightCompare) {
             correctSymbol = "less";
-			Debug.Log ("Sym " + correctSymbol);
+			//Debug.Log ("Sym " + correctSymbol);
 		}
 		else if (leftCompare > rightCompare){
             correctSymbol = "greater";
-			Debug.Log ("Sym " + correctSymbol);
+			//Debug.Log ("Sym " + correctSymbol);
 		}
 		else if (leftCompare == rightCompare) {
             correctSymbol = "equal";
-			Debug.Log ("Sym " + correctSymbol);
+			//Debug.Log ("Sym " + correctSymbol);
 		}
 
         int r = Random.Range(0, 2);
@@ -80,20 +80,20 @@ public class Compare : MonoBehaviour {
 		if (correctSymbol == "less") {
 			if (r == 0) {
                 correctSymbol = "<=";
-				Debug.Log ("Sym " + correctSymbol);
+				//Debug.Log ("Sym " + correctSymbol);
 			}
 			else{
 				correctSymbol = "<";
-				Debug.Log ("Sym " + correctSymbol);
+				//Debug.Log ("Sym " + correctSymbol);
 			}
         }
         else if (correctSymbol == "greater") {
 			if (r == 0) {
 				correctSymbol = ">=";
-				Debug.Log ("Sym " + correctSymbol);
+				//Debug.Log ("Sym " + correctSymbol);
 			} else {
 				correctSymbol = ">";
-				Debug.Log ("Sym "+ correctSymbol);
+				//Debug.Log ("Sym "+ correctSymbol);
 			}
         }
 		else if (correctSymbol == "equal") {
@@ -101,24 +101,23 @@ public class Compare : MonoBehaviour {
             r += rAdd;
 			if (r == 0) {
 				correctSymbol = ">=";
-				Debug.Log ("Sym " + correctSymbol);
+				//Debug.Log ("Sym " + correctSymbol);
 			} else if (r == 1) {
 				correctSymbol = "<=";
-				Debug.Log ("Sym " + correctSymbol);
+				//Debug.Log ("Sym " + correctSymbol);
 			} else {
 				correctSymbol = "=";
-				Debug.Log ("Sym " + correctSymbol);
+				//Debug.Log ("Sym " + correctSymbol);
 			}
         }
 
         return correctSymbol;
-        
     }
 		
 	void GenerateChoices() {
-		//Debug.Log ("Gen Choices");
+		////Debug.Log ("Gen Choices");
         string correctSymbol = this.getCorrectSymbol();
-		Debug.Log ("Correct: " + correctSymbol);
+		//Debug.Log ("Correct: " + correctSymbol);
 
 		string Choice1;
 		string Choice2;
@@ -135,7 +134,7 @@ public class Compare : MonoBehaviour {
             }
             
             AnswerChoices[i] = compareSymbols[index];
-			Debug.Log(i + AnswerChoices[i]);
+			//Debug.Log(i + AnswerChoices[i]);
 
 			usedValues.Add(index);
 		}
@@ -149,7 +148,7 @@ public class Compare : MonoBehaviour {
 			int r = Random.Range(i, AnswerChoices.Length);
 			AnswerChoices[i] = AnswerChoices[r];
 			AnswerChoices[r] = temp;
-            Debug.Log(i + AnswerChoices[r]);
+            //Debug.Log(i + AnswerChoices[r]);
 		}
 		*/
 

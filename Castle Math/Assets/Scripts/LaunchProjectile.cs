@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LaunchProjectile : MonoBehaviour {
 
+	public AudioClip[] LaunchSounds;
+
 	public AudioClip LaunchSound;
 	public AudioClip ReloadSound;
 
@@ -201,11 +203,8 @@ public class LaunchProjectile : MonoBehaviour {
 	}
 
 	void playShootingSound(){
-					A_Source.clip = LaunchSound;
-				A_Source.volume = .5f;
-				A_Source.pitch = .5f;
-
-				A_Source.Play ();
+		A_Source.clip = LaunchSounds [Random.Range (0, LaunchSounds.Length)];
+		A_Source.Play ();
 	}
 	IEnumerator ReloadTime()
 	{

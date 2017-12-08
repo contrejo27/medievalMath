@@ -31,7 +31,6 @@ public class MathManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
@@ -65,8 +64,8 @@ public class MathManager : MonoBehaviour {
 			Multi_Divide.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
 			//Debug.Log (Multi_Divide.GetQuestionString ());
-		} else {
-			Debug.Log (Comparision.GetQuestionString ());
+		} else if (QuestionType == 2) {
+			//Debug.Log (Comparision.GetQuestionString ());
 			Comparision.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
 		}
