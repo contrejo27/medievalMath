@@ -10,6 +10,14 @@ public class doorHealth : MonoBehaviour {
 	
 	private gameStateManager GameManager;
 	private ExampleGUIAspectsController doorHealthBar;
+	
+	public GameObject[] fences1;
+	public GameObject[] fences2;
+	public GameObject[] fences3;
+	
+	bool firstFence = true;
+	bool secondFence = true;
+	bool thirdFence = true;
 
 	// Use this for initialization
 	void Start () {
@@ -29,8 +37,26 @@ public class doorHealth : MonoBehaviour {
 		doorHealthBar.updateHealth(damage);
 		Health -= damage;
 
+		if(Health < 85 && firstFence){
+			foreach(GameObject fence in fences1){
+				fence.GetComponent<Renderer> ().enabled = false;
+			}
+			firstFence = false;
+		}
+		if(Health < 60 && secondFence){
+			foreach(GameObject fence in fences2){
+				fence.GetComponent<Renderer> ().enabled = false;
+			}
+			secondFence = false;
+		}
+		if(Health < 40 && thirdFence){
+			foreach(GameObject fence in fences3){
+				fence.GetComponent<Renderer> ().enabled = false;
+			}
+			thirdFence = false;
+		}
 		if (Health < 0) {
-			this.gameObject.GetComponent<Renderer> ().enabled = false;
+			gameObject.GetComponent<Renderer> ().enabled = false;
 		}
 	}
 }
