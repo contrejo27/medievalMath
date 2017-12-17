@@ -6,34 +6,28 @@ public class ShotgunArrow : ArrowClass {
 
 	private ProjectileBehavior ArrowBehavior;
 	private Transform Target;
-
+	bool activated = false;
 	// Use this for initialization
 	void Start () {
 
 	}
-
-	//duplicate the current arrow twice
+	
+	public void activate(bool isActivated){
+		activated = isActivated;
+	}
+	
 	public override void ArrowLaunched()
 	{
-
+		if(activated){
 		GameObject Arrow = this.gameObject;
-		/*
-		StartCoroutine (DelayCreate(transform.position, Arrow));
-		StartCoroutine (DelayCreate(transform.position, Arrow));
-		StartCoroutine (DelayCreate(transform.position, Arrow));
-		StartCoroutine (DelayCreate(transform.position, Arrow));
-		*/
-
 		DelayCreate(Arrow);
-		//StartCoroutine (DelayCreate(transform.right * -1, Arrow));
-		//StartCoroutine (DelayCreate(transform.up * 1, Arrow));
-		//StartCoroutine (DelayCreate(transform.up * -1, Arrow));
-
+		}
 	}
-
 	void DelayCreate(GameObject Arrow)
 	{
 		GameObject[] spreadArrows = new GameObject[4];
+		
+		//shoots an arrow toward a random direction
 		for (int i = 0; i < 4; i++) {
 			spreadArrows[i] = Instantiate (Arrow, this.transform.position , this.transform.rotation);
 			spreadArrows[i].transform.Rotate(Random.Range(-20.0f, 20.0f), Random.Range(-5.0f, 5.0f), Random.Range(-10.0f, 10.0f));

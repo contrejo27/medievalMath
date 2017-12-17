@@ -253,13 +253,11 @@ public class QuestionGenerator : MonoBehaviour {
 			FeedbackText.color = Color.red;
 			FeedbackText.gameObject.SetActive (true);
 			StartCoroutine (DisplayFeedback ());
-
+			
 			A_Source.clip = IncorrectSound;
 			A_Source.Play ();
-
-			Math_Stats.IncorrectlyAnswered ();
-
 			A_Input.ClearAnswer ();
+			
 			ClearChoices ();
 
 		}

@@ -117,8 +117,6 @@ public class AnswerInput : MonoBehaviour {
 	public void CheckAnswer(Text Answer) {
 		//int answerAsInt = int.Parse(Answer.text.ToString());
 		String answerText = Answer.text.ToString();
-		print(answerText);
-		print(CorrectAnswer);
 		if (answerText == CorrectAnswer) {
 
 			FeedbackText.text = "Correct";
@@ -182,7 +180,6 @@ public class AnswerInput : MonoBehaviour {
 			//Resassign answer choices to new array
 			this.AnswerChoices = AnswerChoicesCopy;
 		} else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3) {
-			Math_Stats.IncorrectlyAnswered ();
 			M_Manager.GenerateProblem (M_Manager.GetQuestionType());
 		}
 
