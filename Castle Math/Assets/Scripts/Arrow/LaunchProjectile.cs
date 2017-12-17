@@ -4,31 +4,31 @@ using UnityEngine;
 
 public class LaunchProjectile : MonoBehaviour {
 
-	public AudioClip[] LaunchSounds;
+	//player
+	public doorHealth health;
 
+	//UI
+	private bool lookingAtMathInterface;
+	private ManaBar PowerUpDisplay;
+
+	//arrow
+	private ArrowSupplier A_Supply;
+	private GameObject ArrowToLaunch;
+	private bool burst;
+	public bool isAlive { get; set;}
+	private bool ArrowLoaded;
+	public List<ArrowModifier> CurrentArrowModifiers; 
+	private int[] ModiferEffectCounter;
+	public GameObject[] Projectiles;
+	public GameObject FirePoint;
+	
+	//Audio
+	private AudioSource A_Source;
+	public AudioClip[] LaunchSounds;
 	public AudioClip LaunchSound;
 	public AudioClip ReloadSound;
 
-	public List<ArrowModifier> CurrentArrowModifiers; 
-	private int[] ModiferEffectCounter;
-
-	public GameObject[] Projectiles;
-	public GameObject FirePoint;
-
-	public bool isAlive { get; set;}
-
-	private bool lookingAtMathInterface;
-
-	private ArrowSupplier A_Supply;
-
-	private GameObject ArrowToLaunch;
-
-	private bool ArrowLoaded;
-
-	private AudioSource A_Source;
-	private ManaBar PowerUpDisplay;
 	
-	private bool burst;
 	// Use this for initialization
 	void Start () {
 		PowerUpDisplay = FindObjectOfType<ManaBar> ();
@@ -141,7 +141,9 @@ public class LaunchProjectile : MonoBehaviour {
 				//RemoveModifier (ArrowModifier.Burst);
 				burst = true;
 				break;
-
+			case ArrowModifier.Health:
+				health.Health = health.Health + 50;
+				break;
 			case ArrowModifier.Shotgun:
 				//RemoveModifier (ArrowModifier.Shotgun);
 				ArrowToLaunch.AddComponent<ShotgunArrow> ().activate(true);
