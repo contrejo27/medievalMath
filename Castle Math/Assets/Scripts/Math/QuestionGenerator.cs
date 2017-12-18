@@ -170,7 +170,7 @@ public class QuestionGenerator : MonoBehaviour {
 			Debug.Log ("ERROR IN CHOICE ASSIGNMENT");
 		}
 
-		bool UniqueValues = true;
+		//bool UniqueValues = true;
 		//populate AnswerChoices array
 
 		this.AnswerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };

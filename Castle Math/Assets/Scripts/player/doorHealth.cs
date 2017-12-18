@@ -17,42 +17,59 @@ public class doorHealth : MonoBehaviour {
 	bool firstFence = true;
 	bool secondFence = true;
 	bool thirdFence = true;
-
+	bool invincible = false;
+	
 	// Use this for initialization
 	void Start () {
 			GameManager = GameObject.FindObjectOfType<GameStateManager> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(Health<1) GameManager.LoseState ();
 
-	}
 
 	//Update health
 	public void TakeDamageGate(int damage) {
-		Health -= damage;
+		if(!invincible){
+			Health -= damage;
 
-		if(Health < 85 && firstFence){
-			foreach(GameObject fence in fences1){
-				fence.GetComponent<Renderer> ().enabled = false;
+			//hides fences when gate gets hit enough
+			if(Health < 85 && firstFence){
+				foreach(GameObject fence in fences1){
+					fence.GetComponent<Renderer> ().enabled = false;
+				}
+				firstFence = false;
 			}
-			firstFence = false;
-		}
-		if(Health < 60 && secondFence){
-			foreach(GameObject fence in fences2){
-				fence.GetComponent<Renderer> ().enabled = false;
+			if(Health < 40 && secondFence){
+				foreach(GameObject fence in fences2){
+					fence.GetComponent<Renderer> ().enabled = false;
+				}
+				secondFence = false;
 			}
-			secondFence = false;
-		}
-		if(Health < 40 && thirdFence){
-			foreach(GameObject fence in fences3){
-				fence.GetComponent<Renderer> ().enabled = false;
+			if(Health < 0 && thirdFence){
+				foreach(GameObject fence in fences3){
+					fence.GetComponent<Renderer> ().enabled = false;
+				}
+				thirdFence = false;
+				gameObject.GetComponent<Renderer> ().enabled = false;
+				GameManager.LoseState ();
 			}
-			thirdFence = false;
 		}
-		if (Health < 0) {
-			gameObject.GetComponent<Renderer> ().enabled = false;
+	}
+	
+	//set invincibility and change the fence color
+	public void InvinciblePowerUp(){
+		invincible = true;
+		Color originalColor = fences1[0].GetComponent<Renderer>().material.color;
+		foreach(GameObject fence in fences1){
+			fence.GetComponent<Renderer>().material.color = new Color(.4f,.3f,.8f);
 		}
+		StartCoroutine(invincibleTimed(originalColor));
+	}
+	
+	IEnumerator invincibleTimed(Color ogColor)
+	{
+		yield return new WaitForSeconds (15f);
+		foreach(GameObject fence in fences1){
+			fence.GetComponent<Renderer>().material.color = ogColor;
+		}
+		invincible = false;
 	}
 }

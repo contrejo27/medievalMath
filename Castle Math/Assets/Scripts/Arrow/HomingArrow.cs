@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HomingArrow : ArrowClass {
 
-	private ProjectileBehavior ArrowBehavior;
 	private Transform Target;
 
 	// Use this for initialization
@@ -14,7 +13,6 @@ public class HomingArrow : ArrowClass {
 
 	public override void ArrowLaunched()
 	{
-		ArrowBehavior = GetComponent<ProjectileBehavior> ();
 		Target = AcquireTarget ();
 		Debug.Log (Target);
 

@@ -142,7 +142,7 @@ public class LaunchProjectile : MonoBehaviour {
 				burst = true;
 				break;
 			case ArrowModifier.Health:
-				health.Health = health.Health + 50;
+				health.InvinciblePowerUp();
 				break;
 			case ArrowModifier.Shotgun:
 				//RemoveModifier (ArrowModifier.Shotgun);
@@ -164,7 +164,7 @@ public class LaunchProjectile : MonoBehaviour {
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
 		ArrowToLaunch.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -7000);
 		ArrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
-
+		Destroy(ArrowToLaunch, 1.2f);
 		StartCoroutine (ReloadTime ());
 	}
 

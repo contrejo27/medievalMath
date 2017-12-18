@@ -17,17 +17,10 @@ public class ArrowSupplier : MonoBehaviour {
 
 	private int AmountToSpawn;
 
-	private AudioSource A_Source;
-
 	// Use this for initialization
 	void Start () {
-
-		A_Source = GameObject.Find ("UIAudio").GetComponent<AudioSource> ();
-
 		Arrows = new GameObject[0];
-
 		CreateArrow ();
-
 	}
 
 
@@ -48,7 +41,7 @@ public class ArrowSupplier : MonoBehaviour {
 			NumberOfArrows++;
 
 			yield return new WaitForSeconds (.1f);
-
+			Destroy(newArrow,.8f);
 		}
 		
 
@@ -59,12 +52,12 @@ public class ArrowSupplier : MonoBehaviour {
 	{
 		if (NumberOfArrows > 0) {
 			NumberOfArrows -= 1;
-
+/*
 			GameObject destroyObject = Arrows [NumberOfArrows].gameObject;
 			ArrowIndex.RemoveAt (NumberOfArrows);
 
 
-			Destroy (destroyObject);
+			Destroy (destroyObject);*/
 		}
 	}
 

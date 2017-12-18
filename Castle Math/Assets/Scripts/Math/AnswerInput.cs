@@ -56,7 +56,6 @@ public class AnswerInput : MonoBehaviour {
 	public void ClearAnswer()
 	{
 		CurrentAnswer = "";
-
 		AnswerText.text = "";
 
 	}
@@ -78,17 +77,6 @@ public class AnswerInput : MonoBehaviour {
 		}
 
 	}
-
-
-	public void SubmitAnswer()
-	{
-		if (CurrentAnswer.Length > 0) {
-			int FinalAnswer = Convert.ToInt32 (CurrentAnswer);
-
-			//M_Manager.CheckAnswer (FinalAnswer);
-		}
-	}
-
 
 	//start
 	public void ClearChoices() {

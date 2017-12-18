@@ -69,7 +69,6 @@ public class WaveManager : MonoBehaviour {
 		A_Source.Play ();
 		}
 			
-		int randomSpawn =0;
 		GameManager.SetNumberOfEnemies (WaveSize);
 		for (int i = 0; i <  WaveSize; i++) {
 			spawnEnemy(KnightPrefab, null);
@@ -82,7 +81,6 @@ public class WaveManager : MonoBehaviour {
 				GameManager.addEnemyToWaveSize();
 
                 yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));
-                randomSpawn = Random.Range(0, SpawnPoints.Length);
             }
         }
 
@@ -93,9 +91,7 @@ public class WaveManager : MonoBehaviour {
                 spawnEnemy(horseRiderPrefab, horseRiderSpawnSound);
 				GameManager.addEnemyToWaveSize();
 				
-				yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));
-                randomSpawn = Random.Range(0, SpawnPoints.Length);
-				
+				yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));				
             }
         }
 		

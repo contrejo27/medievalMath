@@ -46,7 +46,6 @@ public class MathManager : MonoBehaviour {
 	public void GenerateProblem(int QuestionType)
 	{
 		IncorrectAnswersPerQuestion = 0;
-		QuestionType = QuestionType;
 
 		//0 = Add or subtract question
 		if (QuestionType == 0) {

@@ -13,8 +13,8 @@ public class ManaBar : MonoBehaviour {
 	private int CurrentNumber;
 	private LaunchProjectile ProjectileLauncher;
 
-	public GameObject[] PowerUpDisplays;
-	private int PowerUpCount;
+	public GameObject[] powerUpDisplays;
+	private int powerUpCount = 0;
 
 	private AudioSource A_Source;
 	public AudioClip PowerUpSound;
@@ -27,7 +27,7 @@ public class ManaBar : MonoBehaviour {
 
 	public void ClearPowerUp(int PowerupIndex)
 	{
-		PowerUpDisplays [PowerupIndex].SetActive (false);
+		powerUpDisplays [PowerupIndex].SetActive (false);
 	}
 
 	public void QuestionAnswered()
@@ -40,39 +40,33 @@ public class ManaBar : MonoBehaviour {
 			int RanMod = Random.Range (0, 4);
 			ArrowModifier newMod;
 			if (RanMod == 0) {
-				newMod = ArrowModifier.Bomb;
-				perk.text = "Bomb";
-			} else if (RanMod == 1) {
 				newMod = ArrowModifier.Burst;
 				perk.text = "Burst";
-			} else if (RanMod == 2) {
-				newMod = ArrowModifier.Health;
-				perk.text = "Health";
-			} else {
+			} else if (RanMod == 1) {
 				newMod = ArrowModifier.Shotgun;
 				perk.text = "Spread";
+			} else if (RanMod == 2) {
+				newMod = ArrowModifier.Bomb;
+				perk.text = "Bomb";
+			} else {
+				newMod = ArrowModifier.Health;
+				perk.text = "Invincible";
 			} 
 			mathCanvas.alpha = 0.0f;
 
-			PowerUpDisplays [PowerUpCount].SetActive (true);
-			PowerUpDisplays [PowerUpCount].GetComponent<Image>().sprite = PowerUpIcons [RanMod];
-			
-			//making ui show on top of everything else
-			RectTransform theRectTransform;
-			theRectTransform = PowerUpDisplays[PowerUpCount].transform as RectTransform; // Cast it to RectTransform
-			theRectTransform.SetAsLastSibling(); // Make the panel show on top.
-			
+			powerUpDisplays [powerUpCount].SetActive (true);
+			powerUpDisplays [powerUpCount].GetComponent<Image>().sprite = PowerUpIcons [RanMod];
 			
 			//give player perk
-			ProjectileLauncher.AddModifier (newMod, PowerUpCount);
+			ProjectileLauncher.AddModifier (newMod, powerUpCount);
 			StartCoroutine(erasePerkText());
 			A_Source.clip = PowerUpSound;
 			A_Source.Play ();
 
-			if (PowerUpCount < PowerUpDisplays.Length - 1) {
-				PowerUpCount += 1;
+			if (powerUpCount < powerUpDisplays.Length - 1) {
+				powerUpCount += 1;
 			} else {
-				PowerUpCount = 0;
+				powerUpCount = 0;
 			}
 
 		}

@@ -18,9 +18,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 	private AnswerInput A_Input;
 
-	private int IncorrectAnswersPerQuestion;
-
-
 	//public QuestionGenerator QG;
 	// Use this for initialization
 	public MultiplyOrDivide() {
@@ -58,8 +55,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 	*/
 	public void GenerateQuestion () {
 		//reset incorrect answer count
-		IncorrectAnswersPerQuestion = 0;
-
 		isDivide = Random.Range (0, 2);
 
 		//check for division
@@ -125,7 +120,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 			}
 		}
 
-		bool UniqueValues = true;
+		//bool UniqueValues = true;
 		//populate AnswerChoices array
 
 		AnswerChoices = new string[] { Choice1.ToString(), Choice2.ToString(), 

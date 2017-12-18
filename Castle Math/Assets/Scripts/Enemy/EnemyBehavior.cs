@@ -25,7 +25,6 @@ public class EnemyBehavior : MonoBehaviour {
 	public GameObject doorTarget;
 	public int damageVal;
 
-	private float nextActionTime = 0.0f;
 	public float period = 2f;
 	bool dead = false;
 	// Use this for initialization
@@ -55,20 +54,11 @@ public class EnemyBehavior : MonoBehaviour {
 	void Update()
 	{
 		if (HitPoints > 0) {
-			float distance = Mathf.Abs (Vector3.Distance (this.transform.position, Target.transform.position));
-
 			//rotate the character correctly in the direction of the heading
 			Quaternion newRot = Quaternion.LookRotation (Target.transform.position - this.transform.position);
 			transform.rotation = Quaternion.Euler (new Vector3 (0, newRot.eulerAngles.y, 0));
 
-
-			if (isMoving == false) {//distance > 8f && 
-				StartCoroutine (WalkToTarget());
-
-				if (AtTarget == true && HitPoints > 0) {
-					//trigger hitting animation
-				}
-			}
+			if (isMoving == false) StartCoroutine (WalkToTarget());
 		}
 		
 		if (dH.GetComponent<Renderer> ().enabled == false) {

@@ -11,13 +11,23 @@ public class PlayerMathStats : MonoBehaviour {
 	int correctAnswers;
 	int incorrectAnswers;
 	int personalHighScore;
+	List<string> globalHighScores = new List<string>();
 	
 	//in-game text
 	public Text correctText;
 	public Text wave;
-
+	public Text hsName;
+	public Text hsWave;
+	public Text hsAnswers;
+	
 	public void Start(){
-		personalHighScore = 100; //temp
+		personalHighScore = PlayerPrefs.GetInt("personalHighScore");
+
+		globalHighScores.Add("JGC,3,8");
+		globalHighScores.Add("HBK,2,5");
+		globalHighScores.Add("JGC,2,3");
+
+		
 	}
 	
 	public void CorrectlyAnswered()
@@ -31,11 +41,28 @@ public class PlayerMathStats : MonoBehaviour {
 	
 	//gets called when lose screen shows up. displays and saves match stats
 	public void SaveState() {
-		
-		wave.text = "Wave: " + wManager.CurrentWave;
-		correctText.text = "Correct: " + correctAnswers.ToString ();
+		//set personal high score
+		if(correctAnswers > personalHighScore) {
+			personalHighScore = correctAnswers;
+		}
+		CheckHighScores();
+		DisplayStats();
 		PlayerPrefs.SetInt("personalHighScore", personalHighScore);
 	}
 	
+	void DisplayStats(){
+		wave.text = "Wave: " + wManager.CurrentWave +1;
+		correctText.text = "Correct: " + correctAnswers.ToString ();
+		
+		foreach(string score in globalHighScores){
+			string[] line = score.Split(',');
+			hsName.text += line[0] + "\n";
+			hsWave.text += line[1] + "\n";
+			hsAnswers.text += line[2] + "\n";
+		}
+	}
 	
+	void CheckHighScores(){
+
+	}
 }
