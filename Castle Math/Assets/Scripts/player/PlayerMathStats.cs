@@ -63,6 +63,16 @@ public class PlayerMathStats : MonoBehaviour {
 	}
 	
 	void CheckHighScores(){
-
+		int i = 0;
+		foreach(string score in globalHighScores){
+			int waveNum = wManager.CurrentWave +1;
+			string[] line = score.Split(',');
+			if(int.Parse(line[2]) < personalHighScore){
+				globalHighScores.Insert(i,"HBK," + waveNum.ToString() + "," + correctAnswers.ToString ());
+				globalHighScores.RemoveAt(3);
+				break;
+			}				
+			i++;
+		}
 	}
 }

@@ -57,7 +57,7 @@ public class LaunchProjectile : MonoBehaviour {
 				Launch ();
 			} else {
 				A_Source.clip = ReloadSound;
-				A_Source.volume = 1f;
+				A_Source.volume = .6f;
 				A_Source.pitch = 1f;
 				A_Source.Play ();
 			}

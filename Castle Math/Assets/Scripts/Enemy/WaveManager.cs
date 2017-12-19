@@ -59,9 +59,7 @@ public class WaveManager : MonoBehaviour {
 	}
 	
 	IEnumerator ActivateEnemies(int WaveSize)
-	{
-		//display the wave number 
-		
+	{		
 		//delay so the player can breather/ do math
 		yield return new WaitForSeconds (4f);
 		if(CurrentWave != 0){
@@ -116,9 +114,13 @@ public class WaveManager : MonoBehaviour {
 	{
 		CurrentWave = 0;
 	}
+	
+	//spawns enemy at a random spawn point
 	void spawnEnemy(GameObject enemy, AudioClip spawnSound){
 		int randomSpawn = Random.Range(0, SpawnPoints.Length);
-		Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-30, 20), 0,0), SpawnPoints[randomSpawn].rotation);
+		GameObject enemyObject = Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[randomSpawn].rotation);
+		enemyObject.GetComponent<EnemyBehavior>().SetTarget(randomSpawn + 1); //adjusted for UI name
+	
 		if(spawnSound != null){
 			enemySounds.clip = spawnSound;
 			enemySounds.Play ();

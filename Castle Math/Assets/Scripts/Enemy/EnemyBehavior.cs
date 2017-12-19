@@ -22,16 +22,15 @@ public class EnemyBehavior : MonoBehaviour {
 	private Animator Anim; 
 
 	private doorHealth dH;
-	public GameObject doorTarget;
 	public int damageVal;
 
 	public float period = 2f;
 	bool dead = false;
+	
 	// Use this for initialization
 	void Start () {
 
 		Anim = GetComponent<Animator> ();
-		dH = GameObject.Find ("gateCollision").GetComponent<doorHealth>();
 
 		isMoving = false;
 		GameManager = GameObject.FindObjectOfType<GameStateManager> ();
@@ -39,14 +38,9 @@ public class EnemyBehavior : MonoBehaviour {
 		A_Source = GameObject.Find ("EnemyAudio").GetComponent<AudioSource>();
 
 		//Out of the available targets choose a one randomly as our target
-		GameObject[] Targets = GameObject.FindGameObjectsWithTag ("Target");
-
-		int RanNum = Random.Range (0, Targets.Length);
-
-		Target = Targets [RanNum];
-
-		//attaching gate1 as target
-		doorTarget = GameObject.Find ("gateCollision");
+		//GameObject[] Targets = GameObject.FindGameObjectsWithTag ("Target");
+		//int RanNum = Random.Range (0, Targets.Length);
+		//Target = Targets [RanNum];
 
 		StartCoroutine (WalkToTarget());
 	}
@@ -65,12 +59,15 @@ public class EnemyBehavior : MonoBehaviour {
 			Anim.SetBool ("isMoving", true);
 			Anim.Play ("move");
 			this.GetComponent<Rigidbody> ().velocity = transform.forward * MoveSpeed;
-
 		}
-
 	}
 		
-
+	public void SetTarget(int initialTarget){
+		string targetName = "gateCollision" + initialTarget;
+		Target =  GameObject.Find (targetName);
+		dH = GameObject.Find (targetName).GetComponent<doorHealth>();
+	}
+	
 	public void TakeDamage(int DMG)
 	{
 //		Anim.SetBool ("isHit", true);
