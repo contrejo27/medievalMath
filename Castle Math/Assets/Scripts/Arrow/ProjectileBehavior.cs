@@ -19,7 +19,7 @@ public class ProjectileBehavior : MonoBehaviour {
 		}
 
 		//orient the arrow in the direction of motion
-		transform.rotation = Quaternion.LookRotation (this.GetComponent<Rigidbody>().velocity);
+		//transform.rotation = Quaternion.LookRotation (this.GetComponent<Rigidbody>().velocity);
 
 	}
 	
@@ -46,17 +46,17 @@ public class ProjectileBehavior : MonoBehaviour {
 
 				} 
 				
-			StartCoroutine (WaitToDestroy ());
+		Destroy (this.gameObject,1f);
 		} 
 			
 	}
 
-
+/*
 	IEnumerator WaitToDestroy()
 	{
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (3);
 		Destroy (this.gameObject);
-	}
+	}*/
 
 
 }

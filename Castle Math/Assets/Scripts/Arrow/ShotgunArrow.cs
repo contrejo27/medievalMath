@@ -6,37 +6,39 @@ public class ShotgunArrow : ArrowClass {
 
 	private ProjectileBehavior ArrowBehavior;
 	private Transform Target;
-
+	bool activated = false;
 	// Use this for initialization
 	void Start () {
 
 	}
-
-	//duplicate the current arrow twice
+	
+	public void activate(bool isActivated){
+		activated = isActivated;
+	}
+	
 	public override void ArrowLaunched()
 	{
-
+		if(activated){
 		GameObject Arrow = this.gameObject;
-		/*
-		StartCoroutine (DelayCreate(transform.position, Arrow));
-		StartCoroutine (DelayCreate(transform.position, Arrow));
-		StartCoroutine (DelayCreate(transform.position, Arrow));
-		StartCoroutine (DelayCreate(transform.position, Arrow));
-		*/
-
-		DelayCreate(transform.right * 1, Arrow);
-		//StartCoroutine (DelayCreate(transform.right * -1, Arrow));
-		//StartCoroutine (DelayCreate(transform.up * 1, Arrow));
-		//StartCoroutine (DelayCreate(transform.up * -1, Arrow));
-
+		DelayCreate(Arrow);
+		}
 	}
-
-	void DelayCreate(Vector3 Direction, GameObject Arrow)
+	void DelayCreate(GameObject Arrow)
 	{
+		GameObject[] spreadArrows = new GameObject[4];
 		
-		GameObject newArrow = Instantiate (Arrow, this.transform.position, this.transform.rotation);
-		//newArrow.transform.Rotate(Random.Range(-30.0f, 30.0f), 180f, Random.Range(-30.0f, 30.0f));
-		newArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
-		newArrow.GetComponent<Rigidbody> ().AddForce (newArrow.transform.forward * 7000);
+		//shoots an arrow toward a random direction
+		for (int i = 0; i < 4; i++) {
+			spreadArrows[i] = Instantiate (Arrow, this.transform.position , this.transform.rotation);
+			spreadArrows[i].transform.Rotate(Random.Range(-20.0f, 20.0f), Random.Range(-5.0f, 5.0f), Random.Range(-10.0f, 10.0f));
+			spreadArrows[i].GetComponent<ProjectileBehavior> ().isGrounded = false;
+			spreadArrows[i].GetComponent<Rigidbody> ().AddForce (spreadArrows[i].transform.forward * 7000);
+			StartCoroutine (delayedCollider(spreadArrows[i]));
+		}
+	}
+	IEnumerator delayedCollider(GameObject arrow){
+		yield return new WaitForSeconds (.1f);
+		arrow.GetComponent<BoxCollider> ().enabled = true; 
+
 	}
 }

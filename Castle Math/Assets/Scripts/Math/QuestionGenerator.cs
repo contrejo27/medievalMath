@@ -170,7 +170,7 @@ public class QuestionGenerator : MonoBehaviour {
 			Debug.Log ("ERROR IN CHOICE ASSIGNMENT");
 		}
 
-		bool UniqueValues = true;
+		//bool UniqueValues = true;
 		//populate AnswerChoices array
 
 		this.AnswerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
@@ -253,13 +253,11 @@ public class QuestionGenerator : MonoBehaviour {
 			FeedbackText.color = Color.red;
 			FeedbackText.gameObject.SetActive (true);
 			StartCoroutine (DisplayFeedback ());
-
+			
 			A_Source.clip = IncorrectSound;
 			A_Source.Play ();
-
-			Math_Stats.IncorrectlyAnswered ();
-
 			A_Input.ClearAnswer ();
+			
 			ClearChoices ();
 
 		}

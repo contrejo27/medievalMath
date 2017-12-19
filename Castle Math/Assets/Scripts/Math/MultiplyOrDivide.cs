@@ -13,13 +13,10 @@ public class MultiplyOrDivide : MonoBehaviour {
 	private int SecondNum;
 	private int CorrectAnswer;
 	private int isDivide;
-	private int [] AnswerChoices;
+	private string [] AnswerChoices;
 	private string QuestionString;
 
 	private AnswerInput A_Input;
-
-	private int IncorrectAnswersPerQuestion;
-
 
 	//public QuestionGenerator QG;
 	// Use this for initialization
@@ -58,8 +55,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 	*/
 	public void GenerateQuestion () {
 		//reset incorrect answer count
-		IncorrectAnswersPerQuestion = 0;
-
 		isDivide = Random.Range (0, 2);
 
 		//check for division
@@ -125,10 +120,11 @@ public class MultiplyOrDivide : MonoBehaviour {
 			}
 		}
 
-		bool UniqueValues = true;
+		//bool UniqueValues = true;
 		//populate AnswerChoices array
 
-		this.AnswerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
+		AnswerChoices = new string[] { Choice1.ToString(), Choice2.ToString(), 
+										Choice3.ToString(), CorrectAnswer.ToString() };
 
 		int size = AnswerChoices.Length;
 
@@ -146,7 +142,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
-			int temp = AnswerChoices[i];
+			string temp = AnswerChoices[i];
 			int r = Random.Range(i, AnswerChoices.Length);
 			AnswerChoices[i] = AnswerChoices[r];
 			AnswerChoices[r] = temp;
@@ -157,11 +153,11 @@ public class MultiplyOrDivide : MonoBehaviour {
 	}
 
 	public string GetQuestionString() {
-		return this.QuestionString;
+		return QuestionString;
 	}
 
-	public int getCorrectAnswer() {
-		return this.CorrectAnswer;
+	public string getCorrectAnswer() {
+		return CorrectAnswer.ToString();
 	}
 
 
