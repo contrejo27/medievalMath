@@ -21,6 +21,8 @@ public class LaunchProjectile : MonoBehaviour {
 	private int[] ModiferEffectCounter;
 	public GameObject[] Projectiles;
 	public GameObject FirePoint;
+	private GameObject tempArrow;
+	private bool firstShot = true;
 	
 	//Audio
 	private AudioSource A_Source;
@@ -28,7 +30,6 @@ public class LaunchProjectile : MonoBehaviour {
 	public AudioClip LaunchSound;
 	public AudioClip ReloadSound;
 
-	
 	// Use this for initialization
 	void Start () {
 		PowerUpDisplay = FindObjectOfType<ManaBar> ();
@@ -38,8 +39,14 @@ public class LaunchProjectile : MonoBehaviour {
 
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
+		//we Instantiate(create) a bullet at the postion and rotation of fire point
+		
+		//arrow we create and then delete after first one is shot.
+		tempArrow = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
+		tempArrow.transform.parent = FirePoint.transform;
+		tempArrow.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
+		tempArrow.GetComponent<Rigidbody> ().useGravity = false;
 
-		CreateShot ();
 	}
 	
 	// Update is called once per frame
@@ -123,6 +130,10 @@ public class LaunchProjectile : MonoBehaviour {
 
 	void CreateShot()
 	{
+		if(firstShot){
+			Destroy(tempArrow);
+			firstShot = false;
+		}
 		//we Instantiate(create) a bullet at the postion and rotation of fire point
 		ArrowToLaunch = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
 
@@ -142,9 +153,12 @@ public class LaunchProjectile : MonoBehaviour {
 				burst = true;
 				break;
 			case ArrowModifier.Health:
+				health.Health += 50;
+				break;
+			case ArrowModifier.Invincible:
 				health.InvinciblePowerUp();
 				break;
-			case ArrowModifier.Shotgun:
+			case ArrowModifier.Spread:
 				//RemoveModifier (ArrowModifier.Shotgun);
 				ArrowToLaunch.AddComponent<ShotgunArrow> ().activate(true);
 				break;
@@ -162,7 +176,8 @@ public class LaunchProjectile : MonoBehaviour {
 		setModifiers();
 		if(burst) LaunchBurst();
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
-		ArrowToLaunch.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -7000);
+		ArrowToLaunch.GetComponent<Rigidbody> ().useGravity = true;
+		ArrowToLaunch.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -5000);
 		ArrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
 		Destroy(ArrowToLaunch, 1.2f);
 		StartCoroutine (ReloadTime ());
@@ -203,8 +218,10 @@ public class LaunchProjectile : MonoBehaviour {
 		burstArrow.transform.parent = null;
 		burstArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
-		burstArrow.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -7000);
+		burstArrow.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -5000);
 		burstArrow.GetComponent<BoxCollider> ().enabled = true; 
+		Destroy(burstArrow, 1.2f);
+
 		playShootingSound(0);
 		yield return new WaitForSeconds (.12f);
 		GameObject burstArrow2 = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
@@ -213,8 +230,9 @@ public class LaunchProjectile : MonoBehaviour {
 		burstArrow2.transform.parent = null;
 		burstArrow2.GetComponent<ProjectileBehavior> ().isGrounded = false;
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
-		burstArrow2.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -7000);
+		burstArrow2.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -5000);
 		burstArrow2.GetComponent<BoxCollider> ().enabled = true; 
+		Destroy(burstArrow2, 1.2f);
 		playShootingSound(4);
 	}
 

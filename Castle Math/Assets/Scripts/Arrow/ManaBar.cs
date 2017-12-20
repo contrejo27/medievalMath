@@ -40,16 +40,19 @@ public class ManaBar : MonoBehaviour {
 			int RanMod = Random.Range (0, 4);
 			ArrowModifier newMod;
 			if (RanMod == 0) {
-				newMod = ArrowModifier.Shotgun;
+				newMod = ArrowModifier.Burst;
 				perk.text = "Burst";
 			} else if (RanMod == 1) {
-				newMod = ArrowModifier.Shotgun;
+				newMod = ArrowModifier.Spread;
 				perk.text = "Spread";
 			} else if (RanMod == 2) {
-				newMod = ArrowModifier.Shotgun;
+				newMod = ArrowModifier.Bomb;
 				perk.text = "Bomb";
+			} else if (RanMod == 3) {
+				newMod = ArrowModifier.Health;
+				perk.text = "Health";
 			} else {
-				newMod = ArrowModifier.Shotgun;
+				newMod = ArrowModifier.Invincible;
 				perk.text = "Invincible";
 			} 
 			mathCanvas.alpha = 0.0f;
