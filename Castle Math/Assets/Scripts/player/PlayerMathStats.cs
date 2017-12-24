@@ -51,7 +51,7 @@ public class PlayerMathStats : MonoBehaviour {
 	}
 	
 	void DisplayStats(){
-		wave.text = "Wave: " + wManager.CurrentWave +1;
+		wave.text = "Wave: " + (wManager.CurrentWave +1).ToString();
 		correctText.text = "Correct: " + correctAnswers.ToString ();
 		
 		foreach(string score in globalHighScores){
@@ -67,6 +67,8 @@ public class PlayerMathStats : MonoBehaviour {
 		foreach(string score in globalHighScores){
 			int waveNum = wManager.CurrentWave +1;
 			string[] line = score.Split(',');
+			print(waveNum.ToString());
+			print(correctAnswers.ToString());
 			if(int.Parse(line[2]) < personalHighScore){
 				globalHighScores.Insert(i,"HBK," + waveNum.ToString() + "," + correctAnswers.ToString ());
 				globalHighScores.RemoveAt(3);

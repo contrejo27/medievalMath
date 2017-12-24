@@ -29,9 +29,11 @@ public class GameStateManager : MonoBehaviour {
 	public AudioSource music;
 	public AudioClip gameplaySong;
 	public PlayerMathStats playerMathStats;
+	
 	//Environment
 	private LaunchProjectile Player;
 	public Light directionalLight;
+	private bool loseState = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -67,6 +69,9 @@ public class GameStateManager : MonoBehaviour {
 		music.Stop ();
 		music.clip = LostTheCastle;
 		music.Play ();*/
+		if(!loseState){
+			loseState = true;
+		}
 		SaveGame();
 		Player.isAlive = false;
 		
@@ -86,6 +91,7 @@ public class GameStateManager : MonoBehaviour {
 
 	public void Retry()
 	{
+		loseState = false;
 		RenderSettings.skybox.SetFloat("_Exposure", 1.0f);
 		SceneManager.LoadScene (0);
 

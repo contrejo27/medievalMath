@@ -27,7 +27,7 @@ public class doorHealth : MonoBehaviour {
 			GameManager = GameObject.FindObjectOfType<GameStateManager> ();
 	}
 
-
+void Update(){doorHealthText.text=Health.ToString();}
 	//Update health
 	public void TakeDamageGate(int damage) {
 		if(!invincible){
@@ -55,10 +55,33 @@ public class doorHealth : MonoBehaviour {
 			}
 		}
 	}
+	public void UpdateHealth(int extraHealth){
+			Health += extraHealth;
+			if(Health>100) Health = 100;
+
+			//checks fences to see if we should add them back on
+			if(Health > 85 && !firstFence){
+				fence1.GetComponent<Renderer> ().enabled = true;
+				firstFence = true;
+			}
+			if(Health > 40 && !secondFence){
+				fence2.GetComponent<Renderer> ().enabled = true;
+				secondFence = true;
+			}
+
+	}
 	
 	//set invincibility and change the fence color
 	public void InvinciblePowerUp(){
 		invincible = true;
+		
+		fence1.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
+		fence2.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
+		fence3.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
+		post1.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
+		post2.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
+		post3.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
+				
 		Color originalColor = fence1.GetComponent<Renderer>().material.color;
 		fence1.GetComponent<Renderer>().sharedMaterial.color = new Color(.4f,.3f,.8f);
 		StartCoroutine(invincibleTimed(originalColor));
@@ -67,7 +90,14 @@ public class doorHealth : MonoBehaviour {
 	IEnumerator invincibleTimed(Color ogColor)
 	{
 		yield return new WaitForSeconds (15f);
-		fence1.GetComponent<Renderer>().sharedMaterial.color = ogColor;
+		
+		fence1.GetComponent<Renderer> ().material.color = ogColor;
+		fence2.GetComponent<Renderer> ().material.color = ogColor;
+		fence3.GetComponent<Renderer> ().material.color = ogColor;
+		post1.GetComponent<Renderer> ().material.color = ogColor;
+		post2.GetComponent<Renderer> ().material.color = ogColor;
+		post3.GetComponent<Renderer> ().material.color = ogColor;
+		
 		invincible = false;
 	}
 }

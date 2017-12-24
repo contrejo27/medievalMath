@@ -152,11 +152,7 @@ public class LaunchProjectile : MonoBehaviour {
 				//RemoveModifier (ArrowModifier.Burst);
 				burst = true;
 				break;
-			case ArrowModifier.Health:
-				health.Health += 50;
-				break;
 			case ArrowModifier.Invincible:
-				health.InvinciblePowerUp();
 				break;
 			case ArrowModifier.Spread:
 				//RemoveModifier (ArrowModifier.Shotgun);

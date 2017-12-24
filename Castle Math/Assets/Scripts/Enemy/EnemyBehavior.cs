@@ -7,7 +7,8 @@ public class EnemyBehavior : MonoBehaviour {
 	public float MoveSpeed;
 	public int HitPoints;
 
-	public AudioClip[] DeathSounds;
+	public AudioClip[] deathSounds;
+	public AudioClip[] attackSounds;
 
 	public GameObject Target;
 
@@ -47,6 +48,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 	void Update()
 	{
+		//if he's alive have him walk to target
 		if (HitPoints > 0) {
 			//rotate the character correctly in the direction of the heading
 			Quaternion newRot = Quaternion.LookRotation (Target.transform.position - this.transform.position);
@@ -54,12 +56,12 @@ public class EnemyBehavior : MonoBehaviour {
 
 			if (isMoving == false) StartCoroutine (WalkToTarget());
 		}
-		
+		/*
 		if (dH.GetComponent<Renderer> ().enabled == false) {
 			Anim.SetBool ("isMoving", true);
 			Anim.Play ("move");
 			this.GetComponent<Rigidbody> ().velocity = transform.forward * MoveSpeed;
-		}
+		}*/
 	}
 		
 	public void SetTarget(int initialTarget){
@@ -143,7 +145,7 @@ public class EnemyBehavior : MonoBehaviour {
 	//do this when the player gets killed
 	public void Killed()
 	{
-		A_Source.clip = DeathSounds[Random.Range(0, DeathSounds.Length)];
+		A_Source.clip = deathSounds[Random.Range(0, deathSounds.Length)];
 		A_Source.Play ();
 
 		Collider enemyHitbox = this.GetComponent<Collider>();
@@ -169,6 +171,8 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 
 	public void DamageGate(int damage) {
+		A_Source.clip = attackSounds[Random.Range(0, attackSounds.Length)];
+		A_Source.Play ();
 		dH.TakeDamageGate (damage);
 	}
 

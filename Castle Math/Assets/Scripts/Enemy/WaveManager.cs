@@ -11,10 +11,9 @@ public class WaveManager : MonoBehaviour {
 	public GameObject KnightPrefab;
 	public GameObject trollPrefab;
 	public GameObject horseRiderPrefab;
-	public int FirstWaveSize = 6;
+	public int FirstWaveSize = 5;
 	private int WaveSize;
 	public int CurrentWave = 0;
-	
 	
 	//Environment 
 	public Transform[] SpawnPoints;
@@ -24,6 +23,7 @@ public class WaveManager : MonoBehaviour {
 	private AudioSource A_Source;
 	public AudioSource enemySounds;
 	public AudioClip horseRiderSpawnSound;
+	public AudioClip trollSpawnSound;
 
 	//UI
 	public Text WaveTitle;
@@ -47,7 +47,7 @@ public class WaveManager : MonoBehaviour {
 	public void ActivateWave(int WaveIndex)
 	{
 		//the wave size increases by two men each wave
-		WaveSize = FirstWaveSize + (WaveIndex * 3);
+		WaveSize = FirstWaveSize + (WaveIndex * 2);
 		setWaveText();
 		//Create all of the enemies
 		StartCoroutine (ActivateEnemies(WaveSize));
@@ -62,7 +62,7 @@ public class WaveManager : MonoBehaviour {
 	{		
 		//delay so the player can breather/ do math
 		yield return new WaitForSeconds (4f);
-		if(CurrentWave != 0){
+		if(CurrentWave != 0){ // add && currentWave < 2
 		A_Source.clip = AnotherWave;
 		A_Source.Play ();
 		}
@@ -73,33 +73,33 @@ public class WaveManager : MonoBehaviour {
 			yield return new WaitForSeconds (Random.Range (0.2f, 0.8f));
 		}
 
-        if (CurrentWave % 3 == 0 && CurrentWave != 0){
-            for (int i = 0; i < CurrentWave / 3; i++) { 
-			    spawnEnemy(trollPrefab, horseRiderSpawnSound);
+        if (CurrentWave % 6 == 0 && CurrentWave != 0){
+            for (int i = 0; i < CurrentWave / 6; i++) { 
+			    spawnEnemy(trollPrefab, trollSpawnSound);
 				GameManager.addEnemyToWaveSize();
 
-                yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));
+                yield return new WaitForSeconds(Random.Range(0.2f, 1.1f));
             }
         }
 
-        if (CurrentWave % 2 == 0 && CurrentWave != 0)
+        if (CurrentWave % 4 == 0 && CurrentWave != 0)
         {
-            for (int i = 0; i < CurrentWave / 2; i++)
+            for (int i = 0; i < CurrentWave / 4; i++)
             {
                 spawnEnemy(horseRiderPrefab, horseRiderSpawnSound);
 				GameManager.addEnemyToWaveSize();
 				
-				yield return new WaitForSeconds(Random.Range(0.2f, 1.8f));				
+				yield return new WaitForSeconds(Random.Range(0.2f, 1.1f));				
             }
         }
 		
-		if(CurrentWave > 3){
+		if(CurrentWave > 8){
 		    spawnEnemy(horseRiderPrefab, horseRiderSpawnSound);
 			GameManager.addEnemyToWaveSize();
 		}
 
-		if(CurrentWave > 5){
-		    spawnEnemy(trollPrefab, horseRiderSpawnSound);
+		if(CurrentWave > 10){
+		    spawnEnemy(trollPrefab, trollSpawnSound);
 			GameManager.addEnemyToWaveSize();
 		}
 		

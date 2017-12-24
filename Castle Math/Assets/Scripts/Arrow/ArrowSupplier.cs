@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArrowSupplier : MonoBehaviour {
 
-	public int NumberToSpawn = 12;
+	public int NumberToSpawn;
 
 	public AudioClip SpawnSound;
 
