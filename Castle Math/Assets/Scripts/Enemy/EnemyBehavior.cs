@@ -96,7 +96,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Anim.SetBool ("isMoving", true);
 
 		//move tbe player at a constant velocity to the target until they are a certain disstance away
-		while (distance > 10 && HitPoints>0) {
+		while (distance > 4 && HitPoints>0) {
 
 			//Calculate the current heading, normalized
 			heading = (Target.transform.position  - this.transform.position).normalized;

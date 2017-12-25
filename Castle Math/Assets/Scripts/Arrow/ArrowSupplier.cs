@@ -43,9 +43,6 @@ public class ArrowSupplier : MonoBehaviour {
 			yield return new WaitForSeconds (.1f);
 			Destroy(newArrow,.8f);
 		}
-		
-
-
 	}
 
 	public void UseArrow()

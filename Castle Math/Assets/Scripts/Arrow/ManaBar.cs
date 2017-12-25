@@ -10,9 +10,13 @@ public class ManaBar : MonoBehaviour {
 	public CanvasGroup mathCanvas;
 	public Sprite[] PowerUpIcons;
 
+	public doorHealth healthLeft;
+	public doorHealth healthMid;
+	public doorHealth healthRight;
+	
 	private int CurrentNumber;
 	private LaunchProjectile ProjectileLauncher;
-
+	
 	public GameObject[] powerUpDisplays;
 	private int powerUpCount = 0;
 
@@ -37,31 +41,39 @@ public class ManaBar : MonoBehaviour {
 		if (CurrentNumber >= NumberOfQuestions) {
 			CurrentNumber = 0;
 
-			int RanMod = Random.Range (0, 4);
+			int RanMod = Random.Range (0, 5);
 			ArrowModifier newMod;
 			if (RanMod == 0) {
 				newMod = ArrowModifier.Burst;
 				perk.text = "Burst";
+			ProjectileLauncher.AddModifier (newMod, powerUpCount);
+
 			} else if (RanMod == 1) {
 				newMod = ArrowModifier.Spread;
 				perk.text = "Spread";
+				ProjectileLauncher.AddModifier (newMod, powerUpCount);
 			} else if (RanMod == 2) {
 				newMod = ArrowModifier.Bomb;
 				perk.text = "Bomb";
+				ProjectileLauncher.AddModifier (newMod, powerUpCount);
 			} else if (RanMod == 3) {
-				newMod = ArrowModifier.Health;
 				perk.text = "Health";
+				healthMid.UpdateHealth(50);
+				healthLeft.UpdateHealth(50);
+				healthRight.UpdateHealth(50);
 			} else {
-				newMod = ArrowModifier.Invincible;
+				healthMid.InvinciblePowerUp();
+				healthLeft.InvinciblePowerUp();
+				healthRight.InvinciblePowerUp();
 				perk.text = "Invincible";
 			} 
+			
 			mathCanvas.alpha = 0.0f;
 
 			powerUpDisplays [powerUpCount].SetActive (true);
 			powerUpDisplays [powerUpCount].GetComponent<Image>().sprite = PowerUpIcons [RanMod];
 			
 			//give player perk
-			ProjectileLauncher.AddModifier (newMod, powerUpCount);
 			StartCoroutine(erasePerkText());
 			A_Source.clip = PowerUpSound;
 			A_Source.Play ();
