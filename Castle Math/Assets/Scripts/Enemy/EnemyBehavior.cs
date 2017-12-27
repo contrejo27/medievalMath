@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour {
-
-	public float MoveSpeed;
-	public int HitPoints;
-
-	public AudioClip[] deathSounds;
-	public AudioClip[] attackSounds;
-
-	public GameObject Target;
-
 	private GameStateManager GameManager;
 
-	public bool AtTarget {get; set;}
-
-	private bool isMoving;
-
+	//enemy
+	public int HitPoints;
+	bool dead = false;
+	public float MoveSpeed;
+	bool attacking = false;
+	
+	//audio
+	public AudioClip[] deathSounds;
+	public AudioClip[] attackSounds;
+	public AudioClip footstepSound;
 	private AudioSource A_Source;
 
+	//animation
 	private Animator Anim; 
-
+	public float attackDistance;
+	private bool isMoving;
+	public bool AtTarget {get; set;}
+	
+	//environment
 	private doorHealth dH;
-	public int damageVal;
+	public GameObject Target;
 
-	public float period = 2f;
-	bool dead = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -42,7 +42,9 @@ public class EnemyBehavior : MonoBehaviour {
 		//GameObject[] Targets = GameObject.FindGameObjectsWithTag ("Target");
 		//int RanNum = Random.Range (0, Targets.Length);
 		//Target = Targets [RanNum];
-
+		A_Source.loop = true;
+		A_Source.clip = footstepSound;
+		A_Source.Play ();
 		StartCoroutine (WalkToTarget());
 	}
 
@@ -96,8 +98,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Anim.SetBool ("isMoving", true);
 
 		//move tbe player at a constant velocity to the target until they are a certain disstance away
-		while (distance > 4 && HitPoints>0) {
-
+		while (distance > attackDistance && HitPoints>0) {
 			//Calculate the current heading, normalized
 			heading = (Target.transform.position  - this.transform.position).normalized;
 
@@ -106,16 +107,17 @@ public class EnemyBehavior : MonoBehaviour {
 
 			//set velocity
 			this.GetComponent<Rigidbody> ().velocity = (heading * MoveSpeed);
-
+			transform.position = new Vector3(transform.position.x, Terrain.activeTerrain.SampleHeight(transform.position)-9.3f,transform.position.z);
 			yield return new WaitForFixedUpdate ();
 
 		}
 
 		//make sure this only happens when the soldier is alive
-		if (HitPoints > 0) {
-
-			//Add an enemy to the gate
-			AtTarget = true;
+		if (HitPoints > 0 && !attacking) {
+			attacking = true;
+			print("*****");
+			A_Source.loop = false;
+			A_Source.Stop();
 
 			isMoving = false;
 			this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
@@ -145,6 +147,7 @@ public class EnemyBehavior : MonoBehaviour {
 	//do this when the player gets killed
 	public void Killed()
 	{
+		A_Source.loop = false;
 		A_Source.clip = deathSounds[Random.Range(0, deathSounds.Length)];
 		A_Source.Play ();
 
@@ -171,6 +174,7 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 
 	public void DamageGate(int damage) {
+		print("hit happened");
 		A_Source.clip = attackSounds[Random.Range(0, attackSounds.Length)];
 		A_Source.Play ();
 		dH.TakeDamageGate (damage);

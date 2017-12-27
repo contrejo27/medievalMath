@@ -119,9 +119,9 @@ public class Compare : MonoBehaviour {
         string correctSymbol = this.getCorrectSymbol();
 		//Debug.Log ("Correct: " + correctSymbol);
 
-		string Choice1;
-		string Choice2;
-		string Choice3;
+		//string Choice1;
+		//string Choice2;
+		//string Choice3;
 
         string [] compareSymbols = {"<", ">", "=", "<=", ">=", "-", "+", "%"};
 		AnswerChoices = new string[] {"","","",""};

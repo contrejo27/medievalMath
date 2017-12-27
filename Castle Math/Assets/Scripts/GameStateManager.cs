@@ -34,6 +34,7 @@ public class GameStateManager : MonoBehaviour {
 	private LaunchProjectile Player;
 	public Light directionalLight;
 	private bool loseState = false;
+	public doorHealth fence1,fence2,fence3;
 	
 	// Use this for initialization
 	void Start () {
@@ -42,6 +43,18 @@ public class GameStateManager : MonoBehaviour {
 		W_Manager = GameObject.FindObjectOfType<WaveManager> ();
 		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
 		mainMenuEffects.fadeIn (.4f);
+		
+		//first time game is opened sets up initial playerPref values
+		if(!PlayerPrefs.HasKey("isFirstTime"))
+		{
+			// Set and save all your PlayerPrefs here.
+			// Now set the value of isFirstTime to be false in the PlayerPrefs.
+			PlayerPrefs.SetInt("isFirstTime", 1);
+			PlayerPrefs.SetString("globalHS1","JGC,3,8");
+			PlayerPrefs.SetString("globalHS2","HBK,2,5");
+			PlayerPrefs.SetString("globalHS3","JGC,2,3");
+			PlayerPrefs.Save();
+		}
 	}
 
 	public void StartGame(){
@@ -73,6 +86,7 @@ public class GameStateManager : MonoBehaviour {
 			loseState = true;
 		}
 		SaveGame();
+
 		Player.isAlive = false;
 		
 		//set UI

@@ -74,7 +74,8 @@ void Update(){doorHealthText.text=Health.ToString();}
 	//set invincibility and change the fence color
 	public void InvinciblePowerUp(){
 		invincible = true;
-		
+		Color originalColor = fence1.GetComponent<Renderer>().material.color;
+
 		fence1.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
 		fence2.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
 		fence3.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
@@ -82,7 +83,6 @@ void Update(){doorHealthText.text=Health.ToString();}
 		post2.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
 		post3.GetComponent<Renderer> ().material.color = new Color(.4f,.3f,.8f);
 				
-		Color originalColor = fence1.GetComponent<Renderer>().material.color;
 		fence1.GetComponent<Renderer>().sharedMaterial.color = new Color(.4f,.3f,.8f);
 		StartCoroutine(invincibleTimed(originalColor));
 	}
@@ -90,7 +90,7 @@ void Update(){doorHealthText.text=Health.ToString();}
 	IEnumerator invincibleTimed(Color ogColor)
 	{
 		yield return new WaitForSeconds (15f);
-		
+		print("this happened");
 		fence1.GetComponent<Renderer> ().material.color = ogColor;
 		fence2.GetComponent<Renderer> ().material.color = ogColor;
 		fence3.GetComponent<Renderer> ().material.color = ogColor;

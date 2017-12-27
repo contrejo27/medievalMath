@@ -21,13 +21,7 @@ public class PlayerMathStats : MonoBehaviour {
 	public Text hsAnswers;
 	
 	public void Start(){
-		personalHighScore = PlayerPrefs.GetInt("personalHighScore");
-
-		globalHighScores.Add("JGC,3,8");
-		globalHighScores.Add("HBK,2,5");
-		globalHighScores.Add("JGC,2,3");
-
-		
+		getHighScores();
 	}
 	
 	public void CorrectlyAnswered()
@@ -39,17 +33,43 @@ public class PlayerMathStats : MonoBehaviour {
 		return this.incorrectAnswers;
 	}
 	
+	void getHighScores(){
+		personalHighScore = PlayerPrefs.GetInt("personalHighScore");
+		globalHighScores.Add(PlayerPrefs.GetString("globalHS1"));
+		globalHighScores.Add(PlayerPrefs.GetString("globalHS2"));
+		globalHighScores.Add(PlayerPrefs.GetString("globalHS3"));
+	}
+	
 	//gets called when lose screen shows up. displays and saves match stats
 	public void SaveState() {
 		//set personal high score
 		if(correctAnswers > personalHighScore) {
 			personalHighScore = correctAnswers;
 		}
-		CheckHighScores();
+		UpdateHighScores();
 		DisplayStats();
+		SaveHighScores();
 		PlayerPrefs.SetInt("personalHighScore", personalHighScore);
+		PlayerPrefs.Save();
 	}
 	
+	//goes through each high score and checks if the current score beats it
+	void UpdateHighScores(){
+		int i = 0;
+		int waveNum = wManager.CurrentWave +1;
+		foreach(string score in globalHighScores){
+			string[] line = score.Split(',');
+
+			if(int.Parse(line[2]) < personalHighScore){
+				globalHighScores.Insert(i,"HBK," + waveNum.ToString() + "," + correctAnswers.ToString ());
+				globalHighScores.RemoveAt(3);
+				break;
+			}				
+			i++;
+		}
+	}
+	
+	//displays the scores on stat screen in game
 	void DisplayStats(){
 		wave.text = "Wave: " + (wManager.CurrentWave +1).ToString();
 		correctText.text = "Correct: " + correctAnswers.ToString ();
@@ -62,19 +82,13 @@ public class PlayerMathStats : MonoBehaviour {
 		}
 	}
 	
-	void CheckHighScores(){
-		int i = 0;
+	//saves highscore to playerprefs
+	void SaveHighScores(){
+		int i = 1;
 		foreach(string score in globalHighScores){
-			int waveNum = wManager.CurrentWave +1;
-			string[] line = score.Split(',');
-			print(waveNum.ToString());
-			print(correctAnswers.ToString());
-			if(int.Parse(line[2]) < personalHighScore){
-				globalHighScores.Insert(i,"HBK," + waveNum.ToString() + "," + correctAnswers.ToString ());
-				globalHighScores.RemoveAt(3);
-				break;
-			}				
+			PlayerPrefs.SetString("globalHS"+i,score);
 			i++;
 		}
 	}
+	
 }
