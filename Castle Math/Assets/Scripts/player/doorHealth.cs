@@ -22,7 +22,7 @@ public class doorHealth : MonoBehaviour {
 	bool secondFence = true;
 	bool thirdFence = true;
 	bool invincible = false;
-	
+	bool gameLost = false;
 	// Use this for initialization
 	void Start () {
 		jiggleFence = fence1;
@@ -57,11 +57,14 @@ void Update(){doorHealthText.text=Health.ToString();}
 
 				thirdFence = false;
 				gameObject.GetComponent<Renderer> ().enabled = false;
-				GameManager.LoseState ();
-
+				if(!gameLost) {
+					GameManager.LoseState ();
+					gameLost = true;
+				}
 			}
 		}
 	}
+	
 	public void UpdateHealth(int extraHealth){
 			Health += extraHealth;
 			if(Health>100) Health = 100;
@@ -76,6 +79,18 @@ void Update(){doorHealthText.text=Health.ToString();}
 				secondFence = true;
 			}
 
+	}
+	public void loseFences(){
+		fence3.GetComponent<Renderer> ().enabled = false;
+		post1.GetComponent<Renderer> ().enabled = false;
+		post2.GetComponent<Renderer> ().enabled = false;
+		post3.GetComponent<Renderer> ().enabled = false;
+		fence2.GetComponent<Renderer> ().enabled = false;
+		fence1.GetComponent<Renderer> ().enabled = false;
+		fence2.GetComponent<BoxCollider> ().enabled = false;
+
+		gameLost = true;
+		Health = 0;
 	}
 	
 	//set invincibility and change the fence color

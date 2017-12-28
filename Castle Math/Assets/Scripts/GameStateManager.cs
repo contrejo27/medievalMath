@@ -93,12 +93,17 @@ public class GameStateManager : MonoBehaviour {
 		LoseScreen.SetActive (true);
 		MathScreen.SetActive (false);
 		StatScreen.SetActive (true);
-
+		doorHealth[] dh = GameObject.FindObjectsOfType<doorHealth> ();
+		for (int i = 0; i < dh.Length; i++) {
+			dh[i].loseFences();
+		}
+		
 		//change enemy target so they start running
 		EnemyBehavior[] Enemies = GameObject.FindObjectsOfType<EnemyBehavior> ();
 		for (int i = 0; i < Enemies.Length; i++) {
-			Enemies [i].Target = InsidePoint;
-			Enemies [i].gameObject.transform.parent = null;
+			Enemies[i].UpdateTarget(InsidePoint);
+			//Enemies [i].Target = InsidePoint;
+			//Enemies [i].gameObject.transform.parent = null;
 		}
 		fadeWorldOut();
 	}

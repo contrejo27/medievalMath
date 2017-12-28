@@ -70,9 +70,7 @@ public class EnemyBehavior : MonoBehaviour {
 		}
 		/*
 		if (dH.GetComponent<Renderer> ().enabled == false) {
-			Anim.SetBool ("isMoving", true);
-			Anim.Play ("move");
-			this.GetComponent<Rigidbody> ().velocity = transform.forward * MoveSpeed;
+
 		}*/
 	}
 		
@@ -80,6 +78,15 @@ public class EnemyBehavior : MonoBehaviour {
 		string targetName = "gateCollision" + initialTarget;
 		Target =  GameObject.Find (targetName);
 		dH = GameObject.Find (targetName).GetComponent<doorHealth>();
+	}
+	
+	public void UpdateTarget(GameObject newTarget){
+		Target = newTarget;
+		Anim.SetBool ("isAttacking", false);
+		Anim.Play ("move");
+		isMoving = true;
+		attacking = false;
+		StartCoroutine (WalkToTarget());
 	}
 	
 	public void TakeDamage(int DMG)
@@ -119,13 +126,11 @@ public class EnemyBehavior : MonoBehaviour {
 			this.GetComponent<Rigidbody> ().velocity = (heading * MoveSpeed);
 			transform.position = new Vector3(transform.position.x, Terrain.activeTerrain.SampleHeight(transform.position)-9.3f,transform.position.z);
 			yield return new WaitForFixedUpdate ();
-
 		}
 
 		//make sure this only happens when the soldier is alive
 		if (HitPoints > 0 && !attacking) {
 			attacking = true;
-			print("*****");
 			currentAudioSource = Random.Range(0, A_Source.Length);
 
 			A_Source[currentAudioSource].loop = false;
@@ -142,19 +147,10 @@ public class EnemyBehavior : MonoBehaviour {
 			print(dH.Health);
 			*/
 			Anim.SetBool ("isAttacking", true);
-			//ChooseWalkPoint ();
 		}
 
 
 	}
-
-	//attach the soldier to the crank 
-	void ChooseWalkPoint()
-	{
-        this.transform.parent = Target.transform.GetChild (0).transform;
-        this.transform.position = Target.transform.GetChild (0).transform.position;
-	}
-
 
 	//do this when the player gets killed
 	public void Killed()
