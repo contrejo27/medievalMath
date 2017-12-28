@@ -46,15 +46,15 @@ public class ManaBar : MonoBehaviour {
 				perk.text = "Burst";
 			ProjectileLauncher.AddModifier (newMod, powerUpCount);
 
-			} else if (RanMod == 6) {
+			} else if (RanMod == 1) {
 				newMod = ArrowModifier.Spread;
 				perk.text = "Spread";
 				ProjectileLauncher.AddModifier (newMod, powerUpCount);
-			} else if (RanMod == 6) {
+			} else if (RanMod == 2) {
 				newMod = ArrowModifier.Bomb;
 				perk.text = "Bomb";
 				ProjectileLauncher.AddModifier (newMod, powerUpCount);
-			} else if (RanMod == 6) {
+			} else if (RanMod == 3) {
 				perk.text = "Health";
 				healthMid.UpdateHealth(50);
 				healthLeft.UpdateHealth(50);

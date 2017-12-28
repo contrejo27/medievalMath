@@ -15,7 +15,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public AudioClip[] deathSounds;
 	public AudioClip[] attackSounds;
 	public AudioClip footstepSound;
-	private AudioSource A_Source;
+	private AudioSource[] A_Source;
 
 	//animation
 	private Animator Anim; 
@@ -27,6 +27,7 @@ public class EnemyBehavior : MonoBehaviour {
 	private doorHealth dH;
 	public GameObject Target;
 
+	private int currentAudioSource;
 	
 	// Use this for initialization
 	void Start () {
@@ -36,18 +37,27 @@ public class EnemyBehavior : MonoBehaviour {
 		isMoving = false;
 		GameManager = GameObject.FindObjectOfType<GameStateManager> ();
 
-		A_Source = GameObject.Find ("EnemyAudio").GetComponent<AudioSource>();
+		//get 3 different audio sources so they don't overlap all the time
+		A_Source = new AudioSource[] {GameObject.Find ("EnemyAudio").GetComponent<AudioSource>(),
+					GameObject.Find ("EnemyAudio2").GetComponent<AudioSource>(),
+					GameObject.Find ("EnemyAudio3").GetComponent<AudioSource>()};
 
 		//Out of the available targets choose a one randomly as our target
 		//GameObject[] Targets = GameObject.FindGameObjectsWithTag ("Target");
 		//int RanNum = Random.Range (0, Targets.Length);
 		//Target = Targets [RanNum];
-		A_Source.loop = true;
-		A_Source.clip = footstepSound;
-		A_Source.Play ();
+		StartCoroutine(waitToPlay(2f));
+
 		StartCoroutine (WalkToTarget());
 	}
-
+	
+	IEnumerator waitToPlay(float time){
+		yield return new WaitForSeconds (time);
+		currentAudioSource = Random.Range(0, A_Source.Length);
+		A_Source[currentAudioSource].loop = true;
+		A_Source[currentAudioSource].clip = footstepSound;
+		A_Source[currentAudioSource].Play ();
+	}
 	void Update()
 	{
 		//if he's alive have him walk to target
@@ -116,8 +126,10 @@ public class EnemyBehavior : MonoBehaviour {
 		if (HitPoints > 0 && !attacking) {
 			attacking = true;
 			print("*****");
-			A_Source.loop = false;
-			A_Source.Stop();
+			currentAudioSource = Random.Range(0, A_Source.Length);
+
+			A_Source[currentAudioSource].loop = false;
+			A_Source[currentAudioSource].Stop();
 
 			isMoving = false;
 			this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
@@ -147,9 +159,10 @@ public class EnemyBehavior : MonoBehaviour {
 	//do this when the player gets killed
 	public void Killed()
 	{
-		A_Source.loop = false;
-		A_Source.clip = deathSounds[Random.Range(0, deathSounds.Length)];
-		A_Source.Play ();
+		currentAudioSource = Random.Range(0, A_Source.Length);
+		A_Source[currentAudioSource].loop = false;
+		A_Source[currentAudioSource].clip = deathSounds[Random.Range(0, deathSounds.Length)];
+		A_Source[currentAudioSource].Play ();
 
 		Collider enemyHitbox = this.GetComponent<Collider>();
 		Destroy(enemyHitbox);
@@ -174,9 +187,9 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 
 	public void DamageGate(int damage) {
-		print("hit happened");
-		A_Source.clip = attackSounds[Random.Range(0, attackSounds.Length)];
-		A_Source.Play ();
+		currentAudioSource = Random.Range(0, A_Source.Length);
+		A_Source[currentAudioSource].clip = attackSounds[Random.Range(0, attackSounds.Length)];
+		A_Source[currentAudioSource].Play ();
 		dH.TakeDamageGate (damage);
 	}
 

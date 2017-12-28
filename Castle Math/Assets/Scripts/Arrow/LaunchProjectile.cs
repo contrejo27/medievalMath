@@ -5,27 +5,30 @@ using UnityEngine;
 public class LaunchProjectile : MonoBehaviour {
 
 	//player
-	public doorHealth health;
+	doorHealth health;
 
 	//UI
-	private bool lookingAtMathInterface;
-	private ManaBar PowerUpDisplay;
+	bool lookingAtMathInterface;
+	ManaBar PowerUpDisplay;
 
 	//arrow
-	private ArrowSupplier A_Supply;
-	private GameObject ArrowToLaunch;
-	private bool burst;
-	public bool isAlive { get; set;}
-	private bool ArrowLoaded;
-	public List<ArrowModifier> CurrentArrowModifiers; 
-	private int[] ModiferEffectCounter;
-	public GameObject[] Projectiles;
+	public GameObject crossbow;
 	public GameObject FirePoint;
-	private GameObject tempArrow;
-	private bool firstShot = true;
-	
+	public GameObject[] Projectiles;
+	public bool isAlive { get; set;}
+	public List<ArrowModifier> CurrentArrowModifiers; 
+
+	ArrowSupplier A_Supply;
+	GameObject ArrowToLaunch;
+	bool burst;
+	bool ArrowLoaded;
+	int[] ModiferEffectCounter;
+	GameObject tempArrow;
+	bool firstShot = true;
+	Animator crossbowAnim;
+
 	//Audio
-	private AudioSource A_Source;
+	AudioSource A_Source;
 	public AudioClip[] LaunchSounds;
 	public AudioClip LaunchSound;
 	public AudioClip ReloadSound;
@@ -34,7 +37,8 @@ public class LaunchProjectile : MonoBehaviour {
 	void Start () {
 		PowerUpDisplay = FindObjectOfType<ManaBar> ();
 		ModiferEffectCounter = new int[System.Enum.GetValues (typeof(ArrowModifier)).Length];
-
+		crossbowAnim = crossbow.GetComponent<Animator>();
+		
 		isAlive = true;
 
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
@@ -167,6 +171,7 @@ public class LaunchProjectile : MonoBehaviour {
 
 	public void Launch()
 	{
+		crossbowAnim.Play("crossbowShot");
 		ArrowToLaunch.transform.parent = null;
 		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
 		setModifiers();

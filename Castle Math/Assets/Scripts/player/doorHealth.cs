@@ -16,7 +16,8 @@ public class doorHealth : MonoBehaviour {
 	public GameObject post1;
 	public GameObject post2;
 	public GameObject post3;
-
+	GameObject jiggleFence;
+	
 	bool firstFence = true;
 	bool secondFence = true;
 	bool thirdFence = true;
@@ -24,18 +25,23 @@ public class doorHealth : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-			GameManager = GameObject.FindObjectOfType<GameStateManager> ();
+		jiggleFence = fence1;
+		GameManager = GameObject.FindObjectOfType<GameStateManager> ();
 	}
 
 void Update(){doorHealthText.text=Health.ToString();}
 	//Update health
 	public void TakeDamageGate(int damage) {
 		if(!invincible){
+			Animator Anim = jiggleFence.GetComponent<Animator> ();
+			Anim.Play("fenceHit");
+
 			Health -= damage;
 
 			//hides fences when gate gets hit enough
 			if(Health < 85 && firstFence){
 				fence1.GetComponent<Renderer> ().enabled = false;
+				jiggleFence = fence2;
 				firstFence = false;
 			}
 			if(Health < 40 && secondFence){
@@ -43,6 +49,7 @@ void Update(){doorHealthText.text=Health.ToString();}
 				secondFence = false;
 			}
 			if(Health < 0 && thirdFence){
+				jiggleFence = fence3;
 				fence3.GetComponent<Renderer> ().enabled = false;
 				post1.GetComponent<Renderer> ().enabled = false;
 				post2.GetComponent<Renderer> ().enabled = false;
