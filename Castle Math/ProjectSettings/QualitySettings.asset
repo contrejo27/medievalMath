@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 0
+  m_CurrentQuality: 1
   m_QualitySettings:
   - serializedVersion: 2
     name: Simple
@@ -34,4 +34,35 @@ QualitySettings:
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality: {}
+  - serializedVersion: 2
+    name: decent
+    pixelLightCount: 1
+    shadows: 1
+    shadowResolution: 1
+    shadowProjection: 1
+    shadowCascades: 1
+    shadowDistance: 100
+    shadowNearPlaneOffset: 2
+    shadowCascade2Split: 0.33333334
+    shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
+    shadowmaskMode: 0
+    blendWeights: 2
+    textureQuality: 1
+    anisotropicTextures: 1
+    antiAliasing: 2
+    softParticles: 0
+    softVegetation: 0
+    realtimeReflectionProbes: 0
+    billboardsFaceCameraPosition: 0
+    vSyncCount: 0
+    lodBias: 0.7
+    maximumLODLevel: 0
+    particleRaycastBudget: 64
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 4
+    resolutionScalingFixedDPIFactor: 1
+    excludedTargetPlatforms: []
+  m_PerPlatformDefaultQuality:
+    Android: 1
+    Standalone: 1
+    iPhone: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArrowSupplier : MonoBehaviour {
 
-	public int NumberToSpawn = 12;
+	public int NumberToSpawn;
 
 	public AudioClip SpawnSound;
 
@@ -43,9 +43,6 @@ public class ArrowSupplier : MonoBehaviour {
 			yield return new WaitForSeconds (.1f);
 			Destroy(newArrow,.8f);
 		}
-		
-
-
 	}
 
 	public void UseArrow()

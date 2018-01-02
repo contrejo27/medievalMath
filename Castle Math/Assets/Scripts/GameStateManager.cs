@@ -29,9 +29,12 @@ public class GameStateManager : MonoBehaviour {
 	public AudioSource music;
 	public AudioClip gameplaySong;
 	public PlayerMathStats playerMathStats;
+	
 	//Environment
 	private LaunchProjectile Player;
 	public Light directionalLight;
+	private bool loseState = false;
+	public doorHealth fence1,fence2,fence3;
 	
 	// Use this for initialization
 	void Start () {
@@ -40,6 +43,18 @@ public class GameStateManager : MonoBehaviour {
 		W_Manager = GameObject.FindObjectOfType<WaveManager> ();
 		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
 		mainMenuEffects.fadeIn (.4f);
+		
+		//first time game is opened sets up initial playerPref values
+		if(!PlayerPrefs.HasKey("isFirstTime"))
+		{
+			// Set and save all your PlayerPrefs here.
+			// Now set the value of isFirstTime to be false in the PlayerPrefs.
+			PlayerPrefs.SetInt("isFirstTime", 1);
+			PlayerPrefs.SetString("globalHS1","JGC,3,8");
+			PlayerPrefs.SetString("globalHS2","HBK,2,5");
+			PlayerPrefs.SetString("globalHS3","JGC,2,3");
+			PlayerPrefs.Save();
+		}
 	}
 
 	public void StartGame(){
@@ -67,25 +82,35 @@ public class GameStateManager : MonoBehaviour {
 		music.Stop ();
 		music.clip = LostTheCastle;
 		music.Play ();*/
+		if(!loseState){
+			loseState = true;
+		}
 		SaveGame();
+
 		Player.isAlive = false;
 		
 		//set UI
 		LoseScreen.SetActive (true);
 		MathScreen.SetActive (false);
 		StatScreen.SetActive (true);
-
+		doorHealth[] dh = GameObject.FindObjectsOfType<doorHealth> ();
+		for (int i = 0; i < dh.Length; i++) {
+			dh[i].loseFences();
+		}
+		
 		//change enemy target so they start running
 		EnemyBehavior[] Enemies = GameObject.FindObjectsOfType<EnemyBehavior> ();
 		for (int i = 0; i < Enemies.Length; i++) {
-			Enemies [i].Target = InsidePoint;
-			Enemies [i].gameObject.transform.parent = null;
+			Enemies[i].UpdateTarget(InsidePoint);
+			//Enemies [i].Target = InsidePoint;
+			//Enemies [i].gameObject.transform.parent = null;
 		}
 		fadeWorldOut();
 	}
 
 	public void Retry()
 	{
+		loseState = false;
 		RenderSettings.skybox.SetFloat("_Exposure", 1.0f);
 		SceneManager.LoadScene (0);
 

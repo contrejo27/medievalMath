@@ -3,56 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour {
-
-	public float MoveSpeed;
-	public int HitPoints;
-
-	public AudioClip[] DeathSounds;
-
-	public GameObject Target;
-
 	private GameStateManager GameManager;
 
-	public bool AtTarget {get; set;}
-
-	private bool isMoving;
-
-	private AudioSource A_Source;
-
-	private Animator Anim; 
-
-	private doorHealth dH;
-	public GameObject doorTarget;
-	public int damageVal;
-
-	public float period = 2f;
+	//enemy
+	public int HitPoints;
 	bool dead = false;
+	public float MoveSpeed;
+	bool attacking = false;
+	
+	//audio
+	public AudioClip[] deathSounds;
+	public AudioClip[] attackSounds;
+	public AudioClip footstepSound;
+	private AudioSource[] A_Source;
+
+	//animation
+	private Animator Anim; 
+	public float attackDistance;
+	private bool isMoving;
+	public bool AtTarget {get; set;}
+	
+	//environment
+	private doorHealth dH;
+	public GameObject Target;
+
+	private int currentAudioSource;
+	
 	// Use this for initialization
 	void Start () {
 
 		Anim = GetComponent<Animator> ();
-		dH = GameObject.Find ("gateCollision").GetComponent<doorHealth>();
 
 		isMoving = false;
 		GameManager = GameObject.FindObjectOfType<GameStateManager> ();
 
-		A_Source = GameObject.Find ("EnemyAudio").GetComponent<AudioSource>();
+		//get 3 different audio sources so they don't overlap all the time
+		A_Source = new AudioSource[] {GameObject.Find ("EnemyAudio").GetComponent<AudioSource>(),
+					GameObject.Find ("EnemyAudio2").GetComponent<AudioSource>(),
+					GameObject.Find ("EnemyAudio3").GetComponent<AudioSource>()};
 
 		//Out of the available targets choose a one randomly as our target
-		GameObject[] Targets = GameObject.FindGameObjectsWithTag ("Target");
-
-		int RanNum = Random.Range (0, Targets.Length);
-
-		Target = Targets [RanNum];
-
-		//attaching gate1 as target
-		doorTarget = GameObject.Find ("gateCollision");
+		//GameObject[] Targets = GameObject.FindGameObjectsWithTag ("Target");
+		//int RanNum = Random.Range (0, Targets.Length);
+		//Target = Targets [RanNum];
+		StartCoroutine(waitToPlay(2f));
 
 		StartCoroutine (WalkToTarget());
 	}
-
+	
+	IEnumerator waitToPlay(float time){
+		yield return new WaitForSeconds (time);
+		currentAudioSource = Random.Range(0, A_Source.Length);
+		A_Source[currentAudioSource].loop = true;
+		A_Source[currentAudioSource].clip = footstepSound;
+		A_Source[currentAudioSource].Play ();
+	}
 	void Update()
 	{
+		//if he's alive have him walk to target
 		if (HitPoints > 0) {
 			//rotate the character correctly in the direction of the heading
 			Quaternion newRot = Quaternion.LookRotation (Target.transform.position - this.transform.position);
@@ -60,17 +68,27 @@ public class EnemyBehavior : MonoBehaviour {
 
 			if (isMoving == false) StartCoroutine (WalkToTarget());
 		}
-		
+		/*
 		if (dH.GetComponent<Renderer> ().enabled == false) {
-			Anim.SetBool ("isMoving", true);
-			Anim.Play ("move");
-			this.GetComponent<Rigidbody> ().velocity = transform.forward * MoveSpeed;
 
-		}
-
+		}*/
 	}
 		
-
+	public void SetTarget(int initialTarget){
+		string targetName = "gateCollision" + initialTarget;
+		Target =  GameObject.Find (targetName);
+		dH = GameObject.Find (targetName).GetComponent<doorHealth>();
+	}
+	
+	public void UpdateTarget(GameObject newTarget){
+		Target = newTarget;
+		Anim.SetBool ("isAttacking", false);
+		Anim.Play ("move");
+		isMoving = true;
+		attacking = false;
+		StartCoroutine (WalkToTarget());
+	}
+	
 	public void TakeDamage(int DMG)
 	{
 //		Anim.SetBool ("isHit", true);
@@ -97,8 +115,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Anim.SetBool ("isMoving", true);
 
 		//move tbe player at a constant velocity to the target until they are a certain disstance away
-		while (distance > 10 && HitPoints>0) {
-
+		while (distance > attackDistance && HitPoints>0) {
 			//Calculate the current heading, normalized
 			heading = (Target.transform.position  - this.transform.position).normalized;
 
@@ -107,16 +124,17 @@ public class EnemyBehavior : MonoBehaviour {
 
 			//set velocity
 			this.GetComponent<Rigidbody> ().velocity = (heading * MoveSpeed);
-
+			transform.position = new Vector3(transform.position.x, Terrain.activeTerrain.SampleHeight(transform.position)-9.3f,transform.position.z);
 			yield return new WaitForFixedUpdate ();
-
 		}
 
 		//make sure this only happens when the soldier is alive
-		if (HitPoints > 0) {
+		if (HitPoints > 0 && !attacking) {
+			attacking = true;
+			currentAudioSource = Random.Range(0, A_Source.Length);
 
-			//Add an enemy to the gate
-			AtTarget = true;
+			A_Source[currentAudioSource].loop = false;
+			A_Source[currentAudioSource].Stop();
 
 			isMoving = false;
 			this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
@@ -129,25 +147,18 @@ public class EnemyBehavior : MonoBehaviour {
 			print(dH.Health);
 			*/
 			Anim.SetBool ("isAttacking", true);
-			//ChooseWalkPoint ();
 		}
 
 
 	}
 
-	//attach the soldier to the crank 
-	void ChooseWalkPoint()
-	{
-        this.transform.parent = Target.transform.GetChild (0).transform;
-        this.transform.position = Target.transform.GetChild (0).transform.position;
-	}
-
-
 	//do this when the player gets killed
 	public void Killed()
 	{
-		A_Source.clip = DeathSounds[Random.Range(0, DeathSounds.Length)];
-		A_Source.Play ();
+		currentAudioSource = Random.Range(0, A_Source.Length);
+		A_Source[currentAudioSource].loop = false;
+		A_Source[currentAudioSource].clip = deathSounds[Random.Range(0, deathSounds.Length)];
+		A_Source[currentAudioSource].Play ();
 
 		Collider enemyHitbox = this.GetComponent<Collider>();
 		Destroy(enemyHitbox);
@@ -172,6 +183,9 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 
 	public void DamageGate(int damage) {
+		currentAudioSource = Random.Range(0, A_Source.Length);
+		A_Source[currentAudioSource].clip = attackSounds[Random.Range(0, attackSounds.Length)];
+		A_Source[currentAudioSource].Play ();
 		dH.TakeDamageGate (damage);
 	}
 

@@ -870,15 +870,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239bbd9bdace467080e80bc5dbfac5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 15
   HitPoints: 2
-  DeathSounds:
-  - {fileID: 8300000, guid: 6a9c10ea2d2f4984c91b27fd5d0aceb2, type: 3}
-  - {fileID: 8300000, guid: ee189028db6e745b4a26aaca14278ffc, type: 3}
+  MoveSpeed: 16
+  deathSounds:
+  - {fileID: 8300000, guid: 080ab6497835d42acad33c22a4a4d170, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: 65d231c7d158c87419cf949132b8cd8d, type: 3}
+  footstepSound: {fileID: 8300000, guid: 5b031fa5163584e4c938cffff5410ebd, type: 3}
+  attackDistance: 8
   Target: {fileID: 0}
-  doorTarget: {fileID: 0}
-  damageVal: 0
-  period: 2
 --- !u!136 &136259337855161046
 CapsuleCollider:
   m_ObjectHideFlags: 1

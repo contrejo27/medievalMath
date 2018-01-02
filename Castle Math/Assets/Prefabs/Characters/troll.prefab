@@ -2246,15 +2246,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239bbd9bdace467080e80bc5dbfac5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 7
   HitPoints: 5
-  DeathSounds:
-  - {fileID: 8300000, guid: 06ae3bd087ff7432bbb8125b29c194d7, type: 3}
-  - {fileID: 8300000, guid: ee189028db6e745b4a26aaca14278ffc, type: 3}
+  MoveSpeed: 7
+  deathSounds:
+  - {fileID: 8300000, guid: 001db56bc0c5f4f26bc9fff37447cb09, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: 801e3d0e25f37495db3b4ab383b8b80e, type: 3}
+  - {fileID: 8300000, guid: d82e433e66d5a441284f88d87d211bc4, type: 3}
+  - {fileID: 8300000, guid: 30d3bca38938141f6be06947f96d4bc8, type: 3}
+  footstepSound: {fileID: 8300000, guid: 708cc011b66b2214abee3e66edd9786a, type: 3}
+  attackDistance: 15
   Target: {fileID: 0}
-  doorTarget: {fileID: 0}
-  damageVal: 0
-  period: 2
 --- !u!136 &136316899547866214
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2264,7 +2266,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 2.01
+  m_Radius: 1.7
   m_Height: 6.2
   m_Direction: 1
   m_Center: {x: 0.27, y: 3.28, z: 0.38}

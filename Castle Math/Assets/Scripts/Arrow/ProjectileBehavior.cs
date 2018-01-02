@@ -27,7 +27,6 @@ public class ProjectileBehavior : MonoBehaviour {
 	void OnCollisionEnter(Collision otherCollision)
 	{
 		if (isGrounded == false) {
-
 				isGrounded = true;
 
 				this.gameObject.GetComponent<BoxCollider> ().enabled = false;

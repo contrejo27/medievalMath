@@ -11,7 +11,7 @@ public class EnemyAudio : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		A_Source = this.GetComponent<AudioSource> ();
-		StartCoroutine (SoundWait(1f));
+		//StartCoroutine (SoundWait(1f));
 	}
 
 	void PlaySound()
