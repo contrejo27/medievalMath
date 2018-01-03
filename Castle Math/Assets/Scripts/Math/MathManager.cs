@@ -12,15 +12,16 @@ public class MathManager : MonoBehaviour {
 	public AudioClip CorrectSound;
 	public AudioClip IncorrectSound;
 
-	private int ProblemType;
+	int ProblemType;
+	int mathDifficulty = 9;
+	string CorrectAnswer;
+  
+	AnswerInput A_Input;
 
-	private string CorrectAnswer;
-
-	private AnswerInput A_Input;
-
-	private MultiplyOrDivide Multi_Divide;
-	private AddOrSubtract Add_Sub;
-	private Compare Comparision;
+	MultiplyOrDivide Multi_Divide;
+	AddOrSubtract Add_Sub;
+	Compare Comparision;
+	
 	public int QuestionType;
 	public int IncorrectAnswersPerQuestion;
 
@@ -49,11 +50,11 @@ public class MathManager : MonoBehaviour {
 
 		//0 = Add or subtract question
 		if (QuestionType == 0) {
-			Add_Sub.GenerateQuestion ();
+			Add_Sub.GenerateQuestion (mathDifficulty);
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
 			//Debug.Log (Multi_Divide.GetQuestionString ());
 		} else if (QuestionType == 1) {
-			Multi_Divide.GenerateQuestion ();
+			Multi_Divide.GenerateQuestion (mathDifficulty);
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
 			//Debug.Log (Multi_Divide.GetQuestionString ());
 		} else if (QuestionType == 2) {
@@ -63,7 +64,10 @@ public class MathManager : MonoBehaviour {
 		}
 
 	}
-
+	public void increaseMathDifficulty(){
+		mathDifficulty++;
+	}
+	
 	public int GetQuestionType() {
 		return QuestionType;
 	}

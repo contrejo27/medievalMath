@@ -8,14 +8,14 @@ public class AddOrSubtract : MonoBehaviour {
 	public Text QuestionText;
 	public Text QuestionText_hud;
 
-	private int FirstNum;
-	private int SecondNum;
-	private int CorrectAnswer;
-	private int isSubtract;
-	private string [] AnswerChoices;
-	private string QuestionString;
-
-	private AnswerInput A_Input;
+	int FirstNum;
+	int SecondNum;
+	int CorrectAnswer;
+	int isSubtract;
+	string [] AnswerChoices;
+	string QuestionString;
+	int maxInt;
+	AnswerInput A_Input;
 
 	//public QuestionGenerator QG;
 
@@ -52,12 +52,12 @@ public class AddOrSubtract : MonoBehaviour {
     */
 
 	// Update is called once per frame
-	public void GenerateQuestion () {
+	public void GenerateQuestion (int maxDifficulty) {
 		//Debug.Log ("Gen Questions");
 		isSubtract = Random.Range (0, 2);
-
+		maxInt = maxDifficulty;
 		if (isSubtract == 0) {
-			FirstNum = Random.Range (0, 13);
+			FirstNum = Random.Range (0, maxInt);
 			SecondNum = Random.Range (0, 13);
 
 			CorrectAnswer = FirstNum - SecondNum;

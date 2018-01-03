@@ -56,7 +56,7 @@ public class PlayerMathStats : MonoBehaviour {
 	//goes through each high score and checks if the current score beats it
 	void UpdateHighScores(){
 		int i = 0;
-		int waveNum = wManager.CurrentWave +1;
+		int waveNum = wManager.currentWave +1;
 		foreach(string score in globalHighScores){
 			string[] line = score.Split(',');
 
@@ -71,7 +71,7 @@ public class PlayerMathStats : MonoBehaviour {
 	
 	//displays the scores on stat screen in game
 	void DisplayStats(){
-		wave.text = "Wave: " + (wManager.CurrentWave +1).ToString();
+		wave.text = "Wave: " + (wManager.currentWave +1).ToString();
 		correctText.text = "Correct: " + correctAnswers.ToString ();
 		
 		foreach(string score in globalHighScores){

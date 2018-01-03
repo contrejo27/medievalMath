@@ -15,7 +15,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 	private int isDivide;
 	private string [] AnswerChoices;
 	private string QuestionString;
-
+	int maxInt = 10;
 	private AnswerInput A_Input;
 
 	//public QuestionGenerator QG;
@@ -53,14 +53,14 @@ public class MultiplyOrDivide : MonoBehaviour {
 		}
 	}
 	*/
-	public void GenerateQuestion () {
+	public void GenerateQuestion (int maxDifficulty) {
 		//reset incorrect answer count
 		isDivide = Random.Range (0, 2);
-
+		maxInt = maxDifficulty;
 		//check for division
 		if (isDivide == 0) {
-			FirstNum = Random.Range (0, 13);
-			SecondNum = Random.Range (1, 13);
+			FirstNum = Random.Range (0, maxInt);
+			SecondNum = Random.Range (1, maxInt);
 			
 			while (FirstNum % SecondNum != 0) {
 				FirstNum = Random.Range (0, 13);
@@ -74,8 +74,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 			GenerateChoices ();
 		} 
 		else {
-			FirstNum = Random.Range (0, 13);
-			SecondNum = Random.Range (1, 13);
+			FirstNum = Random.Range (0, maxInt);
+			SecondNum = Random.Range (1, maxInt);
 
 			CorrectAnswer = FirstNum * SecondNum;
 
@@ -85,7 +85,6 @@ public class MultiplyOrDivide : MonoBehaviour {
 			GenerateChoices ();
 		}
 	}
-
 
 	public void GenerateChoices() {
 		int Choice1;
@@ -151,6 +150,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 
 		A_Input.DisplayChoices (AnswerChoices);
 	}
+
 
 	public string GetQuestionString() {
 		return QuestionString;

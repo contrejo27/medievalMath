@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class doorHealth : MonoBehaviour {
-	public Text doorHealthText;
 
 	public int Health = 100;
 	
@@ -29,7 +28,6 @@ public class doorHealth : MonoBehaviour {
 		GameManager = GameObject.FindObjectOfType<GameStateManager> ();
 	}
 
-void Update(){doorHealthText.text=Health.ToString();}
 	//Update health
 	public void TakeDamageGate(int damage) {
 		if(!invincible){
@@ -112,7 +110,6 @@ void Update(){doorHealthText.text=Health.ToString();}
 	IEnumerator invincibleTimed(Color ogColor)
 	{
 		yield return new WaitForSeconds (15f);
-		print("this happened");
 		fence1.GetComponent<Renderer> ().material.color = ogColor;
 		fence2.GetComponent<Renderer> ().material.color = ogColor;
 		fence3.GetComponent<Renderer> ().material.color = ogColor;
