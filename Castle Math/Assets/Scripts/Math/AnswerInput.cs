@@ -98,6 +98,7 @@ public class AnswerInput : MonoBehaviour {
 			ChoiceBox = GameObject.Find (boxName).GetComponent<Text>();
 
 			ChoiceBox.text = AnswerChoices [i - 1].ToString ();
+			Debug.Log(AnswerChoices [i - 1].ToString ());
 		}
 
 	}

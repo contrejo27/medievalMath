@@ -51,7 +51,6 @@ public class AddOrSubtract : MonoBehaviour {
 	}
     */
 
-	// Update is called once per frame
 	public void GenerateQuestion (int maxDifficulty) {
 		//Debug.Log ("Gen Questions");
 		isSubtract = Random.Range (0, 2);

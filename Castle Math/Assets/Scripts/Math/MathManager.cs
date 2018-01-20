@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public class MathManager : MonoBehaviour {
 	public Text QuestionText;
 	public Text FeedbackText;
@@ -21,6 +19,7 @@ public class MathManager : MonoBehaviour {
 	MultiplyOrDivide Multi_Divide;
 	AddOrSubtract Add_Sub;
 	Compare Comparision;
+	TrueOrFalse True_False;
 	
 	public int QuestionType;
 	public int IncorrectAnswersPerQuestion;
@@ -32,11 +31,12 @@ public class MathManager : MonoBehaviour {
 		Multi_Divide = GameObject.FindObjectOfType<MultiplyOrDivide> ();
 		Comparision = GameObject.FindObjectOfType<Compare> ();
 		Add_Sub = GameObject.FindObjectOfType<AddOrSubtract> ();
-
+		True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
 
 		Multi_Divide.Start ();
 		Add_Sub.Start ();
 		Comparision.Start ();
+		True_False.Start ();
 
 		A_Input.Start ();
 
@@ -61,6 +61,9 @@ public class MathManager : MonoBehaviour {
 			//Debug.Log (Comparision.GetQuestionString ());
 			Comparision.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
+		} else if (QuestionType == 3) {
+			True_False.GenerateQuestion ();
+			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
 		}
 
 	}

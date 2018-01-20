@@ -15310,24 +15310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3e801a346aa5147869a32c90c749dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowText: {fileID: 814910224}
-  arrows: {fileID: 108418313}
-  leftArrow: {fileID: 1697356854}
-  rightArrow: {fileID: 717138835}
-  PowerUpIcons:
-  - {fileID: 21300000, guid: 0565de0517b2cc44fa173d89224115da, type: 3}
-  - {fileID: 21300000, guid: 9a9c86606dc5f584fad77f2a46f6458f, type: 3}
-  - {fileID: 21300000, guid: b37ffd0f3af06ea4b9d73daabb6d08db, type: 3}
-  - {fileID: 21300000, guid: 49bb4856d0a291a4a800d24f19febb16, type: 3}
-  - {fileID: 21300000, guid: 91449a3b144fe07479f85a28b2c1eda8, type: 3}
-  - {fileID: 21300000, guid: abcd20463fbc8fe469bfe14cf4bf1cf9, type: 3}
-  powerUpDisplays:
-  - {fileID: 1702788310}
-  - {fileID: 690176334}
-  - {fileID: 949072013}
-  mainCamera: {fileID: 450570746}
-  cooldownDisplay: {fileID: 0}
-  powerUpCount: 0
 --- !u!1001 &1776234397
 Prefab:
   m_ObjectHideFlags: 0
@@ -16129,6 +16111,7 @@ GameObject:
   - component: {fileID: 1869398081}
   - component: {fileID: 1869398082}
   - component: {fileID: 1869398083}
+  - component: {fileID: 1869398084}
   m_Layer: 0
   m_Name: MathManager
   m_TagString: Untagged
@@ -16151,7 +16134,7 @@ MonoBehaviour:
   FeedbackText: {fileID: 1375870590}
   CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
   IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
-  QuestionType: 1
+  QuestionType: 3
   IncorrectAnswersPerQuestion: 0
 --- !u!4 &1869398078
 Transform:
@@ -16236,6 +16219,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ee83ee0eac31fc49b831cbbc9dbb9be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestionText: {fileID: 1966943073}
+  QuestionText_hud: {fileID: 0}
+--- !u!114 &1869398084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1869398076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8728e8cfa27084e86a5654f9f3456f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   QuestionText: {fileID: 1966943073}
