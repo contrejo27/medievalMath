@@ -80,6 +80,10 @@ public class AnswerInput : MonoBehaviour {
 
 	//start
 	public void ClearChoices() {
+		if (AnswerChoices == null) {
+			AnswerChoices = new string [] { "" };
+		}
+
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//Iterate through each choice box and set text to empty string
 			string boxName = "answer" + i;

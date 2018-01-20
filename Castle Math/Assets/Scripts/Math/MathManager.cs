@@ -10,9 +10,10 @@ public class MathManager : MonoBehaviour {
 	public AudioClip CorrectSound;
 	public AudioClip IncorrectSound;
 
-	int ProblemType;
-	int mathDifficulty = 9;
-	string CorrectAnswer;
+	private int ProblemType;
+	private int mathDifficulty = 9;
+	private string CorrectAnswer;
+	private int totalQuestionsAnswered= 0;
   
 	AnswerInput A_Input;
 
@@ -48,8 +49,13 @@ public class MathManager : MonoBehaviour {
 	{
 		IncorrectAnswersPerQuestion = 0;
 
+		if (totalQuestionsAnswered % 4 == 0) {
+			A_Input.ClearChoices ();
+			True_False.GenerateQuestion ();
+			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
+		}
 		//0 = Add or subtract question
-		if (QuestionType == 0) {
+		else if (QuestionType == 0) {
 			Add_Sub.GenerateQuestion (mathDifficulty);
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
 			//Debug.Log (Multi_Divide.GetQuestionString ());
@@ -61,10 +67,9 @@ public class MathManager : MonoBehaviour {
 			//Debug.Log (Comparision.GetQuestionString ());
 			Comparision.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
-		} else if (QuestionType == 3) {
-			True_False.GenerateQuestion ();
-			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
-		}
+		} 
+
+		totalQuestionsAnswered++;
 
 	}
 	public void increaseMathDifficulty(){

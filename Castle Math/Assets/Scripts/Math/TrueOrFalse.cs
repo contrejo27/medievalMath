@@ -53,12 +53,22 @@ public class TrueOrFalse : MonoBehaviour {
 
 
 		TextAsset text = (TextAsset)Resources.Load <TextAsset>("questions");
-		string questionJson = text.text;
-		Debug.Log (questionJson);
+		TextQuestion[] TextQuestions;
 
-		//TextQuestionArray[]TextQuestions = new TextQuestion[3];
-		TextQuestion [] TextQuestions = JsonHelper.FromJson<TextQuestion>(questionJson);
-		//List<TextQuestion> TextQuestions = new List
+		if (text != null) {
+			string questionJson = text.text;
+			TextQuestions = JsonHelper.FromJson<TextQuestion> (questionJson);
+
+			int rand = Random.Range (0, TextQuestions.Length);
+			TextQuestion currQuestion = TextQuestions[rand];
+			QuestionText.text = currQuestion.questionText;
+			Debug.Log (currQuestion.questionText);
+			CorrectAnswer = currQuestion.answer;
+			Debug.Log (CorrectAnswer);
+			GenerateChoices ();
+		} else {
+			Debug.Log ("Null JSON");
+		}
 
 		/*
 		for (int i = 0; i < TextQuestions.Length; i++) {
@@ -71,13 +81,7 @@ public class TrueOrFalse : MonoBehaviour {
 		}
 		*/
 
-		int rand = Random.Range (0, TextQuestions.Length);
-		TextQuestion currQuestion = TextQuestions[rand];
-		QuestionText.text = currQuestion.questionText;
-		Debug.Log (currQuestion.questionText);
-		CorrectAnswer = currQuestion.answer;
-		Debug.Log (CorrectAnswer);
-		GenerateChoices ();
+
 		/*
 		string[] questionLines = questionText.Split ('\n');
 

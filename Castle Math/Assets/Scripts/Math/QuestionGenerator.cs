@@ -192,6 +192,7 @@ public class QuestionGenerator : MonoBehaviour {
 	}
 
 	public void ClearChoices() {
+
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//Iterate through each choice box and set text to empty string
 			string boxName = "answer" + i;
