@@ -22,8 +22,14 @@ public class MathManager : MonoBehaviour {
 	Compare Comparision;
 	TrueOrFalse True_False;
 	
-	public int QuestionType;
+	private int [] QuestionTypes;
 	public int IncorrectAnswersPerQuestion;
+	private int QuestionType;
+
+	public int AddSubQuestions;
+	public int MultiDivideQuestions;
+	public int CompareQuestions;
+	public int TrueFalseQuestions;
 
 
 	// Use this for initialization
@@ -41,33 +47,50 @@ public class MathManager : MonoBehaviour {
 
 		A_Input.Start ();
 
-		GenerateProblem (QuestionType);
+		QuestionTypes = new int[4];
+		QuestionTypes [0] = AddSubQuestions;
+		QuestionTypes [1] = MultiDivideQuestions;
+		QuestionTypes [2] = CompareQuestions;
+		QuestionTypes [3] = TrueFalseQuestions;
+		GenerateProblem (QuestionTypes);
 	}
 
 
-	public void GenerateProblem(int QuestionType)
+	public void GenerateProblem(int [] QuestionTypes)
 	{
+		A_Input.ClearChoices ();
+
+		int randIndex = Random.Range (0, QuestionTypes.Length);
+		QuestionType = QuestionTypes [randIndex];
+
 		IncorrectAnswersPerQuestion = 0;
 
+		/*
 		if (totalQuestionsAnswered % 4 == 0) {
 			A_Input.ClearChoices ();
 			True_False.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
 		}
-		//0 = Add or subtract question
-		else if (QuestionType == 0) {
+		*/
+
+		if (randIndex == 0 && AddSubQuestions != 0) {
 			Add_Sub.GenerateQuestion (mathDifficulty);
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
 			//Debug.Log (Multi_Divide.GetQuestionString ());
-		} else if (QuestionType == 1) {
+		} else if (randIndex == 1 && MultiDivideQuestions != 0) {
 			Multi_Divide.GenerateQuestion (mathDifficulty);
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
 			//Debug.Log (Multi_Divide.GetQuestionString ());
-		} else if (QuestionType == 2) {
+		} else if (randIndex == 2 && CompareQuestions != 0) {
 			//Debug.Log (Comparision.GetQuestionString ());
 			Comparision.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
-		} 
+		} else if (randIndex == 3 && TrueFalseQuestions != 0) {
+			True_False.GenerateQuestion ();
+			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
+		} else {
+			this.GenerateProblem (this.GetQuestionTypes ());
+		}
 
 		totalQuestionsAnswered++;
 
@@ -78,6 +101,10 @@ public class MathManager : MonoBehaviour {
 	
 	public int GetQuestionType() {
 		return QuestionType;
+	}
+
+	public int [] GetQuestionTypes() {
+		return QuestionTypes;
 	}
 
 	public int GetIncorrectAnswersPerQuestion() {

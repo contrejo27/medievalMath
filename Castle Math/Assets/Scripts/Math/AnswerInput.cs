@@ -126,7 +126,7 @@ public class AnswerInput : MonoBehaviour {
 
 			Math_Stats.CorrectlyAnswered ();
 
-			M_Manager.GenerateProblem (M_Manager.GetQuestionType());
+			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
 			PowerUp.QuestionAnswered ();
 
@@ -173,7 +173,7 @@ public class AnswerInput : MonoBehaviour {
 			//Resassign answer choices to new array
 			this.AnswerChoices = AnswerChoicesCopy;
 		} else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3) {
-			M_Manager.GenerateProblem (M_Manager.GetQuestionType());
+			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 		}
 
 		DisplayChoices (AnswerChoices);
