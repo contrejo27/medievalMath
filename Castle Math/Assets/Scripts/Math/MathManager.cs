@@ -21,6 +21,7 @@ public class MathManager : MonoBehaviour {
 	AddOrSubtract Add_Sub;
 	Compare Comparision;
 	TrueOrFalse True_False;
+	Fractions Fraction;
 	
 	private int [] QuestionTypes;
 	public int IncorrectAnswersPerQuestion;
@@ -30,6 +31,7 @@ public class MathManager : MonoBehaviour {
 	public int MultiDivideQuestions;
 	public int CompareQuestions;
 	public int TrueFalseQuestions;
+	public int FractionQuestions;
 
 
 	// Use this for initialization
@@ -39,19 +41,22 @@ public class MathManager : MonoBehaviour {
 		Comparision = GameObject.FindObjectOfType<Compare> ();
 		Add_Sub = GameObject.FindObjectOfType<AddOrSubtract> ();
 		True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
+		Fraction = GameObject.FindObjectOfType<Fractions> ();
 
 		Multi_Divide.Start ();
 		Add_Sub.Start ();
 		Comparision.Start ();
 		True_False.Start ();
+		Fraction.Start ();
 
 		A_Input.Start ();
 
-		QuestionTypes = new int[4];
+		QuestionTypes = new int[5];
 		QuestionTypes [0] = AddSubQuestions;
 		QuestionTypes [1] = MultiDivideQuestions;
 		QuestionTypes [2] = CompareQuestions;
 		QuestionTypes [3] = TrueFalseQuestions;
+		QuestionTypes [4] = FractionQuestions;
 		GenerateProblem (QuestionTypes);
 	}
 
@@ -88,7 +93,10 @@ public class MathManager : MonoBehaviour {
 		} else if (randIndex == 3 && TrueFalseQuestions != 0) {
 			True_False.GenerateQuestion ();
 			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
-		} else {
+		} else if (randIndex == 4 && FractionQuestions != 0) {
+			Fraction.GenerateQuestion ();
+			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+		}else {
 			this.GenerateProblem (this.GetQuestionTypes ());
 		}
 

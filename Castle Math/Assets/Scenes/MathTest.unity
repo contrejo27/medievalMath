@@ -16112,6 +16112,7 @@ GameObject:
   - component: {fileID: 1869398082}
   - component: {fileID: 1869398083}
   - component: {fileID: 1869398084}
+  - component: {fileID: 1869398085}
   m_Layer: 0
   m_Name: MathManager
   m_TagString: Untagged
@@ -16134,8 +16135,12 @@ MonoBehaviour:
   FeedbackText: {fileID: 1375870590}
   CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
   IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
-  QuestionType: 3
   IncorrectAnswersPerQuestion: 0
+  AddSubQuestions: 0
+  MultiDivideQuestions: 0
+  CompareQuestions: 0
+  TrueFalseQuestions: 0
+  FractionQuestions: 1
 --- !u!4 &1869398078
 Transform:
   m_ObjectHideFlags: 0
@@ -16232,6 +16237,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8728e8cfa27084e86a5654f9f3456f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestionText: {fileID: 1966943073}
+  QuestionText_hud: {fileID: 0}
+--- !u!114 &1869398085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1869398076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bdd79df4c7484a8195df6946e4da98c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   QuestionText: {fileID: 1966943073}
