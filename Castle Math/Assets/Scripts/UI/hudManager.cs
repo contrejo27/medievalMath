@@ -12,9 +12,7 @@ public class HudManager : MonoBehaviour {
 	public Sprite[] PowerUpIcons;
 	public GameObject[] powerUpDisplays;
 	public GameObject mainCamera; // used to figure out what angle they're facing
-	
-	public GameObject cooldownDisplay;
-	
+		
 	public int powerUpCount = 0;
 	
 	void Update () {

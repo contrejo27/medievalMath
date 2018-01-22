@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VR;
 
 
 
@@ -118,9 +119,17 @@ public class GameStateManager : MonoBehaviour {
 
 	public void Quit()
 	{
-		Application.Quit ();
+		StartCoroutine(ActivatorVR("None"));
 	}
-	
+
+	public IEnumerator ActivatorVR(string vrToggle){
+		VRSettings.LoadDeviceByName(vrToggle);
+		yield return null;
+		VRSettings.enabled = false;
+		yield return new WaitForSeconds(.3);
+		SceneManager.LoadScene (0);
+	}
+
 	void fadeWorldOut(){
 		StartCoroutine(fadeSky(1.0f,0.0f));
 		StartCoroutine(fadeLight(false));
