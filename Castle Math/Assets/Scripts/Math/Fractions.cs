@@ -15,6 +15,9 @@ public class Fractions : MonoBehaviour {
 	private double DecimalAnswer;
 	private string StringAnswer;
 
+	public Fractions () {
+	}
+
 	// Use this for initialization
 	public void Start () {
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
@@ -30,7 +33,7 @@ public class Fractions : MonoBehaviour {
 			Numerator = Random.Range (1, 13);
 		}
 
-		DecimalAnswer = Numerator / Denominator;
+		DecimalAnswer = (double)Numerator / (double)Denominator;
 
 		StringAnswer = Numerator.ToString() + "/" + Denominator.ToString();
 
@@ -46,18 +49,17 @@ public class Fractions : MonoBehaviour {
 
 		//generate random choices
 		for (int i = 0; i < 3; i++) {
-			NumeratorChoice = Random.Range (1, 13);
-			DenominatorChoice = Random.Range (2, 13);
+			NumeratorChoice = Random.Range (1, 12);
+			DenominatorChoice = Random.Range (NumeratorChoice, 13);
 
-			DecimalChoice = NumeratorChoice / DenominatorChoice;
-
-			if (NumeratorChoice >= DenominatorChoice) {
-				Debug.Log ("test");
+			if (NumeratorChoice == DenominatorChoice) {
+				DenominatorChoice++;
 			}
 
-			while (NumeratorChoice >= DenominatorChoice || DecimalChoice == DecimalAnswer) {
-				NumeratorChoice = Random.Range (1, 13);
-				Debug.Log (NumeratorChoice + " " + DenominatorChoice);
+			DecimalChoice = (double)NumeratorChoice / (double)DenominatorChoice;
+
+			while (DecimalChoice == DecimalAnswer) {
+				DenominatorChoice = Random.Range (NumeratorChoice, 13);
 				DecimalChoice = NumeratorChoice / DenominatorChoice;
 			}
 				
@@ -65,6 +67,17 @@ public class Fractions : MonoBehaviour {
 		}
 
 		AnswerChoices [3] = this.getCorrectAnswer ();
+
+		//Shuffle array randomly
+		for (int i = 0; i < AnswerChoices.Length; i++ ) {
+			string temp = AnswerChoices[i];
+			int r = Random.Range(i, AnswerChoices.Length);
+			AnswerChoices[i] = AnswerChoices[r];
+			AnswerChoices[r] = temp;
+
+		}
+
+		Debug.Log ("Correct Answer:\n\tFraction: " + getCorrectAnswer ());
 
 		A_Input.DisplayChoices (AnswerChoices);
 
