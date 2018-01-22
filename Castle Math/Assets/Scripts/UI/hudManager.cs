@@ -9,6 +9,7 @@ public class HudManager : MonoBehaviour {
 	public ArrowSupplier arrows;
 	public GameObject leftArrow;
 	public GameObject rightArrow;
+	public GameObject turnAroundText;
 	public Sprite[] PowerUpIcons;
 	public GameObject[] powerUpDisplays;
 	public GameObject mainCamera; // used to figure out what angle they're facing
@@ -20,17 +21,15 @@ public class HudManager : MonoBehaviour {
 		
 		//give direction if player is looking the wrong way
 		float cameraYAngle = mainCamera.transform.eulerAngles.y;
-		if(cameraYAngle < 70){
-			rightArrow.SetActive(true);
-			leftArrow.SetActive(false);
-		}
-		else if (cameraYAngle > 245f){
-			rightArrow.SetActive(false);
+		if(cameraYAngle < 70 || cameraYAngle > 245f){
+			rightArrow.SetActive(true);		
 			leftArrow.SetActive(true);
+			turnAroundText.SetActive(true);
 		}
 		else{
 			rightArrow.SetActive(false);
 			leftArrow.SetActive(false);
+			turnAroundText.SetActive(false);
 		}
 	}
 

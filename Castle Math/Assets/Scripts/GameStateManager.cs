@@ -126,7 +126,7 @@ public class GameStateManager : MonoBehaviour {
 		VRSettings.LoadDeviceByName(vrToggle);
 		yield return null;
 		VRSettings.enabled = false;
-		yield return new WaitForSeconds(.3);
+		yield return new WaitForSeconds(.2f);
 		SceneManager.LoadScene (0);
 	}
 

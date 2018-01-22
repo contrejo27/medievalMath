@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour {
 		VRSettings.LoadDeviceByName(vrToggle);
 		yield return null;
 		VRSettings.enabled = true;
-		yield return new WaitForSeconds(.1);
+		yield return new WaitForSeconds(.1f);
 		SceneManager.LoadScene (1);
 	}
 

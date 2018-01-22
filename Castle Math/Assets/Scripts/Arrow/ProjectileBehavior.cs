@@ -17,10 +17,6 @@ public class ProjectileBehavior : MonoBehaviour {
 		if (isGrounded == true) {
 			return;
 		}
-
-		//orient the arrow in the direction of motion
-		//transform.rotation = Quaternion.LookRotation (this.GetComponent<Rigidbody>().velocity);
-
 	}
 	
 	//this is a built in function that detects when two objects collide
@@ -35,27 +31,15 @@ public class ProjectileBehavior : MonoBehaviour {
 				//an arrow can have multiple arrow class components
 				ArrowClass[] ArrowModifers = this.GetComponents<ArrowClass> ();
 				for (int i = 0; i < ArrowModifers.Length; i++) {
-				ArrowModifers [i].ArrowImpact ();
+					ArrowModifers [i].ArrowImpact ();
 				}
 
 				if (otherCollision.transform.tag == "Enemy") {
-				otherCollision.gameObject.GetComponent<EnemyBehavior> ().TakeDamage (ArrowDamge);
-
+					otherCollision.gameObject.GetComponent<EnemyBehavior> ().TakeDamage (ArrowDamge);
 					this.transform.parent = otherCollision.transform;
-
 				} 
-				
-		Destroy (this.gameObject,1f);
-		} 
-			
+
+				Destroy (this.gameObject,1f);
+		} 	
 	}
-
-/*
-	IEnumerator WaitToDestroy()
-	{
-		yield return new WaitForSeconds (3);
-		Destroy (this.gameObject);
-	}*/
-
-
 }
