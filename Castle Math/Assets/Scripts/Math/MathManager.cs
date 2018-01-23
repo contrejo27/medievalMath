@@ -22,17 +22,17 @@ public class MathManager : MonoBehaviour {
 	Compare Comparision;
 	TrueOrFalse True_False;
 	Fractions Fraction;
-	
+
 	private int [] QuestionTypes;
 	public int IncorrectAnswersPerQuestion;
 	private int QuestionType;
+	private Question currentQuestion;
 
 	public int AddSubQuestions;
 	public int MultiDivideQuestions;
 	public int CompareQuestions;
 	public int TrueFalseQuestions;
 	public int FractionQuestions;
-
 
 	// Use this for initialization
 	void Start () {
@@ -81,21 +81,30 @@ public class MathManager : MonoBehaviour {
 		if (randIndex == 0 && AddSubQuestions != 0) {
 			Add_Sub.GenerateQuestion (mathDifficulty);
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
+			currentQuestion = Add_Sub;
+			//currentQuestion = Add_Sub.GetQuestionString ();
 			//Debug.Log (Multi_Divide.GetQuestionString ());
 		} else if (randIndex == 1 && MultiDivideQuestions != 0) {
 			Multi_Divide.GenerateQuestion (mathDifficulty);
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
+			currentQuestion = Multi_Divide;
+			//currentQuestion = Multi_Divide.GetQuestionString ();
 			//Debug.Log (Multi_Divide.GetQuestionString ());
 		} else if (randIndex == 2 && CompareQuestions != 0) {
 			//Debug.Log (Comparision.GetQuestionString ());
-			Comparision.GenerateQuestion ();
+			Comparision.GenerateQuestion (-1); //-1 => temp fix
 			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
+			currentQuestion = Comparision;
+			//currentQuestion = Comparision.GetQuestionString ();
 		} else if (randIndex == 3 && TrueFalseQuestions != 0) {
-			True_False.GenerateQuestion ();
+			True_False.GenerateQuestion (-1);//-1 => temp fix
 			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
+			currentQuestion = True_False;
 		} else if (randIndex == 4 && FractionQuestions != 0) {
-			Fraction.GenerateQuestion ();
+			Fraction.GenerateQuestion (-1);//-1 => temp fix
 			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+			currentQuestion = Fraction;
+			//currentQuestion = Fraction.GetQuestionString ();
 		}else {
 			this.GenerateProblem (this.GetQuestionTypes ());
 		}
@@ -122,4 +131,9 @@ public class MathManager : MonoBehaviour {
 	public void IncorrectAnswer() {
 		IncorrectAnswersPerQuestion++;
 	}
+
+	public Question GetCurrentQuestion() {
+		return this.currentQuestion;
+	}
+
 }

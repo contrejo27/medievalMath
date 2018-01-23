@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Compare : MonoBehaviour {
+public class Compare : MonoBehaviour, Question {
 
 	public Text QuestionText;
 	public Text QuestionText_hud;
@@ -31,7 +31,7 @@ public class Compare : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	public void GenerateQuestion () {
+	public void GenerateQuestion (int maxDifficulty) { //int maxDifficulty => temp fix
 
         this.leftCompare = Random.Range(0.0f, 1.0f);  //.3544
         
@@ -114,7 +114,7 @@ public class Compare : MonoBehaviour {
         return correctSymbol;
     }
 		
-	void GenerateChoices() {
+	public void GenerateChoices() {
 		////Debug.Log ("Gen Choices");
         string correctSymbol = this.getCorrectSymbol();
 		//Debug.Log ("Correct: " + correctSymbol);

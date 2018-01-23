@@ -20,6 +20,8 @@ public class AnswerInput : MonoBehaviour {
 	public Text FeedbackText;
 	public Text ChoiceBox;
 
+	QuestionTracker Tracker;
+
 	private string CorrectAnswer;
 	private string [] AnswerChoices;
 
@@ -47,6 +49,7 @@ public class AnswerInput : MonoBehaviour {
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
 		FeedbackText = GameObject.Find ("feedback").GetComponent<Text>();
 
+		Tracker = new QuestionTracker ();
 	}
 
 	public void SetCorrectAnswer(string Answer) {
@@ -172,6 +175,9 @@ public class AnswerInput : MonoBehaviour {
 			//Resassign answer choices to new array
 			this.AnswerChoices = AnswerChoicesCopy;
 		} else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3) {
+			Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion());
+			Debug.Log ("Current Question: " + M_Manager.GetCurrentQuestion ().GetQuestionString ());
+			Tracker.ShowIncorrectQestions ();
 			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 		}
 

@@ -20,7 +20,7 @@ public class TextQuestion
 }
 
 
-public class TrueOrFalse : MonoBehaviour {
+public class TrueOrFalse : MonoBehaviour, Question {
 
 	public Text QuestionText;
 	public Text QuestionText_hud;
@@ -40,7 +40,7 @@ public class TrueOrFalse : MonoBehaviour {
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 	}
 
-	public void GenerateQuestion() {
+	public void GenerateQuestion(int maxDifficulty) { //int maxDifficulty => temp fix
 		/*
 		string questionLine = @"{""question"":""A fraction is the same thing as a ratio."",""answer"":""True"",""hint"":""""}";
 		TextQuestion questionJSON = JsonUtility.FromJson<TextQuestion> (questionLine);
@@ -127,6 +127,10 @@ public class TrueOrFalse : MonoBehaviour {
 
 	public string getCorrectAnswer() {
 		return CorrectAnswer;
+	}
+
+	public string GetQuestionString() {
+		return this.QuestionString;
 	}
 		
 }

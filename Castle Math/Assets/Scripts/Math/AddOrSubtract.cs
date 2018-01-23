@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddOrSubtract : MonoBehaviour {
+public class AddOrSubtract : MonoBehaviour, Question {
 
 	public Text QuestionText;
 	public Text QuestionText_hud;
@@ -20,6 +20,7 @@ public class AddOrSubtract : MonoBehaviour {
 	//public QuestionGenerator QG;
 
 	public AddOrSubtract() {
+		
 	} 
 
 	// Use this for initialization
@@ -35,6 +36,7 @@ public class AddOrSubtract : MonoBehaviour {
 
 		//GenerateQuestion ();
 		*/
+
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
@@ -54,7 +56,9 @@ public class AddOrSubtract : MonoBehaviour {
 	public void GenerateQuestion (int maxDifficulty) {
 		//Debug.Log ("Gen Questions");
 		isSubtract = Random.Range (0, 2);
-		maxInt = maxDifficulty;
+		if (maxDifficulty != -1) {
+			maxInt = maxDifficulty;
+		}
 		if (isSubtract == 0) {
 			FirstNum = Random.Range (0, maxInt);
 			SecondNum = Random.Range (0, 13);
@@ -80,7 +84,7 @@ public class AddOrSubtract : MonoBehaviour {
 		//Debug.Log ("End Gen Choices");
 	}
 		
-	void GenerateChoices() {
+	public void GenerateChoices() {
 		//Debug.Log ("Gen Choices");
 
 		int Choice1;

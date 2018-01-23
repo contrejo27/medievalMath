@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class MultiplyOrDivide : MonoBehaviour {
+public class MultiplyOrDivide : MonoBehaviour, Question {
 
 	public Text QuestionText;
 	public Text QuestionText_hud;
@@ -21,6 +21,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 	//public QuestionGenerator QG;
 	// Use this for initialization
 	public MultiplyOrDivide() {
+		
 	}
 
 	public void Start () {
@@ -42,17 +43,7 @@ public class MultiplyOrDivide : MonoBehaviour {
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
 	}
-	/*
-	public void GenerateQuestion() {
-		isDivide = Random.Range (0, 2);
 
-		if (isDivide == 0) {
-			QG.GenerateQuestion ("divide");
-		} else {
-			QG.GenerateQuestion ("mulitply");
-		}
-	}
-	*/
 	public void GenerateQuestion (int maxDifficulty) {
 		//reset incorrect answer count
 		isDivide = Random.Range (0, 2);
@@ -159,6 +150,8 @@ public class MultiplyOrDivide : MonoBehaviour {
 	public string getCorrectAnswer() {
 		return CorrectAnswer.ToString();
 	}
+
+
 
 
 }

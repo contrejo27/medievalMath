@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Fractions : MonoBehaviour {
+public class Fractions : MonoBehaviour, Question {
 	private AnswerInput A_Input;
 
 	public Text QuestionText;
@@ -25,7 +25,7 @@ public class Fractions : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	public void GenerateQuestion () {
+	public void GenerateQuestion (int maxDifficulty) { //int maxDifficulty => temp fix
 		Numerator = Random.Range (1, 13);
 		Denominator = Random.Range (2, 13);
 
@@ -83,19 +83,23 @@ public class Fractions : MonoBehaviour {
 
 	}
 
+	public string GetQuestionString () {
+		return this.StringAnswer;
+	}
+
 	public string getCorrectAnswer() {
 		return this.StringAnswer;
 	}
 
-	public double getCorrectDecimalAnswer() {
+	private double getCorrectDecimalAnswer() {
 		return this.DecimalAnswer;
 	}
 
-	public int  getNumerator() {
+	private int  getNumerator() {
 		return this.Numerator;
 	}
 
-	public int getDenominator() {
+	private int getDenominator() {
 		return this.Denominator;
 	}
 }
