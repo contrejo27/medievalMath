@@ -10,11 +10,6 @@ public class ShootingUI : MonoBehaviour {
 	public void Select () {
 		tutorial.Next();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	void OnCollisionEnter(Collision otherCollision)
 	{

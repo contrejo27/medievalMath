@@ -22,7 +22,6 @@ public class TutorialBehavior : MonoBehaviour {
 	public void Next () {
 		if(tutorialDone) {
 			startGame.GetComponent<Button>().onClick.Invoke();
-			billboard.SetActive(false);	
 			return;
 		}
 		currentImage++;

@@ -36,7 +36,8 @@ public class GameStateManager : MonoBehaviour {
 	public Light directionalLight;
 	private bool loseState = false;
 	public doorHealth fence1,fence2,fence3;
-	
+	public GameObject billboard;
+
 	// Use this for initialization
 	void Start () {
 		RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
@@ -59,6 +60,7 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	public void StartGame(){
+		billboard.SetActive(false);	
 		mainMenuEffects.fadeOut(1.5f);
 		notificationEffects.fadeIn(1.5f);
 		music.clip = gameplaySong;
@@ -113,7 +115,7 @@ public class GameStateManager : MonoBehaviour {
 	{
 		loseState = false;
 		RenderSettings.skybox.SetFloat("_Exposure", 1.0f);
-		SceneManager.LoadScene (0);
+		SceneManager.LoadScene (1);
 
 	}
 
