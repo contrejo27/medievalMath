@@ -25,20 +25,7 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	}
 
 	public void Start () {
-		/*
-		PowerUp = FindObjectOfType<ManaBar> ();
 
-		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
-
-		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
-		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
-		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
-		QuestionText = GameObject.Find ("question").GetComponent<Text>();
-		QuestionText_hud = GameObject.Find ("Question_hud").GetComponent<Text> ();
-
-
-		//GenerateQuestion ();
-		*/
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 
