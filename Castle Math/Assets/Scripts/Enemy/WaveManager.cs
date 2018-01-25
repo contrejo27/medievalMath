@@ -11,7 +11,7 @@ public class WaveManager : MonoBehaviour {
 	public GameObject KnightPrefab;
 	public GameObject trollPrefab;
 	public GameObject horseRiderPrefab;
-	public int firstWaveSize = 5;
+	public int firstWaveSize = 1;
 	private int WaveSize;
 	public int currentWave = 0;
 	
@@ -33,14 +33,16 @@ public class WaveManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-
 		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
 		GameManager = GameObject.FindObjectOfType<GameStateManager> ();
     }
 
     public void NextWave()
 	{
-		if(currentWave%2 ==0)		Mathm.increaseMathDifficulty();
+		if(currentWave%2 ==0) {
+			Mathm.increaseMathDifficulty();
+		}
+
 		currentWave += 1;
 		ActivateWave (currentWave);
 	}
@@ -74,8 +76,11 @@ public class WaveManager : MonoBehaviour {
 			yield return new WaitForSeconds (Random.Range (0.2f, 0.8f));
 		}
 
-        if (currentWave % 6 == 0 && currentWave != 0){
-            for (int i = 0; i < currentWave / 6; i++) { 
+		//waves in between trolls
+		int trollFrequency = 4;
+        if (currentWave % trollFrequency == 0 && currentWave != 0){
+        	//trolls increase by 1 every set WtrollFrequency
+            for (int i = 0; i < currentWave / trollFrequency; i++) { 
 			    spawnEnemy(trollPrefab, trollSpawnSound);
 				GameManager.addEnemyToWaveSize();
 
@@ -83,9 +88,10 @@ public class WaveManager : MonoBehaviour {
             }
         }
 
-        if (currentWave % 4 == 0 && currentWave != 0)
+
+        if (currentWave % 3 == 0 && currentWave != 0)
         {
-            for (int i = 0; i < currentWave / 4; i++)
+            for (int i = 0; i < currentWave / 3; i++)
             {
                 spawnEnemy(horseRiderPrefab, horseRiderSpawnSound);
 				GameManager.addEnemyToWaveSize();
@@ -94,12 +100,12 @@ public class WaveManager : MonoBehaviour {
             }
         }
 		
-		if(currentWave > 8){
+		if(currentWave > 5){
 		    spawnEnemy(horseRiderPrefab, horseRiderSpawnSound);
 			GameManager.addEnemyToWaveSize();
 		}
 
-		if(currentWave > 10){
+		if(currentWave > 8){
 		    spawnEnemy(trollPrefab, trollSpawnSound);
 			GameManager.addEnemyToWaveSize();
 		}

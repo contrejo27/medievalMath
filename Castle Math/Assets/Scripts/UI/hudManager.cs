@@ -21,7 +21,7 @@ public class HudManager : MonoBehaviour {
 		
 		//give direction if player is looking the wrong way
 		float cameraYAngle = mainCamera.transform.eulerAngles.y;
-		if(cameraYAngle < 70 || cameraYAngle > 245f){
+		if(cameraYAngle < 115f || cameraYAngle > 290f){
 			rightArrow.SetActive(true);		
 			leftArrow.SetActive(true);
 			turnAroundText.SetActive(true);
