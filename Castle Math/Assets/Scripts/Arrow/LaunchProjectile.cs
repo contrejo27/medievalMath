@@ -26,6 +26,7 @@ public class LaunchProjectile : MonoBehaviour {
 	GameObject tempArrow;
 	bool firstShot = true;
 	Animator crossbowAnim;
+	bool reloading = false;
 
 	//Audio
 	AudioSource A_Source;
@@ -61,11 +62,14 @@ public class LaunchProjectile : MonoBehaviour {
 			if (A_Supply.NumberOfArrows > 0) {
 
 				if (ArrowLoaded == false) {
-					CreateShot ();
+					CreateShot();
 				}
 
 				playShootingSound(Random.Range (0, LaunchSounds.Length));
-				Launch ();
+
+				if(!reloading){
+					Launch();
+				}
 			} else {
 				A_Source.clip = ReloadSound;
 				A_Source.volume = .6f;
@@ -134,6 +138,8 @@ public class LaunchProjectile : MonoBehaviour {
 
 	void CreateShot()
 	{
+		reloading = false;
+		ArrowLoaded = true;
 		if(firstShot){
 			Destroy(tempArrow);
 			firstShot = false;
@@ -186,18 +192,18 @@ public class LaunchProjectile : MonoBehaviour {
 
 	void playShootingSound(int soundNum){
 		A_Source.clip = LaunchSounds [soundNum];
-		A_Source.Play ();
+		A_Source.Play();
 	}
 	
 	IEnumerator ReloadTime()
 	{
-		yield return new WaitForSeconds (.5f);
+		reloading = true;
+		yield return new WaitForSeconds (.2f);
 
 		A_Supply.UseArrow ();
 
 		if (A_Supply.NumberOfArrows > 0) {
-			CreateShot ();
-			ArrowLoaded = true;
+			CreateShot();
 		} else {
 			ArrowLoaded = false;
 		}
@@ -218,7 +224,7 @@ public class LaunchProjectile : MonoBehaviour {
 		burstArrow.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
 		burstArrow.transform.parent = null;
 		burstArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
-		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
+		//We then access the rigidbody of the bullet and apply a strong forward force to it. 
 		burstArrow.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -5000);
 		burstArrow.GetComponent<BoxCollider> ().enabled = true; 
 		Destroy(burstArrow, 1.2f);
