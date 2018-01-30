@@ -18,12 +18,11 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	int maxInt = 10;
 	private AnswerInput A_Input;
 
-	//public QuestionGenerator QG;
-	// Use this for initialization
 	public MultiplyOrDivide() {
 		
 	}
 
+	// Use this for initialization
 	public void Start () {
 
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
@@ -31,24 +30,33 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 	}
 
+	/** Generates either mulitplication or division question by random selection
+	 */
 	public void GenerateQuestion (int maxDifficulty) {
-		//reset incorrect answer count
+		//Generate random 0 or 1 to determine whether question is to be multiplication or divison
+		//isDivide == 0 -> Division problem
 		isDivide = Random.Range (0, 2);
+
 		maxInt = maxDifficulty;
+
 		//check for division
 		if (isDivide == 0) {
 			FirstNum = Random.Range (0, maxInt);
 			SecondNum = Random.Range (1, maxInt);
-			
+
+			//Ensure that division is even, with no remainders
 			while (FirstNum % SecondNum != 0) {
 				FirstNum = Random.Range (0, 13);
 			}
 
+			//Calculate correct answer
 			CorrectAnswer = FirstNum / SecondNum;
 
+			//Generate formatted question string and set text box text
 			QuestionString = FirstNum.ToString () + " / " + SecondNum.ToString () + " =";
 			QuestionText.text = QuestionString;
 
+			//Generate other possible answer choices
 			GenerateChoices ();
 		} 
 		else {
@@ -57,9 +65,11 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 			CorrectAnswer = FirstNum * SecondNum;
 
+			//Generate formatted question string and set text box text
 			QuestionString = FirstNum.ToString () + " x " + SecondNum.ToString () + " =";
 			QuestionText.text = QuestionString;
 
+			//Generate other possible answer choices
 			GenerateChoices ();
 		}
 	}
@@ -97,25 +107,25 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			}
 		}
 
-		//bool UniqueValues = true;
-		//populate AnswerChoices array
+		//TODO change to Hashmap with lookup for duplicate values
+		//Array of all possible choices
+		int[] integerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
+		int size = integerChoices.Length;
 
-		AnswerChoices = new string[] { Choice1.ToString(), Choice2.ToString(), 
-										Choice3.ToString(), CorrectAnswer.ToString() };
-
-		int size = AnswerChoices.Length;
-
+		//Check for duplicate values and add random integer to them if necessary
 		for (int i = 0; i < size - 1; i++){
-			//Debug.Log ("first for");
 			for (int j = i + 1; j < size; j++) {
-				if ( AnswerChoices [i] == AnswerChoices [j]) {
-					//Debug.Log("Before:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
-					AnswerChoices [i] += Random.Range(1, 4);
-					//Debug.Log("After:" + AnswerChoices [i] + ", " + AnswerChoices [j]);
+				if ( integerChoices [i] == integerChoices [j]) {
+					integerChoices [i] += Random.Range(1, 4);
 
 				}
 			}
 		}
+
+		//Convert integer choices to strings for later implementation
+		AnswerChoices = new string[] { Choice1.ToString (), Choice2.ToString (), 
+			Choice3.ToString (), CorrectAnswer.ToString ()
+		};
 
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
@@ -129,11 +139,14 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 		A_Input.DisplayChoices (AnswerChoices);
 	}
 
-
+	/**Return formatted question string
+	 */
 	public string GetQuestionString() {
 		return QuestionString;
 	}
 
+	/**Return formatted answer string
+	 */
 	public string getCorrectAnswer() {
 		return CorrectAnswer.ToString();
 	}
