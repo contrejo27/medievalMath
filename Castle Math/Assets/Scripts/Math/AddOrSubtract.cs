@@ -52,7 +52,9 @@ public class AddOrSubtract : MonoBehaviour, Question {
 			QuestionString = FirstNum.ToString () + " - " + SecondNum.ToString () + " =";
 
 			//Set textbox display to formatted question string
-			QuestionText.text = QuestionString;
+			//QuestionText.text = QuestionString;
+			A_Input.SetQuestion(QuestionString);
+
 
 			//Generate choices for possible answers 
 			this.GenerateChoices ();
@@ -69,7 +71,9 @@ public class AddOrSubtract : MonoBehaviour, Question {
 			QuestionString = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
 
 			//Set textbox display to formatted question string
-			QuestionText.text = QuestionString;
+			//QuestionText.text = QuestionString;
+			A_Input.SetQuestion(QuestionString);
+
 
 			//Generate choices for possible answers
 			GenerateChoices ();

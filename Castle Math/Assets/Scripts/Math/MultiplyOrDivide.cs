@@ -54,7 +54,8 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 			//Generate formatted question string and set text box text
 			QuestionString = FirstNum.ToString () + " / " + SecondNum.ToString () + " =";
-			QuestionText.text = QuestionString;
+			//QuestionText.text = QuestionString;
+			A_Input.SetQuestion(QuestionString);
 
 			//Generate other possible answer choices
 			GenerateChoices ();
@@ -67,7 +68,8 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 			//Generate formatted question string and set text box text
 			QuestionString = FirstNum.ToString () + " x " + SecondNum.ToString () + " =";
-			QuestionText.text = QuestionString;
+			//QuestionText.text = QuestionString;
+			A_Input.SetQuestion(QuestionString);
 
 			//Generate other possible answer choices
 			GenerateChoices ();

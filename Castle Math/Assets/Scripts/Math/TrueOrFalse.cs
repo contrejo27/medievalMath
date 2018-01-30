@@ -61,7 +61,9 @@ public class TrueOrFalse : MonoBehaviour, Question {
 
 			int rand = Random.Range (0, TextQuestions.Length);
 			TextQuestion currQuestion = TextQuestions[rand];
-			QuestionText.text = currQuestion.questionText;
+			//QuestionText.text = currQuestion.questionText;
+			A_Input.SetQuestion(currQuestion.questionText);
+
 			Debug.Log (currQuestion.questionText);
 			CorrectAnswer = currQuestion.answer;
 			Debug.Log (CorrectAnswer);

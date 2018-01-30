@@ -59,7 +59,9 @@ public class Compare : MonoBehaviour, Question {
                             + leftCompare.ToString () + " __ " + rightCompare.ToString ();
 
 		Debug.Log (QuestionString);
-		QuestionText.text = QuestionString;
+		//QuestionText.text = QuestionString;
+		A_Input.SetQuestion(QuestionString);
+
 		GenerateChoices ();
 
 	}

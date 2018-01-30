@@ -10,14 +10,15 @@ public class AnswerInput : MonoBehaviour {
 
 	private string CurrentAnswer;
 
-	public Text AnswerText;
+	//public Text AnswerText;
 
 	private MathManager M_Manager;
 
 	//start
-	public Text QuestionText;
+	public GameObject [] QuestionTexts;
 	public Text QuestionText_hud;
-	public Text FeedbackText;
+	public GameObject [] FeedbackTexts;
+	public GameObject [] ChoiceBoxes;
 	public Text ChoiceBox;
 
 	QuestionTracker Tracker;
@@ -45,9 +46,9 @@ public class AnswerInput : MonoBehaviour {
 		M_Manager = GameObject.FindObjectOfType<MathManager> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
-		QuestionText = GameObject.Find ("question").GetComponent<Text>();
+		QuestionTexts = GameObject.FindGameObjectsWithTag ("Question");
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
-		FeedbackText = GameObject.Find ("feedback").GetComponent<Text>();
+		FeedbackTexts = GameObject.FindGameObjectsWithTag ("Feedback");
 
 		Tracker = new QuestionTracker ();
 	}
@@ -59,10 +60,10 @@ public class AnswerInput : MonoBehaviour {
 	public void ClearAnswer()
 	{
 		CurrentAnswer = "";
-		AnswerText.text = "";
+		//AnswerText.text = "";
 
 	}
-
+	/*
 	public void AddTo(string Digit)
 	{
 		CurrentAnswer += Digit;
@@ -80,6 +81,7 @@ public class AnswerInput : MonoBehaviour {
 		}
 
 	}
+	*/
 
 	//start
 	public void ClearChoices() {
@@ -87,24 +89,37 @@ public class AnswerInput : MonoBehaviour {
 			AnswerChoices = new string [] { "" };
 		}
 
+		ChoiceBoxes = GameObject.FindGameObjectsWithTag ("ChoiceBox");
+		Debug.Log (ChoiceBoxes.Length);
+
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//Iterate through each choice box and set text to empty string
 			string boxName = "answer" + i;
-			ChoiceBox = GameObject.Find (boxName).GetComponent<Text>();
 
+			ChoiceBox = ChoiceBoxes [i-1].GetComponent<Text>();
 			ChoiceBox.text = "";
+
+
 		}
 	}
 
 	public void DisplayChoices (String [] AnswerChoices) {
 		this.AnswerChoices = AnswerChoices;
+
+		ChoiceBoxes = GameObject.FindGameObjectsWithTag ("ChoiceBox");
+
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//iterate through choices boxes, assigning each text component
 			//dynamically according to AnswerChoices
 			string boxName = "answer" + i;
-			ChoiceBox = GameObject.Find (boxName).GetComponent<Text>();
+			for (int j = 0; j < ChoiceBoxes.Length; j++){
+				ChoiceBox = ChoiceBoxes [j].GetComponent<Text>();
 
-			ChoiceBox.text = AnswerChoices [i - 1].ToString ();
+				if (ChoiceBox.name == boxName) {
+					ChoiceBox.text = AnswerChoices [i - 1].ToString ();
+				}
+			}
+
 		}
 
 	}
@@ -112,41 +127,46 @@ public class AnswerInput : MonoBehaviour {
 	public void CheckAnswer(Text Answer) {
 		//int answerAsInt = int.Parse(Answer.text.ToString());
 		String answerText = Answer.text.ToString();
-		if (answerText == CorrectAnswer) {
 
-			FeedbackText.text = "Correct";
-			FeedbackText.color =  new Color(.188f, .44f, .1f);
-			FeedbackText.gameObject.SetActive (true);
-			StartCoroutine (DisplayFeedback ());
+		for (int i = 0; i < FeedbackTexts.Length; i++) {
+			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
+			if (answerText == CorrectAnswer) {
 
-			ClearAnswer ();
+				FeedbackText.text = "Correct";
+				FeedbackText.color =  new Color(.188f, .44f, .1f);
+				FeedbackText.gameObject.SetActive (true);
+				StartCoroutine (DisplayFeedback ());
 
-			A_Supply.CreateArrow ();
+				ClearAnswer ();
 
-			A_Source.clip = CorrectSound;
-			A_Source.Play ();
+				A_Supply.CreateArrow ();
 
-			Math_Stats.CorrectlyAnswered ();
+				A_Source.clip = CorrectSound;
+				A_Source.Play ();
 
-			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
+				Math_Stats.CorrectlyAnswered ();
 
-			PowerUp.QuestionAnswered ();
+				M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
-		} 
-		//got the question wrong
-		else {
-			M_Manager.IncorrectAnswer ();
-			FeedbackText.text = "Incorrect";
-			FeedbackText.color =  new Color(.756f,.278f, .29f);
-			FeedbackText.gameObject.SetActive (true);
-			StartCoroutine (DisplayFeedback ());
+				PowerUp.QuestionAnswered ();
 
-			A_Source.clip = IncorrectSound;
-			A_Source.Play ();
+			} 
+			//got the question wrong
+			else {
+				M_Manager.IncorrectAnswer ();
+				FeedbackText.text = "Incorrect";
+				FeedbackText.color =  new Color(.756f,.278f, .29f);
+				FeedbackText.gameObject.SetActive (true);
+				StartCoroutine (DisplayFeedback ());
 
-			ClearAnswer ();
-			ClearChoices ();
+				A_Source.clip = IncorrectSound;
+				A_Source.Play ();
 
+				ClearAnswer ();
+				ClearChoices ();
+
+			}
+				
 		}
 
 		if (M_Manager.GetIncorrectAnswersPerQuestion () == 2) {
@@ -184,12 +204,20 @@ public class AnswerInput : MonoBehaviour {
 		DisplayChoices (AnswerChoices);
 	}
 
+	public void SetQuestion(string question) {
+		for (int i = 0; i < QuestionTexts.Length; i++) {
+			Text QuestionText = QuestionTexts [i].GetComponent<Text>();
+			QuestionText.text = question;
+		}
+	}
 
 	IEnumerator DisplayFeedback()
 	{
 		yield return new WaitForSeconds (2);
-
-		FeedbackText.gameObject.SetActive (false);
+		for (int i = 0; i < FeedbackTexts.Length; i++) {
+			Text FeedbackText = FeedbackTexts [i].GetComponent<Text> ();
+			FeedbackText.gameObject.SetActive (false);
+		}
 
 	}
 
