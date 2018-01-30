@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HudManager : MonoBehaviour {
+public class hudManager : MonoBehaviour {
 
 	public Text arrowText;
 	public ArrowSupplier arrows;

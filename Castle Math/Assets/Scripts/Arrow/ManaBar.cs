@@ -8,7 +8,7 @@ public class ManaBar : MonoBehaviour {
 	public int NumberOfQuestions;
 	public GameObject manaBarEnd;
 	public CanvasGroup mathCanvas;
-	public HudManager hud;
+	public hudManager hud;
 	public doorHealth healthLeft;
 	public doorHealth healthMid;
 	public doorHealth healthRight;
