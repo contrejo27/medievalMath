@@ -10,11 +10,11 @@ public class Compare : MonoBehaviour, Question {
 
 	private double leftCompare;
 	private double rightCompare;
-	private int CorrectAnswer;
+	private string CorrectAnswer;
 	private int isSubtract;
 	private string [] AnswerChoices;
 	private string QuestionString;
-
+	private List <string> Symbols;
 	private AnswerInput A_Input;
 
 	//public QuestionGenerator QG;
@@ -34,6 +34,7 @@ public class Compare : MonoBehaviour, Question {
 	public void GenerateQuestion (int maxDifficulty) { //int maxDifficulty => temp fix
 
         this.leftCompare = Random.Range(0.0f, 1.0f);  //.3544
+		this.rightCompare = leftCompare;
         
         int decimalPlaces = Random.Range(2, 5); //3
 
@@ -44,114 +45,102 @@ public class Compare : MonoBehaviour, Question {
             multiple *= multiple; //100,1000
         }
 
-		leftCompare = System.Math.Round(leftCompare, decimalPlaces);//.354
+		//Randomly increase value of one number
+		if (step < 2) {
+			this.rightCompare *= multiple; //354
+		} else {
+			this.leftCompare *= multiple;
+		}
 
-        this.rightCompare = leftCompare * multiple; //354
+		leftCompare = System.Math.Round(leftCompare, decimalPlaces);//.354
+		rightCompare = System.Math.Round(rightCompare, decimalPlaces);
 
         QuestionString = "Which symbol makes this comparision true?\n" 
                             + leftCompare.ToString () + " __ " + rightCompare.ToString ();
 
+		Debug.Log (QuestionString);
 		QuestionText.text = QuestionString;
 		GenerateChoices ();
 
-        //Debug.Log(QuestionString);
 	}
 
     string getCorrectSymbol() {
-        string correctSymbol = "";
-
+        //string correctSymbol = "";
+		Symbols = new List<string>(){"<", ">", "=", "<=", ">=", "-", "+", "%"};
 
 		if (leftCompare < rightCompare) {
-            correctSymbol = "less";
-			//Debug.Log ("Sym " + correctSymbol);
+			CorrectAnswer = "less";
 		}
 		else if (leftCompare > rightCompare){
-            correctSymbol = "greater";
-			//Debug.Log ("Sym " + correctSymbol);
+			CorrectAnswer = "greater";
 		}
 		else if (leftCompare == rightCompare) {
-            correctSymbol = "equal";
-			//Debug.Log ("Sym " + correctSymbol);
+			CorrectAnswer = "equal";
 		}
 
         int r = Random.Range(0, 2);
 		int rAdd = Random.Range (0, 2);
 
-		if (correctSymbol == "less") {
+		if (CorrectAnswer == "less") {
+			Symbols.Remove ("<=");
+			Symbols.Remove ("<");
+
 			if (r == 0) {
-                correctSymbol = "<=";
-				//Debug.Log ("Sym " + correctSymbol);
+				CorrectAnswer = "<=";
 			}
 			else{
-				correctSymbol = "<";
-				//Debug.Log ("Sym " + correctSymbol);
+				CorrectAnswer = "<";
 			}
         }
-        else if (correctSymbol == "greater") {
+		else if (CorrectAnswer == "greater") {
+			Symbols.Remove (">=");
+			Symbols.Remove (">");
+
 			if (r == 0) {
-				correctSymbol = ">=";
-				//Debug.Log ("Sym " + correctSymbol);
+				CorrectAnswer = ">=";
 			} else {
-				correctSymbol = ">";
-				//Debug.Log ("Sym "+ correctSymbol);
+				CorrectAnswer = ">";
 			}
         }
-		else if (correctSymbol == "equal") {
+		else if (CorrectAnswer == "equal") {
             //Adds third variable possibility
+			Symbols.Remove ("<=");
+			Symbols.Remove (">=");
+			Symbols.Remove ("=");
             r += rAdd;
 			if (r == 0) {
-				correctSymbol = ">=";
-				//Debug.Log ("Sym " + correctSymbol);
+				CorrectAnswer = ">=";
 			} else if (r == 1) {
-				correctSymbol = "<=";
-				//Debug.Log ("Sym " + correctSymbol);
+				CorrectAnswer = "<=";
 			} else {
-				correctSymbol = "=";
-				//Debug.Log ("Sym " + correctSymbol);
+				CorrectAnswer = "=";
 			}
         }
-
-        return correctSymbol;
+		Debug.Log ("Correct Symbol:" + CorrectAnswer);
+		return CorrectAnswer;
     }
 		
 	public void GenerateChoices() {
-		////Debug.Log ("Gen Choices");
         string correctSymbol = this.getCorrectSymbol();
-		//Debug.Log ("Correct: " + correctSymbol);
-
-		//string Choice1;
-		//string Choice2;
-		//string Choice3;
-
-        string [] compareSymbols = {"<", ">", "=", "<=", ">=", "-", "+", "%"};
 		AnswerChoices = new string[] {"","","",""};
-		List<int> usedValues = new List<int>();
-        for (int i = 0; i < AnswerChoices.Length - 1; i++){
-            int index = Random.Range(0, compareSymbols.Length);
-            
-            while(usedValues.Contains(index)) {
-                index = Random.Range(0, compareSymbols.Length);
-            }
-            
-            AnswerChoices[i] = compareSymbols[index];
-			//Debug.Log(i + AnswerChoices[i]);
 
-			usedValues.Add(index);
+		for (int i = 0; i < AnswerChoices.Length - 1; i++) {
+			int index = Random.Range(0, Symbols.Count - 1);
+		
+           	AnswerChoices[i] = Symbols[index];
+			Symbols.RemoveAt (index);
 		}
         
         AnswerChoices[AnswerChoices.Length - 1] = correctSymbol;
 
-		/*
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
 			string temp = AnswerChoices[i];
 			int r = Random.Range(i, AnswerChoices.Length);
 			AnswerChoices[i] = AnswerChoices[r];
 			AnswerChoices[r] = temp;
-            //Debug.Log(i + AnswerChoices[r]);
-		}
-		*/
 
+		}
 
 		A_Input.DisplayChoices (AnswerChoices);
 	}
@@ -161,7 +150,6 @@ public class Compare : MonoBehaviour, Question {
 	}
 
 	public string getCorrectAnswer() {
-		return this.getCorrectSymbol();
+		return CorrectAnswer;
 	}
-
 }
