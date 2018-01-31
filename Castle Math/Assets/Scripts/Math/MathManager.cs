@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MathManager : MonoBehaviour {
+
 	public Text QuestionText;
 	public Text FeedbackText;
 
@@ -23,7 +24,7 @@ public class MathManager : MonoBehaviour {
 	TrueOrFalse True_False;
 	Fractions Fraction;
 
-	private int [] QuestionTypes;
+	public int [] QuestionTypes;
 	public int IncorrectAnswersPerQuestion;
 	private int QuestionType;
 	private Question currentQuestion;
@@ -60,6 +61,23 @@ public class MathManager : MonoBehaviour {
 		GenerateProblem (QuestionTypes);
 	}
 
+	public void ActivateInterMath(){
+		QuestionTypes [0] = 0;
+		QuestionTypes [1] = 0;
+		QuestionTypes [2] = 0;
+		QuestionTypes [3] = 0;
+		QuestionTypes [4] = 1;
+		GenerateProblem (QuestionTypes);
+	}
+
+	public void DeactivateInterMath(){
+		QuestionTypes [0] = AddSubQuestions;
+		QuestionTypes [1] = MultiDivideQuestions;
+		QuestionTypes [2] = CompareQuestions;
+		QuestionTypes [3] = TrueFalseQuestions;
+		QuestionTypes [4] = FractionQuestions;
+		GenerateProblem (QuestionTypes);
+	}
 
 	public void GenerateProblem(int [] QuestionTypes)
 	{

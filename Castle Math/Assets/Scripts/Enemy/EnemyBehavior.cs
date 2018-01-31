@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour {
-	private GameStateManager GameManager;
+	private WaveManager wManager;
 
 	//enemy
 	public int HitPoints;
@@ -35,7 +35,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Anim = GetComponent<Animator> ();
 
 		isMoving = false;
-		GameManager = GameObject.FindObjectOfType<GameStateManager> ();
+		wManager = GameObject.FindObjectOfType<WaveManager> ();
 
 		//get 3 different audio sources so they don't overlap all the time
 		A_Source = new AudioSource[] {GameObject.Find ("EnemyAudio").GetComponent<AudioSource>(),
@@ -171,7 +171,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Anim.SetBool ("isDead", true);
 		Anim.Play("death");
 
-		GameManager.EnemyKilled ();
+		wManager.EnemyKilled ();
 		StartCoroutine (WaitToDestroy());
 	}
 

@@ -344,12 +344,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: CheckAnswer
-        m_Mode: 2
+      - m_Target: {fileID: 941941989}
+        m_MethodName: NextWave
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1872643084}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -596,12 +596,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: CheckAnswer
-        m_Mode: 2
+      - m_Target: {fileID: 941941989}
+        m_MethodName: NextWave
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 996442974}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1541,7 +1541,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0000006303707
+      value: 0.00000048552096
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1549,7 +1549,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.892
+      value: -2.0093
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1632,7 +1632,6 @@ MonoBehaviour:
   MathScreen: {fileID: 542802104}
   StatScreen: {fileID: 2098842474}
   InsidePoint: {fileID: 533171909}
-  WaveCleared: {fileID: 8300000, guid: 2e65af28b81fa47cda06ab24ad4e1954, type: 3}
   LostTheCastle: {fileID: 8300000, guid: 199ccdd3e00978e48bc4e595db10b25b, type: 3}
   CastleScreams:
   - {fileID: 8300000, guid: e840b03322f7c4835a46faa13cb69e41, type: 3}
@@ -1763,6 +1762,8 @@ MonoBehaviour:
   startGame: {fileID: 1693252934}
   billboard: {fileID: 77706419}
   mathCanvas: {fileID: 542802110}
+  interMathCanvas: {fileID: 277194582}
+  target: {fileID: 1399596737}
 --- !u!1001 &214064685
 Prefab:
   m_ObjectHideFlags: 0
@@ -2335,7 +2336,7 @@ GameObject:
   - component: {fileID: 277194582}
   - component: {fileID: 277194581}
   m_Layer: 14
-  m_Name: MathCanvas (1)
+  m_Name: MathCanvas_Billboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2368,7 +2369,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 277194579}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -2934,8 +2935,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 1bed5258bfb87cd4597b8ca5b84438ca, type: 3}
+    m_FontSize: 53
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
@@ -4434,7 +4435,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.000000372858
+      value: 0.00000074303364
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4442,7 +4443,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.892
+      value: -2.0093
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4749,9 +4750,9 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 542802104}
-  m_LocalRotation: {x: 0.0075142765, y: -0.85731834, z: 0.51460254, w: -0.011537194}
-  m_LocalPosition: {x: 0, y: 0, z: 10.021658}
-  m_LocalScale: {x: 0.004281423, y: 0.00428142, z: 0.004281421}
+  m_LocalRotation: {x: 0.007862067, y: -0.872589, z: 0.48826116, w: -0.011303058}
+  m_LocalPosition: {x: 0, y: 0, z: 10.2}
+  m_LocalScale: {x: 0.0059536304, y: 0.0059536262, z: 0.0059536276}
   m_Children:
   - {fileID: 1869398078}
   - {fileID: 777428184}
@@ -4762,10 +4763,10 @@ RectTransform:
   - {fileID: 1475426875}
   m_Father: {fileID: 657052359}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 61.907, y: -183.34999, z: -3.0140002}
+  m_LocalEulerAnglesHint: {x: 58.422, y: -182.99998, z: -2.71}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.0408936, y: -3.6953516}
+  m_AnchoredPosition: {x: 2.05, y: -3.84}
   m_SizeDelta: {x: 956, y: 631}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542802109
@@ -4803,7 +4804,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 542802104}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -6822,15 +6823,15 @@ Transform:
   m_PrefabParentObject: {fileID: 421366, guid: 1dcc6f17f2ad24b98a7ef082c8c454a9, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 283937994}
-  m_LocalRotation: {x: -0.50503093, y: 0.5023125, z: 0.49852452, w: 0.49406415}
-  m_LocalPosition: {x: -0.0045868754, y: -0.5472036, z: 0.53045356}
+  m_LocalRotation: {x: -0.50918096, y: 0.5046856, z: 0.49392, w: 0.49200645}
+  m_LocalPosition: {x: 0.3475151, y: -0.55903697, z: 0.6339359}
   m_LocalScale: {x: 1.2341422, y: 1.2341423, z: 1.2341423}
   m_Children:
   - {fileID: 1219009645}
   - {fileID: 1590528033}
   m_Father: {fileID: 450570751}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -89.060005, y: -154.005, z: 244.105}
+  m_LocalEulerAnglesHint: {x: -88.358, y: -167.15501, z: 257.007}
 --- !u!1 &814910222
 GameObject:
   m_ObjectHideFlags: 0
@@ -6877,7 +6878,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 2e62831f65b782a49b69a331c4422b39, type: 3}
+  m_Material: {fileID: 2100000, guid: 691bf91e098513d49be30e3a09a90731, type: 3}
   m_Color: {r: 0.23921569, g: 0.18431373, b: 0.11372549, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -7721,8 +7722,11 @@ MonoBehaviour:
   horseRiderSpawnSound: {fileID: 8300000, guid: 117f84c41b6976a48807f9289205d991,
     type: 3}
   trollSpawnSound: {fileID: 8300000, guid: 18f39aa887b2e43d7b4acb24bbf1c517, type: 3}
+  WaveCleared: {fileID: 8300000, guid: 2e65af28b81fa47cda06ab24ad4e1954, type: 3}
   WaveTitle: {fileID: 1753009933}
   waveEffect: {fileID: 1184378510}
+  interMath: {fileID: 206640375}
+  billboard: {fileID: 77706419}
 --- !u!4 &941941990
 Transform:
   m_ObjectHideFlags: 0
@@ -10123,12 +10127,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: CheckAnswer
-        m_Mode: 2
+      - m_Target: {fileID: 941941989}
+        m_MethodName: NextWave
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2026815921}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13167,7 +13171,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000088789074
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13175,7 +13179,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.8917
+      value: -2.009
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalRotation.x
@@ -14275,7 +14279,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0.0000011158917
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14283,7 +14287,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.892
+      value: -2.0093
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f26827e2bcf3439468820b794f3544ee, type: 3}
       propertyPath: m_LocalRotation.x
@@ -14912,12 +14916,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: CheckAnswer
-        m_Mode: 2
+      - m_Target: {fileID: 941941989}
+        m_MethodName: NextWave
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 222518149}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -15919,6 +15923,7 @@ MonoBehaviour:
   FeedbackText: {fileID: 0}
   CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
   IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
+  QuestionTypes: 
   IncorrectAnswersPerQuestion: 0
   AddSubQuestions: 1
   MultiDivideQuestions: 1
@@ -15951,7 +15956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestionTexts: []
   QuestionText_hud: {fileID: 0}
-  FeedbackText: {fileID: 0}
+  FeedbackTexts: []
   ChoiceBoxes: []
   ChoiceBox: {fileID: 0}
   CorrectSound: {fileID: 8300000, guid: 109520d74511e5344b9f4c17e541a9ed, type: 3}

@@ -16,7 +16,6 @@ public class UIEffects : MonoBehaviour {
 			yield return null;
 		}
 
-		this.gameObject.SetActive (false);
 	//	transform.localScale = new Vector3(0f,0f,0f);
 	}
 	

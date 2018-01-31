@@ -14,19 +14,16 @@ public class GameStateManager : MonoBehaviour {
 	public UIEffects notificationEffects;
 	public GameObject LoseScreen;
 	public GameObject MathScreen;
+
 	public GameObject StatScreen;
 	private string playerName = "JGC";
 
 	//enemy behavior
 	public GameObject InsidePoint;
-	private int CurrentEnemies;
-	private WaveManager W_Manager;
 
 	//audio
-	public AudioClip WaveCleared;
 	public AudioClip LostTheCastle;
 	public AudioClip[] CastleScreams;
-	private AudioSource A_Source;
 	public AudioSource music;
 	public AudioClip gameplaySong;
 	public PlayerMathStats playerMathStats;
@@ -42,8 +39,6 @@ public class GameStateManager : MonoBehaviour {
 	void Start () {
 		RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
 		Player = GameObject.FindObjectOfType<LaunchProjectile> (); 
-		W_Manager = GameObject.FindObjectOfType<WaveManager> ();
-		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
 		mainMenuEffects.fadeIn (.4f);
 		
 		//first time game is opened sets up initial playerPref values
@@ -65,18 +60,6 @@ public class GameStateManager : MonoBehaviour {
 		notificationEffects.fadeIn(1.5f);
 		music.clip = gameplaySong;
 		music.Play ();
-	}
-
-	public void EnemyKilled()
-	{
-		CurrentEnemies -= 1;
-		//if all enemies were killed
-		if (CurrentEnemies <= 0) {
-			W_Manager.NextWave();
-
-			A_Source.clip = WaveCleared;
-			A_Source.Play ();
-		}
 	}
 
 	public void LoseState(){
@@ -135,7 +118,6 @@ public class GameStateManager : MonoBehaviour {
 	void fadeWorldOut(){
 		StartCoroutine(fadeSky(1.0f,0.0f));
 		StartCoroutine(fadeLight(false));
-
 	}
 	
 	void fadeWorldIn(){
@@ -177,19 +159,6 @@ public class GameStateManager : MonoBehaviour {
 				yield return null;
 			}
 		}
-	}
-
-	
-	//get enemy count to know when the wave is over
-	public void SetNumberOfEnemies(int SizeOfWave)
-	{
-		CurrentEnemies = SizeOfWave;
-	}
-
-	//used when enemies are added extra from the main footsoldiers
-	public void addEnemyToWaveSize()
-	{
-		CurrentEnemies++;
 	}
 	
 	//goes through different scripts and saves info

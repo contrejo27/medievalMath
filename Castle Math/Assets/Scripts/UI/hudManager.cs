@@ -15,13 +15,18 @@ public class hudManager : MonoBehaviour {
 	public GameObject mainCamera; // used to figure out what angle they're facing
 		
 	public int powerUpCount = 0;
-	
+
 	void Update () {
 		arrowText.text = arrows.NumberOfArrows.ToString();
-		
+		print(arrows.NumberOfArrows);
+		if(arrows.NumberOfArrows<5){
+			arrowText.color = Color.red;
+		}
+		else arrowText.color = new Color(.238f,.184f,.113f);
+
 		//give direction if player is looking the wrong way
 		float cameraYAngle = mainCamera.transform.eulerAngles.y;
-		if(cameraYAngle < 115f || cameraYAngle > 290f){
+		if(cameraYAngle < 45f || cameraYAngle > 310f){
 			rightArrow.SetActive(true);		
 			leftArrow.SetActive(true);
 			turnAroundText.SetActive(true);
