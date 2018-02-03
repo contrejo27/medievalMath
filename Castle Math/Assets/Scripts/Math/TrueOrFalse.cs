@@ -134,5 +134,13 @@ public class TrueOrFalse : MonoBehaviour, Question {
 	public string GetQuestionString() {
 		return this.QuestionString;
 	}
+
+	public void SetCorrectAnswer(string answer) {
+		this.CorrectAnswer = answer;
+	}
+
+	public void SetQuestionString(string question) {
+		this.QuestionString = question;
+	}
 		
 }

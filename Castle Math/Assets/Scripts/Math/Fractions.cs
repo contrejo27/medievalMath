@@ -91,6 +91,14 @@ public class Fractions : MonoBehaviour, Question {
 		return this.StringAnswer;
 	}
 
+	public void SetCorrectAnswer(string answer) {
+		this.StringAnswer = answer;
+	}
+
+	public void SetQuestionString(string question) {
+		this.StringAnswer = question;
+	}
+
 	private double getCorrectDecimalAnswer() {
 		return this.DecimalAnswer;
 	}

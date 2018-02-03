@@ -153,7 +153,14 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 		return CorrectAnswer.ToString();
 	}
 
+	public void SetCorrectAnswer(string answer) {
+		this.CorrectAnswer =  System.Int32.Parse (answer);;
+	}
 
+	public void SetQuestionString(string question) {
+		this.QuestionString = question;
+	}
+		
 
 
 }

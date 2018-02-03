@@ -82,11 +82,10 @@ public class MathManager : MonoBehaviour {
 	public void GenerateProblem(int [] QuestionTypes)
 	{
 		A_Input.ClearChoices ();
+		IncorrectAnswersPerQuestion = 0;
 
 		int randIndex = Random.Range (0, QuestionTypes.Length);
 		QuestionType = QuestionTypes [randIndex];
-
-		IncorrectAnswersPerQuestion = 0;
 
 		/*
 		if (totalQuestionsAnswered % 4 == 0) {

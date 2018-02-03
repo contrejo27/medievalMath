@@ -161,5 +161,14 @@ public class AddOrSubtract : MonoBehaviour, Question {
 		return this.CorrectAnswer.ToString();
 	}
 
+	public void SetCorrectAnswer(string answer) {
+		this.CorrectAnswer = System.Int32.Parse (answer);
+	}
+
+	public void SetQuestionString(string question) {
+		this.QuestionString = question;
+	}
+
+
 
 }

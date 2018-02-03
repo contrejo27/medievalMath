@@ -154,4 +154,12 @@ public class Compare : MonoBehaviour, Question {
 	public string getCorrectAnswer() {
 		return CorrectAnswer;
 	}
+
+	public void SetCorrectAnswer(string answer) {
+		this.CorrectAnswer = answer;
+	}
+
+	public void SetQuestionString(string question) {
+		this.QuestionString = question;
+	}
 }

@@ -18,7 +18,7 @@ public class hudManager : MonoBehaviour {
 
 	void Update () {
 		arrowText.text = arrows.NumberOfArrows.ToString();
-		print(arrows.NumberOfArrows);
+		//print(arrows.NumberOfArrows);
 		if(arrows.NumberOfArrows<5){
 			arrowText.color = Color.red;
 		}

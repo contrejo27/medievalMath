@@ -63,25 +63,6 @@ public class AnswerInput : MonoBehaviour {
 		//AnswerText.text = "";
 
 	}
-	/*
-	public void AddTo(string Digit)
-	{
-		CurrentAnswer += Digit;
-
-		AnswerText.text = CurrentAnswer;
-	}
-
-
-	public void BackSpace()
-	{
-		if (CurrentAnswer.Length > 0) {
-			CurrentAnswer = CurrentAnswer.Substring (0, CurrentAnswer.Length - 1);
-
-			AnswerText.text = CurrentAnswer;
-		}
-
-	}
-	*/
 
 	//start
 	public void ClearChoices() {
@@ -90,7 +71,6 @@ public class AnswerInput : MonoBehaviour {
 		}
 
 		ChoiceBoxes = GameObject.FindGameObjectsWithTag ("ChoiceBox");
-		Debug.Log (ChoiceBoxes.Length);
 
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//Iterate through each choice box and set text to empty string
@@ -128,8 +108,9 @@ public class AnswerInput : MonoBehaviour {
 		//int answerAsInt = int.Parse(Answer.text.ToString());
 		String answerText = Answer.text.ToString();
 
-		for (int i = 0; i < FeedbackTexts.Length; i++) {
+		for (int i = 0; i < 1; i++) {
 			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
+
 			if (answerText == CorrectAnswer) {
 
 				FeedbackText.text = "Correct";
@@ -137,7 +118,7 @@ public class AnswerInput : MonoBehaviour {
 				FeedbackText.gameObject.SetActive (true);
 				StartCoroutine (DisplayFeedback ());
 
-				ClearAnswer ();
+				//ClearAnswer ();
 
 				A_Supply.CreateArrow ();
 
@@ -162,7 +143,7 @@ public class AnswerInput : MonoBehaviour {
 				A_Source.clip = IncorrectSound;
 				A_Source.Play ();
 
-				ClearAnswer ();
+				//ClearAnswer ();
 				ClearChoices ();
 
 			}
@@ -192,6 +173,7 @@ public class AnswerInput : MonoBehaviour {
 				//Assign answer choices to new array, minus element removed
 				AnswerChoicesCopy [i] = AnswerChoices [j];
 			}
+
 			//Resassign answer choices to new array
 			this.AnswerChoices = AnswerChoicesCopy;
 		} else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3) {
