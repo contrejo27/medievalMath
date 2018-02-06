@@ -127,6 +127,11 @@ public class AnswerInput : MonoBehaviour {
 
 				Math_Stats.CorrectlyAnswered ();
 
+
+				if (M_Manager.GetIncorrectAnswersPerQuestion() >= 1) {
+					Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
+				}
+
 				M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
 				PowerUp.QuestionAnswered ();
@@ -177,7 +182,7 @@ public class AnswerInput : MonoBehaviour {
 			//Resassign answer choices to new array
 			this.AnswerChoices = AnswerChoicesCopy;
 		} else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3) {
-			Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion());
+			Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
 			Debug.Log ("Current Question: " + M_Manager.GetCurrentQuestion ().GetQuestionString ());
 			Tracker.ShowIncorrectQestions ();
 			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());

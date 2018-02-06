@@ -14,33 +14,27 @@ public class QuestionTracker  {
 		correctQuestions = new List <Question>();
 	}
 
-	public void AddIncorrectQuestion(Question question) {
+	public void AddIncorrectQuestion(Question question, int incorrectAnswers) {
 		Question q;
 
 		if (Object.ReferenceEquals (question.GetType (), typeof(AddOrSubtract))) {
 			q = new AddOrSubtract ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer());
+
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(MultiplyOrDivide))) {
 			q = new MultiplyOrDivide ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer ());
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(Fractions))) {
 			q = new Fractions ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer ());
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(Compare))) {
 			q = new Compare ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer ());
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(TrueOrFalse))) {
-			q = new TrueOrFalse ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer ());
+			q = new TrueOrFalse ();	
 		} else {
 			q = null;
 		}
 
+		q.SetQuestionString (question.GetQuestionString());
+		q.SetCorrectAnswer (question.getCorrectAnswer());
+		q.SetIncorrectAnswers (incorrectAnswers);
 		Debug.Log ("Question to add: " + q.GetQuestionString());
 
 		incorrectQuestions.Add (q);
@@ -50,32 +44,26 @@ public class QuestionTracker  {
 		incorrectQuestions.Remove (question);
 	}
 
-	public void AddCorrectQuestion(Question question) {
+	public void AddCorrectQuestion(Question question, int incorrectAnswers) {
 		Question q;
 
 		if (Object.ReferenceEquals (question.GetType (), typeof(AddOrSubtract))) {
 			q = new AddOrSubtract ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer());
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(MultiplyOrDivide))) {
 			q = new MultiplyOrDivide ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer ());
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(Fractions))) {
 			q = new Fractions ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer ());
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(Compare))) {
 			q = new Compare ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer ());
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(TrueOrFalse))) {
 			q = new TrueOrFalse ();
-			q.SetQuestionString (question.GetQuestionString());
-			q.SetCorrectAnswer (question.getCorrectAnswer ());
 		} else {
 			q = null;
 		}
+
+		q.SetQuestionString (question.GetQuestionString());
+		q.SetCorrectAnswer (question.getCorrectAnswer());
+		q.SetIncorrectAnswers (incorrectAnswers);
 
 		correctQuestions.Add (q);
 	}
@@ -97,6 +85,7 @@ public class QuestionTracker  {
 
 		for (int i = 0; i < incorrectQuestions.Count; i++) {
 			Debug.Log(incorrectQuestions [i].GetQuestionString ());
+			Debug.Log ("Incorrect attempts: " + incorrectQuestions [i].GetIncorrectAnswers ());
 		}
 	}
 

@@ -13,6 +13,7 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	private int SecondNum;
 	private int CorrectAnswer;
 	private int isDivide;
+	private int incorrectAnswers = 0;
 	private string [] AnswerChoices;
 	private string QuestionString;
 	int maxInt = 10;
@@ -160,7 +161,13 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	public void SetQuestionString(string question) {
 		this.QuestionString = question;
 	}
-		
 
+	public void SetIncorrectAnswers(int incorrect) {
+		incorrectAnswers = incorrect;
+	}
+
+	public int GetIncorrectAnswers() {
+		return this.incorrectAnswers;
+	}
 
 }

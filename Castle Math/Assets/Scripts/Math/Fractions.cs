@@ -14,6 +14,7 @@ public class Fractions : MonoBehaviour, Question {
 	private int Denominator;
 	private double DecimalAnswer;
 	private string StringAnswer;
+	private int incorrectAnswers; 
 
 	public Fractions () {
 	}
@@ -110,4 +111,13 @@ public class Fractions : MonoBehaviour, Question {
 	private int getDenominator() {
 		return this.Denominator;
 	}
+
+	public void SetIncorrectAnswers(int incorrect) {
+		incorrectAnswers = incorrect;
+	}
+
+	public int GetIncorrectAnswers() {
+		return this.incorrectAnswers;
+	}
+
 }

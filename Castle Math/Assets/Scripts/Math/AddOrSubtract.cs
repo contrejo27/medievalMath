@@ -16,6 +16,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	string QuestionString;
 	int maxInt;
 	AnswerInput A_Input;
+	private int incorrectAnswers;
 
 	public AddOrSubtract() {
 		
@@ -167,6 +168,14 @@ public class AddOrSubtract : MonoBehaviour, Question {
 
 	public void SetQuestionString(string question) {
 		this.QuestionString = question;
+	}
+
+	public void SetIncorrectAnswers(int incorrect) {
+		incorrectAnswers = incorrect;
+	}
+
+	public int GetIncorrectAnswers() {
+		return this.incorrectAnswers;
 	}
 
 

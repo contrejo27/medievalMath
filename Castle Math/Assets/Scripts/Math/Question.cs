@@ -8,8 +8,10 @@ public interface Question  {
 	void GenerateChoices();
 	void SetQuestionString (string question);
 	void SetCorrectAnswer(string answer);
-	string GetQuestionString();
-	string getCorrectAnswer();
+	void SetIncorrectAnswers (int incorrect);
+	int GetIncorrectAnswers ();
+	string GetQuestionString ();
+	string getCorrectAnswer ();
 
 
 }

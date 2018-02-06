@@ -16,6 +16,7 @@ public class Compare : MonoBehaviour, Question {
 	private string QuestionString;
 	private List <string> Symbols;
 	private AnswerInput A_Input;
+	private int incorrectAnswers;
 
 	//public QuestionGenerator QG;
 
@@ -162,4 +163,13 @@ public class Compare : MonoBehaviour, Question {
 	public void SetQuestionString(string question) {
 		this.QuestionString = question;
 	}
+
+	public void SetIncorrectAnswers(int incorrect) {
+		incorrectAnswers = incorrect;
+	}
+
+	public int GetIncorrectAnswers() {
+		return this.incorrectAnswers;
+	}
+
 }

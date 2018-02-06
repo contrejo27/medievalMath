@@ -30,6 +30,7 @@ public class TrueOrFalse : MonoBehaviour, Question {
 	private AnswerInput A_Input;
 	private string CorrectAnswer;
 	private string [] AnswerChoices;
+	private int incorrectAnswers;
 
 	public TrueOrFalse() {
 	}
@@ -143,4 +144,12 @@ public class TrueOrFalse : MonoBehaviour, Question {
 		this.QuestionString = question;
 	}
 		
+	public void SetIncorrectAnswers(int incorrect) {
+		incorrectAnswers = incorrect;
+	}
+
+	public int GetIncorrectAnswers() {
+		return this.incorrectAnswers;
+	}
+
 }

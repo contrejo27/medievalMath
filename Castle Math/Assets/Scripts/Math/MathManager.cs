@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -129,6 +130,7 @@ public class MathManager : MonoBehaviour {
 		totalQuestionsAnswered++;
 
 	}
+
 	public void increaseMathDifficulty(){
 		mathDifficulty++;
 	}
