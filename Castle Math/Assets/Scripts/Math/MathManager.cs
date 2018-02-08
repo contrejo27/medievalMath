@@ -63,12 +63,10 @@ public class MathManager : MonoBehaviour {
 	}
 
 	public void ActivateInterMath(){
-		QuestionTypes [0] = 0;
-		QuestionTypes [1] = 0;
-		QuestionTypes [2] = 0;
-		QuestionTypes [3] = 0;
-		QuestionTypes [4] = 1;
-		GenerateProblem (QuestionTypes);
+		Fraction.GenerateQuestion (-1);//-1 => temp fix
+		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+		currentQuestion = Fraction;
+		totalQuestionsAnswered++;
 	}
 
 	public void DeactivateInterMath(){

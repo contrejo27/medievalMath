@@ -59,6 +59,7 @@ public class GameStateManager : MonoBehaviour {
 		mainMenuEffects.fadeOut(1.5f);
 		notificationEffects.fadeIn(1.5f);
 		music.clip = gameplaySong;
+		music.loop = true;
 		music.Play ();
 	}
 
@@ -111,7 +112,7 @@ public class GameStateManager : MonoBehaviour {
 		VRSettings.LoadDeviceByName(vrToggle);
 		yield return null;
 		VRSettings.enabled = false;
-		yield return new WaitForSeconds(.2f);
+		yield return new WaitForSeconds(.1f);
 		SceneManager.LoadScene (0);
 	}
 

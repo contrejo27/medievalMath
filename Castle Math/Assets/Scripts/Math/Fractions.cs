@@ -9,6 +9,7 @@ public class Fractions : MonoBehaviour, Question {
 
 	public Text QuestionText;
 	public Text QuestionText_hud;
+	public GameObject fractionItem;
 
 	private int Numerator;
 	private int Denominator;
@@ -34,9 +35,11 @@ public class Fractions : MonoBehaviour, Question {
 			Numerator = Random.Range (1, 13);
 		}
 
-		DecimalAnswer = (double)Numerator / (double)Denominator;
+		QuestionText.text = "What fraction do the green gems represent?";
 
+		DecimalAnswer = (double)Numerator / (double)Denominator;
 		StringAnswer = Numerator.ToString() + "/" + Denominator.ToString();
+		displayItems();
 
 		GenerateChoices ();
 
@@ -82,6 +85,21 @@ public class Fractions : MonoBehaviour, Question {
 
 		A_Input.DisplayChoices (AnswerChoices);
 
+	}
+
+	void displayItems(){
+		GameObject billboard = GameObject.Find ("MathCanvas_Billboard");
+		for(int i = 0; i<Numerator;i++){
+			GameObject numeratorItem = Instantiate(fractionItem,billboard.transform);
+			numeratorItem.transform.position = new Vector3(numeratorItem.transform.position.x + i, numeratorItem.transform.position.y, numeratorItem.transform.position.z);
+		}
+		
+		for(int i = 0; i< Denominator;i++){
+			GameObject denominatorItem = Instantiate(fractionItem,billboard.transform);
+			denominatorItem.GetComponent<Image>().color = Color.red;
+			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + i, denominatorItem.transform.position.y - 1.5f, denominatorItem.transform.position.z);
+		}
+		
 	}
 
 	public string GetQuestionString () {
