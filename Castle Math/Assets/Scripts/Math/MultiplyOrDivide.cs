@@ -110,36 +110,41 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			}
 		}
 
-		//TODO change to Hashmap with lookup for duplicate values
 		//Array of all possible choices
-		int[] integerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
-		int size = integerChoices.Length;
-
-		//Check for duplicate values and add random integer to them if necessary
-		for (int i = 0; i < size - 1; i++){
-			for (int j = i + 1; j < size; j++) {
-				if ( integerChoices [i] == integerChoices [j]) {
-					integerChoices [i] += Random.Range(1, 4);
-
-				}
-			}
-		}
-
-		//Convert integer choices to strings for later implementation
-		AnswerChoices = new string[] { Choice1.ToString (), Choice2.ToString (), 
-			Choice3.ToString (), CorrectAnswer.ToString ()
-		};
-
-		//Shuffle array randomly
-		for (int i = 0; i < AnswerChoices.Length; i++ ) {
-			string temp = AnswerChoices[i];
-			int r = Random.Range(i, AnswerChoices.Length);
-			AnswerChoices[i] = AnswerChoices[r];
-			AnswerChoices[r] = temp;
-
-		}
+		int[] IntegerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
+		AnswerChoices = ChoicesToStringArray (IntegerChoices);
 
 		A_Input.DisplayChoices (AnswerChoices);
+	}
+
+	public string[] ChoicesToStringArray(int [] IntegerChoices) {
+		HashSet<int> choiceSet = new HashSet<int> ();
+		int size = IntegerChoices.Length;
+
+		//Check for duplicate values in array. If found, add a number in a random range
+		for (int i = 0; i < size; i++) {
+			if (choiceSet.Contains(IntegerChoices[i])) {
+				IntegerChoices [i] += Random.Range(1, 4);
+			}
+			choiceSet.Add(IntegerChoices[i]);
+		}
+
+
+
+		//Shuffle array randomly
+		for (int i = 0; i < IntegerChoices.Length; i++ ) {
+			int temp = IntegerChoices[i];
+			int r = Random.Range(i, IntegerChoices.Length);
+			IntegerChoices[i] = IntegerChoices[r];
+			IntegerChoices[r] = temp;
+
+		}
+
+		//Populate choice array with generated answer choices, converted to strings for later use
+		AnswerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
+			IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
+
+		return AnswerChoices;
 	}
 
 	/**Return formatted question string

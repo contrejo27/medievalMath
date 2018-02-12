@@ -121,16 +121,17 @@ public class AddOrSubtract : MonoBehaviour, Question {
 		}
 			
 		int[] IntegerChoices = new int [] { Choice1, Choice2, Choice3, CorrectAnswer };
+
+		/*
+		HashSet<int> choiceSet = new HashSet<int> ();
 		int size = IntegerChoices.Length;
 
 		//Check for duplicate values in array. If found, add a number in a random range
-		for (int i = 0; i < size - 1; i++){
-			for (int j = i + 1; j < size; j++) {
-				if ( IntegerChoices [i] == IntegerChoices [j]) {
-					IntegerChoices [i] += Random.Range(1, 4);
-
-				}
+		for (int i = 0; i < size; i++) {
+			if (choiceSet.Contains(IntegerChoices[i])) {
+				IntegerChoices [i] += Random.Range(1, 4);
 			}
+			choiceSet.Add(IntegerChoices[i]);
 		}
 
 		//Shuffle array randomly
@@ -145,9 +146,49 @@ public class AddOrSubtract : MonoBehaviour, Question {
 		//Populate choice array with generated answer choices, converted to strings for later use
 		AnswerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
 			IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
+		*/
 
-
+		AnswerChoices = ChoicesToStringArray (IntegerChoices);
 		A_Input.DisplayChoices (AnswerChoices);
+	}
+
+	public string[] ChoicesToStringArray(int [] IntegerChoices) {
+		HashSet<int> choiceSet = new HashSet<int> ();
+		int size = IntegerChoices.Length;
+
+		//Check for duplicate values in array. If found, add a number in a random range
+		for (int i = 0; i < size; i++) {
+			if (choiceSet.Contains(IntegerChoices[i])) {
+				IntegerChoices [i] += Random.Range(1, 4);
+			}
+			choiceSet.Add(IntegerChoices[i]);
+		}
+
+		/*
+		for (int i = 0; i < size - 1; i++){
+			for (int j = i + 1; j < size; j++) {
+				if ( IntegerChoices [i] == IntegerChoices [j]) {
+					IntegerChoices [i] += Random.Range(1, 4);
+
+				}
+			}
+		}
+		*/
+
+		//Shuffle array randomly
+		for (int i = 0; i < IntegerChoices.Length; i++ ) {
+			int temp = IntegerChoices[i];
+			int r = Random.Range(i, IntegerChoices.Length);
+			IntegerChoices[i] = IntegerChoices[r];
+			IntegerChoices[r] = temp;
+
+		}
+
+		//Populate choice array with generated answer choices, converted to strings for later use
+		AnswerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
+			IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
+
+		return AnswerChoices;
 	}
 
 	/** Returns the formatted question string
