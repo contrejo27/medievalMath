@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour {
 		billboard.SetActive(false);
 
 		if(currentWave%2 ==0) {
-			Mathm.increaseMathDifficulty();
+			Mathm.SetDifficulty();
 		}
 		
 		currentWave += 1;
