@@ -8,10 +8,14 @@ public class QuestionTracker  {
 
 	List <Question> incorrectQuestions;
 	List <Question> correctQuestions;
+	PlayerMathStats PlayerStats;
+	const int isIncorrect = -1;
+	const int isCorrect = 1;
 
 	public QuestionTracker () {
 		incorrectQuestions = new List <Question>();
 		correctQuestions = new List <Question>();
+		PlayerStats = new PlayerMathStats ();
 	}
 
 	public void AddIncorrectQuestion(Question question, int incorrectAnswers) {
@@ -19,7 +23,6 @@ public class QuestionTracker  {
 
 		if (Object.ReferenceEquals (question.GetType (), typeof(AddOrSubtract))) {
 			q = new AddOrSubtract ();
-
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(MultiplyOrDivide))) {
 			q = new MultiplyOrDivide ();
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(Fractions))) {
@@ -35,6 +38,7 @@ public class QuestionTracker  {
 		q.SetQuestionString (question.GetQuestionString());
 		q.SetCorrectAnswer (question.getCorrectAnswer());
 		q.SetIncorrectAnswers (incorrectAnswers);
+		PlayerStats.UpdateScores (q, isIncorrect);
 		Debug.Log ("Question to add: " + q.GetQuestionString());
 
 		incorrectQuestions.Add (q);
@@ -89,4 +93,31 @@ public class QuestionTracker  {
 		}
 	}
 
+	public int GetIncorrectQuestionCount() {
+		return this.incorrectQuestions.Count;
+	}
+
+	public int GetCorrectQuestionCount() {
+		return this.correctQuestions.Count;
+	}
+
+	public int GetIncorrectOfType(System.Type type) {
+		int count = 0;
+		foreach (Question question in incorrectQuestions) {
+			if (Object.ReferenceEquals(question.GetType(), type)) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public int GetCorrectOfType(System.Type type) {
+		int count = 0;
+		foreach (Question question in correctQuestions) {
+			if (Object.ReferenceEquals(question.GetType(), type)) {
+				count++;
+			}
+		}
+		return count;
+	}
 }

@@ -13,11 +13,13 @@ public class MathManager : MonoBehaviour {
 	public AudioClip IncorrectSound;
 
 	private int ProblemType;
-	private int mathDifficulty = 9;
+	private int mathDifficultyAorS = 9;
+	private int mathDifficultyMorD = 9;
 	private string CorrectAnswer;
 	private int totalQuestionsAnswered= 0;
   
 	AnswerInput A_Input;
+	WaveMathManager WMManager;
 
 	MultiplyOrDivide Multi_Divide;
 	AddOrSubtract Add_Sub;
@@ -67,6 +69,7 @@ public class MathManager : MonoBehaviour {
 		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
 		currentQuestion = Fraction;
 		totalQuestionsAnswered++;
+
 	}
 
 	public void DeactivateInterMath(){
@@ -75,7 +78,18 @@ public class MathManager : MonoBehaviour {
 		QuestionTypes [2] = CompareQuestions;
 		QuestionTypes [3] = TrueFalseQuestions;
 		QuestionTypes [4] = FractionQuestions;
+		Debug.Log("AS Difficulty: " + mathDifficultyAorS);
+		Debug.Log("MD Difficulty: " + mathDifficultyMorD);
+
 		GenerateProblem (QuestionTypes);
+	}
+
+	public void SetDifficulty() {
+		int aggregateScoreAorS = A_Input.GetIncorrectOfType(typeof(AddOrSubtract)) + A_Input.GetCorrectOfType(typeof(AddOrSubtract));
+		int aggregateScoreMorD = A_Input.GetIncorrectOfType(typeof(MultiplyOrDivide)) + A_Input.GetCorrectOfType(typeof(MultiplyOrDivide));
+
+		mathDifficultyAorS += aggregateScoreAorS;
+		mathDifficultyMorD += aggregateScoreMorD;
 	}
 
 	public void GenerateProblem(int [] QuestionTypes)
@@ -95,13 +109,13 @@ public class MathManager : MonoBehaviour {
 		*/
 
 		if (randIndex == 0 && AddSubQuestions != 0) {
-			Add_Sub.GenerateQuestion (mathDifficulty);
+			Add_Sub.GenerateQuestion (mathDifficultyAorS);
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
 			currentQuestion = Add_Sub;
 			//currentQuestion = Add_Sub.GetQuestionString ();
 			//Debug.Log (Multi_Divide.GetQuestionString ());
 		} else if (randIndex == 1 && MultiDivideQuestions != 0) {
-			Multi_Divide.GenerateQuestion (mathDifficulty);
+			Multi_Divide.GenerateQuestion (mathDifficultyMorD);
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
 			currentQuestion = Multi_Divide;
 			//currentQuestion = Multi_Divide.GetQuestionString ();
@@ -129,9 +143,11 @@ public class MathManager : MonoBehaviour {
 
 	}
 
+	/*
 	public void increaseMathDifficulty(){
 		mathDifficulty++;
 	}
+	*/
 	
 	public int GetQuestionType() {
 		return QuestionType;

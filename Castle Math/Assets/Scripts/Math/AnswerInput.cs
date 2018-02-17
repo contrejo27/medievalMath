@@ -128,8 +128,10 @@ public class AnswerInput : MonoBehaviour {
 				Math_Stats.CorrectlyAnswered ();
 
 
-				if (M_Manager.GetIncorrectAnswersPerQuestion() >= 1) {
-					Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
+				if (M_Manager.GetIncorrectAnswersPerQuestion () >= 1) {
+					Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
+				} else {
+					Tracker.AddCorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
 				}
 
 				M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
@@ -198,6 +200,14 @@ public class AnswerInput : MonoBehaviour {
 		}
 	}
 
+	public int GetCorrectOfType(System.Type type) {
+		return Tracker.GetCorrectOfType (type);
+	}
+
+	public int GetIncorrectOfType(System.Type type) {
+		return Tracker.GetIncorrectOfType (type);
+	}
+
 	IEnumerator DisplayFeedback()
 	{
 		yield return new WaitForSeconds (2);
@@ -208,6 +218,6 @@ public class AnswerInput : MonoBehaviour {
 
 	}
 
-		
+
 
 }

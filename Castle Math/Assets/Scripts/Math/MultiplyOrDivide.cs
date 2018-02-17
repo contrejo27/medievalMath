@@ -42,12 +42,12 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 		//check for division
 		if (isDivide == 0) {
-			FirstNum = Random.Range (0, maxInt);
+			FirstNum = Random.Range (0, maxInt + (maxInt / 2));
 			SecondNum = Random.Range (1, maxInt);
 
 			//Ensure that division is even, with no remainders
 			while (FirstNum % SecondNum != 0) {
-				FirstNum = Random.Range (0, 13);
+				FirstNum = Random.Range (0, maxInt + (maxInt / 2));
 			}
 
 			//Calculate correct answer

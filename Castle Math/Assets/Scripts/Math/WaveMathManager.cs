@@ -30,8 +30,12 @@ public class WaveMathManager : MonoBehaviour {
 
 	public int FractionQuestions;
 
+	public WaveMathManager () {
+	}
+
 	// Use this for initialization
-	void Start () {
+	public void Start () {
+		Debug.Log ("Start WM");
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 
 		Fraction = GameObject.FindObjectOfType<Fractions> ();
@@ -46,7 +50,12 @@ public class WaveMathManager : MonoBehaviour {
 		GenerateProblem (QuestionTypes);
 	}
 
- 
+	public void Init() {
+		QuestionTypes = new int[1];
+		QuestionTypes [0] = FractionQuestions;
+		GenerateProblem (QuestionTypes);
+	}
+
 	public void GenerateProblem(int [] QuestionTypes)
 	{
 		A_Input.ClearChoices ();

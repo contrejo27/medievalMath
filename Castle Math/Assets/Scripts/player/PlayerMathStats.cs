@@ -12,6 +12,13 @@ public class PlayerMathStats : MonoBehaviour {
 	int incorrectAnswers;
 	int personalHighScore;
 	List<string> globalHighScores = new List<string>();
+
+
+	private int AddOrSubtractScore = 0;
+	private int MultiOrDivideScore = 0;
+	private int CompareScore = 0;
+	private int TrueOrFalseScore = 0;
+	private int FractionScore = 0;
 	
 	//in-game text
 	public Text correctText;
@@ -88,6 +95,20 @@ public class PlayerMathStats : MonoBehaviour {
 		foreach(string score in globalHighScores){
 			PlayerPrefs.SetString("globalHS"+i,score);
 			i++;
+		}
+	}
+
+	public void UpdateScores(Question question, int attemptScore) {
+		if (Object.ReferenceEquals (question.GetType (), typeof(AddOrSubtract))) {
+			AddOrSubtractScore += attemptScore;
+		} else if (Object.ReferenceEquals (question.GetType (), typeof(MultiplyOrDivide))) {
+			MultiOrDivideScore += attemptScore;
+		} else if (Object.ReferenceEquals (question.GetType (), typeof(Fractions))) {
+			FractionScore += attemptScore;
+		} else if (Object.ReferenceEquals (question.GetType (), typeof(Compare))) {
+			CompareScore += attemptScore;
+		} else if (Object.ReferenceEquals (question.GetType (), typeof(TrueOrFalse))) {
+			TrueOrFalseScore += attemptScore;	
 		}
 	}
 	
