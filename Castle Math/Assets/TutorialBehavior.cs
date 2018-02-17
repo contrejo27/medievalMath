@@ -11,6 +11,7 @@ public class TutorialBehavior : MonoBehaviour {
 	public GameObject startGame;
 	public GameObject billboard;
 	public UIEffects mathCanvas;
+	public UIEffects interMathButtons;
 	public UIEffects interMathCanvas;
 	public GameObject target;
 	int currentImage = 0;
@@ -38,17 +39,19 @@ public class TutorialBehavior : MonoBehaviour {
 			startGame.SetActive(true);	
 		}
 	}
-	
+
 	public void Activate(){
 		tutorialImage.enabled = false;
 		target.SetActive(false);
 		mathCanvas.fadeOut(1);
 		interMathCanvas.fadeIn(1);
+		interMathButtons.fadeIn(1);
 	}
-
+	
 	public void Deactivate(){
 		interMathCanvas.fadeOut(1);
 		mathCanvas.fadeIn(1);
+		interMathButtons.fadeOut(1);
 	}
 
 	// Update is called once per frame

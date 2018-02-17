@@ -40,10 +40,9 @@ public class WaveManager : MonoBehaviour {
 
     public void NextWave()
 	{
-
-		billboard.SetActive(false);
-		interMath.Deactivate();
 		Mathm.DeactivateInterMath();
+		interMath.Deactivate();
+		billboard.SetActive(false);
 
 		if(currentWave%2 ==0) {
 			Mathm.increaseMathDifficulty();
@@ -56,7 +55,7 @@ public class WaveManager : MonoBehaviour {
 	public void ActivateWave(int WaveIndex)
 	{
 		//the wave size increases by two men each wave
-		WaveSize = firstWaveSize + (WaveIndex * 2);
+		WaveSize = firstWaveSize + (int)(WaveIndex * 1.5);
 		setWaveText();
 		//Create all of the enemies
 		StartCoroutine (ActivateEnemies(WaveSize));
@@ -83,19 +82,18 @@ public class WaveManager : MonoBehaviour {
 		}
 
 		//waves in between trolls
-		int trollFrequency = 4;
+		int trollFrequency = 5;
         if (currentWave % trollFrequency == 0 && currentWave != 0){
         	//trolls increase by 1 every set WtrollFrequency
             for (int i = 0; i < currentWave / trollFrequency; i++) { 
 			    spawnEnemy(trollPrefab, trollSpawnSound);
 				addEnemyToWaveSize();
-
                 yield return new WaitForSeconds(Random.Range(0.2f, 1.1f));
             }
         }
 
 
-        if (currentWave % 3 == 0 && currentWave != 0)
+        if (currentWave % 4 == 0 && currentWave != 0)
         {
             for (int i = 0; i < currentWave / 3; i++)
             {
@@ -106,12 +104,12 @@ public class WaveManager : MonoBehaviour {
             }
         }
 		
-		if(currentWave > 5){
+		if(currentWave > 12){
 		    spawnEnemy(horseRiderPrefab, horseRiderSpawnSound);
 			addEnemyToWaveSize();
 		}
 
-		if(currentWave > 8){
+		if(currentWave > 16){
 		    spawnEnemy(trollPrefab, trollSpawnSound);
 			addEnemyToWaveSize();
 		}
