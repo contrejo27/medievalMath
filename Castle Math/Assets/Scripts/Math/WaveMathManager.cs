@@ -50,12 +50,6 @@ public class WaveMathManager : MonoBehaviour {
 		GenerateProblem (QuestionTypes);
 	}
 
-	public void Init() {
-		QuestionTypes = new int[1];
-		QuestionTypes [0] = FractionQuestions;
-		GenerateProblem (QuestionTypes);
-	}
-
 	public void GenerateProblem(int [] QuestionTypes)
 	{
 		A_Input.ClearChoices ();
@@ -72,18 +66,20 @@ public class WaveMathManager : MonoBehaviour {
 			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
 		}
 		*/
+		while (totalQuestionsAnswered < 3) {
+			if (FractionQuestions == 0) {
+				Debug.Log ("in if");
+				Fraction.GenerateQuestion (-1);//-1 => temp fix
+				A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+				currentQuestion = Fraction;
+				//currentQuestion = Fraction.GetQuestionString ();
+			} else {
+				Debug.Log ("In else");
+				this.GenerateProblem (this.GetQuestionTypes ());
+			}
 
-		if (FractionQuestions == 0) {
-			Fraction.GenerateQuestion (-1);//-1 => temp fix
-			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
-			currentQuestion = Fraction;
-			//currentQuestion = Fraction.GetQuestionString ();
-		}else {
-			this.GenerateProblem (this.GetQuestionTypes ());
+			totalQuestionsAnswered++;
 		}
-
-		totalQuestionsAnswered++;
-
 	}
 	public void increaseMathDifficulty(){
 		mathDifficulty++;

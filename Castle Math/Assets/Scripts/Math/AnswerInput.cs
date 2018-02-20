@@ -112,6 +112,7 @@ public class AnswerInput : MonoBehaviour {
 			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
 
 			if (answerText == CorrectAnswer) {
+				Debug.Log ("Correct");
 
 				FeedbackText.text = "Correct";
 				FeedbackText.color =  new Color(.188f, .44f, .1f);
@@ -121,10 +122,9 @@ public class AnswerInput : MonoBehaviour {
 				//ClearAnswer ();
 
 				A_Supply.CreateArrow ();
-
 				A_Source.clip = CorrectSound;
 				A_Source.Play ();
-
+	
 				Math_Stats.CorrectlyAnswered ();
 
 
@@ -142,6 +142,7 @@ public class AnswerInput : MonoBehaviour {
 			//got the question wrong
 			else {
 				M_Manager.IncorrectAnswer ();
+				Debug.Log ("Incorrect");
 				FeedbackText.text = "Incorrect";
 				FeedbackText.color =  new Color(.756f,.278f, .29f);
 				FeedbackText.gameObject.SetActive (true);

@@ -17,9 +17,9 @@ public class MathManager : MonoBehaviour {
 	private int mathDifficultyMorD = 9;
 	private string CorrectAnswer;
 	private int totalQuestionsAnswered= 0;
+	public bool interwaveMath;
   
 	AnswerInput A_Input;
-	WaveMathManager WMManager;
 
 	MultiplyOrDivide Multi_Divide;
 	AddOrSubtract Add_Sub;
@@ -31,6 +31,7 @@ public class MathManager : MonoBehaviour {
 	public int IncorrectAnswersPerQuestion;
 	private int QuestionType;
 	private Question currentQuestion;
+	private WaveManager W_Manager;
 
 	public int AddSubQuestions;
 	public int MultiDivideQuestions;
@@ -65,11 +66,15 @@ public class MathManager : MonoBehaviour {
 	}
 
 	public void ActivateInterMath(){
-		Fraction.GenerateQuestion (-1);//-1 => temp fix
-		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
-		currentQuestion = Fraction;
-		totalQuestionsAnswered++;
+		interwaveMath = true;
 
+		for (int i = 0; i < 3; i++) {
+			Debug.Log ("In for");
+			Fraction.GenerateQuestion (-1);//-1 => temp fix
+			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+			currentQuestion = Fraction;
+			totalQuestionsAnswered++;
+		}
 	}
 
 	public void DeactivateInterMath(){
@@ -80,7 +85,7 @@ public class MathManager : MonoBehaviour {
 		QuestionTypes [4] = FractionQuestions;
 		Debug.Log("AS Difficulty: " + mathDifficultyAorS);
 		Debug.Log("MD Difficulty: " + mathDifficultyMorD);
-
+		interwaveMath = false;
 		GenerateProblem (QuestionTypes);
 	}
 

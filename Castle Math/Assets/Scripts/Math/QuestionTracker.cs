@@ -68,6 +68,7 @@ public class QuestionTracker  {
 		q.SetQuestionString (question.GetQuestionString());
 		q.SetCorrectAnswer (question.getCorrectAnswer());
 		q.SetIncorrectAnswers (incorrectAnswers);
+		PlayerStats.UpdateScores (q, isCorrect);
 
 		correctQuestions.Add (q);
 	}

@@ -16,6 +16,7 @@ public class Fractions : MonoBehaviour, Question {
 	private double DecimalAnswer;
 	private string StringAnswer;
 	private int incorrectAnswers; 
+	private int reduce;
 
 	public Fractions () {
 	}
@@ -35,12 +36,24 @@ public class Fractions : MonoBehaviour, Question {
 			Numerator = Random.Range (1, 13);
 		}
 
+		this.reduce = Random.Range(0, 2);
+
+		for (int i = 2; i <= Denominator; i++) {
+			if (Numerator % i == 0 && Denominator % i == 0 && reduce == 1) {
+				Numerator /= i;
+				Denominator /= i;
+			} else {
+				reduce = 0;
+			}
+		}
+
 		QuestionText.text = "What fraction do the green gems represent?";
 
 		DecimalAnswer = (double)Numerator / (double)Denominator;
 		StringAnswer = Numerator.ToString() + "/" + Denominator.ToString();
 		displayItems();
 
+			
 		GenerateChoices ();
 
 	}
@@ -62,11 +75,17 @@ public class Fractions : MonoBehaviour, Question {
 
 			DecimalChoice = (double)NumeratorChoice / (double)DenominatorChoice;
 
+			/*
 			while (DecimalChoice == DecimalAnswer) {
 				DenominatorChoice = Random.Range (NumeratorChoice, 13);
 				DecimalChoice = NumeratorChoice / DenominatorChoice;
 			}
-				
+			*/
+
+			while (NumeratorChoice == Numerator && DenominatorChoice == Denominator) {
+				DenominatorChoice = Random.Range (NumeratorChoice, 13);
+			}
+
 			AnswerChoices [i] = NumeratorChoice.ToString () + "/" + DenominatorChoice.ToString ();
 		}
 
@@ -88,13 +107,32 @@ public class Fractions : MonoBehaviour, Question {
 	}
 
 	void displayItems(){
+		int numeratorGems;
+		int denominatorGems;
+		int increaseFractionAmt = Random.Range (1, 4);
+		Debug.Log ("reduce:" + reduce);
+		Debug.Log ("Num :" + Numerator);
+		Debug.Log ("Denom :" + Denominator);
+
+
+		if (reduce == 1) {
+			numeratorGems = Numerator + increaseFractionAmt;
+			denominatorGems = Denominator + increaseFractionAmt;
+		}
+		else {
+			numeratorGems = Numerator;
+			denominatorGems = Denominator;
+		}
+
 		GameObject billboard = GameObject.Find ("MathCanvas_Billboard");
-		for(int i = 0; i<Numerator;i++){
+		for(int i = 0; i<numeratorGems;i++){
+			Debug.Log ("Num Gems:" + numeratorGems);
 			GameObject numeratorItem = Instantiate(fractionItem,billboard.transform);
 			numeratorItem.transform.position = new Vector3(numeratorItem.transform.position.x + i, numeratorItem.transform.position.y, numeratorItem.transform.position.z);
 		}
 		
-		for(int i = 0; i< Denominator;i++){
+		for(int i = 0; i< denominatorGems;i++){
+			Debug.Log ("Denom Gems:" + denominatorGems);
 			GameObject denominatorItem = Instantiate(fractionItem,billboard.transform);
 			denominatorItem.GetComponent<Image>().color = Color.red;
 			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + i, denominatorItem.transform.position.y - 1.5f, denominatorItem.transform.position.z);
