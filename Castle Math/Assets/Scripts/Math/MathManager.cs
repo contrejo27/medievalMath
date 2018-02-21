@@ -18,6 +18,7 @@ public class MathManager : MonoBehaviour {
 	private string CorrectAnswer;
 	private int totalQuestionsAnswered= 0;
 	public bool interwaveMath;
+	private int interwaveQuestions = 0;
   
 	AnswerInput A_Input;
 
@@ -38,6 +39,7 @@ public class MathManager : MonoBehaviour {
 	public int CompareQuestions;
 	public int TrueFalseQuestions;
 	public int FractionQuestions;
+
 
 	// Use this for initialization
 	void Start () {
@@ -68,12 +70,16 @@ public class MathManager : MonoBehaviour {
 	public void ActivateInterMath(){
 		interwaveMath = true;
 
-		for (int i = 0; i < 3; i++) {
-			Debug.Log ("In for");
-			Fraction.GenerateQuestion (-1);//-1 => temp fix
-			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
-			currentQuestion = Fraction;
-			totalQuestionsAnswered++;
+		Fraction.GenerateQuestion (-1);//-1 => temp fix
+		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+		currentQuestion = Fraction;
+		totalQuestionsAnswered++;
+		interwaveQuestions++;
+
+		if (interwaveQuestions == 3) {
+			Debug.Log ("iQ" + interwaveQuestions);
+			interwaveMath = false;
+			interwaveQuestions = 0;
 		}
 	}
 

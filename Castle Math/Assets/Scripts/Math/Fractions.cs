@@ -126,13 +126,13 @@ public class Fractions : MonoBehaviour, Question {
 
 		GameObject billboard = GameObject.Find ("MathCanvas_Billboard");
 		for(int i = 0; i<numeratorGems;i++){
-			Debug.Log ("Num Gems:" + numeratorGems);
+			//Debug.Log ("Num Gems:" + numeratorGems);
 			GameObject numeratorItem = Instantiate(fractionItem,billboard.transform);
 			numeratorItem.transform.position = new Vector3(numeratorItem.transform.position.x + i, numeratorItem.transform.position.y, numeratorItem.transform.position.z);
 		}
 		
 		for(int i = 0; i< denominatorGems;i++){
-			Debug.Log ("Denom Gems:" + denominatorGems);
+			//Debug.Log ("Denom Gems:" + denominatorGems);
 			GameObject denominatorItem = Instantiate(fractionItem,billboard.transform);
 			denominatorItem.GetComponent<Image>().color = Color.red;
 			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + i, denominatorItem.transform.position.y - 1.5f, denominatorItem.transform.position.z);

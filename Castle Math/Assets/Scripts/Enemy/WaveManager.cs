@@ -40,16 +40,20 @@ public class WaveManager : MonoBehaviour {
 
     public void NextWave()
 	{
-		Mathm.DeactivateInterMath();
-		interMath.Deactivate();
-		billboard.SetActive(false);
+		if (!Mathm.interwaveMath) {
+			Mathm.DeactivateInterMath ();
+			interMath.Deactivate ();
+			billboard.SetActive (false);
 
-		if(currentWave%2 ==0) {
-			Mathm.SetDifficulty();
-		}
+			if (currentWave % 2 == 0) {
+				Mathm.SetDifficulty ();
+			}
 		
-		currentWave += 1;
-		ActivateWave (currentWave);
+			currentWave += 1;
+			ActivateWave (currentWave);
+		} else {
+			Mathm.ActivateInterMath ();
+		}
 	}
 
 	public void ActivateWave(int WaveIndex)
