@@ -6,7 +6,7 @@ public class ArrowSupplier : MonoBehaviour {
 
 	public int NumberToSpawn;
 
-	public AudioClip SpawnSound;
+	public AudioClip spawnSound;
 
 	public int NumberOfArrows;
 
@@ -14,6 +14,7 @@ public class ArrowSupplier : MonoBehaviour {
 
 	public GameObject[] Arrows;
 	public List<int> ArrowIndex;
+	public AudioSource uiSound;
 
 	private int AmountToSpawn;
 
@@ -27,14 +28,19 @@ public class ArrowSupplier : MonoBehaviour {
 	public void CreateArrow()
 	{
 		//NumberOfArrows += NumberToSpawn;
+		uiSound.clip = spawnSound;
+		uiSound.Play ();
 		StartCoroutine (DelaySpawn (0));
 	}
 
 	IEnumerator DelaySpawn(int Index)
 	{
 		GroupResize (NumberOfArrows+NumberToSpawn,ref Arrows);
+
+
 		for (int i = 0; i < NumberToSpawn; i++) {
 			GameObject newArrow = Instantiate (ArrowToSpawn[Index], transform.position, transform.rotation);
+
 
 			Arrows [i + (Arrows.Length-NumberToSpawn)] = newArrow;
 			ArrowIndex.Add (Index);

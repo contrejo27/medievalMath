@@ -764,13 +764,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumberToSpawn: 7
-  SpawnSound: {fileID: 8300000, guid: a8d8f7bca1e81498398343032bd64578, type: 3}
+  spawnSound: {fileID: 8300000, guid: 3bef3b92068ac2e4bbbd6f0cab325bcf, type: 3}
   NumberOfArrows: 0
   ArrowToSpawn:
   - {fileID: 1169843261323998, guid: 046e5b047f09c43c394e93bf7f8743ca, type: 2}
   - {fileID: 1916434216213170, guid: 079febe4442304daf980e1285ac62b07, type: 2}
   Arrows: []
   ArrowIndex: 
+  uiSound: {fileID: 881223335}
 --- !u!1 &108819108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,6 +1382,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5d9a8776654ee2c4ab71f2c62ff654e0, type: 3}
   - {fileID: 21300000, guid: 03d79a73ad02dc444a0da01181fbc19d, type: 3}
   - {fileID: 21300000, guid: 05dc5d2661267024996f49bc2a8da99b, type: 3}
+  tutorialDone: 0
   startGame: {fileID: 1693252934}
   billboard: {fileID: 77706419}
   mathCanvas: {fileID: 542802110}
@@ -4503,17 +4505,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 536338999}
-  m_LocalRotation: {x: -0, y: -0, z: 0.0000000018771968, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000014305114}
-  m_LocalScale: {x: 0.29945716, y: 0.29945698, z: 0.29945695}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.12}
+  m_LocalScale: {x: 0.78334385, y: 0.77167976, z: 0.7716801}
   m_Children: []
   m_Father: {fileID: 949072014}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0.1}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.01, y: 0}
+  m_SizeDelta: {x: 49, y: 32.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &536339001
 MonoBehaviour:
@@ -5443,17 +5445,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 643887763}
-  m_LocalRotation: {x: -0, y: -0, z: 9.458744e-10, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000011239732}
-  m_LocalScale: {x: 0.2994572, y: 0.29945704, z: 0.29945695}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.12}
+  m_LocalScale: {x: 0.78334385, y: 0.77167976, z: 0.7716801}
   m_Children: []
   m_Father: {fileID: 690176335}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.11, y: 0.09}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.01, y: 0}
+  m_SizeDelta: {x: 49, y: 32.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &643887765
 MonoBehaviour:
@@ -6054,7 +6056,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 690176334}
   m_LocalRotation: {x: -0, y: -0, z: -9.458744e-10, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.2999978}
+  m_LocalPosition: {x: 0, y: 0, z: -3.3000124}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 643887764}
@@ -6063,8 +6065,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.799984, y: 85.90001}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 10.8000145, y: 78.899994}
+  m_SizeDelta: {x: 38.666668, y: 24.755556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &690176336
 MonoBehaviour:
@@ -7956,7 +7958,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 949072013}
   m_LocalRotation: {x: -0, y: -0, z: -0.0000000018771968, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.3}
+  m_LocalPosition: {x: 0, y: 0, z: -3.3000317}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 536339000}
@@ -7965,8 +7967,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 36.8, y: 85.90001}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 36.800007, y: 78.90001}
+  m_SizeDelta: {x: 38.666668, y: 24.755556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &949072015
 MonoBehaviour:
@@ -15141,7 +15143,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1702788310}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.29999}
+  m_LocalPosition: {x: 0, y: 0, z: -3.3}
   m_LocalScale: {x: 0.6999999, y: 0.69999987, z: 0.70000017}
   m_Children:
   - {fileID: 1871559507}
@@ -15150,8 +15152,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15.20002, y: 85.90001}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: -15.2, y: 78.9}
+  m_SizeDelta: {x: 38.666668, y: 24.755556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1702788312
 MonoBehaviour:
@@ -16599,6 +16601,8 @@ MonoBehaviour:
   FeedbackTexts: []
   ChoiceBoxes: []
   ChoiceBox: {fileID: 0}
+  tutorial: {fileID: 206640375}
+  mathCanvas: {fileID: 542802110}
   CorrectSound: {fileID: 8300000, guid: 109520d74511e5344b9f4c17e541a9ed, type: 3}
   IncorrectSound: {fileID: 8300000, guid: 96d64f0c1309248f691087e7870d53fc, type: 3}
 --- !u!114 &1869398080
@@ -16709,16 +16713,16 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1871559506}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.29923737, y: 0.2992374, z: 0.29923728}
+  m_LocalPosition: {x: 0, y: 0, z: -0.12}
+  m_LocalScale: {x: 0.78334385, y: 0.77167976, z: 0.7716801}
   m_Children: []
   m_Father: {fileID: 1702788311}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000034332275, y: -0.000011444092}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.01, y: 0}
+  m_SizeDelta: {x: 49, y: 32.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1871559508
 MonoBehaviour:
@@ -17068,7 +17072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perk: {fileID: 1475426876}
-  NumberOfQuestions: 6
+  NumberOfQuestions: 5
   manaBarEnd: {fileID: 1203133989}
   mathCanvas: {fileID: 843273860}
   hud: {fileID: 1772680969}

@@ -20,6 +20,8 @@ public class AnswerInput : MonoBehaviour {
 	public GameObject [] FeedbackTexts;
 	public GameObject [] ChoiceBoxes;
 	public Text ChoiceBox;
+	public TutorialBehavior tutorial;
+	public UIEffects mathCanvas;
 
 	QuestionTracker Tracker;
 
@@ -106,6 +108,13 @@ public class AnswerInput : MonoBehaviour {
 
 	public void CheckAnswer(Text Answer) {
 		//int answerAsInt = int.Parse(Answer.text.ToString());
+
+		//check if we're in tutorial
+		if(!tutorial.tutorialDone){
+			mathCanvas.fadeOut(1.0f);
+			tutorial.Next();
+		}
+
 		String answerText = Answer.text.ToString();
 
 		for (int i = 0; i < 1; i++) {

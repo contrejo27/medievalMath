@@ -7,7 +7,7 @@ public class TutorialBehavior : MonoBehaviour {
 
 	Image tutorialImage;
 	public Sprite[] tutorialImages;
-	bool tutorialDone = false;
+	public bool tutorialDone = false;
 	public GameObject startGame;
 	public GameObject billboard;
 	public UIEffects mathCanvas;
@@ -21,23 +21,32 @@ public class TutorialBehavior : MonoBehaviour {
 		tutorialImage = GetComponent<Image>();
 	}
 
+	//goes through tutorial images when next gets clicked
 	public void Next () {
-		if(tutorialDone) {
+		currentImage++;
+		//done before the others so we don't assign a new sprite
+
+		//tutorial ends
+		if(currentImage == 3) {
+			tutorialDone = true;
 			startGame.SetActive(false);	
 			startGame.GetComponent<Button>().onClick.Invoke();
 			return;
 		}
-		currentImage++;
+
+		//load next tutorial image
 		tutorialImage.sprite = tutorialImages[currentImage];
 
 		if(currentImage == 1){
 			mathCanvas.fadeIn(1);
+			target.SetActive(false);
 		}
 
-		if(currentImage == tutorialImages.Length-1){
-			tutorialDone = true;
+		if(currentImage == 2){
+			target.SetActive(true);
 			startGame.SetActive(true);	
 		}
+
 	}
 
 	public void Activate(){
