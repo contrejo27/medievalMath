@@ -8,10 +8,7 @@ using Random = UnityEngine.Random;
 
 public class AnswerInput : MonoBehaviour {
 
-	private string CurrentAnswer;
-
 	//public Text AnswerText;
-
 	private MathManager M_Manager;
 
 	//start
@@ -43,7 +40,6 @@ public class AnswerInput : MonoBehaviour {
 	// Use this for initialization
 	public void Start () {
 	
-		CurrentAnswer = "";
 		PowerUp = FindObjectOfType<ManaBar> ();
 		M_Manager = GameObject.FindObjectOfType<MathManager> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
@@ -61,7 +57,6 @@ public class AnswerInput : MonoBehaviour {
 
 	public void ClearAnswer()
 	{
-		CurrentAnswer = "";
 		//AnswerText.text = "";
 
 	}
@@ -76,8 +71,6 @@ public class AnswerInput : MonoBehaviour {
 
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//Iterate through each choice box and set text to empty string
-			string boxName = "answer" + i;
-
 			ChoiceBox = ChoiceBoxes [i-1].GetComponent<Text>();
 			ChoiceBox.text = "";
 
@@ -145,7 +138,7 @@ public class AnswerInput : MonoBehaviour {
 
 				M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
-				PowerUp.QuestionAnswered ();
+				PowerUp.CorrectAnswer ();
 
 			} 
 			//got the question wrong
@@ -162,7 +155,7 @@ public class AnswerInput : MonoBehaviour {
 
 				//ClearAnswer ();
 				ClearChoices ();
-
+				PowerUp.IncorrectAnswer ();
 			}
 				
 		}

@@ -8,6 +8,7 @@ public class ShootingUI : MonoBehaviour {
 
 	// Use this for initialization
 	public void Select () {
+		print("Target hit");
 		tutorial.Next();
 	}
 

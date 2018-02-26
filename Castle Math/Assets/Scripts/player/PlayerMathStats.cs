@@ -9,7 +9,6 @@ public class PlayerMathStats : MonoBehaviour {
 	
 	//stats
 	int correctAnswers;
-	int incorrectAnswers;
 	int personalHighScore;
 	List<string> globalHighScores = new List<string>();
 
@@ -34,10 +33,6 @@ public class PlayerMathStats : MonoBehaviour {
 	public void CorrectlyAnswered()
 	{
 		correctAnswers += 1;
-	}
-
-	public int GetincorrectAnswers() {
-		return this.incorrectAnswers;
 	}
 	
 	void getHighScores(){

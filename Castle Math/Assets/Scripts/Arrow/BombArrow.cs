@@ -33,8 +33,11 @@ public class BombArrow : ArrowClass {
 			int i = 0;
 			while (i < hitColliders.Length) {
 				if (hitColliders [i].gameObject.tag == "Enemy") {
-					//hitColliders [i].gameObject.GetComponent<Rigidbody> ().AddExplosionForce (1000, this.transform.position, 15);
+//hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().bomb = true;
 					hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().TakeDamage (2);
+					hitColliders [i].gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+					hitColliders [i].gameObject.GetComponent<Rigidbody> ().AddExplosionForce (1000, this.transform.position, 15,2f);
+					
 				}
 				i += 1;
 			}

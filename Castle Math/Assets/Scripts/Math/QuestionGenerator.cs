@@ -33,8 +33,7 @@ public class QuestionGenerator : MonoBehaviour {
 	private ArrowSupplier A_Supply;
 	private PlayerMathStats Math_Stats;
 
-	private int IncorrectAnswersPerQuestion;
-	private string QuestionType;
+	private string currentQuestionType;
 
 	private AudioSource A_Source;
 
@@ -51,10 +50,9 @@ public class QuestionGenerator : MonoBehaviour {
 	}
 
 	public void GenerateQuestion(string QuestionType) {
-		this.QuestionType = QuestionType;
-		IncorrectAnswersPerQuestion = 0;
+		currentQuestionType = QuestionType;
 
-		if (QuestionType.Equals ("divide")) {
+		if (currentQuestionType.Equals ("divide")) {
 			FirstNum = Random.Range (0, 13);
 			SecondNum = Random.Range (0, 13);
 
@@ -71,9 +69,9 @@ public class QuestionGenerator : MonoBehaviour {
 
 			QuestionText.text = FirstNum.ToString () + " / " + SecondNum.ToString () + " =";
 			QuestionText_hud.text = FirstNum.ToString () + " / " + SecondNum.ToString ();
-			GenerateChoices (QuestionType);
+			GenerateChoices (currentQuestionType);
 
-		} else if (QuestionType.Equals ("multiply")) {
+		} else if (currentQuestionType.Equals ("multiply")) {
 			FirstNum = Random.Range (0, 13);
 			SecondNum = Random.Range (0, 13);
 
@@ -82,9 +80,9 @@ public class QuestionGenerator : MonoBehaviour {
 			QuestionText.text = FirstNum.ToString () + " * " + SecondNum.ToString () + " =";
 			QuestionText_hud.text = FirstNum.ToString () + " * " + SecondNum.ToString ();
 
-			GenerateChoices (QuestionType);
+			GenerateChoices (currentQuestionType);
 
-		} else if (QuestionType.Equals ("add")) {
+		} else if (currentQuestionType.Equals ("add")) {
 			FirstNum = Random.Range (0, 13);
 			SecondNum = Random.Range (0, 13);
 
@@ -92,8 +90,8 @@ public class QuestionGenerator : MonoBehaviour {
 
 			QuestionText.text = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
 			//QuestionText_hud.text = FirstNum.ToString () + " + " + SecondNum.ToString ();
-			GenerateChoices (QuestionType);
-		} else if (QuestionType.Equals ("subtract")) {
+			GenerateChoices (currentQuestionType);
+		} else if (currentQuestionType.Equals ("subtract")) {
 			FirstNum = Random.Range (0, 13);
 			SecondNum = Random.Range (0, 13);
 
@@ -101,17 +99,17 @@ public class QuestionGenerator : MonoBehaviour {
 
 			QuestionText.text = FirstNum.ToString () + " - " + SecondNum.ToString () + " =";
 			//QuestionText_hud.text = FirstNum.ToString () + " - " + SecondNum.ToString ();
-			GenerateChoices (QuestionType);
+			GenerateChoices (currentQuestionType);
 		}
 	}
 
 	public void GenerateChoices(string QuestionType) {
-		this.QuestionType = QuestionType;
+		currentQuestionType = QuestionType;
 		int Choice1;
 		int Choice2;
 		int Choice3;
 
-		if (QuestionType.Equals ("multiply")) {
+		if (currentQuestionType.Equals ("multiply")) {
 			//if SecondNum is zero, set default to 2 to avoid divison by 0
 			if (SecondNum == 0)
 				SecondNum = 2;
@@ -127,7 +125,7 @@ public class QuestionGenerator : MonoBehaviour {
 				Choice2 = CorrectAnswer + 1;
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
-		} else if (QuestionType.Equals ("divide")) {
+		} else if (currentQuestionType.Equals ("divide")) {
 			Choice1 = FirstNum * SecondNum;
 
 			int PlusOrMinus = Random.Range (0, 2);
@@ -139,7 +137,7 @@ public class QuestionGenerator : MonoBehaviour {
 				Choice2 = CorrectAnswer + 1;
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
-		} else if (QuestionType.Equals ("subtract")) {
+		} else if (currentQuestionType.Equals ("subtract")) {
 			Choice1 = FirstNum + SecondNum;
 
 			int PlusOrMinus = Random.Range (0, 2);
@@ -151,7 +149,7 @@ public class QuestionGenerator : MonoBehaviour {
 				Choice2 = CorrectAnswer + 1;
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
-		} else if (QuestionType.Equals ("add")) {
+		} else if (currentQuestionType.Equals ("add")) {
 			Choice1 = FirstNum - SecondNum;
 
 			int PlusOrMinus = Random.Range (0, 2);
@@ -197,7 +195,6 @@ public class QuestionGenerator : MonoBehaviour {
 			//Iterate through each choice box and set text to empty string
 			string boxName = "answer" + i;
 			ChoiceBox = GameObject.Find (boxName).GetComponent<Text>();
-
 			ChoiceBox.text = "";
 		}
 	}
@@ -210,7 +207,6 @@ public class QuestionGenerator : MonoBehaviour {
 			int r = Random.Range(i, AnswerChoices.Length);
 			AnswerChoices[i] = AnswerChoices[r];
 			AnswerChoices[r] = temp;
-
 		}
 
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
@@ -224,83 +220,10 @@ public class QuestionGenerator : MonoBehaviour {
 
 	}
 
-	public void CheckAnswer(Text Answer) {
-		int answerAsInt = int.Parse(Answer.text.ToString());
-		if (answerAsInt == CorrectAnswer) {
-
-			FeedbackText.text = "Correct";
-			FeedbackText.color = Color.green;
-			FeedbackText.gameObject.SetActive (true);
-			StartCoroutine (DisplayFeedback ());
-
-			A_Input.ClearAnswer ();
-
-			A_Supply.CreateArrow ();
-
-			A_Source.clip = CorrectSound;
-			A_Source.Play ();
-
-			Math_Stats.CorrectlyAnswered ();
-
-			GenerateQuestion (QuestionType);
-
-			PowerUp.QuestionAnswered ();
-
-		} 
-		//got the question wrong
-		else {
-			IncorrectAnswersPerQuestion++;
-			FeedbackText.text = "Incorrect";
-			FeedbackText.color = Color.red;
-			FeedbackText.gameObject.SetActive (true);
-			StartCoroutine (DisplayFeedback ());
-			
-			A_Source.clip = IncorrectSound;
-			A_Source.Play ();
-			A_Input.ClearAnswer ();
-			
-			ClearChoices ();
-
-		}
-
-		if (this.IncorrectAnswersPerQuestion > 2) {
-			//display tip graphic
-
-			//Find random index at which to remove an answer choice
-			int index = Random.Range (0, AnswerChoices.Length);
-
-			//Check that the answer at that index is not the correct one
-			while (AnswerChoices [index] == CorrectAnswer) {
-				index = Random.Range (0, AnswerChoices.Length);
-			}
-
-			//Create new array, one index shorter than AnswerChoices
-			int[] AnswerChoicesCopy = new int[AnswerChoices.Length - 1];
-
-			for (int i = 0, j = 0; i < AnswerChoicesCopy.Length; i++, j++) {
-				//Skip if that is the element to remove
-				if (i == index) {
-					j++;
-				}
-
-				//Assign answer choices to new array, minus element removed
-				AnswerChoicesCopy [i] = AnswerChoices [j];
-			}
-			//Resassign answer choices to new array
-			this.AnswerChoices = AnswerChoicesCopy;
-		}
-
-		DisplayChoices ();
-	}
-
-
-
 	IEnumerator DisplayFeedback()
 	{
 		yield return new WaitForSeconds (2);
-
 		FeedbackText.gameObject.SetActive (false);
-
 	}
 }
 

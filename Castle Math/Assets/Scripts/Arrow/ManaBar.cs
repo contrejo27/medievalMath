@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ManaBar : MonoBehaviour {
 	public Text perk;
-	public int NumberOfQuestions;
+	public float NumberOfQuestions;
 	public GameObject manaBarEnd;
 	public CanvasGroup mathCanvas;
 	public hudManager hud;
@@ -13,7 +13,7 @@ public class ManaBar : MonoBehaviour {
 	public doorHealth healthMid;
 	public doorHealth healthRight;
 	
-	private int CurrentNumber;
+	private float CurrentNumber;
 	private LaunchProjectile ProjectileLauncher;
 	
 	private int powerUpCount = 0;
@@ -32,13 +32,13 @@ public class ManaBar : MonoBehaviour {
 		 //[PowerupIndex].SetActive (false);
 	}
 
-	public void QuestionAnswered()
+	public void CorrectAnswer()
 	{
-		CurrentNumber += 1;
+		CurrentNumber += 1f;
 
 		//perk text name should match icon sprite name
 		if (CurrentNumber >= NumberOfQuestions) {
-			CurrentNumber = 0;
+			CurrentNumber = 0f;
 			int RanMod = Random.Range (0, 5);
 			ArrowModifier newMod;
 			if (RanMod == 0) {
@@ -67,28 +67,30 @@ public class ManaBar : MonoBehaviour {
 			} 
 			
 			mathCanvas.alpha = 0.0f;
-
-			
 			hud.AddPoweUpIcon(perk.text);
-			//powerUpDisplays [powerUpCount].SetActive (true);
-			//powerUpDisplays [powerUpCount].GetComponent<Image>().sprite = PowerUpIcons [RanMod];
-			
+
 			//give player perk
 			StartCoroutine(erasePerkText());
 			A_Source.clip = PowerUpSound;
 			A_Source.Play ();
-
-			/*if (powerUpCount < powerUpDisplays.Length - 1) {
-				powerUpCount += 1;
-			} else {
-				powerUpCount = 0;
-			}*/
-
 		}
 
-		float percent = (CurrentNumber * 1f) / NumberOfQuestions;
+		adjustManaBar();
+	}
+
+	public void IncorrectAnswer(){
+		if(CurrentNumber > 0f){
+			CurrentNumber -= 1f;
+		}
+		adjustManaBar();
+
+	}
+
+	void adjustManaBar(){
+		float percent = CurrentNumber / NumberOfQuestions;
 		transform.localScale = Vector3.Lerp (new Vector3 (.05f, .5f, 1f), new Vector3 (.8f, .5f, 1f), percent);
 		//manaBarEnd.transform.position = ;
+
 	}
 	IEnumerator erasePerkText()
 	{
