@@ -17,6 +17,7 @@ public class Fractions : MonoBehaviour, Question {
 	private string StringAnswer;
 	private int incorrectAnswers; 
 	private int reduce;
+	private List<GameObject> gems = new List<GameObject>();
 
 	public Fractions () {
 	}
@@ -51,11 +52,8 @@ public class Fractions : MonoBehaviour, Question {
 
 		DecimalAnswer = (double)Numerator / (double)Denominator;
 		StringAnswer = Numerator.ToString() + "/" + Denominator.ToString();
-		displayItems();
-
-			
 		GenerateChoices ();
-
+		displayItems();
 	}
 
 	public void GenerateChoices() {
@@ -107,6 +105,9 @@ public class Fractions : MonoBehaviour, Question {
 	}
 
 	void displayItems(){
+		if (gems.Count > 0) {
+			this.deleteGems ();
+		}
 		int numeratorGems;
 		int denominatorGems;
 		int increaseFractionAmt = Random.Range (1, 4);
@@ -125,19 +126,30 @@ public class Fractions : MonoBehaviour, Question {
 		}
 
 		GameObject billboard = GameObject.Find ("MathCanvas_Billboard");
-		for(int i = 0; i<numeratorGems;i++){
+
+		int gemCount = 0;;
+		for(int i = gemCount; i<numeratorGems;i++){
 			//Debug.Log ("Num Gems:" + numeratorGems);
-			GameObject numeratorItem = Instantiate(fractionItem,billboard.transform);
-			numeratorItem.transform.position = new Vector3(numeratorItem.transform.position.x + i, numeratorItem.transform.position.y, numeratorItem.transform.position.z);
+			GameObject numeratorItem = Instantiate (fractionItem, billboard.transform);
+			numeratorItem.transform.position = new Vector3 (numeratorItem.transform.position.x + i, numeratorItem.transform.position.y, numeratorItem.transform.position.z);
+			gems.Add (numeratorItem);
+			gemCount++;
 		}
-		
-		for(int i = 0; i< denominatorGems;i++){
+
+		for(int i = gemCount; i< denominatorGems;i++){
 			//Debug.Log ("Denom Gems:" + denominatorGems);
-			GameObject denominatorItem = Instantiate(fractionItem,billboard.transform);
+			GameObject denominatorItem = Instantiate(fractionItem, billboard.transform);
 			denominatorItem.GetComponent<Image>().color = Color.red;
-			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + i, denominatorItem.transform.position.y - 1.5f, denominatorItem.transform.position.z);
+			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + i, denominatorItem.transform.position.y, denominatorItem.transform.position.z);
+			gems.Add (denominatorItem);
 		}
 		
+	}
+
+	private void deleteGems () {
+		for (int i = 0; i < gems.Count; i++) {
+			Destroy (gems [i]);
+		}
 	}
 
 	public string GetQuestionString () {
