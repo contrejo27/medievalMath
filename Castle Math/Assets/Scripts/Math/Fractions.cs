@@ -28,7 +28,10 @@ public class Fractions : MonoBehaviour, Question {
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+	/// Generates the question.
+	/// </summary>
+	/// <param name="maxDifficulty">maximum end of range</param>
 	public void GenerateQuestion (int maxDifficulty) { //int maxDifficulty => temp fix
 		Numerator = Random.Range (1, 13);
 		Denominator = Random.Range (2, 13);
@@ -39,6 +42,7 @@ public class Fractions : MonoBehaviour, Question {
 
 		this.reduce = Random.Range(0, 2);
 
+		//If fraction can be reduced by half
 		for (int i = 2; i <= Denominator; i++) {
 			if (Numerator % i == 0 && Denominator % i == 0 && reduce == 1) {
 				Numerator /= i;
@@ -55,7 +59,9 @@ public class Fractions : MonoBehaviour, Question {
 		GenerateChoices ();
 		displayItems();
 	}
-
+	/// <summary>
+	/// Method to generate choices for corresponding fraction classes
+	/// </summary>
 	public void GenerateChoices() {
 		string [] AnswerChoices = new string [4];
 		int NumeratorChoice;
@@ -72,13 +78,6 @@ public class Fractions : MonoBehaviour, Question {
 			}
 
 			DecimalChoice = (double)NumeratorChoice / (double)DenominatorChoice;
-
-			/*
-			while (DecimalChoice == DecimalAnswer) {
-				DenominatorChoice = Random.Range (NumeratorChoice, 13);
-				DecimalChoice = NumeratorChoice / DenominatorChoice;
-			}
-			*/
 
 			while (NumeratorChoice == Numerator && DenominatorChoice == Denominator) {
 				DenominatorChoice = Random.Range (NumeratorChoice, 13);
@@ -100,14 +99,18 @@ public class Fractions : MonoBehaviour, Question {
 
 		Debug.Log ("Correct Answer:\n\tFraction: " + getCorrectAnswer ());
 
+		//Display choices using AnswerInput functionality
 		A_Input.DisplayChoices (AnswerChoices);
 
 	}
-
+	/// <summary>
+	/// Displays gem item graphics
+	/// </summary>
 	void displayItems(){
 		if (gems.Count > 0) {
 			this.deleteGems ();
 		}
+
 		int numeratorGems;
 		int denominatorGems;
 		int increaseFractionAmt = Random.Range (1, 4);
@@ -115,7 +118,7 @@ public class Fractions : MonoBehaviour, Question {
 		Debug.Log ("Num :" + Numerator);
 		Debug.Log ("Denom :" + Denominator);
 
-
+		//Account for if they are required to reduce the fraction
 		if (reduce == 1) {
 			numeratorGems = Numerator + increaseFractionAmt;
 			denominatorGems = Denominator + increaseFractionAmt;
@@ -125,53 +128,101 @@ public class Fractions : MonoBehaviour, Question {
 			denominatorGems = Denominator;
 		}
 
+		//Find the InterMath billboard in the scene
 		GameObject billboard = GameObject.Find ("MathCanvas_Billboard");
 
 		int gemCount = 0;;
-		for(int i = gemCount; i<numeratorGems;i++){
-			//Debug.Log ("Num Gems:" + numeratorGems);
-			GameObject numeratorItem = Instantiate (fractionItem, billboard.transform);
-			numeratorItem.transform.position = new Vector3 (numeratorItem.transform.position.x + i, numeratorItem.transform.position.y, numeratorItem.transform.position.z);
-			gems.Add (numeratorItem);
+		int yPosIncrease = 0; //use for moving gems down to form grid pattern
+		int xPosIncrease = -1; //use for moving gems across to form grid pattern
+
+		//Start creating gems to represent denominator to populate bottom of grid
+		for(int i = gemCount; i < denominatorGems - numeratorGems; i++){
+			
+			if (i % 3 == 0) {
+				yPosIncrease++;
+				xPosIncrease = -1;
+			}
+			xPosIncrease++;
+			//Debug.Log ("Denom Gems:" + denominatorGems);
+			GameObject denominatorItem = Instantiate(fractionItem, billboard.transform);
+			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + xPosIncrease, denominatorItem.transform.position.y + yPosIncrease, denominatorItem.transform.position.z);
+			gems.Add (denominatorItem);
 			gemCount++;
 		}
 
-		for(int i = gemCount; i< denominatorGems;i++){
-			//Debug.Log ("Denom Gems:" + denominatorGems);
-			GameObject denominatorItem = Instantiate(fractionItem, billboard.transform);
-			denominatorItem.GetComponent<Image>().color = Color.red;
-			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + i, denominatorItem.transform.position.y, denominatorItem.transform.position.z);
-			gems.Add (denominatorItem);
+		//Finish creating total number of gems to represent numerator portion
+		for(int i = gemCount; i < denominatorGems;i++){
+			//Debug.Log ("Num Gems:" + numeratorGems);
+
+			if (i > 0 && i % 3 == 0) {
+				yPosIncrease++;
+				xPosIncrease = -1;
+			}
+			xPosIncrease++;
+			GameObject numeratorItem = Instantiate (fractionItem, billboard.transform);
+			numeratorItem.GetComponent<Image>().color = Color.red;
+
+			numeratorItem.transform.position = new Vector3 (numeratorItem.transform.position.x + xPosIncrease, numeratorItem.transform.position.y + yPosIncrease, numeratorItem.transform.position.z);
+			gems.Add (numeratorItem);
+
 		}
+
 		
 	}
 
+	/// <summary>
+	/// Removes gems from scene
+	/// </summary>
 	private void deleteGems () {
 		for (int i = 0; i < gems.Count; i++) {
 			Destroy (gems [i]);
 		}
 	}
 
+	/// <summary>
+	/// Gets the question string.
+	/// </summary>
+	/// <returns>The question string.</returns>
 	public string GetQuestionString () {
 		return this.StringAnswer;
 	}
 
+	/// <summary>
+	/// Gets the correct answer.
+	/// </summary>
+	/// <returns>The correct answer.</returns>
 	public string getCorrectAnswer() {
 		return this.StringAnswer;
 	}
 
+	/// <summary>
+	/// Sets the correct answer.
+	/// </summary>
+	/// <param name="answer">Answer.</param>
 	public void SetCorrectAnswer(string answer) {
 		this.StringAnswer = answer;
 	}
 
+	/// <summary>
+	/// Sets the question string.
+	/// </summary>
+	/// <param name="question">Question.</param>
 	public void SetQuestionString(string question) {
 		this.StringAnswer = question;
 	}
 
+	/// <summary>
+	/// Gets the correct answer in decimal form.
+	/// </summary>
+	/// <returns>The correct decimal answer.</returns>
 	private double getCorrectDecimalAnswer() {
 		return this.DecimalAnswer;
 	}
 
+	/// <summary>
+	/// Gets the numerator.
+	/// </summary>
+	/// <returns>The numerator.</returns>
 	private int  getNumerator() {
 		return this.Numerator;
 	}
