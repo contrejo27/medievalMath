@@ -35,7 +35,6 @@ public class WaveMathManager : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
-		Debug.Log ("Start WM");
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 
 		Fraction = GameObject.FindObjectOfType<Fractions> ();

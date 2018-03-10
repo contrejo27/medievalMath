@@ -13,5 +13,4 @@ public interface Question  {
 	string GetQuestionString ();
 	string getCorrectAnswer ();
 
-
 }

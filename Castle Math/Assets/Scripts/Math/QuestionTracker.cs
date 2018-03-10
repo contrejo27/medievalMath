@@ -18,9 +18,15 @@ public class QuestionTracker  {
 		PlayerStats = new PlayerMathStats ();
 	}
 
+	/// <summary>
+	/// Adds the incorrect question to a list of all incorect questions.
+	/// </summary>
+	/// <param name="question">The question that was answered</param>
+	/// <param name="incorrectAnswers">number of times the question has been answered incorrectly.</param>
 	public void AddIncorrectQuestion(Question question, int incorrectAnswers) {
 		Question q;
 
+		//Check object type and instanitate a Question object accordingly
 		if (Object.ReferenceEquals (question.GetType (), typeof(AddOrSubtract))) {
 			q = new AddOrSubtract ();
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(MultiplyOrDivide))) {
@@ -35,6 +41,7 @@ public class QuestionTracker  {
 			q = null;
 		}
 
+		//Set the question to add's values based on Question passed to the function
 		q.SetQuestionString (question.GetQuestionString());
 		q.SetCorrectAnswer (question.getCorrectAnswer());
 		q.SetIncorrectAnswers (incorrectAnswers);
@@ -48,6 +55,11 @@ public class QuestionTracker  {
 		incorrectQuestions.Remove (question);
 	}
 
+	/// <summary>
+	/// Adds the correct question to a list of all correctly answered questions.
+	/// </summary>
+	/// <param name="question">The question that was answered</param>
+	/// <param name="incorrectAnswers">number of times the question has been answered incorrectly.</param>
 	public void AddCorrectQuestion(Question question, int incorrectAnswers) {
 		Question q;
 

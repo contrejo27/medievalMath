@@ -40,6 +40,7 @@ public class WaveManager : MonoBehaviour {
 
     public void NextWave()
 	{
+
 		if (!Mathm.interwaveMath) {
 			Mathm.DeactivateInterMath ();
 			interMath.Deactivate ();
@@ -58,6 +59,8 @@ public class WaveManager : MonoBehaviour {
 
 	public void ActivateWave(int WaveIndex)
 	{
+		Debug.Log ("Next Wave WMan");
+
 		//the wave size increases by two men each wave
 		WaveSize = firstWaveSize + (int)(WaveIndex * 1.5);
 		setWaveText();

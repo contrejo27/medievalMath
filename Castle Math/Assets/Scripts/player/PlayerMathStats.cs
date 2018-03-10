@@ -42,7 +42,9 @@ public class PlayerMathStats : MonoBehaviour {
 		globalHighScores.Add(PlayerPrefs.GetString("globalHS3"));
 	}
 	
-	//gets called when lose screen shows up. displays and saves match stats
+	/// <summary>
+	/// gets called when lose screen shows up. displays and saves match stats
+	/// </summary>
 	public void SaveState() {
 		//set personal high score
 		if(correctAnswers > personalHighScore) {
@@ -55,7 +57,9 @@ public class PlayerMathStats : MonoBehaviour {
 		PlayerPrefs.Save();
 	}
 	
-	//goes through each high score and checks if the current score beats it
+	/// <summary>
+	/// goes through each high score and checks if the current score beats it
+	/// </summary>
 	void UpdateHighScores(){
 		int i = 0;
 		int waveNum = wManager.currentWave +1;
@@ -71,7 +75,9 @@ public class PlayerMathStats : MonoBehaviour {
 		}
 	}
 	
-	//displays the scores on stat screen in game
+	/// <summary>
+	/// displays the scores on stat screen in game
+	/// </summary>
 	void DisplayStats(){
 		wave.text = "Wave: " + (wManager.currentWave +1).ToString();
 		correctText.text = "Correct: " + correctAnswers.ToString ();
@@ -84,7 +90,9 @@ public class PlayerMathStats : MonoBehaviour {
 		}
 	}
 	
-	//saves highscore to playerprefs
+	/// <summary>
+	/// saves highscore to playerprefs
+	/// </summary>
 	void SaveHighScores(){
 		int i = 1;
 		foreach(string score in globalHighScores){
@@ -93,6 +101,11 @@ public class PlayerMathStats : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Updates the scores based on how many times the question was attempted. Based on QuestionTracker
+	/// </summary>
+	/// <param name="question">Question.</param>
+	/// <param name="attemptScore">Number of times a given question was attempted. Negative for incorrect, positive for correct</param>
 	public void UpdateScores(Question question, int attemptScore) {
 		if (Object.ReferenceEquals (question.GetType (), typeof(AddOrSubtract))) {
 			AddOrSubtractScore += attemptScore;

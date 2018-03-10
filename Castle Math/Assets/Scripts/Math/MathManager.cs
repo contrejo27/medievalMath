@@ -32,7 +32,6 @@ public class MathManager : MonoBehaviour {
 	public int IncorrectAnswersPerQuestion;
 	private int QuestionType;
 	private Question currentQuestion;
-	private WaveManager W_Manager;
 
 	public int AddSubQuestions;
 	public int MultiDivideQuestions;
@@ -67,23 +66,34 @@ public class MathManager : MonoBehaviour {
 		GenerateProblem (QuestionTypes);
 	}
 
+	/// <summary>
+	/// Activates the in-between math functionality. Called between waves
+	/// </summary>
 	public void ActivateInterMath(){
 		interwaveMath = true;
 
+		//Generates a fraction question for the interwave math question
 		Fraction.GenerateQuestion (-1);//-1 => temp fix
 		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
 		currentQuestion = Fraction;
 		totalQuestionsAnswered++;
 		interwaveQuestions++;
 
+		//Check to see if all three questions have been asked
 		if (interwaveQuestions == 3) {
 			Debug.Log ("iQ" + interwaveQuestions);
+
+			//reset
 			interwaveMath = false;
 			interwaveQuestions = 0;
 		}
 	}
 
+	/// <summary>
+	/// Deactivates the in-between math functionality.
+	/// </summary>
 	public void DeactivateInterMath(){
+		//Reset math settings
 		QuestionTypes [0] = AddSubQuestions;
 		QuestionTypes [1] = MultiDivideQuestions;
 		QuestionTypes [2] = CompareQuestions;
@@ -95,6 +105,10 @@ public class MathManager : MonoBehaviour {
 		GenerateProblem (QuestionTypes);
 	}
 
+	/// <summary>
+	/// Sets the math difficulty based on previous performance. Adds correct and incorrect 
+	/// answers to generate aggregate score to be used in order to increase difficulty
+	/// </summary>
 	public void SetDifficulty() {
 		int aggregateScoreAorS = A_Input.GetIncorrectOfType(typeof(AddOrSubtract)) + A_Input.GetCorrectOfType(typeof(AddOrSubtract));
 		int aggregateScoreMorD = A_Input.GetIncorrectOfType(typeof(MultiplyOrDivide)) + A_Input.GetCorrectOfType(typeof(MultiplyOrDivide));
@@ -103,13 +117,17 @@ public class MathManager : MonoBehaviour {
 		mathDifficultyMorD += aggregateScoreMorD;
 	}
 
+	/// <summary>
+	/// Generates the corresponding problem based on selected question options and a random variable.
+	/// </summary>
+	/// <param name="QuestionTypes">Question types.</param>
 	public void GenerateProblem(int [] QuestionTypes)
 	{
 		A_Input.ClearChoices ();
 		IncorrectAnswersPerQuestion = 0;
 
 		int randIndex = Random.Range (0, QuestionTypes.Length);
-		QuestionType = QuestionTypes [randIndex];
+		//QuestionType = QuestionTypes [randIndex];
 
 		/*
 		if (totalQuestionsAnswered % 4 == 0) {
@@ -159,10 +177,12 @@ public class MathManager : MonoBehaviour {
 		mathDifficulty++;
 	}
 	*/
-	
+
+	/*
 	public int GetQuestionType() {
 		return QuestionType;
 	}
+	*/
 
 	public int [] GetQuestionTypes() {
 		return QuestionTypes;

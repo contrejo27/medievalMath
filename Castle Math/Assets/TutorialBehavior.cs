@@ -30,7 +30,8 @@ public class TutorialBehavior : MonoBehaviour {
 		if(currentImage == 3) {
 			tutorialDone = true;
 			startGame.SetActive(false);	
-			startGame.GetComponent<Button>().onClick.Invoke();
+			//TODO add line back in when tutorial is done
+			//startGame.GetComponent<Button>().onClick.Invoke();
 			return;
 		}
 

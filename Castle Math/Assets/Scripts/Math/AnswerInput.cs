@@ -61,7 +61,9 @@ public class AnswerInput : MonoBehaviour {
 
 	}
 
-	//start
+	/// <summary>
+	/// Clears the choices and sets ChoiceBox text to empty.
+	/// </summary>
 	public void ClearChoices() {
 		if (AnswerChoices == null) {
 			AnswerChoices = new string [] { "" };
@@ -78,6 +80,10 @@ public class AnswerInput : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Displays the choices on ChoiceBoxes.
+	/// </summary>
+	/// <param name="AnswerChoices">Answer choices.</param>
 	public void DisplayChoices (String [] AnswerChoices) {
 		this.AnswerChoices = AnswerChoices;
 
@@ -99,6 +105,10 @@ public class AnswerInput : MonoBehaviour {
 
 	}
 
+	/// <summary>
+	/// Checks the answer on the Text field against correct answer.
+	/// </summary>
+	/// <param name="Answer">The given answer</param>
 	public void CheckAnswer(Text Answer) {
 		//int answerAsInt = int.Parse(Answer.text.ToString());
 
@@ -110,6 +120,7 @@ public class AnswerInput : MonoBehaviour {
 
 		String answerText = Answer.text.ToString();
 
+		//Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 		for (int i = 0; i < 1; i++) {
 			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
 
@@ -129,7 +140,7 @@ public class AnswerInput : MonoBehaviour {
 	
 				Math_Stats.CorrectlyAnswered ();
 
-
+				//If answered incorrectly more than once, place in incorrect question tracker
 				if (M_Manager.GetIncorrectAnswersPerQuestion () >= 1) {
 					Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
 				} else {
@@ -161,7 +172,7 @@ public class AnswerInput : MonoBehaviour {
 		}
 
 		if (M_Manager.GetIncorrectAnswersPerQuestion () == 2) {
-			//display tip graphic
+			//TODO: display tip graphic
 
 			//Find random index at which to remove an answer choice
 			int index = Random.Range (0, AnswerChoices.Length);
@@ -196,6 +207,10 @@ public class AnswerInput : MonoBehaviour {
 		DisplayChoices (AnswerChoices);
 	}
 
+	/// <summary>
+	/// Sets the question display.
+	/// </summary>
+	/// <param name="question">Question.</param>
 	public void SetQuestion(string question) {
 		for (int i = 0; i < QuestionTexts.Length; i++) {
 			Text QuestionText = QuestionTexts [i].GetComponent<Text>();

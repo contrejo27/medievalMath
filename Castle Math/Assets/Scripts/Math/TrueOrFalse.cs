@@ -41,18 +41,13 @@ public class TrueOrFalse : MonoBehaviour, Question {
 		QuestionText = GameObject.Find ("question").GetComponent<Text>();
 	}
 
+	/// <summary>
+	/// Generates a true or false question.
+	/// </summary>
+	/// <param name="maxDifficulty">Placeholder value to allow for polymorphism of Questions</param>
 	public void GenerateQuestion(int maxDifficulty) { //int maxDifficulty => temp fix
-		/*
-		string questionLine = @"{""question"":""A fraction is the same thing as a ratio."",""answer"":""True"",""hint"":""""}";
-		TextQuestion questionJSON = JsonUtility.FromJson<TextQuestion> (questionLine);
-		QuestionText.text = questionJSON.question;
-		CorrectAnswer = questionJSON.answer;
-		A_Input.SetCorrectAnswer (CorrectAnswer);
-		Debug.Log (CorrectAnswer);
-		GenerateChoices ();
-		*/
 
-
+		//Load Json file from assets folder
 		TextAsset text = (TextAsset)Resources.Load <TextAsset>("questions");
 		TextQuestion[] TextQuestions;
 
@@ -72,54 +67,6 @@ public class TrueOrFalse : MonoBehaviour, Question {
 		} else {
 			Debug.Log ("Null JSON");
 		}
-
-		/*
-		for (int i = 0; i < TextQuestions.Length; i++) {
-			TextQuestion currQuestion = TextQuestions[i];
-			QuestionText.text = currQuestion.questionText;
-			Debug.Log (currQuestion.questionText);
-			CorrectAnswer = currQuestion.answer;
-			Debug.Log (CorrectAnswer);
-			GenerateChoices ();
-		}
-		*/
-
-
-		/*
-		string[] questionLines = questionText.Split ('\n');
-
-		for (int i = 0; i < questionLines.Length; i++) {
-			TextQuestion questionJSON = JsonUtility.FromJson<TextQuestion> (questionLines[i]);
-			QuestionText.text = questionJSON.question;
-			CorrectAnswer = questionJSON.answer;
-			A_Input.SetCorrectAnswer (CorrectAnswer);
-			Debug.Log (CorrectAnswer);
-			GenerateChoices ();
-		}
-		*/
-
-			
-		/*
-		System.IO.StreamReader file = new System.IO.StreamReader(text.text);
-
-		string line = file.ReadLine ();
-
-		ArrayList TrueOrFalseQuestions = new ArrayList ();
-		for (int i = 0; line != null; i++) {
-			TextQuestion questionJSON = JsonUtility.FromJson<TextQuestion> (line);
-
-			TrueOrFalseQuestions.Add(questionJSON);
-		}
-
-		int rand = Random.Range (0, TrueOrFalseQuestions.Count);
-		TextQuestion questionToDisplay = (TextQuestion)TrueOrFalseQuestions [rand];
-		QuestionText.text = questionToDisplay.question;
-		CorrectAnswer = questionToDisplay.answer;
-		A_Input.SetCorrectAnswer (CorrectAnswer);
-		Debug.Log (CorrectAnswer);
-		GenerateChoices ();
-		*/
-
 	}
 
 	public void GenerateChoices() {

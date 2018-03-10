@@ -31,8 +31,10 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 	}
 
-	/** Generates either mulitplication or division question by random selection
-	 */
+	/// <summary>
+	/// Generates either mulitplication or division question by random selection
+	/// </summary>
+	/// <param name="maxDifficulty">The range of numbers from which to generate the question.</param>
 	public void GenerateQuestion (int maxDifficulty) {
 		//Generate random 0 or 1 to determine whether question is to be multiplication or divison
 		//isDivide == 0 -> Division problem
@@ -77,6 +79,9 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 		}
 	}
 
+	/// <summary>
+	/// Generates the choices.
+	/// </summary>
 	public void GenerateChoices() {
 		int Choice1;
 		int Choice2;
@@ -117,6 +122,12 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 		A_Input.DisplayChoices (AnswerChoices);
 	}
 
+	/// <summary>
+	/// Converts the generated Choices integer array to array of strings for later use.
+	/// Checks for duplicate values and shuffles array before returning
+	/// </summary>
+	/// <returns>The string array.</returns>
+	/// <param name="IntegerChoices">Integer array of choices.</param>
 	public string[] ChoicesToStringArray(int [] IntegerChoices) {
 		HashSet<int> choiceSet = new HashSet<int> ();
 		int size = IntegerChoices.Length;
