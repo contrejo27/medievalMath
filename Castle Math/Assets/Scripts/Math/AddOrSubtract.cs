@@ -11,7 +11,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	int FirstNum;
 	int SecondNum;
 	int CorrectAnswer;
-	int isSubtract;
+	public int isSubtract;
 	string [] AnswerChoices;
 	string QuestionString;
 	int maxInt;
@@ -30,11 +30,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 
 	}
 
-	///<summary>
-	///Generates addition or subtraction question by random selection. 
-	///</summary>
-	public void GenerateQuestion (int maxDifficulty) {
-		//Randomly create variable to determine whether generated question is subtraction or addition
+	public void GenerateOperands(int maxDifficulty) {
 		isSubtract = Random.Range (0, 2);
 
 		if (maxDifficulty != -1) {
@@ -50,6 +46,24 @@ public class AddOrSubtract : MonoBehaviour, Question {
 			//Calculate correct answer
 			CorrectAnswer = FirstNum - SecondNum;
 
+		} else { //Generate addition question
+			//Numbers to be used in problem equation
+			FirstNum = Random.Range (0, 13);
+			SecondNum = Random.Range (0, 13);
+
+			//Calculate correct answer
+			CorrectAnswer = FirstNum + SecondNum;
+		}
+	}
+
+	///<summary>
+	///Generates addition or subtraction question by random selection. 
+	///</summary>
+	public void GenerateQuestion (int maxDifficulty) {
+		GenerateOperands (maxDifficulty);
+		//Execute subtraction functionality
+		if (isSubtract == 0) {	
+
 			//Create formatted question string for display
 			QuestionString = FirstNum.ToString () + " - " + SecondNum.ToString () + " =";
 
@@ -62,13 +76,6 @@ public class AddOrSubtract : MonoBehaviour, Question {
 			this.GenerateChoices ();
 		} 
 		else { //Generate addition question
-			//Numbers to be used in problem equation
-			FirstNum = Random.Range (0, 13);
-			SecondNum = Random.Range (0, 13);
-
-			//Calculate correct answer
-			CorrectAnswer = FirstNum + SecondNum;
-
 			//Create formatted question string for display
 			QuestionString = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
 
@@ -208,6 +215,14 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	/// <returns>The incorrect answers.</returns>
 	public int GetIncorrectAnswers() {
 		return this.incorrectAnswers;
+	}
+
+	public int GetFirstNum() {
+		return FirstNum;
+	}
+
+	public int GetSecondNum() {
+		return SecondNum;
 	}
 
 

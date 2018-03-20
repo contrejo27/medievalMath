@@ -40,7 +40,7 @@ public class WaveManager : MonoBehaviour {
 
     public void NextWave()
 	{
-
+		Debug.Log ("NextWave: " + !Mathm.interwaveMath);
 		if (!Mathm.interwaveMath) {
 			Mathm.DeactivateInterMath ();
 			interMath.Deactivate ();
@@ -51,10 +51,24 @@ public class WaveManager : MonoBehaviour {
 			}
 		
 			currentWave += 1;
+			Debug.Log ("NextWave");
 			ActivateWave (currentWave);
 		} else {
 			Mathm.ActivateInterMath ();
 		}
+		/*
+		else if (currentWave > 0 && currentWave % 3 == 0) {
+			Debug.Log ("elif");
+			Mathm.ActivateInterMath ();
+		} else {
+			if (currentWave % 2 == 0) {
+				Mathm.SetDifficulty ();
+			}
+
+			currentWave += 1;
+			ActivateWave (currentWave);
+		}
+		*/
 	}
 
 	public void ActivateWave(int WaveIndex)

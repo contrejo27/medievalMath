@@ -25,18 +25,19 @@ public class TutorialBehavior : MonoBehaviour {
 	public void Next () {
 		currentImage++;
 		//done before the others so we don't assign a new sprite
-
+		Debug.Log("tutorial Done" + tutorialDone);
 		//tutorial ends
-		if(currentImage == 3) {
+		if (currentImage == 3 || tutorialDone) {
 			tutorialDone = true;
-			startGame.SetActive(false);	
+			startGame.GetComponent<Button>().onClick.Invoke();
+
+			startGame.SetActive (false);	
 			//TODO add line back in when tutorial is done
-			//startGame.GetComponent<Button>().onClick.Invoke();
 			return;
 		}
 
 		//load next tutorial image
-		tutorialImage.sprite = tutorialImages[currentImage];
+		tutorialImage.sprite = tutorialImages [currentImage];
 
 		if(currentImage == 1){
 			mathCanvas.fadeIn(1);
@@ -46,6 +47,7 @@ public class TutorialBehavior : MonoBehaviour {
 		if(currentImage == 2){
 			target.SetActive(true);
 			startGame.SetActive(true);	
+			tutorialDone = true;
 		}
 
 	}

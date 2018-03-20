@@ -111,7 +111,7 @@ public class AnswerInput : MonoBehaviour {
 	/// <param name="Answer">The given answer</param>
 	public void CheckAnswer(Text Answer) {
 		//int answerAsInt = int.Parse(Answer.text.ToString());
-
+		Debug.Log("Check answer");
 		//check if we're in tutorial
 		if(!tutorial.tutorialDone){
 			mathCanvas.fadeOut(1.0f);

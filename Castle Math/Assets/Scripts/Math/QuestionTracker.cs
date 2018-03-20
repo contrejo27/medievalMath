@@ -37,6 +37,8 @@ public class QuestionTracker  {
 			q = new Compare ();
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(TrueOrFalse))) {
 			q = new TrueOrFalse ();	
+		} else if (Object.ReferenceEquals (question.GetType (), typeof(Algebra))) {
+			q = new Algebra ();
 		} else {
 			q = null;
 		}
@@ -73,6 +75,8 @@ public class QuestionTracker  {
 			q = new Compare ();
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(TrueOrFalse))) {
 			q = new TrueOrFalse ();
+		} else if (Object.ReferenceEquals (question.GetType (), typeof(Algebra))) {
+			q = new Algebra ();
 		} else {
 			q = null;
 		}

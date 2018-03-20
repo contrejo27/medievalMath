@@ -27,6 +27,7 @@ public class MathManager : MonoBehaviour {
 	Compare Comparision;
 	TrueOrFalse True_False;
 	Fractions Fraction;
+	Algebra AlgebraQuestion;
 
 	public int [] QuestionTypes;
 	public int IncorrectAnswersPerQuestion;
@@ -38,6 +39,7 @@ public class MathManager : MonoBehaviour {
 	public int CompareQuestions;
 	public int TrueFalseQuestions;
 	public int FractionQuestions;
+	public int AlgebraQuestions;
 
 
 	// Use this for initialization
@@ -48,21 +50,24 @@ public class MathManager : MonoBehaviour {
 		Add_Sub = GameObject.FindObjectOfType<AddOrSubtract> ();
 		True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
 		Fraction = GameObject.FindObjectOfType<Fractions> ();
+		AlgebraQuestion = GameObject.FindObjectOfType<Algebra> ();
 
 		Multi_Divide.Start ();
 		Add_Sub.Start ();
 		Comparision.Start ();
 		True_False.Start ();
 		Fraction.Start ();
+		AlgebraQuestion.Start ();
 
 		A_Input.Start ();
 
-		QuestionTypes = new int[5];
+		QuestionTypes = new int[6];
 		QuestionTypes [0] = AddSubQuestions;
 		QuestionTypes [1] = MultiDivideQuestions;
 		QuestionTypes [2] = CompareQuestions;
 		QuestionTypes [3] = TrueFalseQuestions;
 		QuestionTypes [4] = FractionQuestions;
+		QuestionTypes [5] = AlgebraQuestions;
 		GenerateProblem (QuestionTypes);
 	}
 
@@ -99,6 +104,8 @@ public class MathManager : MonoBehaviour {
 		QuestionTypes [2] = CompareQuestions;
 		QuestionTypes [3] = TrueFalseQuestions;
 		QuestionTypes [4] = FractionQuestions;
+		QuestionTypes [5] = AlgebraQuestions;
+
 		Debug.Log("AS Difficulty: " + mathDifficultyAorS);
 		Debug.Log("MD Difficulty: " + mathDifficultyMorD);
 		interwaveMath = false;
@@ -164,6 +171,10 @@ public class MathManager : MonoBehaviour {
 			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
 			currentQuestion = Fraction;
 			//currentQuestion = Fraction.GetQuestionString ();
+		} else if (randIndex == 5 && AlgebraQuestions != 0) {
+			AlgebraQuestion.GenerateQuestion (mathDifficultyAorS);//-1 => temp fix
+			A_Input.SetCorrectAnswer (AlgebraQuestion.getCorrectAnswer ());
+			currentQuestion = AlgebraQuestion;
 		}else {
 			this.GenerateProblem (this.GetQuestionTypes ());
 		}

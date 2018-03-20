@@ -12,7 +12,7 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	private int FirstNum;
 	private int SecondNum;
 	private int CorrectAnswer;
-	private int isDivide;
+	public int isDivide;
 	private int incorrectAnswers = 0;
 	private string [] AnswerChoices;
 	private string QuestionString;
@@ -31,11 +31,7 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 	}
 
-	/// <summary>
-	/// Generates either mulitplication or division question by random selection
-	/// </summary>
-	/// <param name="maxDifficulty">The range of numbers from which to generate the question.</param>
-	public void GenerateQuestion (int maxDifficulty) {
+	public void GenerateOperands(int maxDifficulty) {
 		//Generate random 0 or 1 to determine whether question is to be multiplication or divison
 		//isDivide == 0 -> Division problem
 		isDivide = Random.Range (0, 2);
@@ -55,6 +51,24 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			//Calculate correct answer
 			CorrectAnswer = FirstNum / SecondNum;
 
+		} 
+		else {
+			FirstNum = Random.Range (0, maxInt);
+			SecondNum = Random.Range (1, maxInt);
+
+			CorrectAnswer = FirstNum * SecondNum;
+		}
+	}
+
+	/// <summary>
+	/// Generates either mulitplication or division question by random selection
+	/// </summary>
+	/// <param name="maxDifficulty">The range of numbers from which to generate the question.</param>
+	public void GenerateQuestion (int maxDifficulty) {
+		GenerateOperands (maxDifficulty);
+
+		//check for division
+		if (isDivide == 0) {
 			//Generate formatted question string and set text box text
 			QuestionString = FirstNum.ToString () + " / " + SecondNum.ToString () + " =";
 			//QuestionText.text = QuestionString;
@@ -64,11 +78,7 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			GenerateChoices ();
 		} 
 		else {
-			FirstNum = Random.Range (0, maxInt);
-			SecondNum = Random.Range (1, maxInt);
-
-			CorrectAnswer = FirstNum * SecondNum;
-
+			
 			//Generate formatted question string and set text box text
 			QuestionString = FirstNum.ToString () + " x " + SecondNum.ToString () + " =";
 			//QuestionText.text = QuestionString;
@@ -184,6 +194,14 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 	public int GetIncorrectAnswers() {
 		return this.incorrectAnswers;
+	}
+
+	public int GetFirstNum() {
+		return FirstNum;
+	}
+
+	public int GetSecondNum() {
+		return SecondNum;
 	}
 
 }
