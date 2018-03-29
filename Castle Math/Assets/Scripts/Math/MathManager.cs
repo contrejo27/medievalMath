@@ -18,7 +18,7 @@ public class MathManager : MonoBehaviour {
 	private string CorrectAnswer;
 	private int totalQuestionsAnswered= 0;
 	public bool interwaveMath;
-	private int interwaveQuestions = 0;
+	public int interwaveQuestions = 0;
   
 	AnswerInput A_Input;
 
@@ -86,8 +86,6 @@ public class MathManager : MonoBehaviour {
 
 		//Check to see if all three questions have been asked
 		if (interwaveQuestions == 3) {
-			Debug.Log ("iQ" + interwaveQuestions);
-
 			//reset
 			interwaveMath = false;
 			interwaveQuestions = 0;

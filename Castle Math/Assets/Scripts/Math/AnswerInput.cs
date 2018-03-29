@@ -10,6 +10,9 @@ public class AnswerInput : MonoBehaviour {
 
 	//public Text AnswerText;
 	private MathManager M_Manager;
+	public GameObject[] feedbackMarks;
+	public Sprite xMark;
+	public Sprite checkMark;
 
 	//start
 	public GameObject [] QuestionTexts;
@@ -111,7 +114,6 @@ public class AnswerInput : MonoBehaviour {
 	/// <param name="Answer">The given answer</param>
 	public void CheckAnswer(Text Answer) {
 		//int answerAsInt = int.Parse(Answer.text.ToString());
-		Debug.Log("Check answer");
 		//check if we're in tutorial
 		if(!tutorial.tutorialDone){
 			mathCanvas.fadeOut(1.0f);
@@ -119,25 +121,18 @@ public class AnswerInput : MonoBehaviour {
 		}
 
 		String answerText = Answer.text.ToString();
-
 		//Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 		for (int i = 0; i < 1; i++) {
 			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
 
 			if (answerText == CorrectAnswer) {
-				Debug.Log ("Correct");
 
-				FeedbackText.text = "Correct";
-				FeedbackText.color =  new Color(.188f, .44f, .1f);
-				FeedbackText.gameObject.SetActive (true);
-				StartCoroutine (DisplayFeedback ());
-
-				//ClearAnswer ();
-
-				A_Supply.CreateArrow ();
-				A_Source.clip = CorrectSound;
-				A_Source.Play ();
-	
+				if(M_Manager.interwaveMath){
+					interWaveCorrectFeedack();
+				}
+				else{
+					correctFeedack(FeedbackText);
+				}
 				Math_Stats.CorrectlyAnswered ();
 
 				//If answered incorrectly more than once, place in incorrect question tracker
@@ -155,14 +150,12 @@ public class AnswerInput : MonoBehaviour {
 			//got the question wrong
 			else {
 				M_Manager.IncorrectAnswer ();
-				Debug.Log ("Incorrect");
-				FeedbackText.text = "Incorrect";
-				FeedbackText.color =  new Color(.756f,.278f, .29f);
-				FeedbackText.gameObject.SetActive (true);
-				StartCoroutine (DisplayFeedback ());
-
-				A_Source.clip = IncorrectSound;
-				A_Source.Play ();
+				if(M_Manager.interwaveMath){
+					interWaveIncorrectFeedack();
+				}
+				else{
+					incorrectFeedack(FeedbackText);
+				}
 
 				//ClearAnswer ();
 				ClearChoices ();
@@ -205,6 +198,40 @@ public class AnswerInput : MonoBehaviour {
 		}
 
 		DisplayChoices (AnswerChoices);
+	}
+
+	void interWaveCorrectFeedack(){
+		feedbackMarks[M_Manager.interwaveQuestions-1].SetActive(true);
+		feedbackMarks[M_Manager.interwaveQuestions-1].GetComponent<Image>().sprite = checkMark;
+		A_Source.clip = CorrectSound;
+		A_Source.Play ();
+	}
+
+	void interWaveIncorrectFeedack(){
+		feedbackMarks[M_Manager.interwaveQuestions-1].SetActive(true);
+		feedbackMarks[M_Manager.interwaveQuestions-1].GetComponent<Image>().sprite = xMark;
+		A_Source.clip = IncorrectSound;
+		A_Source.Play ();
+	}
+
+	void correctFeedack(Text Feedback){
+		Feedback.text = "Correct";
+		Feedback.color =  new Color(.188f, .44f, .1f);
+		Feedback.gameObject.SetActive (true);
+		StartCoroutine (DisplayFeedback ());
+		A_Supply.CreateArrow ();
+		A_Source.clip = CorrectSound;
+		A_Source.Play ();
+	}
+
+	void incorrectFeedack(Text Feedback){
+		Debug.Log ("Incorrect");
+		Feedback.text = "Incorrect";
+		Feedback.color =  new Color(.756f,.278f, .29f);
+		Feedback.gameObject.SetActive (true);
+		StartCoroutine (DisplayFeedback ());
+		A_Source.clip = IncorrectSound;
+		A_Source.Play ();
 	}
 
 	/// <summary>

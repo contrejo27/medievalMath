@@ -36,7 +36,7 @@ public class BombArrow : ArrowClass {
 //hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().bomb = true;
 					hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().TakeDamage (2);
 					hitColliders [i].gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
-					hitColliders [i].gameObject.GetComponent<Rigidbody> ().AddExplosionForce (1000, this.transform.position, 15,2f);
+					hitColliders [i].gameObject.GetComponent<Rigidbody> ().AddExplosionForce (1000, this.transform.position, 15,5f);
 					
 				}
 				i += 1;

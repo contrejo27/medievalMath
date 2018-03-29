@@ -52,7 +52,7 @@ public class Fractions : MonoBehaviour, Question {
 			}
 		}
 
-		QuestionText.text = "What fraction do the green gems represent?";
+		QuestionText.text = "What fraction do the red gems represent?";
 
 		DecimalAnswer = (double)Numerator / (double)Denominator;
 		StringAnswer = Numerator.ToString() + "/" + Denominator.ToString();
@@ -132,8 +132,8 @@ public class Fractions : MonoBehaviour, Question {
 		GameObject billboard = GameObject.Find ("MathCanvas_Billboard");
 
 		int gemCount = 0;;
-		int yPosIncrease = 0; //use for moving gems down to form grid pattern
-		int xPosIncrease = -1; //use for moving gems across to form grid pattern
+		int yPosIncrease = -1; //use for moving gems down to form grid pattern
+		int xPosIncrease = 0; //use for moving gems across to form grid
 
 		//Start creating gems to represent denominator to populate bottom of grid
 		for(int i = gemCount; i < denominatorGems - numeratorGems; i++){
@@ -145,7 +145,7 @@ public class Fractions : MonoBehaviour, Question {
 			xPosIncrease++;
 			//Debug.Log ("Denom Gems:" + denominatorGems);
 			GameObject denominatorItem = Instantiate(fractionItem, billboard.transform);
-			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + xPosIncrease, denominatorItem.transform.position.y + yPosIncrease, denominatorItem.transform.position.z);
+			denominatorItem.transform.position = new Vector3(denominatorItem.transform.position.x + xPosIncrease, denominatorItem.transform.position.y - yPosIncrease, denominatorItem.transform.position.z);
 			gems.Add (denominatorItem);
 			gemCount++;
 		}
@@ -162,7 +162,7 @@ public class Fractions : MonoBehaviour, Question {
 			GameObject numeratorItem = Instantiate (fractionItem, billboard.transform);
 			numeratorItem.GetComponent<Image>().color = Color.red;
 
-			numeratorItem.transform.position = new Vector3 (numeratorItem.transform.position.x + xPosIncrease, numeratorItem.transform.position.y + yPosIncrease, numeratorItem.transform.position.z);
+			numeratorItem.transform.position = new Vector3 (numeratorItem.transform.position.x + xPosIncrease, numeratorItem.transform.position.y - yPosIncrease, numeratorItem.transform.position.z);
 			gems.Add (numeratorItem);
 
 		}
