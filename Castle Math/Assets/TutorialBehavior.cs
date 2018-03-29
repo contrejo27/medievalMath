@@ -10,64 +10,78 @@ public class TutorialBehavior : MonoBehaviour {
 	public bool tutorialDone = false;
 	public GameObject startGame;
 	public GameObject billboard;
-	public UIEffects mathCanvas;
+	public GameObject mathCanvas;
 	public UIEffects interMathButtons;
 	public UIEffects interMathCanvas;
 	public GameObject target;
 	int currentImage = 0;
 
+	public AudioClip[] tutorialSounds;
+	public AudioSource UIAudio;
+
 	// Use this for initialization
 	void Start () {
 		tutorialImage = GetComponent<Image>();
+		StartCoroutine(ShootTheTargetSounds());
 	}
 
 	//goes through tutorial images when next gets clicked
 	public void Next () {
 		currentImage++;
-		//done before the others so we don't assign a new sprite
-		Debug.Log("tutorial Done" + tutorialDone);
-		//tutorial ends
-		if (currentImage == 3 || tutorialDone) {
-			tutorialDone = true;
-			startGame.GetComponent<Button>().onClick.Invoke();
-
-			startGame.SetActive (false);	
-			//TODO add line back in when tutorial is done
-			return;
-		}
-
+		print(currentImage);
 		//load next tutorial image
 		tutorialImage.sprite = tutorialImages [currentImage];
 
+
 		if(currentImage == 1){
-			mathCanvas.fadeIn(1);
+			mathCanvas.SetActive(true);
+			mathCanvas.GetComponent<UIEffects>().fadeIn(1);
 			target.SetActive(false);
+			UIAudio.clip = tutorialSounds[2];
+			UIAudio.Play ();
 		}
 
 		if(currentImage == 2){
-			target.SetActive(true);
-			startGame.SetActive(true);	
 			tutorialDone = true;
+			startGame.SetActive(true);	
+			// UIAudio.clip = tutorialSounds[2]; // protect the castle you're our only hope
+			//UIAudio.Play ();
 		}
-
 	}
 
 	public void Activate(){
 		tutorialImage.enabled = false;
 		target.SetActive(false);
-		mathCanvas.fadeOut(1);
+		mathCanvas.GetComponent<UIEffects>().fadeOut(1);
+		billboard.SetActive(true);
+		billboard.GetComponent<Animator> ().Play("popUp");
 		interMathCanvas.fadeIn(1);
 		interMathButtons.fadeIn(1);
 	}
 	
 	public void Deactivate(){
 		interMathCanvas.fadeOut(1);
-		mathCanvas.fadeIn(1);
+		mathCanvas.GetComponent<UIEffects>().fadeIn(1);
 		interMathButtons.fadeOut(1);
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
+	public IEnumerator ShootTheTargetSounds(){
+		yield return new WaitForSeconds(3f);
+		if(currentImage == 0){
+			UIAudio.clip = tutorialSounds[0];
+			UIAudio.Play ();
+		}
+
+		yield return new WaitForSeconds(11f);
+		if(currentImage == 0){
+			UIAudio.clip = tutorialSounds[1];
+			UIAudio.Play ();
+		}
+
+		yield return new WaitForSeconds(9f);
+		if(currentImage == 0){
+			UIAudio.clip = tutorialSounds[0];
+			UIAudio.Play ();
+		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,41 +40,25 @@ public class WaveManager : MonoBehaviour {
 
     public void NextWave()
 	{
-		Debug.Log ("NextWave: " + !Mathm.interwaveMath);
 		if (!Mathm.interwaveMath) {
-			Mathm.DeactivateInterMath ();
-			interMath.Deactivate ();
-			billboard.SetActive (false);
+			//Mathm.DeactivateInterMath ();
+			//interMath.Deactivate ();
+			//billboard.SetActive (false);
 
 			if (currentWave % 2 == 0) {
 				Mathm.SetDifficulty ();
 			}
 		
 			currentWave += 1;
-			Debug.Log ("NextWave");
 			ActivateWave (currentWave);
 		} else {
 			Mathm.ActivateInterMath ();
 		}
-		/*
-		else if (currentWave > 0 && currentWave % 3 == 0) {
-			Debug.Log ("elif");
-			Mathm.ActivateInterMath ();
-		} else {
-			if (currentWave % 2 == 0) {
-				Mathm.SetDifficulty ();
-			}
 
-			currentWave += 1;
-			ActivateWave (currentWave);
-		}
-		*/
 	}
 
 	public void ActivateWave(int WaveIndex)
 	{
-		Debug.Log ("Next Wave WMan");
-
 		//the wave size increases by two men each wave
 		WaveSize = firstWaveSize + (int)(WaveIndex * 1.5);
 		setWaveText();
@@ -170,9 +154,14 @@ public class WaveManager : MonoBehaviour {
 		CurrentEnemies -= 1;
 		//if all enemies were killed
 		if (CurrentEnemies <= 0) {
-			billboard.SetActive(true);
-			interMath.Activate();
-			Mathm.ActivateInterMath();
+
+			if((currentWave+2) % 3 == 0 && currentWave > 1){
+				interMath.Activate();
+				Mathm.ActivateInterMath();
+			}
+			else{
+				NextWave();
+			}
 
 			A_Source.clip = WaveCleared;
 			A_Source.Play ();
