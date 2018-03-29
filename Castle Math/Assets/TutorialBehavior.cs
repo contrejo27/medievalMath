@@ -28,7 +28,6 @@ public class TutorialBehavior : MonoBehaviour {
 	//goes through tutorial images when next gets clicked
 	public void Next () {
 		currentImage++;
-		print(currentImage);
 		//load next tutorial image
 		tutorialImage.sprite = tutorialImages [currentImage];
 
@@ -54,12 +53,13 @@ public class TutorialBehavior : MonoBehaviour {
 		target.SetActive(false);
 		mathCanvas.GetComponent<UIEffects>().fadeOut(1);
 		billboard.SetActive(true);
-		billboard.GetComponent<Animator> ().Play("popUp");
+		billboard.GetComponent<Animator> ().Play("show");
 		interMathCanvas.fadeIn(1);
 		interMathButtons.fadeIn(1);
 	}
 	
 	public void Deactivate(){
+		billboard.GetComponent<Animator> ().Play("hide");
 		interMathCanvas.fadeOut(1);
 		mathCanvas.GetComponent<UIEffects>().fadeIn(1);
 		interMathButtons.fadeOut(1);

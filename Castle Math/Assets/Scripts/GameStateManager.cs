@@ -55,7 +55,7 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	public void StartGame(){
-		billboard.SetActive(false);	
+		billboard.GetComponent<Animator> ().Play("hide");
 		mainMenuEffects.fadeOut(1.5f);
 		notificationEffects.fadeIn(1.5f);
 		music.clip = gameplaySong;

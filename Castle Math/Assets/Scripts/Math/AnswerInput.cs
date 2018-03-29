@@ -201,8 +201,10 @@ public class AnswerInput : MonoBehaviour {
 	}
 
 	void interWaveCorrectFeedack(){
-		feedbackMarks[M_Manager.interwaveQuestions-1].SetActive(true);
-		feedbackMarks[M_Manager.interwaveQuestions-1].GetComponent<Image>().sprite = checkMark;
+		int attempt = M_Manager.interwaveQuestions-1;
+		print("check mark selected: " + attempt);
+		feedbackMarks[attempt].SetActive(true);
+		feedbackMarks[attempt].GetComponent<Image>().sprite = checkMark;
 		A_Source.clip = CorrectSound;
 		A_Source.Play ();
 	}
