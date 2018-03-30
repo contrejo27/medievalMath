@@ -29,7 +29,6 @@ public class WaveManager : MonoBehaviour {
 	public Text WaveTitle;
 	public CanvasGroup waveEffect;
 	public TutorialBehavior interMath;
-	public GameObject billboard;
 	private int CurrentEnemies;
 
 	
@@ -40,22 +39,14 @@ public class WaveManager : MonoBehaviour {
 
     public void NextWave()
 	{
-		if (!Mathm.interwaveMath) {
-			//Mathm.DeactivateInterMath ();
-			//interMath.Deactivate ();
-			//billboard.SetActive (false);
-
-			if (currentWave % 2 == 0) {
-				Mathm.SetDifficulty ();
-			}
-		
-			currentWave += 1;
-			ActivateWave (currentWave);
-		} else {
-			Mathm.ActivateInterMath ();
+		if (currentWave % 2 == 0) {
+			Mathm.SetDifficulty ();
 		}
-
-	}
+		
+		currentWave += 1;
+		ActivateWave (currentWave);
+	} 
+	
 
 	public void ActivateWave(int WaveIndex)
 	{
@@ -156,7 +147,6 @@ public class WaveManager : MonoBehaviour {
 		if (CurrentEnemies <= 0) {
 
 			if((currentWave+2) % 3 == 0 && currentWave+2 > 1){
-				interMath.Activate();
 				Mathm.ActivateInterMath();
 			}
 			else{

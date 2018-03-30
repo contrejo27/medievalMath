@@ -8,7 +8,8 @@ public class MathManager : MonoBehaviour {
 
 	public Text QuestionText;
 	public Text FeedbackText;
-
+	public GameObject billboard;
+	public WaveManager W_man;
 	public AudioClip CorrectSound;
 	public AudioClip IncorrectSound;
 
@@ -18,7 +19,6 @@ public class MathManager : MonoBehaviour {
 	private string CorrectAnswer;
 	private int totalQuestionsAnswered= 0;
 	public bool interwaveMath;
-	public int interwaveQuestions = 0;
   
 	AnswerInput A_Input;
 
@@ -41,6 +41,9 @@ public class MathManager : MonoBehaviour {
 	public int FractionQuestions;
 	public int AlgebraQuestions;
 
+	public GameObject mathCanvas;
+	public UIEffects interMathCanvas;
+	public UIEffects interMathButtons;
 
 	// Use this for initialization
 	void Start () {
@@ -81,21 +84,25 @@ public class MathManager : MonoBehaviour {
 		Fraction.GenerateQuestion (-1);//-1 => temp fix
 		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
 		currentQuestion = Fraction;
-		totalQuestionsAnswered++;
-		interwaveQuestions++;
 
+		ActivateBillboard();
 		//Check to see if all three questions have been asked
-		if (interwaveQuestions == 3) {
-			//reset
-			interwaveMath = false;
-			interwaveQuestions = 0;
-		}
+	}
+
+	public void GenerateInterMathQuestion(){
+
+		//Generates a fraction question for the interwave math question
+		Fraction.GenerateQuestion (-1);//-1 => temp fix
+		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+		currentQuestion = Fraction;
+
 	}
 
 	/// <summary>
 	/// Deactivates the in-between math functionality.
 	/// </summary>
 	public void DeactivateInterMath(){
+		interwaveMath = false;
 		//Reset math settings
 		QuestionTypes [0] = AddSubQuestions;
 		QuestionTypes [1] = MultiDivideQuestions;
@@ -104,11 +111,29 @@ public class MathManager : MonoBehaviour {
 		QuestionTypes [4] = FractionQuestions;
 		QuestionTypes [5] = AlgebraQuestions;
 
-		Debug.Log("AS Difficulty: " + mathDifficultyAorS);
-		Debug.Log("MD Difficulty: " + mathDifficultyMorD);
-		interwaveMath = false;
+		//Debug.Log("AS Difficulty: " + mathDifficultyAorS);
+		//Debug.Log("MD Difficulty: " + mathDifficultyMorD);
+
 		GenerateProblem (QuestionTypes);
+		DeactivateBillboard();
+		W_man.NextWave();
 	}
+
+	public void ActivateBillboard(){
+		mathCanvas.GetComponent<UIEffects>().fadeOut(1);
+		billboard.SetActive(true);
+		billboard.GetComponent<Animator> ().Play("show");
+		interMathCanvas.fadeIn(1);
+		interMathButtons.fadeIn(1);
+	}
+	
+	public void DeactivateBillboard(){
+		billboard.GetComponent<Animator> ().Play("hide");
+		interMathCanvas.fadeOut(1);
+		mathCanvas.GetComponent<UIEffects>().fadeIn(1);
+		interMathButtons.fadeOut(1);
+	}
+
 
 	/// <summary>
 	/// Sets the math difficulty based on previous performance. Adds correct and incorrect 

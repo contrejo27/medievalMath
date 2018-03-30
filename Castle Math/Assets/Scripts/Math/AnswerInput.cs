@@ -40,6 +40,8 @@ public class AnswerInput : MonoBehaviour {
 
 	private ManaBar PowerUp;
 
+	public int interwaveQuestions = 0;
+
 	// Use this for initialization
 	public void Start () {
 	
@@ -126,9 +128,10 @@ public class AnswerInput : MonoBehaviour {
 			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
 
 			if (answerText == CorrectAnswer) {
-
 				if(M_Manager.interwaveMath){
+					interwaveQuestions++;
 					interWaveCorrectFeedack();
+					M_Manager.GenerateInterMathQuestion();
 				}
 				else{
 					correctFeedack(FeedbackText);
@@ -151,7 +154,9 @@ public class AnswerInput : MonoBehaviour {
 			else {
 				M_Manager.IncorrectAnswer ();
 				if(M_Manager.interwaveMath){
+					interwaveQuestions++;
 					interWaveIncorrectFeedack();
+					M_Manager.GenerateInterMathQuestion();
 				}
 				else{
 					incorrectFeedack(FeedbackText);
@@ -201,19 +206,28 @@ public class AnswerInput : MonoBehaviour {
 	}
 
 	void interWaveCorrectFeedack(){
-		int attempt = M_Manager.interwaveQuestions-1;
-		print("check mark selected: " + attempt);
+		int attempt = interwaveQuestions-1;
 		feedbackMarks[attempt].SetActive(true);
 		feedbackMarks[attempt].GetComponent<Image>().sprite = checkMark;
 		A_Source.clip = CorrectSound;
 		A_Source.Play ();
+		M_Manager.ActivateInterMath();
+		if (interwaveQuestions == 3) {
+			interwaveQuestions = 0;
+			M_Manager.DeactivateInterMath();
+		}
+
 	}
 
 	void interWaveIncorrectFeedack(){
-		feedbackMarks[M_Manager.interwaveQuestions-1].SetActive(true);
-		feedbackMarks[M_Manager.interwaveQuestions-1].GetComponent<Image>().sprite = xMark;
+		feedbackMarks[interwaveQuestions-1].SetActive(true);
+		feedbackMarks[interwaveQuestions-1].GetComponent<Image>().sprite = xMark;
 		A_Source.clip = IncorrectSound;
 		A_Source.Play ();
+		if (interwaveQuestions == 3) {
+			interwaveQuestions = 0;
+			M_Manager.DeactivateInterMath();
+		}
 	}
 
 	void correctFeedack(Text Feedback){

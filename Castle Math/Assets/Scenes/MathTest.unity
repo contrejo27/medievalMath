@@ -1271,6 +1271,8 @@ MonoBehaviour:
   notificationEffects: {fileID: 1772680962}
   LoseScreen: {fileID: 2098842474}
   MathScreen: {fileID: 542802104}
+  tutorialImage: {fileID: 505358069}
+  target: {fileID: 1399596737}
   StatScreen: {fileID: 2098842474}
   InsidePoint: {fileID: 533171909}
   LostTheCastle: {fileID: 8300000, guid: 199ccdd3e00978e48bc4e595db10b25b, type: 3}
@@ -1402,10 +1404,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 05dc5d2661267024996f49bc2a8da99b, type: 3}
   tutorialDone: 0
   startGame: {fileID: 1693252934}
-  billboard: {fileID: 77706419}
   mathCanvas: {fileID: 542802104}
-  interMathButtons: {fileID: 1662219269}
-  interMathCanvas: {fileID: 277194582}
   target: {fileID: 1399596737}
   tutorialSounds:
   - {fileID: 8300000, guid: 9b1f9ea25f66e514aa77fcbe01aa78e5, type: 3}
@@ -3071,17 +3070,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 941941989}
-        m_MethodName: NextWave
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &373966257
@@ -4051,19 +4039,8 @@ MonoBehaviour:
         m_MethodName: CheckAnswer
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1504728004}
+          m_ObjectArgument: {fileID: 982860884}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 941941989}
-        m_MethodName: NextWave
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5473,19 +5450,8 @@ MonoBehaviour:
         m_MethodName: CheckAnswer
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1546773829}
+          m_ObjectArgument: {fileID: 982860884}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 941941989}
-        m_MethodName: NextWave
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8055,7 +8021,6 @@ MonoBehaviour:
   WaveTitle: {fileID: 1753009933}
   waveEffect: {fileID: 1184378510}
   interMath: {fileID: 206640375}
-  billboard: {fileID: 77706419}
 --- !u!4 &941941990
 Transform:
   m_ObjectHideFlags: 0
@@ -10966,19 +10931,8 @@ MonoBehaviour:
         m_MethodName: CheckAnswer
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1166189020}
+          m_ObjectArgument: {fileID: 982860884}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 941941989}
-        m_MethodName: NextWave
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -16961,10 +16915,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestionText: {fileID: 0}
   FeedbackText: {fileID: 0}
+  billboard: {fileID: 77706419}
+  W_man: {fileID: 941941989}
   CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
   IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
   interwaveMath: 0
-  interwaveQuestions: 0
   QuestionTypes: 
   IncorrectAnswersPerQuestion: 0
   AddSubQuestions: 1
@@ -16973,6 +16928,9 @@ MonoBehaviour:
   TrueFalseQuestions: 0
   FractionQuestions: 0
   AlgebraQuestions: 0
+  mathCanvas: {fileID: 542802104}
+  interMathCanvas: {fileID: 1662219269}
+  interMathButtons: {fileID: 277194582}
 --- !u!4 &1869398078
 Transform:
   m_ObjectHideFlags: 0
@@ -16997,21 +16955,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b7e84ade16443269edd17a96f055da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedbackMarks: []
+  feedbackMarks:
+  - {fileID: 774077750}
+  - {fileID: 493078242}
+  - {fileID: 1609923364}
   xMark: {fileID: 21300000, guid: d7f2669ee4a8e1e45b0b530002afe2ae, type: 3}
   checkMark: {fileID: 21300000, guid: 1e9d9a89af9f10b48b11d6a62b0f031c, type: 3}
   QuestionTexts: []
   QuestionText_hud: {fileID: 0}
-  FeedbackTexts:
-  - {fileID: 774077750}
-  - {fileID: 493078242}
-  - {fileID: 1609923364}
+  FeedbackTexts: []
   ChoiceBoxes: []
   ChoiceBox: {fileID: 0}
   tutorial: {fileID: 206640375}
   mathCanvas: {fileID: 542802110}
   CorrectSound: {fileID: 8300000, guid: 109520d74511e5344b9f4c17e541a9ed, type: 3}
   IncorrectSound: {fileID: 8300000, guid: 96d64f0c1309248f691087e7870d53fc, type: 3}
+  interwaveQuestions: 0
 --- !u!114 &1869398080
 MonoBehaviour:
   m_ObjectHideFlags: 0

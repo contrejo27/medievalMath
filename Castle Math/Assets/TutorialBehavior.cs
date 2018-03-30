@@ -9,10 +9,7 @@ public class TutorialBehavior : MonoBehaviour {
 	public Sprite[] tutorialImages;
 	public bool tutorialDone = false;
 	public GameObject startGame;
-	public GameObject billboard;
 	public GameObject mathCanvas;
-	public UIEffects interMathButtons;
-	public UIEffects interMathCanvas;
 	public GameObject target;
 	int currentImage = 0;
 
@@ -48,22 +45,6 @@ public class TutorialBehavior : MonoBehaviour {
 		}
 	}
 
-	public void Activate(){
-		tutorialImage.enabled = false;
-		target.SetActive(false);
-		mathCanvas.GetComponent<UIEffects>().fadeOut(1);
-		billboard.SetActive(true);
-		billboard.GetComponent<Animator> ().Play("show");
-		interMathCanvas.fadeIn(1);
-		interMathButtons.fadeIn(1);
-	}
-	
-	public void Deactivate(){
-		billboard.GetComponent<Animator> ().Play("hide");
-		interMathCanvas.fadeOut(1);
-		mathCanvas.GetComponent<UIEffects>().fadeIn(1);
-		interMathButtons.fadeOut(1);
-	}
 
 	public IEnumerator ShootTheTargetSounds(){
 		yield return new WaitForSeconds(3f);
