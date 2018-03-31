@@ -39,9 +39,9 @@ public class Algebra : MonoBehaviour, Question {
 			string correctAnswer = addSub.getCorrectAnswer ().ToString ();
 
 			if (addSub.isSubtract == 0) {
-				QuestionString = addSub.GetFirstNum ().ToString() + " - " + "_______" + " =" + correctAnswer;
+				QuestionString = addSub.GetFirstNum ().ToString() + " - " + "X" + " =" + correctAnswer;
 			} else {
-				QuestionString = addSub.GetFirstNum ().ToString() + " + " + "_______" + " =" + correctAnswer;
+				QuestionString = addSub.GetFirstNum ().ToString() + " + " + "X" + " =" + correctAnswer;
 			}
 
 			this.CorrectAnswer = addSub.GetSecondNum ();
@@ -61,9 +61,11 @@ public class Algebra : MonoBehaviour, Question {
 			}
 
 			if (multiDiv.isDivide == 0) {
-				QuestionString = multiDiv.GetFirstNum ().ToString() + " / " + "_______" + " =" + multiDiv.getCorrectAnswer ().ToString ();
+				char divSign = '\u00F7';
+
+				QuestionString = multiDiv.GetFirstNum ().ToString() + " " + divSign.ToString() + " " + "X" + " =" + multiDiv.getCorrectAnswer ().ToString ();
 			} else {
-				QuestionString = multiDiv.GetFirstNum ().ToString() + " * " + "_______" + " =" + multiDiv.getCorrectAnswer ().ToString ();
+				QuestionString = multiDiv.GetFirstNum ().ToString() + " x " + "__" + " =" + multiDiv.getCorrectAnswer ().ToString ();
 			}
 
 			this.CorrectAnswer = multiDiv.GetSecondNum ();

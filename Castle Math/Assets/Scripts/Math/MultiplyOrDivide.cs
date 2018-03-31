@@ -70,7 +70,9 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 		//check for division
 		if (isDivide == 0) {
 			//Generate formatted question string and set text box text
-			QuestionString = FirstNum.ToString () + " / " + SecondNum.ToString () + " =";
+			char divSign = '\u00F7';
+
+			QuestionString = FirstNum.ToString () + " " + divSign.ToString() + " " + SecondNum.ToString () + " =";
 			//QuestionText.text = QuestionString;
 			A_Input.SetQuestion(QuestionString);
 

@@ -14,6 +14,8 @@ public class GameStateManager : MonoBehaviour {
 	public UIEffects notificationEffects;
 	public GameObject LoseScreen;
 	public GameObject MathScreen;
+	public GameObject tutorialImage;
+	public GameObject target;
 
 	public GameObject StatScreen;
 	private string playerName = "JGC";
@@ -55,7 +57,9 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	public void StartGame(){
-		billboard.SetActive(false);	
+		billboard.GetComponent<Animator> ().Play("hide");
+		tutorialImage.SetActive(false);
+		target.SetActive(false);
 		mainMenuEffects.fadeOut(1.5f);
 		notificationEffects.fadeIn(1.5f);
 		music.clip = gameplaySong;
