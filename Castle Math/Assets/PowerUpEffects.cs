@@ -6,8 +6,6 @@ public class PowerUpEffects : MonoBehaviour {
 	public Animator Anim; 
 	void Start(){
 		Anim = GetComponent<Animator> ();
-				print("Anim");
-
 	}
     void OnEnable() {
 		Anim.Play("ui_anim");

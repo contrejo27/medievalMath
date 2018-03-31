@@ -129,12 +129,13 @@ public class AnswerInput : MonoBehaviour {
 
 			if (answerText == CorrectAnswer) {
 				if(M_Manager.interwaveMath){
-					interwaveQuestions++;
 					interWaveCorrectFeedack();
-					M_Manager.GenerateInterMathQuestion();
+					interwaveQuestions++;
 				}
 				else{
 					correctFeedack(FeedbackText);
+					M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
+
 				}
 				Math_Stats.CorrectlyAnswered ();
 
@@ -145,7 +146,6 @@ public class AnswerInput : MonoBehaviour {
 					Tracker.AddCorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
 				}
 
-				M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
 				PowerUp.CorrectAnswer ();
 
@@ -154,9 +154,8 @@ public class AnswerInput : MonoBehaviour {
 			else {
 				M_Manager.IncorrectAnswer ();
 				if(M_Manager.interwaveMath){
-					interwaveQuestions++;
 					interWaveIncorrectFeedack();
-					M_Manager.GenerateInterMathQuestion();
+					interwaveQuestions++;
 				}
 				else{
 					incorrectFeedack(FeedbackText);
@@ -206,28 +205,29 @@ public class AnswerInput : MonoBehaviour {
 	}
 
 	void interWaveCorrectFeedack(){
-		int attempt = interwaveQuestions-1;
-		feedbackMarks[attempt].SetActive(true);
-		feedbackMarks[attempt].GetComponent<Image>().sprite = checkMark;
+		feedbackMarks[interwaveQuestions].SetActive(true);
+		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = checkMark;
 		A_Source.clip = CorrectSound;
 		A_Source.Play ();
-		M_Manager.ActivateInterMath();
-		if (interwaveQuestions == 3) {
+		if (interwaveQuestions == 2) {
 			interwaveQuestions = 0;
 			M_Manager.DeactivateInterMath();
 		}
+		else M_Manager.GenerateInterMathQuestion();
+
 
 	}
 
 	void interWaveIncorrectFeedack(){
-		feedbackMarks[interwaveQuestions-1].SetActive(true);
-		feedbackMarks[interwaveQuestions-1].GetComponent<Image>().sprite = xMark;
+		feedbackMarks[interwaveQuestions].SetActive(true);
+		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
 		A_Source.clip = IncorrectSound;
 		A_Source.Play ();
-		if (interwaveQuestions == 3) {
+		if (interwaveQuestions == 2) {
 			interwaveQuestions = 0;
 			M_Manager.DeactivateInterMath();
 		}
+		else M_Manager.GenerateInterMathQuestion();
 	}
 
 	void correctFeedack(Text Feedback){
