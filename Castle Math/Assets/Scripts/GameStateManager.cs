@@ -109,9 +109,9 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	public IEnumerator ActivatorVR(string vrToggle){
-		VRSettings.LoadDeviceByName(vrToggle);
+		UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
 		yield return null;
-		VRSettings.enabled = false;
+		UnityEngine.VR.VRSettings.enabled = false;
 		yield return new WaitForSeconds(.1f);
 		SceneManager.LoadScene (0);
 	}
