@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour {
 
     public GameObject loginPopup;
+    public Animator mathMenu;
     public Button m_loginButton;
 
 	// Use this for initialization
@@ -51,6 +52,13 @@ public class MenuManager : MonoBehaviour {
             Debug.LogError("No loginPopup attached on the menuManager object");
     }
 
+    public void OpenMathMenu(){
+		mathMenu.Play("slideIn");
+    }
+
+    public void CloseMathMenu(){
+		mathMenu.Play("slideOut");
+    }
 	public void Quit()
 	{
 		Application.Quit ();

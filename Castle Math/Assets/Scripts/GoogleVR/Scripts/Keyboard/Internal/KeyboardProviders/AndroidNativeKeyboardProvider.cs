@@ -192,7 +192,7 @@ namespace Gvr.Internal {
 #endif // UNITY_HAS_GOOGLEVR && UNITY_ANDROID && !UNITY_EDITOR
       // Prevent compilation errors on 5.3.3 and lower.
 #if UNITY_HAS_GOOGLEVR
-      UnityEngine.XR.InputTracking.disablePositionalTracking = true;
+      UnityEngine.VR.InputTracking.disablePositionalTracking = true;
 #endif  // UNITY_HAS_GOOGLEVR
       renderEventFunction = GetKeyboardRenderEventFunc();
     }

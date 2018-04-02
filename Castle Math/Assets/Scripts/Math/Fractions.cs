@@ -97,7 +97,7 @@ public class Fractions : MonoBehaviour, Question {
 
 		}
 
-		//Debug.Log ("Correct Answer:\n\tFraction: " + getCorrectAnswer ());
+		Debug.Log ("Correct Answer:\n\tFraction: " + getCorrectAnswer ());
 
 		//Display choices using AnswerInput functionality
 		A_Input.DisplayChoices (AnswerChoices);
@@ -113,15 +113,15 @@ public class Fractions : MonoBehaviour, Question {
 
 		int numeratorGems;
 		int denominatorGems;
-		int increaseFractionAmt = Random.Range (1, 4);
-		//Debug.Log ("reduce:" + reduce);
-		//Debug.Log ("Num :" + Numerator);
-		//Debug.Log ("Denom :" + Denominator);
+		int increaseFractionAmt = Random.Range (1, 3);
+		Debug.Log ("reduce:" + reduce);
+		Debug.Log ("Num :" + Numerator);
+		Debug.Log ("Denom :" + Denominator);
 
 		//Account for if they are required to reduce the fraction
 		if (reduce == 1) {
-			numeratorGems = Numerator + increaseFractionAmt;
-			denominatorGems = Denominator + increaseFractionAmt;
+			numeratorGems = Numerator * increaseFractionAmt;
+			denominatorGems = Denominator * increaseFractionAmt;
 		}
 		else {
 			numeratorGems = Numerator;
