@@ -7,7 +7,8 @@ public class TutorialBehavior : MonoBehaviour {
 
 	Image tutorialImage;
 	public Sprite[] tutorialImages;
-	public bool tutorialDone = false;
+	public Sprite storyImage;
+	public bool tutorialDone;
 	public GameObject startGame;
 	public GameObject mathCanvas;
 	public GameObject target;
@@ -19,7 +20,16 @@ public class TutorialBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		tutorialImage = GetComponent<Image>();
-		StartCoroutine(ShootTheTargetSounds());
+
+		if(tutorialDone){
+			//if(bossLevel){
+				tutorialImage.sprite = storyImage;
+				target.SetActive(false);
+				startGame.SetActive(true);	
+			//} 
+		}else{
+			StartCoroutine(ShootTheTargetSounds());
+		}
 	}
 
 	//goes through tutorial images when next gets clicked

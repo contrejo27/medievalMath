@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour {
 		
@@ -44,6 +45,10 @@ public class WaveManager : MonoBehaviour {
 		}
 		
 		currentWave += 1;
+		if(currentWave > 20)
+		{
+			SceneManager.LoadScene("BossLevel" , LoadSceneMode.Single);
+		}
 		ActivateWave (currentWave);
 	} 
 	
@@ -58,7 +63,7 @@ public class WaveManager : MonoBehaviour {
 	}
 
 	void setWaveText(){
-		WaveTitle.text = "Wave " + (currentWave + 1).ToString ();
+		WaveTitle.text = "Wave " + (currentWave + 1).ToString () + "/20";
 		StartCoroutine(FadeOut(waveEffect));
 	}
 	
