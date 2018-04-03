@@ -157,6 +157,8 @@ public class Algebra : MonoBehaviour, Question {
 		return this.incorrectAnswers;
 	}
 		
-
+	public string GetQuestionCategory() {
+		return "Pre-Algebra";
+	}
 
 }

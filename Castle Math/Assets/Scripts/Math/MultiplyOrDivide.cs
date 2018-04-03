@@ -36,7 +36,15 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 		//isDivide == 0 -> Division problem
 		isDivide = Random.Range (0, 2);
 
-		maxInt = maxDifficulty;
+		int maxIntMulti;
+
+		if (maxDifficulty > 20) {
+			maxIntMulti = maxDifficulty / 2;
+			maxInt = maxDifficulty;
+		} else {
+			maxInt = maxDifficulty;
+			maxIntMulti = maxDifficulty;
+		}
 
 		//check for division
 		if (isDivide == 0) {
@@ -53,8 +61,8 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 		} 
 		else {
-			FirstNum = Random.Range (0, maxInt);
-			SecondNum = Random.Range (1, maxInt);
+			FirstNum = Random.Range (0, maxIntMulti);
+			SecondNum = Random.Range (1, maxIntMulti);
 
 			CorrectAnswer = FirstNum * SecondNum;
 		}
@@ -80,9 +88,25 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			GenerateChoices ();
 		} 
 		else {
-			
-			//Generate formatted question string and set text box text
-			QuestionString = FirstNum.ToString () + " x " + SecondNum.ToString () + " =";
+
+			if (maxDifficulty > 20) {
+				int ThirdNum = 1;
+				int NewSecondNum = SecondNum;
+
+				for (int i = 5; i > 0; i++) {
+					if (SecondNum % i == 0) {
+						NewSecondNum = SecondNum / i;
+						ThirdNum = i;
+						break;
+					}
+				}
+
+				QuestionString = FirstNum.ToString () + " " + " x " + " " + NewSecondNum.ToString () + " " + " x " + " " + ThirdNum.ToString () + " =";
+			} else {
+				//Generate formatted question string and set text box text
+				QuestionString = FirstNum.ToString () + " x " + SecondNum.ToString () + " =";
+
+			}
 			//QuestionText.text = QuestionString;
 			A_Input.SetQuestion(QuestionString);
 
@@ -151,9 +175,7 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			}
 			choiceSet.Add(IntegerChoices[i]);
 		}
-
-
-
+			
 		//Shuffle array randomly
 		for (int i = 0; i < IntegerChoices.Length; i++ ) {
 			int temp = IntegerChoices[i];
@@ -204,6 +226,13 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 	public int GetSecondNum() {
 		return SecondNum;
+	}
+
+	public string GetQuestionCategory() {
+		if (isDivide == 0)
+			return "Division";
+		else
+			return "Multiplication";
 	}
 
 }

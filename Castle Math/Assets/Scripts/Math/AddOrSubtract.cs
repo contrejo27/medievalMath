@@ -48,8 +48,8 @@ public class AddOrSubtract : MonoBehaviour, Question {
 
 		} else { //Generate addition question
 			//Numbers to be used in problem equation
-			FirstNum = Random.Range (0, 13);
-			SecondNum = Random.Range (0, 13);
+			FirstNum = Random.Range (0, maxInt);
+			SecondNum = Random.Range (0, maxInt);
 
 			//Calculate correct answer
 			CorrectAnswer = FirstNum + SecondNum;
@@ -60,6 +60,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	///Generates addition or subtraction question by random selection. 
 	///</summary>
 	public void GenerateQuestion (int maxDifficulty) {
+		maxDifficulty = 25;
 		GenerateOperands (maxDifficulty);
 		//Execute subtraction functionality
 		if (isSubtract == 0) {	
@@ -76,8 +77,24 @@ public class AddOrSubtract : MonoBehaviour, Question {
 			this.GenerateChoices ();
 		} 
 		else { //Generate addition question
-			//Create formatted question string for display
-			QuestionString = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
+
+			if (maxDifficulty > 20) {
+				int NewSecondNum = SecondNum;
+
+				int diff = Random.Range (0, 5);
+
+				while (NewSecondNum - diff <= 0) {
+					NewSecondNum++;
+					diff--;
+				} 
+
+				int ThirdNum = diff;
+
+				QuestionString = FirstNum.ToString () + " " + " + " + " " + NewSecondNum.ToString () + " " + " + " + " " + ThirdNum.ToString () + " =";
+			} else {
+				//Create formatted question string for display
+				QuestionString = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
+			}
 
 			//Set textbox display to formatted question string
 			//QuestionText.text = QuestionString;
@@ -223,6 +240,13 @@ public class AddOrSubtract : MonoBehaviour, Question {
 
 	public int GetSecondNum() {
 		return SecondNum;
+	}
+
+	public string GetQuestionCategory() {
+		if (isSubtract == 0)
+			return "Subtraction";
+		else
+			return "Addition";
 	}
 
 

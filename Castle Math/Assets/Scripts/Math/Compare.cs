@@ -172,4 +172,8 @@ public class Compare : MonoBehaviour, Question {
 		return this.incorrectAnswers;
 	}
 
+	public string GetQuestionCategory() {
+		return "Comparision";
+	}
+
 }

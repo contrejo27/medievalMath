@@ -12,5 +12,6 @@ public interface Question  {
 	int GetIncorrectAnswers ();
 	string GetQuestionString ();
 	string getCorrectAnswer ();
+	string GetQuestionCategory();
 
 }

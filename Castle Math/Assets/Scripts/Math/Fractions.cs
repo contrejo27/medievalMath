@@ -239,4 +239,8 @@ public class Fractions : MonoBehaviour, Question {
 		return this.incorrectAnswers;
 	}
 
+	public string GetQuestionCategory() {
+		return "Fraction";
+	}
+
 }

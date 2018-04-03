@@ -99,4 +99,8 @@ public class TrueOrFalse : MonoBehaviour, Question {
 		return this.incorrectAnswers;
 	}
 
+	public string GetQuestionCategory() {
+		return "True or False";
+	}
+
 }

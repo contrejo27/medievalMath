@@ -169,6 +169,10 @@ public class WaveManager : MonoBehaviour {
 		CurrentEnemies++;
 	}
 
+	public int GetCurrentWaveNumber() {
+		return currentWave;
+	}
+
 	private YieldInstruction fadeInstruction = new YieldInstruction();
 
 	IEnumerator FadeOut(CanvasGroup image)
@@ -183,6 +187,6 @@ public class WaveManager : MonoBehaviour {
 			image.alpha = 1.0f - Mathf.Clamp01(elapsedTime / totalTime);
 		}
 	}
-
+		
 
 }

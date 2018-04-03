@@ -18,6 +18,7 @@ public class MathManager : MonoBehaviour {
 	private int mathDifficultyMorD = 9;
 	private string CorrectAnswer;
 	private int totalQuestionsAnswered= 0;
+	private int maxDifficultyIncrease = 4;
 	public bool interwaveMath;
   
 	AnswerInput A_Input;
@@ -139,8 +140,31 @@ public class MathManager : MonoBehaviour {
 		int aggregateScoreAorS = A_Input.GetIncorrectOfType(typeof(AddOrSubtract)) + A_Input.GetCorrectOfType(typeof(AddOrSubtract));
 		int aggregateScoreMorD = A_Input.GetIncorrectOfType(typeof(MultiplyOrDivide)) + A_Input.GetCorrectOfType(typeof(MultiplyOrDivide));
 
-		mathDifficultyAorS += aggregateScoreAorS;
-		mathDifficultyMorD += aggregateScoreMorD;
+		int increaseAorS;
+		int increaseMorD;
+
+		//Don't increase difficulty beyond set point
+		if (aggregateScoreAorS > maxDifficultyIncrease)
+			increaseAorS = maxDifficultyIncrease;
+		else
+			increaseAorS = aggregateScoreAorS;
+
+		//Don't increase difficulty beyond set point
+		if (aggregateScoreMorD > maxDifficultyIncrease)
+			increaseMorD = maxDifficultyIncrease;
+		else
+			increaseMorD = aggregateScoreMorD;
+
+		//Check to see if difficulty will fall below zero, else reset to default value
+		if (mathDifficultyAorS + increaseAorS > 0)
+			mathDifficultyAorS += increaseAorS;
+		else
+			mathDifficultyAorS = 5;
+
+		if (mathDifficultyMorD + increaseMorD > 0)
+			mathDifficultyMorD += increaseMorD;
+		else
+			mathDifficultyMorD = 5;
 	}
 
 	/// <summary>

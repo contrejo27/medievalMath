@@ -146,7 +146,6 @@ public class AnswerInput : MonoBehaviour {
 					Tracker.AddCorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
 				}
 
-
 				PowerUp.CorrectAnswer ();
 
 			} 
