@@ -124,7 +124,7 @@ public class AnswerInput : MonoBehaviour {
 
 		String answerText = Answer.text.ToString();
 		//Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < FeedbackTexts.Length; i++) {
 			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
 
 			if (answerText == CorrectAnswer) {

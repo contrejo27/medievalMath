@@ -1,10 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
- 
+
 public class debugText : MonoBehaviour
 {
 	float deltaTime = 0.0f;
- 
+	 bool initialScene =false;
+
+	void Start(){
+			/* potential fix for having to load from scene 0
+			DontDestroyOnLoad(this.gameObject);
+	 		if(!initialScene){
+				initialScene = true;
+				SceneManager.LoadScene (0);
+			}
+			*/
+	}
+
 	void Update()
 	{
 		deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;

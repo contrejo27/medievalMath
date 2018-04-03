@@ -36,9 +36,10 @@ public class GameStateManager : MonoBehaviour {
 	private bool loseState = false;
 	public doorHealth fence1,fence2,fence3;
 	public GameObject billboard;
-
 	// Use this for initialization
 	void Start () {
+
+
 		RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
 		Player = GameObject.FindObjectOfType<LaunchProjectile> (); 
 		mainMenuEffects.fadeIn (.4f);
