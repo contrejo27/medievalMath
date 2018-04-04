@@ -28,6 +28,7 @@ public class WaveManager : MonoBehaviour {
 
 	//UI
 	public Text WaveTitle;
+	public Text mathWaveTitle;
 	public CanvasGroup waveEffect;
 	public TutorialBehavior interMath;
 	private int CurrentEnemies;
@@ -64,13 +65,14 @@ public class WaveManager : MonoBehaviour {
 
 	void setWaveText(){
 		WaveTitle.text = "Wave " + (currentWave + 1).ToString () + "/20";
+		mathWaveTitle.text = "Wave: " + (currentWave + 1).ToString () + "/20";
 		StartCoroutine(FadeOut(waveEffect));
 	}
 	
 	IEnumerator ActivateEnemies(int WaveSize)
 	{		
 		//delay so the player can breather/ do math
-		yield return new WaitForSeconds (4f);
+		yield return new WaitForSeconds (7f);
 		if(currentWave != 0){ // add && currentWave < 2
 		A_Source.clip = AnotherWave;
 		A_Source.Play ();
