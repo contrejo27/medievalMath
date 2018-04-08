@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameDataEditor;
 using Amazon.S3;
 using Amazon.CognitoIdentity;
 using Amazon;
