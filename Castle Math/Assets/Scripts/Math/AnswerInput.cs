@@ -123,9 +123,9 @@ public class AnswerInput : MonoBehaviour {
 		}
 
 		String answerText = Answer.text.ToString();
+
+
 		//Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
-		for (int i = 0; i < FeedbackTexts.Length; i++) {
-			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
 
 			if (answerText == CorrectAnswer) {
 				if(M_Manager.interwaveMath){
@@ -133,7 +133,7 @@ public class AnswerInput : MonoBehaviour {
 					interwaveQuestions++;
 				}
 				else{
-					correctFeedack(FeedbackText);
+					correctFeedack(FeedbackTexts);
 					M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
 				}
@@ -157,7 +157,7 @@ public class AnswerInput : MonoBehaviour {
 					interwaveQuestions++;
 				}
 				else{
-					incorrectFeedack(FeedbackText);
+					incorrectFeedack(FeedbackTexts);
 				}
 
 				//ClearAnswer ();
@@ -165,7 +165,7 @@ public class AnswerInput : MonoBehaviour {
 				PowerUp.IncorrectAnswer ();
 			}
 				
-		}
+		
 
 		if (M_Manager.GetIncorrectAnswersPerQuestion () == 2) {
 			//TODO: display tip graphic
@@ -229,21 +229,32 @@ public class AnswerInput : MonoBehaviour {
 		else M_Manager.GenerateInterMathQuestion();
 	}
 
-	void correctFeedack(Text Feedback){
-		Feedback.text = "Correct";
-		Feedback.color =  new Color(.188f, .44f, .1f);
-		Feedback.gameObject.SetActive (true);
+	void correctFeedack(GameObject[] Feedback){
+
+		for (int i = 0; i < FeedbackTexts.Length; i++) {
+			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
+			FeedbackText.text = "Correct";
+			FeedbackText.color =  new Color(.188f, .44f, .1f);
+			FeedbackText.gameObject.SetActive (true);
+		}
+
+
 		StartCoroutine (DisplayFeedback ());
 		A_Supply.CreateArrow ();
 		A_Source.clip = CorrectSound;
 		A_Source.Play ();
 	}
 
-	void incorrectFeedack(Text Feedback){
-		Debug.Log ("Incorrect");
-		Feedback.text = "Incorrect";
-		Feedback.color =  new Color(.756f,.278f, .29f);
-		Feedback.gameObject.SetActive (true);
+	void incorrectFeedack(GameObject[] Feedback){
+
+		for (int i = 0; i < FeedbackTexts.Length; i++) {
+			Text FeedbackText = FeedbackTexts [i].GetComponent<Text>();
+			Debug.Log ("Incorrect");
+			FeedbackText.text = "Incorrect";
+			FeedbackText.color =  new Color(.756f,.278f, .29f);
+			FeedbackText.gameObject.SetActive (true);
+		}
+
 		StartCoroutine (DisplayFeedback ());
 		A_Source.clip = IncorrectSound;
 		A_Source.Play ();

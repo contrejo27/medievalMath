@@ -48,7 +48,7 @@ public class QuestionTracker  {
 		q.SetCorrectAnswer (question.getCorrectAnswer());
 		q.SetIncorrectAnswers (incorrectAnswers);
 		PlayerStats.UpdateScores (q, isIncorrect);
-		Debug.Log ("Question to add: " + q.GetQuestionString());
+		//Debug.Log ("Question to add: " + q.GetQuestionString());
 
 		incorrectQuestions.Add (q);
 	}
@@ -102,12 +102,12 @@ public class QuestionTracker  {
 	}
 
 	public void ShowIncorrectQestions() {
-		Debug.Log ("Question List: " );
-
+		//Debug.Log ("Question List: " );
+/*
 		for (int i = 0; i < incorrectQuestions.Count; i++) {
 			Debug.Log(incorrectQuestions [i].GetQuestionString ());
 			Debug.Log ("Incorrect attempts: " + incorrectQuestions [i].GetIncorrectAnswers ());
-		}
+		}*/
 	}
 
 	public int GetIncorrectQuestionCount() {

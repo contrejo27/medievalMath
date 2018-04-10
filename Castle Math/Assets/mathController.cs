@@ -14,7 +14,7 @@ public class mathController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		DontDestroyOnLoad(this.gameObject);
-		GameObject.Find("add/sub").GetComponent<Toggle>().isOn = true;
+		GameObject.Find("mult/divide").GetComponent<Toggle>().isOn = true;
 	}
 
 	public void UpdateSelection(){

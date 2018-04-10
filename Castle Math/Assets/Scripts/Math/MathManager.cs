@@ -62,12 +62,22 @@ public class MathManager : MonoBehaviour {
 		A_Input.Start ();
 
 		QuestionTypes = new bool[6];
-		QuestionTypes [0] = m_Controller.add_sub;
-		QuestionTypes [1] = m_Controller.mult_divide;
-		QuestionTypes [2] = m_Controller.wordProblems;
-		QuestionTypes [3] = m_Controller.wordProblems;
-		QuestionTypes [4] = m_Controller.fractions;
-		QuestionTypes [5] = m_Controller.preAlgebra;
+		if(m_Controller != null){
+			QuestionTypes [0] = m_Controller.add_sub;
+			QuestionTypes [1] = m_Controller.mult_divide;
+			QuestionTypes [2] = m_Controller.wordProblems;
+			QuestionTypes [3] = m_Controller.wordProblems;
+			QuestionTypes [4] = m_Controller.fractions;
+			QuestionTypes [5] = m_Controller.preAlgebra;
+		}
+		else{
+			QuestionTypes [0] = false;
+			QuestionTypes [1] = true;
+			QuestionTypes [2] = false;
+			QuestionTypes [3] = false;
+			QuestionTypes [4] = false;
+			QuestionTypes [5] = false;
+		}
 		GenerateProblem (QuestionTypes);
 	}
 
@@ -101,12 +111,22 @@ public class MathManager : MonoBehaviour {
 	public void DeactivateInterMath(){
 		interwaveMath = false;
 		//Reset math settings
-		QuestionTypes [0] = m_Controller.add_sub;
-		QuestionTypes [1] = m_Controller.mult_divide;
-		QuestionTypes [2] = m_Controller.wordProblems;
-		QuestionTypes [3] = m_Controller.wordProblems;
-		QuestionTypes [4] = m_Controller.fractions;
-		QuestionTypes [5] = m_Controller.preAlgebra;
+		if(m_Controller != null){
+			QuestionTypes [0] = m_Controller.add_sub;
+			QuestionTypes [1] = m_Controller.mult_divide;
+			QuestionTypes [2] = m_Controller.wordProblems;
+			QuestionTypes [3] = m_Controller.wordProblems;
+			QuestionTypes [4] = m_Controller.fractions;
+			QuestionTypes [5] = m_Controller.preAlgebra;
+		}
+		else{
+			QuestionTypes [0] = false;
+			QuestionTypes [1] = true;
+			QuestionTypes [2] = false;
+			QuestionTypes [3] = false;
+			QuestionTypes [4] = false;
+			QuestionTypes [5] = false;
+		}
 
 		//Debug.Log("AS Difficulty: " + mathDifficultyAorS);
 		//Debug.Log("MD Difficulty: " + mathDifficultyMorD);

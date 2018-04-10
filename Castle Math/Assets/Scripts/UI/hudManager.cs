@@ -46,14 +46,13 @@ public class hudManager : MonoBehaviour {
 				powerUpDisplays[powerUpCount].GetComponent<Image>().sprite = icon;
 				StartCoroutine(fadeInPanelCoroutine(15f,powerUpDisplays[powerUpCount]));
 				powerUpCount++;
+				break;
 			}
 		}
 	}
 	
 	IEnumerator RemovePowerUpDisplay(float time, GameObject powerUp){
-		yield return new WaitForSeconds (time);
-		print("setting " + powerUp.ToString() + " to false");
-		
+		yield return new WaitForSeconds (time);		
 		powerUp.SetActive (false);	
 	}
 	
