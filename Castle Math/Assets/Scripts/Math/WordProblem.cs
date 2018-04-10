@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/*
 [System.Serializable]
 public class Items
 {
@@ -11,7 +11,7 @@ public class Items
 }
 
 [System.Serializable]
-public class TextQuestion
+public class TextProblem
 {
 	//public TextQuestion [] Question { get; set; }
 	public string questionText;
@@ -19,6 +19,7 @@ public class TextQuestion
 	public string hint;
 	public string answerChoices;
 }
+*/
 
 
 public class WordProblem : MonoBehaviour, Question {
@@ -32,6 +33,7 @@ public class WordProblem : MonoBehaviour, Question {
 	private string CorrectAnswer;
 	private string [] AnswerChoices;
 	private int incorrectAnswers;
+	TextQuestion currQuestion;
 
 	public WordProblem() {
 	}
@@ -64,14 +66,14 @@ public class WordProblem : MonoBehaviour, Question {
 			Debug.Log (currQuestion.questionText);
 			CorrectAnswer = currQuestion.answer;
 			Debug.Log (CorrectAnswer);
-			GenerateChoices (currQuestion);
+			GenerateChoices ();
 		} else {
 			Debug.Log ("Null JSON");
 		}
 	}
 
-	public void GenerateChoices(TextQuestion curr) {
-		AnswerChoices = curr.answerChoices;
+	public void GenerateChoices() {
+		AnswerChoices = currQuestion.answerChoices;
 		Debug.Log(AnswerChoices[0]);
 		A_Input.DisplayChoices(AnswerChoices);
 	}
