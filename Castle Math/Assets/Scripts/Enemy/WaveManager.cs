@@ -42,7 +42,7 @@ public class WaveManager : MonoBehaviour {
 		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
 
 		//first integer in array is type of launch (all at once/staggered/waves) second is number of enemies per lane
-		footknightWaves[0] = new int[] { 0, 0 };
+		footknightWaves[0] = new int[] { 0, 1 };
 		footknightWaves[1] = new int[] { 2, 2 };
 		footknightWaves[2] = new int[] { 2, 3 };
 		footknightWaves[3] = new int[] { 0, 4 };
@@ -84,7 +84,7 @@ public class WaveManager : MonoBehaviour {
 		horseknightWaves[18] = new int[] { 3, 3};
 		horseknightWaves[19] = new int[] { 2, 2};
 
-		trollWaves[0] = new int[] { 0, 1 };
+		trollWaves[0] = new int[] { 0, 0 };
 		trollWaves[1] = new int[] { 0, 0 };
 		trollWaves[2] = new int[] { 0, 0 };
 		trollWaves[3] = new int[] { 0, 0 };
