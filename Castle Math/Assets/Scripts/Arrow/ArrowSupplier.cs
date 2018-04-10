@@ -33,6 +33,36 @@ public class ArrowSupplier : MonoBehaviour {
 		StartCoroutine (DelaySpawn (0));
 	}
 
+	public void CreateArrowIntermath()
+	{
+		//NumberOfArrows += NumberToSpawn;
+		uiSound.clip = spawnSound;
+		uiSound.Play ();
+		StartCoroutine (DelaySpawnIntermath (0));
+	}
+
+	IEnumerator DelaySpawnIntermath(int Index)
+	{
+		GroupResize (NumberOfArrows+NumberToSpawn*2,ref Arrows);
+
+
+		for (int i = 0; i < NumberToSpawn*2; i++) {
+			GameObject newArrow = Instantiate (ArrowToSpawn[Index], transform.position, transform.rotation);
+
+
+			Arrows [i + (Arrows.Length-NumberToSpawn*2)] = newArrow;
+			ArrowIndex.Add (Index);
+			NumberOfArrows++;
+
+			yield return new WaitForSeconds (.1f);
+			if(i%4 == 0){
+				uiSound.clip = spawnSound;
+				uiSound.Play ();
+			}
+			Destroy(newArrow,.8f);
+		}
+	}
+
 	IEnumerator DelaySpawn(int Index)
 	{
 		GroupResize (NumberOfArrows+NumberToSpawn,ref Arrows);

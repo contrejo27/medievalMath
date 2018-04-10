@@ -4989,7 +4989,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 542802104}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -8059,7 +8059,7 @@ GameObject:
   - component: {fileID: 901128302}
   m_Layer: 5
   m_Name: waveInfo
-  m_TagString: Question
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17957,7 +17957,11 @@ MonoBehaviour:
   tutorial: {fileID: 206640375}
   mathCanvas: {fileID: 542802110}
   CorrectSound: {fileID: 8300000, guid: 109520d74511e5344b9f4c17e541a9ed, type: 3}
-  IncorrectSound: {fileID: 8300000, guid: 96d64f0c1309248f691087e7870d53fc, type: 3}
+  interwaveCorrectSounds:
+  - {fileID: 8300000, guid: bb810ec9249897c4fa48f79d646c47d5, type: 3}
+  - {fileID: 8300000, guid: a341cc62e604d26459633ea7d5a84e8f, type: 3}
+  - {fileID: 8300000, guid: 87e0918da608d1c4a89f2da8643845c1, type: 3}
+  IncorrectSound: {fileID: 8300000, guid: ee8297a31d8d61340a0b8fa63d1bb401, type: 3}
   interwaveQuestions: 0
 --- !u!114 &1869398080
 MonoBehaviour:
