@@ -87,7 +87,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 					NewSecondNum++;
 					diff--;
 				} 
-
+				NewSecondNum -= diff;
 				int ThirdNum = diff;
 
 				QuestionString = FirstNum.ToString () + " " + " + " + " " + NewSecondNum.ToString () + " " + " + " + " " + ThirdNum.ToString () + " =";

@@ -130,10 +130,10 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
-				Choice2 = CorrectAnswer - 1;
+				Choice2 = CorrectAnswer / (CorrectAnswer - 1);
 				Choice3 = CorrectAnswer + Random.Range (1, 5);
 			} else {
-				Choice2 = CorrectAnswer + 1;
+				Choice2 = CorrectAnswer / (CorrectAnswer + 1);
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
 		} else {
@@ -143,10 +143,10 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
-				Choice2 = CorrectAnswer - 1;
+				Choice2 = CorrectAnswer * (CorrectAnswer - 1);
 				Choice3 = CorrectAnswer + Random.Range (1, 5);
 			} else {
-				Choice2 = CorrectAnswer + 1;
+				Choice2 = CorrectAnswer * (CorrectAnswer + 1);
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
 		}
