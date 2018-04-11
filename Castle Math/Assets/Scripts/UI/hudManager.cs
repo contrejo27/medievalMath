@@ -42,6 +42,8 @@ public class hudManager : MonoBehaviour {
 	public void AddPoweUpIcon(string perkText){
 		foreach(Sprite icon in PowerUpIcons){
 			if(icon.name.ToString() == perkText){
+				print("Power added" + perkText);
+				print("Powerup Count" + powerUpCount);
 				powerUpDisplays[powerUpCount].SetActive (true);
 				powerUpDisplays[powerUpCount].GetComponent<Image>().sprite = icon;
 				StartCoroutine(fadeInPanelCoroutine(15f,powerUpDisplays[powerUpCount]));
