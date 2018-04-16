@@ -65,7 +65,6 @@ public class AnswerInput : MonoBehaviour {
 	public void ClearAnswer()
 	{
 		//AnswerText.text = "";
-
 	}
 
 	/// <summary>
