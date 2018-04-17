@@ -191,55 +191,47 @@ public class MathManager : MonoBehaviour {
 	/// Generates the corresponding problem based on selected question options and a random variable.
 	/// </summary>
 	/// <param name="QuestionTypes">Question types.</param>
-	public void GenerateProblem(bool [] QuestionTypes)
-	{
+	public void GenerateProblem(bool [] QuestionTypes){
 		A_Input.ClearChoices ();
 		IncorrectAnswersPerQuestion = 0;
 
-		int randIndex = Random.Range (0, QuestionTypes.Length);
-		//QuestionType = QuestionTypes [randIndex];
+        List<int> currentQuestionTypes = new List<int>();
 
-		/*
-		if (totalQuestionsAnswered % 4 == 0) {
-			A_Input.ClearChoices ();
-			True_False.GenerateQuestion ();
-			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
-		}
-		*/
-
-		if (randIndex == 0 && QuestionTypes[0]) {
+        //finds the currently selected question types and puts indices in list
+        int i = 0;
+        foreach(bool question in QuestionTypes){
+        	if(question){
+        		currentQuestionTypes.Add(i);
+        		print(i + " added to currentQuestionTypes");
+        	}
+        	i++;
+        }
+ 		int selectedMath = currentQuestionTypes[Random.Range (0, currentQuestionTypes.Count)];
+ 		print(selectedMath + " is the math that was selected");
+		if (selectedMath == 0) {
 			Add_Sub.GenerateQuestion (mathDifficultyAorS);
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
 			currentQuestion = Add_Sub;
-			//currentQuestion = Add_Sub.GetQuestionString ();
-			//Debug.Log (Multi_Divide.GetQuestionString ());
-		} else if (randIndex == 1 && QuestionTypes[1]) {
+		} else if (selectedMath == 1) {
 			Multi_Divide.GenerateQuestion (mathDifficultyMorD);
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
 			currentQuestion = Multi_Divide;
-			//currentQuestion = Multi_Divide.GetQuestionString ();
-			//Debug.Log (Multi_Divide.GetQuestionString ());
-		} else if (randIndex == 2 && QuestionTypes[2]) {
-			//Debug.Log (Comparision.GetQuestionString ());
+		} else if (selectedMath == 2) {
 			Comparision.GenerateQuestion (-1); //-1 => temp fix
 			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
 			currentQuestion = Comparision;
-			//currentQuestion = Comparision.GetQuestionString ();
-		} else if (randIndex == 3 && QuestionTypes[3]) {
+		} else if (selectedMath == 3) {
 			True_False.GenerateQuestion (-1);//-1 => temp fix
 			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
 			currentQuestion = True_False;
-		} else if (randIndex == 4 && QuestionTypes[4]) {
+		} else if (selectedMath == 4) {
 			Fraction.GenerateQuestion (-1);//-1 => temp fix
 			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
 			currentQuestion = Fraction;
-			//currentQuestion = Fraction.GetQuestionString ();
-		} else if (randIndex == 5 && QuestionTypes[5]) {
-			AlgebraQuestion.GenerateQuestion (mathDifficultyAorS);//-1 => temp fix
+		} else if (selectedMath == 5) {
+			AlgebraQuestion.GenerateQuestion (mathDifficultyAorS);
 			A_Input.SetCorrectAnswer (AlgebraQuestion.getCorrectAnswer ());
 			currentQuestion = AlgebraQuestion;
-		}else {
-			this.GenerateProblem (this.GetQuestionTypes ());
 		}
 
 		totalQuestionsAnswered++;

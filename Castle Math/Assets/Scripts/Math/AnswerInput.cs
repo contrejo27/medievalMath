@@ -135,6 +135,7 @@ public class AnswerInput : MonoBehaviour {
 				}
 				else{
 					correctFeedack(FeedbackTexts);
+					print("correct answer generating new problem");
 					M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
 				}
@@ -198,6 +199,8 @@ public class AnswerInput : MonoBehaviour {
 			Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
 			Debug.Log ("Current Question: " + M_Manager.GetCurrentQuestion ().GetQuestionString ());
 			Tracker.ShowIncorrectQestions ();
+					print("incorrect answers generating new problem");
+
 			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 		}
 
@@ -210,7 +213,7 @@ public class AnswerInput : MonoBehaviour {
 		A_Source.clip = interwaveCorrectSounds[interwaveQuestions];
 		A_Source.Play ();
 		if (interwaveQuestions == 2) {
-			interwaveQuestions = 0;
+			interwaveQuestions = -1;
 
 			A_Supply.CreateArrowIntermath ();
 			StartCoroutine(delayDeactivateMath());
@@ -225,7 +228,7 @@ public class AnswerInput : MonoBehaviour {
 		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
 		A_Source.clip = IncorrectSound;
 		A_Source.Play ();
-		interwaveQuestions = 0;
+		interwaveQuestions = -1;
 		StartCoroutine(delayDeactivateMath());
 		
 	}
