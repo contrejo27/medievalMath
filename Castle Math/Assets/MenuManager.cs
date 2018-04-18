@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 using UnityEngine.VR;
 using UnityEngine.UI;
 
@@ -10,25 +10,9 @@ public class MenuManager : MonoBehaviour {
     public GameObject loginPopup;
     public Animator mathMenu;
     public Button m_loginButton;
+    public mathController mController;
 
-	// Use this for initialization
-	public void Start () {
-		//StartCoroutine(ActivatorVR("Cardboard"));
-	}
-	
-	public IEnumerator ActivatorVR(string vrToggle){
-		UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
-		yield return null;
-		UnityEngine.VR.VRSettings.enabled = true;
-		yield return new WaitForSeconds(.1f);
-		SceneManager.LoadScene (1);
-	}
-
-	public void loadGame () {
-		StartCoroutine(ActivatorVR("Cardboard"));
-	}
-
-	private void Update()
+    private void Update()
 	{
         if(PlayerPrefs.GetInt("LoggedIn") == 1)
         {
@@ -41,6 +25,15 @@ public class MenuManager : MonoBehaviour {
             m_loginButton.transform.GetChild(0).GetComponent<Text>().text = "Log In";
         }
 	}
+
+    public void loadGame(){
+        if (PlayerPrefs.GetInt("LoggedIn") == 1){
+            mController.StartGame();
+        }
+        else{
+            OpenLoginPopup();
+        }
+    }
 
 	public void OpenLoginPopup()
     {
@@ -59,8 +52,8 @@ public class MenuManager : MonoBehaviour {
     public void CloseMathMenu(){
 		mathMenu.Play("slideOut");
     }
-	public void Quit()
-	{
+
+	public void Quit(){
 		Application.Quit ();
 	}
 

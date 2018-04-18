@@ -131,7 +131,7 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
-				Choice2 = FirstNum / (SecondNum - 1);
+				Choice2 = FirstNum + (SecondNum - 1);
 				Choice3 = CorrectAnswer + Random.Range (1, 5);
 			} else {
 				Choice2 = FirstNum / (SecondNum + 1);

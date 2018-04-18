@@ -53,12 +53,12 @@ public class LogInDatabase : MonoBehaviour
         m_credentials = new CognitoAWSCredentials("us-east-1:30e8de39-1567-46d7-a033-02870c1d2102", RegionEndpoint.USEast1);
         m_credentials.GetIdentityIdAsync(delegate (AmazonCognitoIdentityResult<string> result)
         {
-            if (result.Exception != null)
-                Debug.Log("Exception hit: " + result.Exception.Message);
+            //if (result.Exception != null)
+                //Debug.Log("Exception hit: " + result.Exception.Message);
 
             var ddbClient = new AmazonDynamoDBClient(m_credentials, RegionEndpoint.USEast1);
 
-            Debug.Log("Retrieveing Table information");
+            //Debug.Log("Retrieveing Table information");
 
             var request = new DescribeTableRequest
             {
@@ -69,15 +69,15 @@ public class LogInDatabase : MonoBehaviour
             {
                 if (result.Exception != null)
                 {
-                    Debug.Log(result.Exception.Message);
+                    //Debug.Log(result.Exception.Message);
                     return;
                 }
 
                 var response = ddbresult.Response;
 
                 TableDescription description = response.Table;
-                Debug.Log("Table Name: " + description.TableName);
-                Debug.Log("# of Items: " + description.ItemCount);
+                //Debug.Log("Table Name: " + description.TableName);
+               // Debug.Log("# of Items: " + description.ItemCount);
 
             }, null);
 
@@ -94,7 +94,7 @@ public class LogInDatabase : MonoBehaviour
 
     private void RetrieveUserData()
     {
-        Debug.Log("Retrieving All User Datas");
+        //Debug.Log("Retrieving All User Datas");
         Table.LoadTableAsync(client, "UserLoginData", (result) =>
         {
             if (result.Exception != null)
@@ -131,12 +131,12 @@ public class LogInDatabase : MonoBehaviour
             }
         });
 
-        Debug.Log("Finished Reterieving User Datas");
+       // Debug.Log("Finished Reterieving User Datas");
     }
 
     public void CreateUserData(string password)
     {
-        Debug.Log("Creating new user...");
+        //Debug.Log("Creating new user...");
         UserData newUser = new UserData
         {
             UserEmail = m_currentEmail,
@@ -148,7 +148,7 @@ public class LogInDatabase : MonoBehaviour
         {
             if (result.Exception == null)
             {
-                Debug.Log("New User Saved");
+                //Debug.Log("New User Saved");
                 m_userDatas.Clear();
                 RetrieveUserData();
             }
