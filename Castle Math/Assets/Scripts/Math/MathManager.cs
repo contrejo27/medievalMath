@@ -202,12 +202,10 @@ public class MathManager : MonoBehaviour {
         foreach(bool question in QuestionTypes){
         	if(question){
         		currentQuestionTypes.Add(i);
-        		print(i + " added to currentQuestionTypes");
         	}
         	i++;
         }
  		int selectedMath = currentQuestionTypes[Random.Range (0, currentQuestionTypes.Count)];
- 		print(selectedMath + " is the math that was selected");
 		if (selectedMath == 0) {
 			Add_Sub.GenerateQuestion (mathDifficultyAorS);
 			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());

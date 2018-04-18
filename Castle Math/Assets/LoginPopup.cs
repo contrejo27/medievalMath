@@ -12,26 +12,38 @@ public class LoginPopup : MonoBehaviour
     public InputField m_input;
     public Button m_loginButton;
 
+    public Button m_liteButton;
+
     public GameObject m_createPasswordObject;
 
     private LogInDatabase m_database;
 
+    mathController mController;
+
 	private void Start()
 	{
         m_database = FindObjectOfType<LogInDatabase>();
-
+        mController = GameObject.Find("mathController").GetComponent<mathController>();
         if (m_database == null)
             Debug.LogError("No <b>LogInDatabase</b> object found in scene");
 
-        m_instructionsText.text = "Enter Email";
+        //m_instructionsText.text = "Enter Email";
         m_feedbackText.text = "";
 
         m_input.ActivateInputField();
         m_input.Select();
 
+        m_liteButton.onClick.AddListener(liteLogin);
+
         m_loginButton.onClick.AddListener(SubmitEmail);
         m_loginButton.transform.GetChild(0).GetComponent<Text>().text = "Submit";
 	}
+
+    void liteLogin()
+    {
+        //login is set to 0 so this will launch game without unlocking full content
+        mController.StartGame();
+    }
 
     void SubmitEmail()
     {
@@ -58,10 +70,11 @@ public class LoginPopup : MonoBehaviour
     {
         m_feedbackText.text = "";
 
-        if(m_database.IsPasswordValid(m_input.text))
+        if (m_database.IsPasswordValid(m_input.text)) {
             SuccessfulLogin();
-        else
-        {
+            mController.StartGame();
+        }
+        else{
             m_feedbackText.text = "Invalid Password";
             m_input.text = "";
         }
