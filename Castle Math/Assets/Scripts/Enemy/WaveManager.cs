@@ -25,6 +25,8 @@ public class WaveManager : MonoBehaviour {
 	public AudioClip trollSpawnSound;
 	public AudioClip WaveCleared;
 
+    public ManaBar powerup;
+
 	//UI
 	public Text WaveTitle;
 	public Text mathWaveTitle;
@@ -35,10 +37,10 @@ public class WaveManager : MonoBehaviour {
 	int[][] footknightWaves = new int[20][];
 	int[][] horseknightWaves = new int[20][];
 	int[][] trollWaves = new int[20][];
+    public Text floatingText;
 
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
 
 		//first integer in array is type of launch (all at once/staggered/waves) second is number of enemies per lane
@@ -108,20 +110,36 @@ public class WaveManager : MonoBehaviour {
 
     public void NextWave()
 	{
+
+        int adjustedCurrentWave = currentWave + 1; //adjusted for 0 being wave 1
+        if(adjustedCurrentWave % 5 == 0 && PlayerPrefs.GetInt("LoggedIn") == 1)
+        {
+            powerup.UpgradeLevel(1);
+            print("leveledUp");
+            floatingText.text = "LEVEL UP!";
+            StartCoroutine(FadingText(floatingText));
+        }
+
 		if (currentWave % 2 == 0) {
 			Mathm.SetDifficulty ();
 		}
 		
 		currentWave += 1;
-		if(currentWave > 20)
+		if(currentWave == 19)
 		{
+            print("newLevel");
 			SceneManager.LoadScene("BossLevel" , LoadSceneMode.Single);
 		}
 		ActivateWave (currentWave);
-	} 
-	
+	}
 
-	public void ActivateWave(int WaveIndex)
+    IEnumerator FadingText(Text currentText)
+    {
+        yield return new WaitForSeconds(1.5f);
+        currentText.text = "";
+
+    }
+    public void ActivateWave(int WaveIndex)
 	{
 		setWaveText();
 		//Create all of the enemies
@@ -247,12 +265,11 @@ public class WaveManager : MonoBehaviour {
 
 	//spawns enemy at a random spawn point
 	void spawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn){
-		int randomSpawn = Random.Range(0, SpawnPoints.Length);
+		//int randomSpawn = Random.Range(0, SpawnPoints.Length);
 		GameObject enemyObject = Instantiate(enemy, SpawnPoints[spawn].position + new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[0].rotation);
 		enemyObject.GetComponent<EnemyBehavior>().SetTarget(spawn+1); //points enemy at right target. adjusted for UI name
 		addEnemyToWaveSize();
-					//GameObject enemyObject = Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[randomSpawn].rotation);
-
+		//GameObject enemyObject = Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[randomSpawn].rotation);
 
 		if(spawnSound != null){
 			enemySounds.clip = spawnSound;
