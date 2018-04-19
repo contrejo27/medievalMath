@@ -65,7 +65,6 @@ public class GameStateManager : MonoBehaviour {
 			PlayerPrefs.Save();
             PlayerPrefs.SetInt("Skill Level", 0);
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
-            print("initializing skill level");
         }
         else{
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
@@ -119,7 +118,7 @@ public class GameStateManager : MonoBehaviour {
 	public void Retry()
 	{
 		loseState = false;
-		RenderSettings.skybox.SetFloat("_Exposure", 1.0f);
+		RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
 		SceneManager.LoadScene (1);
 
 	}
@@ -138,12 +137,12 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	void fadeWorldOut(){
-		StartCoroutine(fadeSky(1.0f,0.0f));
+		StartCoroutine(fadeSky(0.8f,0.0f));
 		StartCoroutine(fadeLight(false));
 	}
 	
 	void fadeWorldIn(){
-		StartCoroutine(fadeSky(0.0f,1.0f));
+		StartCoroutine(fadeSky(0.0f,0.8f));
 		StartCoroutine(fadeLight(true));
 	}
 	
