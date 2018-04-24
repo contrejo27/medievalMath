@@ -17,9 +17,9 @@ public class MenuManager : MonoBehaviour {
 	}
 	
 	public IEnumerator ActivatorVR(string vrToggle){
-		UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
+		UnityEngine.XR.XRSettings.LoadDeviceByName(vrToggle);
 		yield return null;
-		UnityEngine.VR.VRSettings.enabled = true;
+		UnityEngine.XR.XRSettings.enabled = true;
 		yield return new WaitForSeconds(.1f);
 		SceneManager.LoadScene (1);
 	}

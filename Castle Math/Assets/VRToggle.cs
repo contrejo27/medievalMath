@@ -23,8 +23,8 @@ public class VRToggle : MonoBehaviour
 
     IEnumerator LoadDevice(string newDevice)
     {
-        UnityEngine.VR.VRSettings.LoadDeviceByName(newDevice);
+        UnityEngine.XR.XRSettings.LoadDeviceByName(newDevice);
         yield return null;
-        UnityEngine.VR.VRSettings.enabled = true;
+        UnityEngine.XR.XRSettings.enabled = true;
     }
 }
