@@ -36,17 +36,26 @@ public class GameStateManager : MonoBehaviour {
 	private bool loseState = false;
 	public doorHealth fence1,fence2,fence3;
 	public GameObject billboard;
-	// Use this for initialization
-	void Start () {
+    public int currentSkillLevel;
 
+    // Use this for initialization
+    void Start () {
+        /*
+        if(PlayerPrefs.HasKey("Skill Level")){
+            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+        }
+        else{
+            PlayerPrefs.SetInt("Skill Level", 0);
+            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+        }
+        */
 
-		RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
+        RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
 		Player = GameObject.FindObjectOfType<LaunchProjectile> (); 
 		mainMenuEffects.fadeIn (.4f);
 		
 		//first time game is opened sets up initial playerPref values
-		if(!PlayerPrefs.HasKey("isFirstTime"))
-		{
+		if(!PlayerPrefs.HasKey("isFirstTime")){
 			// Set and save all your PlayerPrefs here.
 			// Now set the value of isFirstTime to be false in the PlayerPrefs.
 			PlayerPrefs.SetInt("isFirstTime", 1);
@@ -54,10 +63,16 @@ public class GameStateManager : MonoBehaviour {
 			PlayerPrefs.SetString("globalHS2","HBK,2,5");
 			PlayerPrefs.SetString("globalHS3","JGC,2,3");
 			PlayerPrefs.Save();
-		}
-	}
+            PlayerPrefs.SetInt("Skill Level", 0);
+            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+        }
+        else{
+            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+        }
 
-	public void StartGame(){
+    }
+
+    public void StartGame(){
 		billboard.GetComponent<Animator> ().Play("hide");
 		tutorialImage.SetActive(false);
 		target.SetActive(false);
@@ -103,7 +118,7 @@ public class GameStateManager : MonoBehaviour {
 	public void Retry()
 	{
 		loseState = false;
-		RenderSettings.skybox.SetFloat("_Exposure", 1.0f);
+		RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
 		SceneManager.LoadScene (1);
 
 	}
@@ -122,12 +137,12 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	void fadeWorldOut(){
-		StartCoroutine(fadeSky(1.0f,0.0f));
+		StartCoroutine(fadeSky(0.8f,0.0f));
 		StartCoroutine(fadeLight(false));
 	}
 	
 	void fadeWorldIn(){
-		StartCoroutine(fadeSky(0.0f,1.0f));
+		StartCoroutine(fadeSky(0.0f,0.8f));
 		StartCoroutine(fadeLight(true));
 	}
 	

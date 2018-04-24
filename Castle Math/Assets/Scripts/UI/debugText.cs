@@ -4,7 +4,6 @@ using System.Collections;
 public class debugText : MonoBehaviour
 {
 	float deltaTime = 0.0f;
-	 bool initialScene =false;
 
 	void Start(){
 			/* potential fix for having to load from scene 0

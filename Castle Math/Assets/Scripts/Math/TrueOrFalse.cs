@@ -17,6 +17,8 @@ public class TextQuestion
 	public string questionText;
 	public string answer;
 	public string hint;
+	//This could be the thing to break it. IDK I can fix if need be - Hannah
+	public string [] answerChoices;
 }
 
 

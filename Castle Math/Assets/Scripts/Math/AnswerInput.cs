@@ -29,6 +29,8 @@ public class AnswerInput : MonoBehaviour {
 	private string [] AnswerChoices;
 
 	public AudioClip CorrectSound;
+	public AudioClip[] interwaveCorrectSounds;
+
 	public AudioClip IncorrectSound;
 
 	private ArrowSupplier A_Supply;
@@ -63,7 +65,6 @@ public class AnswerInput : MonoBehaviour {
 	public void ClearAnswer()
 	{
 		//AnswerText.text = "";
-
 	}
 
 	/// <summary>
@@ -134,6 +135,7 @@ public class AnswerInput : MonoBehaviour {
 				}
 				else{
 					correctFeedack(FeedbackTexts);
+					print("correct answer generating new problem");
 					M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
 				}
@@ -197,6 +199,8 @@ public class AnswerInput : MonoBehaviour {
 			Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
 			Debug.Log ("Current Question: " + M_Manager.GetCurrentQuestion ().GetQuestionString ());
 			Tracker.ShowIncorrectQestions ();
+					print("incorrect answers generating new problem");
+
 			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 		}
 
@@ -206,11 +210,13 @@ public class AnswerInput : MonoBehaviour {
 	void interWaveCorrectFeedack(){
 		feedbackMarks[interwaveQuestions].SetActive(true);
 		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = checkMark;
-		A_Source.clip = CorrectSound;
+		A_Source.clip = interwaveCorrectSounds[interwaveQuestions];
 		A_Source.Play ();
 		if (interwaveQuestions == 2) {
-			interwaveQuestions = 0;
-			M_Manager.DeactivateInterMath();
+			interwaveQuestions = -1;
+
+			A_Supply.CreateArrowIntermath ();
+			StartCoroutine(delayDeactivateMath());
 		}
 		else M_Manager.GenerateInterMathQuestion();
 
@@ -222,11 +228,9 @@ public class AnswerInput : MonoBehaviour {
 		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
 		A_Source.clip = IncorrectSound;
 		A_Source.Play ();
-		if (interwaveQuestions == 2) {
-			interwaveQuestions = 0;
-			M_Manager.DeactivateInterMath();
-		}
-		else M_Manager.GenerateInterMathQuestion();
+		interwaveQuestions = -1;
+		StartCoroutine(delayDeactivateMath());
+		
 	}
 
 	void correctFeedack(GameObject[] Feedback){
@@ -289,6 +293,15 @@ public class AnswerInput : MonoBehaviour {
 
 	}
 
+	IEnumerator delayDeactivateMath()
+	{
+		yield return new WaitForSeconds (.7f);
+		M_Manager.DeactivateInterMath();
+		yield return new WaitForSeconds (1f);
+		foreach(GameObject mark in feedbackMarks){
+			mark.SetActive(false);		
+		}
 
+	}
 
 }

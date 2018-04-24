@@ -31,7 +31,6 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-
 		Anim = GetComponent<Animator> ();
 
 		isMoving = false;
@@ -113,7 +112,6 @@ public class EnemyBehavior : MonoBehaviour {
 		Vector3 heading = (Target.transform.position - StartPos);
 		float distance = heading.magnitude;
 		Anim.SetBool ("isMoving", true);
-
 		//move tbe player at a constant velocity to the target until they are a certain disstance away
 		while (distance > attackDistance && HitPoints>0) {
 			//Calculate the current heading, normalized
@@ -130,6 +128,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 		//make sure this only happens when the soldier is alive
 		if (HitPoints > 0 && !attacking) {
+			print("attacking = true");
 			attacking = true;
 			currentAudioSource = Random.Range(0, A_Source.Length);
 
@@ -146,7 +145,9 @@ public class EnemyBehavior : MonoBehaviour {
 			 }
 			print(dH.Health);
 			*/
+
 			Anim.SetBool ("isAttacking", true);
+			Anim.Play("attack");
 		}
 
 

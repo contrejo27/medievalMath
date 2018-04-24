@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,8 +13,9 @@ public class ManaBar : MonoBehaviour {
 	public doorHealth healthLeft;
 	public doorHealth healthMid;
 	public doorHealth healthRight;
-	
-	private float CurrentNumber;
+    public GameStateManager gManager;
+
+    private float CurrentNumber;
 	private LaunchProjectile ProjectileLauncher;
 	
 	private int powerUpCount = 0;
@@ -21,16 +23,25 @@ public class ManaBar : MonoBehaviour {
 	private AudioSource A_Source;
 	public AudioClip PowerUpSound;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		A_Source = GameObject.Find ("UIAudio").GetComponent<AudioSource> ();
 		ProjectileLauncher = FindObjectOfType<LaunchProjectile> ();
-	}
+        if (PlayerPrefs.GetInt("LoggedIn") == 0)
+        {
+            NumberOfQuestions = 10;
+        }
 
-	public void ClearPowerUp(int PowerupIndex)
+    }
+
+    public void ClearPowerUp(int PowerupIndex)
 	{
 		 //[PowerupIndex].SetActive (false);
 	}
+
+    public void UpgradeLevel(int levelsUp){
+        gManager.currentSkillLevel+= levelsUp;
+    }
 
 	public void CorrectAnswer()
 	{
@@ -39,34 +50,50 @@ public class ManaBar : MonoBehaviour {
 		//perk text name should match icon sprite name
 		if (CurrentNumber >= NumberOfQuestions) {
 			CurrentNumber = 0f;
-			int RanMod = Random.Range (0, 5);
-			ArrowModifier newMod;
-			if (RanMod == 0) {
-				newMod = ArrowModifier.Burst;
-				perk.text = "Burst";
-			ProjectileLauncher.AddModifier (newMod, powerUpCount);
+            ArrowModifier newMod;
 
-			} else if (RanMod == 1) {
-				newMod = ArrowModifier.Spread;
-				perk.text = "Spread";
-				ProjectileLauncher.AddModifier (newMod, powerUpCount);
-			} else if (RanMod == 2) {
-				newMod = ArrowModifier.Bomb;
-				perk.text = "Bomb";
-				ProjectileLauncher.AddModifier (newMod, powerUpCount);
-			} else if (RanMod == 3) {
-				perk.text = "Health";
-				healthMid.UpdateHealth(50);
-				healthLeft.UpdateHealth(50);
-				healthRight.UpdateHealth(50);
-			} else {
-				healthMid.InvinciblePowerUp();
-				healthLeft.InvinciblePowerUp();
-				healthRight.InvinciblePowerUp();
-				perk.text = "Invincible";
-			} 
-			
-			mathCanvas.alpha = 0.0f;
+            if (PlayerPrefs.GetInt("LoggedIn") == 0)
+            {
+                newMod = ArrowModifier.Spread;
+                perk.text = "Spread";
+                ProjectileLauncher.AddModifier(newMod, powerUpCount);
+                print("only spread turns on");
+            }
+            else
+            {
+                int RanMod = UnityEngine.Random.Range(0, gManager.currentSkillLevel);
+
+                if (RanMod == 0){
+                    newMod = ArrowModifier.Burst;
+                    perk.text = "Burst";
+                    ProjectileLauncher.AddModifier(newMod, powerUpCount);
+
+                }
+                else if (RanMod == 1){
+                    newMod = ArrowModifier.Spread;
+                    perk.text = "Spread";
+                    ProjectileLauncher.AddModifier(newMod, powerUpCount);
+                }
+                else if (RanMod == 2){
+                    newMod = ArrowModifier.Bomb;
+                    perk.text = "Bomb";
+                    ProjectileLauncher.AddModifier(newMod, powerUpCount);
+                }
+                else if (RanMod == 3){
+                    perk.text = "Health";
+                    healthMid.UpdateHealth(50);
+                    healthLeft.UpdateHealth(50);
+                    healthRight.UpdateHealth(50);
+                }
+                else{
+                    healthMid.InvinciblePowerUp();
+                    healthLeft.InvinciblePowerUp();
+                    healthRight.InvinciblePowerUp();
+                    perk.text = "Invincible";
+                }
+            }
+
+            mathCanvas.alpha = 0.0f;
 			hud.AddPoweUpIcon(perk.text);
 
 			//give player perk
@@ -83,7 +110,6 @@ public class ManaBar : MonoBehaviour {
 			CurrentNumber -= 1f;
 		}
 		adjustManaBar();
-
 	}
 
 	void adjustManaBar(){

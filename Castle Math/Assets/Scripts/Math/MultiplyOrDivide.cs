@@ -75,6 +75,7 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	public void GenerateQuestion (int maxDifficulty) {
 		GenerateOperands (maxDifficulty);
 
+		print("MAX DIFFICULTY  = " + maxDifficulty);
 		//check for division
 		if (isDivide == 0) {
 			//Generate formatted question string and set text box text
@@ -94,13 +95,13 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 				int NewSecondNum = SecondNum;
 
 				for (int i = 5; i > 0; i++) {
-					if (SecondNum % i == 0) {
+					if ( i % SecondNum == 0) {
 						NewSecondNum = SecondNum / i;
 						ThirdNum = i;
 						break;
 					}
 				}
-
+				NewSecondNum = 2;
 				QuestionString = FirstNum.ToString () + " " + " x " + " " + NewSecondNum.ToString () + " " + " x " + " " + ThirdNum.ToString () + " =";
 			} else {
 				//Generate formatted question string and set text box text
@@ -130,10 +131,10 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
-				Choice2 = CorrectAnswer - 1;
+				Choice2 = FirstNum / (SecondNum - 1);
 				Choice3 = CorrectAnswer + Random.Range (1, 5);
 			} else {
-				Choice2 = CorrectAnswer + 1;
+				Choice2 = FirstNum / (SecondNum + 1);
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
 		} else {
@@ -143,10 +144,10 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
-				Choice2 = CorrectAnswer - 1;
+				Choice2 = FirstNum * (SecondNum - 1);
 				Choice3 = CorrectAnswer + Random.Range (1, 5);
 			} else {
-				Choice2 = CorrectAnswer + 1;
+				Choice2 = FirstNum * (SecondNum + 1);
 				Choice3 = CorrectAnswer - Random.Range (1, 5);
 			}
 		}
