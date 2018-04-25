@@ -60,7 +60,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	///Generates addition or subtraction question by random selection. 
 	///</summary>
 	public void GenerateQuestion (int maxDifficulty) {
-		maxDifficulty = 25;
+		
 		GenerateOperands (maxDifficulty);
 		//Execute subtraction functionality
 		if (isSubtract == 0) {	
@@ -79,7 +79,8 @@ public class AddOrSubtract : MonoBehaviour, Question {
 		else { //Generate addition question
 
 			if (maxDifficulty > 20) {
-				int NewSecondNum = SecondNum;
+                
+                int NewSecondNum = SecondNum;
 
 				int diff = Random.Range (0, 5);
 

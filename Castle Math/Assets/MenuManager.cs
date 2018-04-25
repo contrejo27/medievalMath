@@ -12,6 +12,11 @@ public class MenuManager : MonoBehaviour {
     public Button m_loginButton;
     public mathController mController;
 
+    private void Start()
+    {
+        print("Logged in " + PlayerPrefs.GetInt("LoggedIn"));
+    }
+    
     private void Update()
 	{
         if(PlayerPrefs.GetInt("LoggedIn") == 1)
