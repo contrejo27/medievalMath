@@ -9,9 +9,10 @@ public class PlayerMathStats : MonoBehaviour {
 	
 	//stats
 	int correctAnswers;
-	int personalHighScore;
-	List<string> globalHighScores = new List<string>();
+    int incorrectAnswers;
 
+    int personalHighScore;
+	List<string> globalHighScores = new List<string>();
 
 	private int AddOrSubtractScore = 0;
 	private int MultiOrDivideScore = 0;
@@ -19,14 +20,17 @@ public class PlayerMathStats : MonoBehaviour {
 	private int TrueOrFalseScore = 0;
 	private int FractionScore = 0;
 	
-	//in-game text
+	//in-game UI
 	public Text correctText;
 	public Text wave;
 	public Text hsName;
 	public Text hsWave;
 	public Text hsAnswers;
-	
-	public void Start(){
+    public Text grade;
+    public Text towerWave;
+    public GameObject tower;
+
+    public void Start(){
 		getHighScores();
 	}
 	
@@ -34,8 +38,12 @@ public class PlayerMathStats : MonoBehaviour {
 	{
 		correctAnswers += 1;
 	}
-	
-	void getHighScores(){
+
+    public void IncorrectlyAnswered()
+    {
+        incorrectAnswers += 1;
+    }
+    void getHighScores(){
 		personalHighScore = PlayerPrefs.GetInt("personalHighScore");
 		globalHighScores.Add(PlayerPrefs.GetString("globalHS1"));
 		globalHighScores.Add(PlayerPrefs.GetString("globalHS2"));
@@ -79,10 +87,15 @@ public class PlayerMathStats : MonoBehaviour {
 	/// displays the scores on stat screen in game
 	/// </summary>
 	void DisplayStats(){
-		wave.text = "Wave: " + (wManager.currentWave +1).ToString();
+        int towerStep = 22 * wManager.currentWave + 1;
+        tower.transform.localPosition = new Vector3(tower.transform.localPosition.x + towerStep, tower.transform.localPosition.y, tower.transform.localPosition.z);
+        towerWave.text = (wManager.currentWave + 1).ToString();
+        wave.text = "Wave: " + (wManager.currentWave +1).ToString();
 		correctText.text = "Correct: " + correctAnswers.ToString ();
-		
-		foreach(string score in globalHighScores){
+        int gradeNumber = (int)correctAnswers * 100 / (correctAnswers + incorrectAnswers);
+        grade.text = gradeNumber.ToString() + "%";
+
+        foreach (string score in globalHighScores){
 			string[] line = score.Split(',');
 			hsName.text += line[0] + "\n";
 			hsWave.text += line[1] + "\n";

@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour {
 	public Text mathWaveTitle;
 	public CanvasGroup waveEffect;
 	public TutorialBehavior interMath;
-	private int CurrentEnemies;
+	public int CurrentEnemies;
 
 	int[][] footknightWaves = new int[20][];
 	int[][] horseknightWaves = new int[20][];
@@ -115,7 +115,7 @@ public class WaveManager : MonoBehaviour {
         if(adjustedCurrentWave % 5 == 0 && PlayerPrefs.GetInt("LoggedIn") == 1)
         {
             powerup.UpgradeLevel(1);
-            print("leveledUp");
+            //print("leveledUp");
             floatingText.text = "LEVEL UP!";
             StartCoroutine(FadingText(floatingText));
         }
@@ -127,7 +127,7 @@ public class WaveManager : MonoBehaviour {
 		currentWave += 1;
 		if(currentWave == 19)
 		{
-            print("newLevel");
+            //print("newLevel");
 			SceneManager.LoadScene("BossLevel" , LoadSceneMode.Single);
 		}
 		ActivateWave (currentWave);
@@ -159,7 +159,7 @@ public class WaveManager : MonoBehaviour {
 	}
 	
 	IEnumerator announceWave(){
-		yield return new WaitForSeconds (4f);
+		    yield return new WaitForSeconds (4f);
 			A_Source.clip = AnotherWave;
 			A_Source.Play ();
 	}	
@@ -168,7 +168,7 @@ public class WaveManager : MonoBehaviour {
 	{		
 		//delay so the player can breather/ do math
 
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (3f);
 		//if this wave is all at once
 		if(waveType[currentWave][0] == 0)
 		{
@@ -188,9 +188,9 @@ public class WaveManager : MonoBehaviour {
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
 				spawnEnemy(enemyPrefab, spawnSound,0);
-				yield return new WaitForSeconds (Random.Range (0.7f, 1.5f));
+				yield return new WaitForSeconds (Random.Range (1f, 2f));
 				spawnEnemy(enemyPrefab, spawnSound,1);
-				yield return new WaitForSeconds (Random.Range (0.7f, 1.5f));
+				yield return new WaitForSeconds (Random.Range (1f, 2f));
 				spawnEnemy(enemyPrefab, spawnSound,2);
 				yield return new WaitForSeconds (.2f);
 			}
@@ -201,9 +201,9 @@ public class WaveManager : MonoBehaviour {
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
 				spawnEnemy(enemyPrefab, spawnSound,0);
-				yield return new WaitForSeconds (Random.Range (.05f, .1f));
+				yield return new WaitForSeconds (Random.Range (2f, 3f));
 				spawnEnemy(enemyPrefab, spawnSound,1);
-				yield return new WaitForSeconds (Random.Range (.05f, .1f));
+				yield return new WaitForSeconds (Random.Range (2f, 3f));
 				spawnEnemy(enemyPrefab, spawnSound,2);
 				yield return new WaitForSeconds (3.5f);
 			}

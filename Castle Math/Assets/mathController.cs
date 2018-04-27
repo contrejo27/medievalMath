@@ -14,11 +14,13 @@ public class mathController : MonoBehaviour {
 	//public bool wordProblems;
     public Text mathInstructions;
 
+
     Color textColor; 
     // Use this for initialization
     void Start () {
-		DontDestroyOnLoad(this.gameObject);
-        print("setting math unlock");
+        PlayerPrefs.SetInt("LoggedIn",1); //for debugging 
+
+        DontDestroyOnLoad(this.gameObject);
         if (PlayerPrefs.GetInt("LoggedIn") == 0) {
             GameObject.Find("add/sub").GetComponent<Toggle>().isOn = true;
 
@@ -40,13 +42,12 @@ public class mathController : MonoBehaviour {
 
             mathInstructions.text = "Subscribe to unlock all lessons";
             textColor = mathInstructions.color;
-            mathInstructions.color = Color.red;
+            mathInstructions.color = new Color(.62f,.2f,.27f);
         }
         else{
             GameObject multGO = GameObject.Find("mult/divide");
             multGO.GetComponent<Toggle>().isOn = true;
             mult_divide = multGO.GetComponent<Toggle>().interactable = true;
-
         }
     }
 
@@ -77,12 +78,17 @@ public class mathController : MonoBehaviour {
         mathInstructions.color = textColor;
 
     }
+
     public void UpdateSelection()
     {
         add_sub = GameObject.Find("add/sub").GetComponent<Toggle>().isOn;
+        print("addsub " + add_sub);
         mult_divide = GameObject.Find("mult/divide").GetComponent<Toggle>().isOn;
+        print("mult_divide " + mult_divide);
         fractions = GameObject.Find("Fractions").GetComponent<Toggle>().isOn;
+        print("fractions " + fractions);
         preAlgebra = GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn;
+        print("preAlgebra " + preAlgebra);
         //wordProblems = GameObject.Find("Word Problems").GetComponent<Toggle>().isOn;
     }
 

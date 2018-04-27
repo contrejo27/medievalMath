@@ -153,7 +153,8 @@ public class AnswerInput : MonoBehaviour {
 			} 
 			//got the question wrong
 			else {
-				M_Manager.IncorrectAnswer ();
+                Math_Stats.IncorrectlyAnswered();
+                M_Manager.IncorrectAnswer ();
 				if(M_Manager.interwaveMath){
 					interWaveIncorrectFeedack();
 					interwaveQuestions++;

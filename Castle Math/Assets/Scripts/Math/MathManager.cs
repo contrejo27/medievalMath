@@ -13,10 +13,10 @@ public class MathManager : MonoBehaviour {
 	public AudioClip CorrectSound;
 	public AudioClip IncorrectSound;
 
-	private int ProblemType;
+	//private int ProblemType;
 	private int mathDifficultyAorS = 9;
 	private int mathDifficultyMorD = 9;
-	private string CorrectAnswer;
+	//private string CorrectAnswer;
 	private int totalQuestionsAnswered= 0;
 	private int maxDifficultyIncrease = 4;
 	public bool interwaveMath;
@@ -25,8 +25,8 @@ public class MathManager : MonoBehaviour {
 
 	MultiplyOrDivide Multi_Divide;
 	AddOrSubtract Add_Sub;
-	Compare Comparision;
-	TrueOrFalse True_False;
+	//Compare Comparision;
+	//TrueOrFalse True_False;
 	Fractions Fraction;
 	Algebra AlgebraQuestion;
 
@@ -45,17 +45,17 @@ public class MathManager : MonoBehaviour {
 	void Start () {
 		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
 		Multi_Divide = GameObject.FindObjectOfType<MultiplyOrDivide> ();
-		Comparision = GameObject.FindObjectOfType<Compare> ();
+		//Comparision = GameObject.FindObjectOfType<Compare> ();
 		Add_Sub = GameObject.FindObjectOfType<AddOrSubtract> ();
-		True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
+	//	True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
 		Fraction = GameObject.FindObjectOfType<Fractions> ();
 		AlgebraQuestion = GameObject.FindObjectOfType<Algebra> ();
 		m_Controller = GameObject.FindObjectOfType<mathController> ();
 
 		Multi_Divide.Start ();
 		Add_Sub.Start ();
-		Comparision.Start ();
-		True_False.Start ();
+	//	Comparision.Start ();
+	//	True_False.Start ();
 		Fraction.Start ();
 		AlgebraQuestion.Start ();
 
@@ -188,6 +188,10 @@ public class MathManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="QuestionTypes">Question types.</param>
 	public void GenerateProblem(bool [] QuestionTypes){
+        print("questionTypesActivated:");
+        foreach(bool questionT in QuestionTypes){
+            print(questionT);
+        }
 		A_Input.ClearChoices ();
 		IncorrectAnswersPerQuestion = 0;
 
@@ -210,7 +214,7 @@ public class MathManager : MonoBehaviour {
 			Multi_Divide.GenerateQuestion (mathDifficultyMorD);
 			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
 			currentQuestion = Multi_Divide;
-		} else if (selectedMath == 2) {
+		}/* else if (selectedMath == 2) {
 			Comparision.GenerateQuestion (-1); //-1 => temp fix
 			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
 			currentQuestion = Comparision;
@@ -218,11 +222,11 @@ public class MathManager : MonoBehaviour {
 			True_False.GenerateQuestion (-1);//-1 => temp fix
 			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
 			currentQuestion = True_False;
-		} else if (selectedMath == 4) {
+		}*/ else if (selectedMath == 2) {
 			Fraction.GenerateQuestion (-1);//-1 => temp fix
 			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
 			currentQuestion = Fraction;
-		} else if (selectedMath == 5) {
+		} else if (selectedMath == 3) {
 			AlgebraQuestion.GenerateQuestion (mathDifficultyAorS);
 			A_Input.SetCorrectAnswer (AlgebraQuestion.getCorrectAnswer ());
 			currentQuestion = AlgebraQuestion;

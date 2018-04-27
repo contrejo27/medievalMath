@@ -49,6 +49,7 @@ public class ManaBar : MonoBehaviour {
 
 		//perk text name should match icon sprite name
 		if (CurrentNumber >= NumberOfQuestions) {
+            print("POWER UP!");
 			CurrentNumber = 0f;
             ArrowModifier newMod;
 
@@ -58,6 +59,14 @@ public class ManaBar : MonoBehaviour {
                 perk.text = "Spread";
                 ProjectileLauncher.AddModifier(newMod, powerUpCount);
                 print("only spread turns on");
+
+                mathCanvas.alpha = 0.0f;
+                hud.AddPoweUpIcon(perk.text);
+
+                //give player perk
+                StartCoroutine(erasePerkText());
+                A_Source.clip = PowerUpSound;
+                A_Source.Play();
             }
             else
             {
@@ -67,7 +76,6 @@ public class ManaBar : MonoBehaviour {
                     newMod = ArrowModifier.Burst;
                     perk.text = "Burst";
                     ProjectileLauncher.AddModifier(newMod, powerUpCount);
-
                 }
                 else if (RanMod == 1){
                     newMod = ArrowModifier.Spread;
