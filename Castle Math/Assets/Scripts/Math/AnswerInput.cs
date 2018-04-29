@@ -135,7 +135,7 @@ public class AnswerInput : MonoBehaviour {
 				}
 				else{
 					correctFeedack(FeedbackTexts);
-					print("correct answer generating new problem");
+					//("correct answer generating new problem");
 					M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
 
 				}

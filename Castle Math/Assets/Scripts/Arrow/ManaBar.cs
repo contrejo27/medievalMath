@@ -49,7 +49,6 @@ public class ManaBar : MonoBehaviour {
 
 		//perk text name should match icon sprite name
 		if (CurrentNumber >= NumberOfQuestions) {
-            print("POWER UP!");
 			CurrentNumber = 0f;
             ArrowModifier newMod;
 
@@ -58,7 +57,6 @@ public class ManaBar : MonoBehaviour {
                 newMod = ArrowModifier.Spread;
                 perk.text = "Spread";
                 ProjectileLauncher.AddModifier(newMod, powerUpCount);
-                print("only spread turns on");
 
                 mathCanvas.alpha = 0.0f;
                 hud.AddPoweUpIcon(perk.text);
