@@ -68,7 +68,7 @@ public class ManaBar : MonoBehaviour {
             }
             else
             {
-                int RanMod = UnityEngine.Random.Range(0, gManager.currentSkillLevel);
+                int RanMod = UnityEngine.Random.Range(0, 5);
 
                 if (RanMod == 0){
                     newMod = ArrowModifier.Burst;
