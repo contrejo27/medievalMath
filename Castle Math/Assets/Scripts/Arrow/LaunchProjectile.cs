@@ -16,9 +16,10 @@ public class LaunchProjectile : MonoBehaviour {
 	public GameObject FirePoint;
 	public GameObject[] Projectiles;
 	public bool isAlive { get; set;}
-	public List<ArrowModifier> CurrentArrowModifiers; 
+	public List<ArrowModifier> CurrentArrowModifiers;
+    public TutorialBehavior tutorialBehavior;
 
-	ArrowSupplier A_Supply;
+    ArrowSupplier A_Supply;
 	GameObject ArrowToLaunch;
 	bool burst;
 	bool ArrowLoaded;
@@ -118,8 +119,7 @@ public class LaunchProjectile : MonoBehaviour {
 		}
 	}
 
-	public void RemoveModifier(ArrowModifier removeModification)
-	{
+	public void RemoveModifier(ArrowModifier removeModification){
 		//reduce count by 1
 		//ModiferEffectCounter[(int)(removeModification)] -= 1;
 
@@ -131,15 +131,14 @@ public class LaunchProjectile : MonoBehaviour {
 	}
 
 
-	public void SetLookingAtInterface(bool isLooking)
-	{
+	public void SetLookingAtInterface(bool isLooking){
 		lookingAtMathInterface = isLooking;
 	}
 
-	void CreateShot()
-	{
+	void CreateShot(){
 		reloading = false;
 		ArrowLoaded = true;
+
 		if(firstShot){
 			Destroy(tempArrow);
 			firstShot = false;
@@ -175,8 +174,7 @@ public class LaunchProjectile : MonoBehaviour {
 		ArrowToLaunch.GetComponent<Rigidbody> ().useGravity = false;
 	}
 
-	public void Launch()
-	{
+	public void Launch(){
 		crossbowAnim.Play("crossbowShot");
 		ArrowToLaunch.transform.parent = null;
 		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
@@ -195,12 +193,11 @@ public class LaunchProjectile : MonoBehaviour {
 		A_Source.Play();
 	}
 	
-	IEnumerator ReloadTime()
-	{
+	IEnumerator ReloadTime(){
 		reloading = true;
 		yield return new WaitForSeconds (.2f);
 
-		A_Supply.UseArrow ();
+		if(tutorialBehavior.tutorialDone) A_Supply.UseArrow ();
 
 		if (A_Supply.NumberOfArrows > 0) {
 			CreateShot();
@@ -209,14 +206,12 @@ public class LaunchProjectile : MonoBehaviour {
 		}
 	}
 	
-	public void LaunchBurst()
-	{
+	public void LaunchBurst(){
 		StartCoroutine (burstShot());
 	}
 	
 	//creates 2 extra shots after the first shot
-	IEnumerator burstShot()
-	{
+	IEnumerator burstShot(){
 		yield return new WaitForSeconds (.12f);
 		//Instantiate arrow at the postion and rotation of fire point
 		GameObject burstArrow = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);

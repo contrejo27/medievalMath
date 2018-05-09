@@ -7,8 +7,9 @@ public class BombArrow : ArrowClass {
 	public GameObject explosion;
 	bool activated = false;
 	private AudioSource A_Source;
+    public AudioClip powerUpSound;
 
-	public void activate(bool isActivated){
+    public void activate(bool isActivated){
 		activated = isActivated;
 	}
 
@@ -19,7 +20,11 @@ public class BombArrow : ArrowClass {
 	
 	void Start(){
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
-	}
+        print("playingSound");
+       // A_Source.clip = powerUpSound;
+        //A_Source.Play();
+
+    }
 	
 	public override void ArrowImpact()
 	{
@@ -33,10 +38,11 @@ public class BombArrow : ArrowClass {
 			int i = 0;
 			while (i < hitColliders.Length) {
 				if (hitColliders [i].gameObject.tag == "Enemy") {
-//hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().bomb = true;
+                    //hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().bomb = true;
 					hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().TakeDamage (2);
 					hitColliders [i].gameObject.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
-					hitColliders [i].gameObject.GetComponent<Rigidbody> ().AddExplosionForce (1000, this.transform.position, 15,15f);
+                    float upForceModifier = 2f;
+					hitColliders [i].gameObject.GetComponent<Rigidbody> ().AddExplosionForce (23000, this.transform.position, 15, upForceModifier);
 					
 				}
 				i += 1;

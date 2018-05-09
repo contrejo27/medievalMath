@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour {
 	public GameObject horseRiderPrefab;
     public int currentWave;
 	public GameObject storyText;
-
+    
     //temp
     public GameObject billboardCanvas;
     public GameObject billboardTutorialImage;
@@ -28,8 +28,11 @@ public class WaveManager : MonoBehaviour {
     public AudioClip AnotherWave;
 	private AudioSource A_Source;
 	public AudioSource enemySounds;
-	public AudioClip horseRiderSpawnSound;
-	public AudioClip trollSpawnSound;
+    public AudioClip trollsUnleashed;
+    public AudioClip horseRiderSpawnSound;
+    public AudioClip halfwayThrough;
+
+    public AudioClip trollSpawnSound;
 	public AudioClip WaveCleared;
 
     public ManaBar powerup;
@@ -132,8 +135,6 @@ public class WaveManager : MonoBehaviour {
         horseknightWaves[18] = new int[] { singles, 3 };
         trollWaves[18] = new int[] { singles, 1 };
 
-
-
         footknightWaves[19] = new int[] { singles, 25};
         horseknightWaves[19] = new int[] { waves, 2};
         trollWaves[19] = new int[] { singles, 4 };
@@ -153,8 +154,20 @@ public class WaveManager : MonoBehaviour {
 		if (currentWave % 2 == 0) {
 			Mathm.SetDifficulty ();
 		}
-		
-		currentWave += 1;
+
+        if (currentWave == 9)
+        {
+            A_Source.clip = halfwayThrough;
+            A_Source.Play();
+        }
+
+        if (currentWave == 11)
+        {
+            A_Source.clip = trollsUnleashed;
+            A_Source.Play();
+        }
+
+        currentWave += 1;
 		if(currentWave == 20){
             //print("newLevel");
             //mathCanvas.GetComponent<UIEffects>().fadeOut(1);

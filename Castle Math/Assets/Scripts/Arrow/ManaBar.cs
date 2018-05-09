@@ -14,6 +14,11 @@ public class ManaBar : MonoBehaviour {
 	public doorHealth healthMid;
 	public doorHealth healthRight;
     public GameStateManager gManager;
+    public AudioClip burstPowerUpSound;
+    public AudioClip spreadPowerUpSound;
+    public AudioClip bombPowerUpSound;
+    public AudioClip healthPowerUpSound;
+    public AudioClip invinciblePowerUpSound;
 
     private float CurrentNumber;
 	private LaunchProjectile ProjectileLauncher;
@@ -68,34 +73,51 @@ public class ManaBar : MonoBehaviour {
             }
             else
             {
-                int RanMod = UnityEngine.Random.Range(0, 5);
+                int RanMod = UnityEngine.Random.Range(0, 3);
 
                 if (RanMod == 0){
                     newMod = ArrowModifier.Burst;
+
                     perk.text = "Burst";
                     ProjectileLauncher.AddModifier(newMod, powerUpCount);
+
+                    A_Source.clip = burstPowerUpSound;
+                    A_Source.Play();
                 }
                 else if (RanMod == 1){
                     newMod = ArrowModifier.Spread;
+
                     perk.text = "Spread";
                     ProjectileLauncher.AddModifier(newMod, powerUpCount);
+                    
+                    A_Source.clip = spreadPowerUpSound;
+                    A_Source.Play();
                 }
                 else if (RanMod == 2){
                     newMod = ArrowModifier.Bomb;
                     perk.text = "Bomb";
                     ProjectileLauncher.AddModifier(newMod, powerUpCount);
+                   
+                    A_Source.clip = bombPowerUpSound;
+                    A_Source.Play();
                 }
                 else if (RanMod == 3){
                     perk.text = "Health";
                     healthMid.UpdateHealth(50);
                     healthLeft.UpdateHealth(50);
                     healthRight.UpdateHealth(50);
+                    
+                    A_Source.clip = healthPowerUpSound;
+                    A_Source.Play();
                 }
                 else{
                     healthMid.InvinciblePowerUp();
                     healthLeft.InvinciblePowerUp();
                     healthRight.InvinciblePowerUp();
                     perk.text = "Invincible";
+                    
+                    A_Source.clip = invinciblePowerUpSound;
+                    A_Source.Play();
                 }
             }
 
@@ -104,8 +126,8 @@ public class ManaBar : MonoBehaviour {
 
 			//give player perk
 			StartCoroutine(erasePerkText());
-			A_Source.clip = PowerUpSound;
-			A_Source.Play ();
+			/*A_Source.clip = PowerUpSound;
+			A_Source.Play ();*/
 		}
 
 		adjustManaBar();

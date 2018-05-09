@@ -15,11 +15,16 @@ public class MenuManager : MonoBehaviour
     public GameObject detailedViewOptions;
     public Text instructions;
 
+    public AudioSource UIAudio;
+    public AudioClip splashScreenSountrack;
+
     public Button m_loginButton;
     public mathController mController;
 
     private void Start()
     {
+        UIAudio.clip = splashScreenSountrack;
+        UIAudio.Play();
         print("Logged in " + PlayerPrefs.GetInt("LoggedIn"));
     }
 
