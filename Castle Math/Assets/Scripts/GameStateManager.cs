@@ -85,10 +85,11 @@ public class GameStateManager : MonoBehaviour {
 
 	public void LoseState(){
 	
-/*
+
 		music.Stop ();
 		music.clip = LostTheCastle;
-		music.Play ();*/
+        music.loop = false;
+		music.Play ();
 		if(!loseState){
 			loseState = true;
 		}
