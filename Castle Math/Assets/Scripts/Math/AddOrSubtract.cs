@@ -31,6 +31,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	}
 
 	public void GenerateOperands(int maxDifficulty) {
+        print("DIFFICULTY = " + maxDifficulty);
 		isSubtract = Random.Range (0, 2);
 
 		if (maxDifficulty != -1) {
@@ -39,14 +40,20 @@ public class AddOrSubtract : MonoBehaviour, Question {
 
 		//Execute subtraction functionality
 		if (isSubtract == 0) {
-			//Numbers to be used in problem equation
-			FirstNum = Random.Range (0, maxInt);
-			SecondNum = Random.Range (0, 13);
+            if (maxDifficulty > 25)
+            {
+                FirstNum = Random.Range(0, maxInt);
+                SecondNum = Random.Range(0, maxInt * 2);
+            }
+            else{
+                //Numbers to be used in problem equation
+                FirstNum = Random.Range(0, maxInt);
+                SecondNum = Random.Range(0, FirstNum);
+            }
+            //Calculate correct answer
+            CorrectAnswer = FirstNum - SecondNum;
 
-			//Calculate correct answer
-			CorrectAnswer = FirstNum - SecondNum;
-
-		} else { //Generate addition question
+        } else { //Generate addition question
 			//Numbers to be used in problem equation
 			FirstNum = Random.Range (0, maxInt);
 			SecondNum = Random.Range (0, maxInt);
@@ -60,7 +67,6 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	///Generates addition or subtraction question by random selection. 
 	///</summary>
 	public void GenerateQuestion (int maxDifficulty) {
-		
 		GenerateOperands (maxDifficulty);
 		//Execute subtraction functionality
 		if (isSubtract == 0) {	

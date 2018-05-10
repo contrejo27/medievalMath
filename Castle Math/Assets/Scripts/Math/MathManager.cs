@@ -14,11 +14,11 @@ public class MathManager : MonoBehaviour {
 	public AudioClip IncorrectSound;
 
 	//private int ProblemType;
-	private int mathDifficultyAorS = 9;
-	private int mathDifficultyMorD = 9;
+	private int mathDifficultyAorS = 6;
+	private int mathDifficultyMorD = 5;
 	//private string CorrectAnswer;
 	private int totalQuestionsAnswered= 0;
-	private int maxDifficultyIncrease = 4;
+	private int maxDifficultyIncrease = 3;
 	public bool interwaveMath;
   
 	AnswerInput A_Input;
@@ -71,8 +71,8 @@ public class MathManager : MonoBehaviour {
 			QuestionTypes [3] = m_Controller.preAlgebra;
 		}
 		else{
-			QuestionTypes [0] = false;
-			QuestionTypes [1] = true;
+			QuestionTypes [0] = true;
+			QuestionTypes [1] = false;
 			QuestionTypes [2] = false;
 			QuestionTypes [3] = false;
 		}
@@ -118,8 +118,8 @@ public class MathManager : MonoBehaviour {
 			QuestionTypes [3] = m_Controller.preAlgebra;
 		}
 		else{
-			QuestionTypes [0] = false;
-			QuestionTypes [1] = true;
+			QuestionTypes [0] = true;
+			QuestionTypes [1] = false;
 			QuestionTypes [2] = false;
 			QuestionTypes [3] = false;
 		}
@@ -166,8 +166,8 @@ public class MathManager : MonoBehaviour {
 			increaseAorS = aggregateScoreAorS;
 
 		//Don't increase difficulty beyond set point
-		if (aggregateScoreMorD > maxDifficultyIncrease)
-			increaseMorD = maxDifficultyIncrease;
+		if (aggregateScoreMorD > maxDifficultyIncrease-2)
+			increaseMorD = maxDifficultyIncrease-2;
 		else
 			increaseMorD = aggregateScoreMorD;
 

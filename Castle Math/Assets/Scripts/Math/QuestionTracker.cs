@@ -97,6 +97,7 @@ public class QuestionTracker  {
 		return this.incorrectQuestions;
 	}
 
+    
 	public List <Question> GetCorrectQuestions() {
 		return this.correctQuestions;
 	}
@@ -137,4 +138,12 @@ public class QuestionTracker  {
 		}
 		return count;
 	}
+
+    public void updateQuestionHistory()
+    {
+        foreach(Question question in correctQuestions)
+        {
+            Debug.Log("Saving: " + question.GetQuestionString());
+        }
+    }
 }

@@ -22,10 +22,10 @@ public class ArrowSupplier : MonoBehaviour {
 	void Start () {
 		Arrows = new GameObject[0];
 		CreateArrow ();
-	}
+    }
 
 
-	public void CreateArrow()
+    public void CreateArrow()
 	{
 		//NumberOfArrows += NumberToSpawn;
 		uiSound.clip = spawnSound;

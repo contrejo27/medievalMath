@@ -64,7 +64,8 @@ public class hudManager : MonoBehaviour {
 			emptyPanel.fillAmount = Mathf.Lerp(0,1, transition);			
 			yield return null;
 		}
-		powerUp.SetActive (false);	
+        powerUpCount--;
+        powerUp.SetActive (false);	
 	}
 }
 

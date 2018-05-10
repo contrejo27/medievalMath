@@ -146,7 +146,7 @@ Transform:
   - {fileID: 1394033103}
   - {fileID: 1252711082}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &15072402
 Prefab:
@@ -717,7 +717,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 100973048}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 95.99, y: -4.01, z: 75.78}
+  m_LocalPosition: {x: 69.37, y: -4.01, z: 73.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 941941990}
@@ -939,7 +939,7 @@ RectTransform:
   - {fileID: 1807948685}
   - {fileID: 1323480255}
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 177.647, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1119,7 +1119,7 @@ Transform:
   - {fileID: 1234738880}
   - {fileID: 1254925716}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &141030149 stripped
 GameObject:
@@ -1293,6 +1293,7 @@ MonoBehaviour:
   fence2: {fileID: 712106234}
   fence3: {fileID: 1299033272}
   billboard: {fileID: 77706419}
+  currentSkillLevel: 0
 --- !u!4 &185475386
 Transform:
   m_ObjectHideFlags: 0
@@ -3142,7 +3143,7 @@ Transform:
   - {fileID: 813910358}
   - {fileID: 1772680968}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &450570752
 MonoBehaviour:
@@ -3242,7 +3243,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &456038730
 MonoBehaviour:
@@ -3292,7 +3293,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 457275166}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -59.2, y: -2.84, z: 44.8}
+  m_LocalPosition: {x: -30.56, y: -2.84, z: 94.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 941941990}
@@ -5262,7 +5263,7 @@ Transform:
   - {fileID: 2098842481}
   - {fileID: 1662219267}
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &671217793 stripped
 GameObject:
@@ -7263,7 +7264,7 @@ Transform:
   - {fileID: 1224055603}
   - {fileID: 1713914367}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &941941988
 GameObject:
@@ -7297,23 +7298,31 @@ MonoBehaviour:
   trollPrefab: {fileID: 100000, guid: fe743ddace76c7d45bb607baaafb3a81, type: 2}
   horseRiderPrefab: {fileID: 1372078820083414, guid: 0f5a5b7deccc20241a03bdea3a668b45,
     type: 2}
-  firstWaveSize: 1
   currentWave: 0
+  storyText: {fileID: 0}
+  billboardCanvas: {fileID: 0}
+  billboardTutorialImage: {fileID: 0}
   SpawnPoints:
   - {fileID: 457275167}
   - {fileID: 1599458560}
   - {fileID: 100973049}
   Mathm: {fileID: 1869398077}
+  billboard: {fileID: 0}
+  gManager: {fileID: 0}
+  mManager: {fileID: 0}
   AnotherWave: {fileID: 8300000, guid: 5b328eff29efc45b6b58915737cfc7a5, type: 3}
   enemySounds: {fileID: 1484829144}
   horseRiderSpawnSound: {fileID: 8300000, guid: 117f84c41b6976a48807f9289205d991,
     type: 3}
   trollSpawnSound: {fileID: 8300000, guid: 18f39aa887b2e43d7b4acb24bbf1c517, type: 3}
   WaveCleared: {fileID: 8300000, guid: 2e65af28b81fa47cda06ab24ad4e1954, type: 3}
+  powerup: {fileID: 0}
   WaveTitle: {fileID: 1753009933}
   mathWaveTitle: {fileID: 178226553}
   waveEffect: {fileID: 1184378510}
   interMath: {fileID: 206640375}
+  CurrentEnemies: 0
+  floatingText: {fileID: 0}
 --- !u!4 &941941990
 Transform:
   m_ObjectHideFlags: 0
@@ -7603,7 +7612,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4578418508112128, guid: f0f715bc6f280a641ad8675b2b2bd6a3, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4578418508112128, guid: f0f715bc6f280a641ad8675b2b2bd6a3, type: 2}
       propertyPath: m_LocalScale.x
@@ -7879,7 +7888,7 @@ Transform:
   - {fileID: 1399596738}
   - {fileID: 277194580}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1008106969
 GameObject:
@@ -9102,6 +9111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb0583676d8f804483d2e9d3eb8c281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wManager: {fileID: 0}
 --- !u!4 &1155596598
 Transform:
   m_ObjectHideFlags: 0
@@ -9113,7 +9123,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1157176026
 GameObject:
@@ -9658,7 +9668,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 403954, guid: b7bdd751d1270e14291b000d68d117c1, type: 2}
       propertyPath: m_RootOrder
-      value: 23
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 403954, guid: b7bdd751d1270e14291b000d68d117c1, type: 2}
       propertyPath: m_LocalScale.x
@@ -12974,7 +12984,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1599458559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.23, y: 1.26, z: 70.3}
+  m_LocalPosition: {x: -5.23, y: 1.26, z: 76.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 941941990}
@@ -14640,7 +14650,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4578418508112128, guid: f0f715bc6f280a641ad8675b2b2bd6a3, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4578418508112128, guid: f0f715bc6f280a641ad8675b2b2bd6a3, type: 2}
       propertyPath: m_LocalScale.x
@@ -15276,7 +15286,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1868013880 stripped
 GameObject:
@@ -15403,6 +15413,9 @@ MonoBehaviour:
   hsName: {fileID: 589983057}
   hsWave: {fileID: 323527670}
   hsAnswers: {fileID: 1092304622}
+  grade: {fileID: 0}
+  towerWave: {fileID: 0}
+  tower: {fileID: 0}
 --- !u!114 &1869398081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15870,6 +15883,7 @@ MonoBehaviour:
   healthLeft: {fileID: 1299033272}
   healthMid: {fileID: 712106234}
   healthRight: {fileID: 141086284}
+  gManager: {fileID: 0}
   PowerUpSound: {fileID: 8300000, guid: f719e21adf5664944b01d9754e0cd00e, type: 3}
 --- !u!1 &1949402310
 GameObject:

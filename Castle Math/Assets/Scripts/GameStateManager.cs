@@ -63,7 +63,7 @@ public class GameStateManager : MonoBehaviour {
 			PlayerPrefs.SetString("globalHS2","HBK,2,5");
 			PlayerPrefs.SetString("globalHS3","JGC,2,3");
 			PlayerPrefs.Save();
-            PlayerPrefs.SetInt("Skill Level", 0);
+            PlayerPrefs.SetInt("Skill Level", 1);
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
         else{
@@ -85,10 +85,11 @@ public class GameStateManager : MonoBehaviour {
 
 	public void LoseState(){
 	
-/*
+
 		music.Stop ();
 		music.clip = LostTheCastle;
-		music.Play ();*/
+        music.loop = false;
+		music.Play ();
 		if(!loseState){
 			loseState = true;
 		}
@@ -181,9 +182,12 @@ public class GameStateManager : MonoBehaviour {
 			}
 		}
 	}
-	
-	//goes through different scripts and saves info
-	public void SaveGame(){
+
+    public void loadNextLevel(){
+        SceneManager.LoadScene("BossLevel", LoadSceneMode.Single);
+    }
+    //goes through different scripts and saves info
+    public void SaveGame(){
 		playerMathStats.SaveState();
 		PlayerPrefs.SetString("PlayerName", playerName);
 	}
