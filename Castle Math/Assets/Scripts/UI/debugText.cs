@@ -4,6 +4,7 @@ using System.Collections;
 public class debugText : MonoBehaviour
 {
 	float deltaTime = 0.0f;
+    public WaveManager wManager;
 
 	void Start(){
 			/* potential fix for having to load from scene 0
@@ -33,6 +34,10 @@ public class debugText : MonoBehaviour
 		float msec = deltaTime * 1000.0f;
 		float fps = 1.0f / deltaTime;
 		string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
+
 		GUI.Label(rect, text, style);
-	}
+        int enemies = wManager.CurrentEnemies;
+        Rect rect2 = new Rect(50, 100, w, h * 3 / 100);
+        GUI.Label(rect2, "enemies: " + enemies.ToString(), style);
+    }
 }

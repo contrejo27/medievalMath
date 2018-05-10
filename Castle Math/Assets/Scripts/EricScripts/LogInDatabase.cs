@@ -42,7 +42,7 @@ public class LogInDatabase : MonoBehaviour
 
 	private void Awake()
 	{
-        PlayerPrefs.SetInt("LoggedIn", 0);
+        //PlayerPrefs.SetInt("LoggedIn", 0);
 
         UnityInitializer.AttachToGameObject(this.gameObject);
         Amazon.AWSConfigs.HttpClient = Amazon.AWSConfigs.HttpClientOption.UnityWebRequest;
@@ -103,21 +103,21 @@ public class LogInDatabase : MonoBehaviour
             }
             else
             {
-                Debug.Log("Result succesful");
+                //Debug.Log("Result succesful");
                 try
                 {
-                    Debug.Log("Trying to scan");
+                    //Debug.Log("Trying to scan");
                     var context = Context;
                     var search = context.ScanAsync<UserData>(new ScanCondition("UserEmail", ScanOperator.NotContains, "null"));
 
                     search.GetRemainingAsync(scanResult =>
                     {
-                        Debug.Log("Searching");
+                        //Debug.Log("Searching");
                         if (scanResult.Exception == null)
                         {
-                            Debug.Log("Scan Result complete");
+                            //Debug.Log("Scan Result complete");
                             m_userDatas = scanResult.Result;
-                            Debug.Log(m_userDatas.Count);
+                            //Debug.Log(m_userDatas.Count);
                         }
                         else
                             Debug.Log("Failed to get async table scane results: " + scanResult.Exception.Message);
@@ -161,8 +161,8 @@ public class LogInDatabase : MonoBehaviour
     private void LoadUserData(UserData data)
     {
         Debug.Log("Loading user data");
-        Debug.Log("Loading user email: " + data.UserEmail);
-        Debug.Log("Loading user pass: " + data.UserPassword);
+        //Debug.Log("Loading user email: " + data.UserEmail);
+        //Debug.Log("Loading user pass: " + data.UserPassword);
     }
 	public bool IsEmailValid(string email)
     {

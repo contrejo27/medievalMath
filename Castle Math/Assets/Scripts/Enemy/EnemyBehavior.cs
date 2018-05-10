@@ -128,7 +128,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 		//make sure this only happens when the soldier is alive
 		if (HitPoints > 0 && !attacking) {
-			print("attacking = true");
+			//print("attacking = true");
 			attacking = true;
 			currentAudioSource = Random.Range(0, A_Source.Length);
 

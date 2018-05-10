@@ -72,7 +72,8 @@ public class LoginPopup : MonoBehaviour
 
         if (m_database.IsPasswordValid(m_input.text)) {
             SuccessfulLogin();
-            mController.StartGame();
+            mController.unlockMath();
+            //mController.StartGame();
         }
         else{
             m_feedbackText.text = "Invalid Password";
@@ -97,7 +98,7 @@ public class LoginPopup : MonoBehaviour
 
     void SuccessfulLogin()
     {
-        Debug.Log("Logged in!");
+        //Debug.Log("Logged in!");
         PlayerPrefs.SetInt("LoggedIn", 1);
         Destroy(this.gameObject);
     }
