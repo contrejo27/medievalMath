@@ -96,9 +96,9 @@ public class mathController : MonoBehaviour {
     {
         SceneManager.LoadScene(1);
         yield return new WaitForSeconds(.5f);
-        UnityEngine.XR.XRSettings.LoadDeviceByName(vrToggle);
+        UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
         yield return null;
-        UnityEngine.XR.XRSettings.enabled = true;
+        UnityEngine.VR.VRSettings.enabled = true;
     }
 
     public void StartGame()

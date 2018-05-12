@@ -38,6 +38,7 @@ public class GameStateManager : MonoBehaviour {
 	public GameObject billboard;
     public int currentSkillLevel;
 
+
     // Use this for initialization
     void Start () {
         /*
@@ -49,6 +50,7 @@ public class GameStateManager : MonoBehaviour {
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
         */
+
 
         RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
 		Player = GameObject.FindObjectOfType<LaunchProjectile> (); 
@@ -84,9 +86,9 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	public void LoseState(){
-	
 
-		music.Stop ();
+
+        music.Stop ();
 		music.clip = LostTheCastle;
         music.loop = false;
 		music.Play ();
@@ -130,9 +132,9 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	public IEnumerator ActivatorVR(string vrToggle){
-		UnityEngine.XR.XRSettings.LoadDeviceByName(vrToggle);
+		UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
 		yield return null;
-		UnityEngine.XR.XRSettings.enabled = false;
+		UnityEngine.VR.VRSettings.enabled = false;
 		yield return new WaitForSeconds(.1f);
 		SceneManager.LoadScene (0);
 	}

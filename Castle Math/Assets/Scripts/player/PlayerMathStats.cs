@@ -29,12 +29,15 @@ public class PlayerMathStats : MonoBehaviour {
     public Text grade;
     public Text towerWave;
     public GameObject tower;
+    GameMetrics gMetrics;
 
     public void Start(){
 		getHighScores();
-	}
-	
-	public void CorrectlyAnswered()
+        gMetrics = GameObject.FindObjectOfType<GameMetrics>();
+
+    }
+
+    public void CorrectlyAnswered()
 	{
 		correctAnswers += 1;
 	}
@@ -58,7 +61,10 @@ public class PlayerMathStats : MonoBehaviour {
 		if(correctAnswers > personalHighScore) {
 			personalHighScore = correctAnswers;
 		}
-		UpdateHighScores();
+        gMetrics.UpdateMetric("WaveLost", wManager.currentWave + 1);
+
+
+        UpdateHighScores();
 		DisplayStats();
 		SaveHighScores();
 		PlayerPrefs.SetInt("personalHighScore", personalHighScore);
