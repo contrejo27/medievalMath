@@ -61,7 +61,7 @@ public class QuestionTracker {
         // Update Library
         string questionType = question.GetQuestionCategory();
         string questionSubType = question.GetQuestionSubCategory();
-        Debug.Log("Incorrect. Question type: " + questionType + ", question subtype: " + questionSubType);
+        //Debug.Log("Incorrect. Question type: " + questionType + ", question subtype: " + questionSubType);
         if (questionData.ContainsKey(questionType))
         {
             if (questionData[questionType].data.ContainsKey(questionSubType))
@@ -122,7 +122,7 @@ public class QuestionTracker {
         // Update Library
         string questionType = question.GetQuestionCategory();
         string questionSubType = question.GetQuestionSubCategory();
-        Debug.Log("Correct! Question type: " + questionType+ ", question subtype: " + questionSubType);
+        //Debug.Log("Correct! Question type: " + questionType+ ", question subtype: " + questionSubType);
         if (questionData.ContainsKey(questionType))
         {
             if (questionData[questionType].data.ContainsKey(questionSubType))
@@ -180,7 +180,7 @@ public class QuestionTracker {
             foreach(QuestionData.DataLine dl in questionData[s].data.Values)
             {
                 csv.AppendLine(dl.subCat + "," + dl.numCorrect + "," + dl.numIncorrect);
-                Debug.Log(csv.ToString());
+                //Debug.Log(csv.ToString());
             }
         }
         
@@ -191,9 +191,9 @@ public class QuestionTracker {
 
     public void ReadCSV()
     {
-        Debug.Log("Pre-CSV");
+        //Debug.Log("Pre-CSV");
         if (!File.Exists(GetCSVPath())) return;
-        Debug.Log("Reading CSV");
+        //Debug.Log("Reading CSV");
 
         using(var reader = new StreamReader(GetCSVPath()))
         {
@@ -212,7 +212,7 @@ public class QuestionTracker {
                 string category = values[0];
                 int numSubCats = int.Parse(values[1]);
 
-                Debug.Log("Cat: " + category + " subcats: " + numSubCats);
+                //Debug.Log("Cat: " + category + " subcats: " + numSubCats);
 
                 QuestionData qd;
                 if (questionData.ContainsKey(category)) qd = questionData[category];
@@ -250,6 +250,7 @@ public class QuestionTracker {
         }
 
         // bear with me here:
+        /*
         Debug.Log("DOFASODMASOSVM");
         foreach(string s in questionData.Keys)
         {
@@ -259,6 +260,7 @@ public class QuestionTracker {
                 Debug.Log(dl.ToString());
             }
         }
+        */
     }
 
     private string GetCSVPath()

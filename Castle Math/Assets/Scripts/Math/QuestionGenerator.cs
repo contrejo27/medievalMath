@@ -51,6 +51,7 @@ public class QuestionGenerator : MonoBehaviour {
 
 	public void GenerateQuestion(string QuestionType) {
 		currentQuestionType = QuestionType;
+        Debug.Log("Question type: " + QuestionType);
 
 		if (currentQuestionType.Equals ("divide")) {
 			FirstNum = Random.Range (0, 13);

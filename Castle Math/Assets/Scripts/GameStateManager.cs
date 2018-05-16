@@ -23,6 +23,9 @@ public class GameStateManager : MonoBehaviour {
 	//enemy behavior
 	public GameObject InsidePoint;
 
+    // Game statistics
+    public QuestionTracker tracker;
+
 	//audio
 	public AudioClip LostTheCastle;
 	public AudioClip[] CastleScreams;

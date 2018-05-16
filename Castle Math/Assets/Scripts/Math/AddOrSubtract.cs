@@ -61,6 +61,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 			//Calculate correct answer
 			correctAnswer = firstNum + secondNum;
 		}
+        
 	}
 
 	///<summary>
@@ -74,9 +75,10 @@ public class AddOrSubtract : MonoBehaviour, Question {
 			//Create formatted question string for display
 			questionString = firstNum.ToString () + " - " + secondNum.ToString () + " =";
 
-			//Set textbox display to formatted question string
-			//QuestionText.text = QuestionString;
-			aInput.SetQuestion(questionString);
+            //Set textbox display to formatted question string
+            //QuestionText.text = QuestionString;
+            Debug.Log("Setting question to: " + questionString);
+            aInput.SetQuestion(questionString);
 
 
 			//Generate choices for possible answers 
@@ -103,8 +105,9 @@ public class AddOrSubtract : MonoBehaviour, Question {
 				questionString = firstNum.ToString () + " + " + secondNum.ToString () + " =";
 			}
 
-			//Set textbox display to formatted question string
-			//QuestionText.text = QuestionString;
+            //Set textbox display to formatted question string
+            //QuestionText.text = QuestionString;
+            Debug.Log("Setting question to: " + questionString);
 			aInput.SetQuestion(questionString);
 
 

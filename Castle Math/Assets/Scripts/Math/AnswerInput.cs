@@ -45,13 +45,19 @@ public class AnswerInput : MonoBehaviour {
 	public int interwaveQuestions = 0;
 
 	// Use this for initialization
+    public void Awake()
+    {
+        QuestionTexts = GameObject.FindGameObjectsWithTag("Question");
+
+    }
+
 	public void Start () {
 	
 		PowerUp = FindObjectOfType<ManaBar> ();
 		M_Manager = GameObject.FindObjectOfType<MathManager> ();
 		A_Supply = GameObject.FindObjectOfType<ArrowSupplier> ();
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
-		QuestionTexts = GameObject.FindGameObjectsWithTag ("Question");
+		
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
 		FeedbackTexts = GameObject.FindGameObjectsWithTag ("Feedback");
 
@@ -271,8 +277,10 @@ public class AnswerInput : MonoBehaviour {
 	/// </summary>
 	/// <param name="question">Question.</param>
 	public void SetQuestion(string question) {
+        Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + QuestionTexts.Length);
 		for (int i = 0; i < QuestionTexts.Length; i++) {
 			Text QuestionText = QuestionTexts [i].GetComponent<Text>();
+            Debug.Log("(AInput) Setting Question to: " + question + " in " + QuestionText.name );
 			QuestionText.text = question;
 		}
 	}
