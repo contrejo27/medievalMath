@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class AddOrSubtract : MonoBehaviour, Question {
 
-	public Text QuestionText;
-	public Text QuestionText_hud;
+	public Text questionText;
+	public Text questionTextHUD;
 
-	int FirstNum;
-	int SecondNum;
-	int CorrectAnswer;
+	int firstNum;
+	int secondNum;
+	int correctAnswer;
 	public int isSubtract;
-	string [] AnswerChoices;
-	string QuestionString;
+	string [] answerChoices;
+	string questionString;
 	int maxInt;
-	AnswerInput A_Input;
+	AnswerInput aInput;
 	private int incorrectAnswers;
 
 	public AddOrSubtract() {
@@ -25,8 +25,8 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	// Use this for initialization
 	public void Start () {
 
-		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
-		QuestionText = GameObject.Find ("question").GetComponent<Text>();
+		aInput = GameObject.FindObjectOfType<AnswerInput> ();
+		questionText = GameObject.Find ("question").GetComponent<Text>();
 
 	}
 
@@ -42,24 +42,24 @@ public class AddOrSubtract : MonoBehaviour, Question {
 		if (isSubtract == 0) {
             if (maxDifficulty > 25)
             {
-                FirstNum = Random.Range(0, maxInt);
-                SecondNum = Random.Range(0, maxInt * 2);
+                firstNum = Random.Range(0, maxInt);
+                secondNum = Random.Range(0, maxInt * 2);
             }
             else{
                 //Numbers to be used in problem equation
-                FirstNum = Random.Range(0, maxInt);
-                SecondNum = Random.Range(0, FirstNum);
+                firstNum = Random.Range(0, maxInt);
+                secondNum = Random.Range(0, firstNum);
             }
             //Calculate correct answer
-            CorrectAnswer = FirstNum - SecondNum;
+            correctAnswer = firstNum - secondNum;
 
         } else { //Generate addition question
 			//Numbers to be used in problem equation
-			FirstNum = Random.Range (0, maxInt);
-			SecondNum = Random.Range (0, maxInt);
+			firstNum = Random.Range (0, maxInt);
+			secondNum = Random.Range (0, maxInt);
 
 			//Calculate correct answer
-			CorrectAnswer = FirstNum + SecondNum;
+			correctAnswer = firstNum + secondNum;
 		}
 	}
 
@@ -72,11 +72,11 @@ public class AddOrSubtract : MonoBehaviour, Question {
 		if (isSubtract == 0) {	
 
 			//Create formatted question string for display
-			QuestionString = FirstNum.ToString () + " - " + SecondNum.ToString () + " =";
+			questionString = firstNum.ToString () + " - " + secondNum.ToString () + " =";
 
 			//Set textbox display to formatted question string
 			//QuestionText.text = QuestionString;
-			A_Input.SetQuestion(QuestionString);
+			aInput.SetQuestion(questionString);
 
 
 			//Generate choices for possible answers 
@@ -86,7 +86,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 
 			if (maxDifficulty > 20) {
                 
-                int NewSecondNum = SecondNum;
+                int NewSecondNum = secondNum;
 
 				int diff = Random.Range (0, 5);
 
@@ -97,15 +97,15 @@ public class AddOrSubtract : MonoBehaviour, Question {
 				NewSecondNum -= diff;
 				int ThirdNum = diff;
 
-				QuestionString = FirstNum.ToString () + " " + " + " + " " + NewSecondNum.ToString () + " " + " + " + " " + ThirdNum.ToString () + " =";
+				questionString = firstNum.ToString () + " " + " + " + " " + NewSecondNum.ToString () + " " + " + " + " " + ThirdNum.ToString () + " =";
 			} else {
 				//Create formatted question string for display
-				QuestionString = FirstNum.ToString () + " + " + SecondNum.ToString () + " =";
+				questionString = firstNum.ToString () + " + " + secondNum.ToString () + " =";
 			}
 
 			//Set textbox display to formatted question string
 			//QuestionText.text = QuestionString;
-			A_Input.SetQuestion(QuestionString);
+			aInput.SetQuestion(questionString);
 
 
 			//Generate choices for possible answers
@@ -127,36 +127,36 @@ public class AddOrSubtract : MonoBehaviour, Question {
 		if (isSubtract == 0) {
 
 			//First choice is result of opposite operation
-			Choice1 = FirstNum + SecondNum;
+			Choice1 = firstNum + secondNum;
 
 			//Either add or subtract randomly to or from correct answer for remaining choices
 			int PlusOrMinus = Random.Range (0, 2);
 			if (PlusOrMinus == 0) {
-				Choice2 = CorrectAnswer - 1;
-				Choice3 = CorrectAnswer + Random.Range (1, 5);
+				Choice2 = correctAnswer - 1;
+				Choice3 = correctAnswer + Random.Range (1, 5);
 			} else {
-				Choice2 = CorrectAnswer + 1;
-				Choice3 = CorrectAnswer - Random.Range (1, 5);
+				Choice2 = correctAnswer + 1;
+				Choice3 = correctAnswer - Random.Range (1, 5);
 			}
 		} else {
 			//First choice is result of opposite operation
-			Choice1 = FirstNum - SecondNum;
+			Choice1 = firstNum - secondNum;
 
 			//Either add or subtract randomly to or from correct answer for remaining choices
 			int PlusOrMinus = Random.Range (0, 2);
 			if (PlusOrMinus == 0) {
-				Choice2 = CorrectAnswer - 1;
-				Choice3 = CorrectAnswer + Random.Range (1, 5);
+				Choice2 = correctAnswer - 1;
+				Choice3 = correctAnswer + Random.Range (1, 5);
 			} else {
-				Choice2 = CorrectAnswer + 1;
-				Choice3 = CorrectAnswer - Random.Range (1, 5);
+				Choice2 = correctAnswer + 1;
+				Choice3 = correctAnswer - Random.Range (1, 5);
 			}
 		}
 			
-		int[] IntegerChoices = new int [] { Choice1, Choice2, Choice3, CorrectAnswer };
+		int[] IntegerChoices = new int [] { Choice1, Choice2, Choice3, correctAnswer };
 
-		AnswerChoices = ChoicesToStringArray (IntegerChoices);
-		A_Input.DisplayChoices (AnswerChoices);
+		answerChoices = ChoicesToStringArray (IntegerChoices);
+		aInput.DisplayChoices (answerChoices);
 	}
 
 	/// <summary>
@@ -187,10 +187,10 @@ public class AddOrSubtract : MonoBehaviour, Question {
 		}
 
 		//Populate choice array with generated answer choices, converted to strings for later use
-		AnswerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
+		answerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
 			IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
 
-		return AnswerChoices;
+		return answerChoices;
 	}
 
 	/// <summary>
@@ -198,15 +198,15 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	/// </summary>
 	/// <returns>The question string.</returns>
 	public string GetQuestionString() {
-		return this.QuestionString;
+		return this.questionString;
 	}
 
 	/// <summary>
 	/// Returns the correct answer as string
 	/// </summary>
 	/// <returns>The correct answer.</returns>
-	public string getCorrectAnswer() {
-		return this.CorrectAnswer.ToString();
+	public string GetCorrectAnswer() {
+		return this.correctAnswer.ToString();
 	}
 
 	/// <summary>
@@ -214,7 +214,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	/// </summary>
 	/// <param name="answer">Answer.</param>
 	public void SetCorrectAnswer(string answer) {
-		this.CorrectAnswer = System.Int32.Parse (answer);
+		this.correctAnswer = System.Int32.Parse (answer);
 	}
 
 	/// <summary>
@@ -222,7 +222,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	/// </summary>
 	/// <param name="question">Question.</param>
 	public void SetQuestionString(string question) {
-		this.QuestionString = question;
+		this.questionString = question;
 	}
 
 	/// <summary>
@@ -242,11 +242,11 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	}
 
 	public int GetFirstNum() {
-		return FirstNum;
+		return firstNum;
 	}
 
 	public int GetSecondNum() {
-		return SecondNum;
+		return secondNum;
 	}
 
 	public string GetQuestionCategory() {
@@ -256,6 +256,31 @@ public class AddOrSubtract : MonoBehaviour, Question {
 			return "Addition";
 	}
 
+    public string GetQuestionSubCategory()
+    {
+        int gtrValue = Mathf.Max(firstNum, secondNum);
+        if (gtrValue < 7)
+        {
+            return "1-6";
+        }
+        else if (gtrValue < 13)
+        {
+            return "7-12";
+        }
+        else if (gtrValue < 21)
+        {
+            return "13-20";
+        }
+        else
+        {
+            return "20+";
+        }
+    }
 
+    public bool GetAnsweredCorrectly()
+    {
+        return incorrectAnswers == 0;
+    }
+    
 
 }

@@ -24,14 +24,14 @@ public class TextProblem
 
 public class WordProblem : MonoBehaviour, Question {
 
-	public Text QuestionText;
-	public Text QuestionText_hud;
+	public Text questionText;
+	public Text questionTextHUD;
 
-	private string QuestionString;
+	private string questionString;
 	private int maxInt;
-	private AnswerInput A_Input;
-	private string CorrectAnswer;
-	private string [] AnswerChoices;
+	private AnswerInput aInput;
+	private string correctAnswer;
+	private string [] answerChoices;
 	private int incorrectAnswers;
 	TextQuestion currQuestion;
 
@@ -40,8 +40,8 @@ public class WordProblem : MonoBehaviour, Question {
 
 	// Use this for initialization
 	public void Start () {
-		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
-		QuestionText = GameObject.Find ("question").GetComponent<Text>();
+		aInput = GameObject.FindObjectOfType<AnswerInput> ();
+		questionText = GameObject.Find ("question").GetComponent<Text>();
 	}
 
 	/// <summary>
@@ -61,11 +61,11 @@ public class WordProblem : MonoBehaviour, Question {
 			int rand = Random.Range (0, TextQuestions.Length);
 			TextQuestion currQuestion = TextQuestions[rand];
 			//QuestionText.text = currQuestion.questionText;
-			A_Input.SetQuestion(currQuestion.questionText);
+			aInput.SetQuestion(currQuestion.questionText);
 
 			Debug.Log (currQuestion.questionText);
-			CorrectAnswer = currQuestion.answer;
-			Debug.Log (CorrectAnswer);
+			correctAnswer = currQuestion.answer;
+			Debug.Log (correctAnswer);
 			GenerateChoices ();
 		} else {
 			Debug.Log ("Null JSON");
@@ -73,25 +73,25 @@ public class WordProblem : MonoBehaviour, Question {
 	}
 
 	public void GenerateChoices() {
-		AnswerChoices = currQuestion.answerChoices;
-		Debug.Log(AnswerChoices[0]);
-		A_Input.DisplayChoices(AnswerChoices);
+		answerChoices = currQuestion.answerChoices;
+		Debug.Log(answerChoices[0]);
+		aInput.DisplayChoices(answerChoices);
 	}
 
-	public string getCorrectAnswer() {
-		return CorrectAnswer;
+	public string GetCorrectAnswer() {
+		return correctAnswer;
 	}
 
 	public string GetQuestionString() {
-		return this.QuestionString;
+		return this.questionString;
 	}
 
 	public void SetCorrectAnswer(string answer) {
-		this.CorrectAnswer = answer;
+		this.correctAnswer = answer;
 	}
 
 	public void SetQuestionString(string question) {
-		this.QuestionString = question;
+		this.questionString = question;
 	}
 
 	public void SetIncorrectAnswers(int incorrect) {
@@ -105,5 +105,15 @@ public class WordProblem : MonoBehaviour, Question {
 	public string GetQuestionCategory() {
 		return "True or False";
 	}
+
+    public string GetQuestionSubCategory()
+    {
+        return "temp";
+    }
+
+    public bool GetAnsweredCorrectly()
+    {
+        return incorrectAnswers == 0;
+    }
 
 }

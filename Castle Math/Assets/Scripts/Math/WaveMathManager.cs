@@ -68,7 +68,7 @@ public class WaveMathManager : MonoBehaviour {
 		while (totalQuestionsAnswered < 3) {
 			if (FractionQuestions == 0) {
 				Fraction.GenerateQuestion (-1);//-1 => temp fix
-				A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+				A_Input.SetCorrectAnswer (Fraction.GetCorrectAnswer ());
 				currentQuestion = Fraction;
 				//currentQuestion = Fraction.GetQuestionString ();
 			} else {

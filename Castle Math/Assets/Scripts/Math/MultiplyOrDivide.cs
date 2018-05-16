@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class MultiplyOrDivide : MonoBehaviour, Question {
 
-	public Text QuestionText;
-	public Text QuestionText_hud;
+	public Text questionText;
+	public Text questionTextHUD;
 
-	private int FirstNum;
-	private int SecondNum;
-	private int CorrectAnswer;
+	private int firstNum;
+	private int secondNum;
+	private int correctAnswer;
 	public int isDivide;
 	private int incorrectAnswers = 0;
-	private string [] AnswerChoices;
-	private string QuestionString;
+	private string [] answerChoices;
+	private string questionString;
 	int maxInt = 10;
-	private AnswerInput A_Input;
+	private AnswerInput aInput;
 
 	public MultiplyOrDivide() {
 		
@@ -26,8 +26,8 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	// Use this for initialization
 	public void Start () {
 
-		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
-		QuestionText = GameObject.Find ("question").GetComponent<Text>();
+		aInput = GameObject.FindObjectOfType<AnswerInput> ();
+		questionText = GameObject.Find ("question").GetComponent<Text>();
 
 	}
 
@@ -48,23 +48,23 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 		//check for division
 		if (isDivide == 0) {
-			FirstNum = Random.Range (0, maxInt + (maxInt / 2));
-			SecondNum = Random.Range (1, maxInt);
+			firstNum = Random.Range (0, maxInt + (maxInt / 2));
+			secondNum = Random.Range (1, maxInt);
 
 			//Ensure that division is even, with no remainders
-			while (FirstNum % SecondNum != 0) {
-				FirstNum = Random.Range (0, maxInt + (maxInt / 2));
+			while (firstNum % secondNum != 0) {
+				firstNum = Random.Range (0, maxInt + (maxInt / 2));
 			}
 
 			//Calculate correct answer
-			CorrectAnswer = FirstNum / SecondNum;
+			correctAnswer = firstNum / secondNum;
 
 		} 
 		else {
-			FirstNum = Random.Range (0, maxIntMulti);
-			SecondNum = Random.Range (1, maxIntMulti);
+			firstNum = Random.Range (0, maxIntMulti);
+			secondNum = Random.Range (1, maxIntMulti);
 
-			CorrectAnswer = FirstNum * SecondNum;
+			correctAnswer = firstNum * secondNum;
 		}
 	}
 
@@ -81,9 +81,9 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 			//Generate formatted question string and set text box text
 			char divSign = '\u00F7';
 
-			QuestionString = FirstNum.ToString () + " " + divSign.ToString() + " " + SecondNum.ToString () + " =";
+			questionString = firstNum.ToString () + " " + divSign.ToString() + " " + secondNum.ToString () + " =";
 			//QuestionText.text = QuestionString;
-			A_Input.SetQuestion(QuestionString);
+			aInput.SetQuestion(questionString);
 
 			//Generate other possible answer choices
 			GenerateChoices ();
@@ -92,24 +92,24 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 			if (maxDifficulty > 20) {
 				int ThirdNum = 1;
-				int NewSecondNum = SecondNum;
+				int NewSecondNum = secondNum;
 
 				for (int i = 5; i > 0; i++) {
-					if ( i % SecondNum == 0) {
-						NewSecondNum = SecondNum / i;
+					if ( i % secondNum == 0) {
+						NewSecondNum = secondNum / i;
 						ThirdNum = i;
 						break;
 					}
 				}
 				NewSecondNum = 2;
-				QuestionString = FirstNum.ToString () + " " + " x " + " " + NewSecondNum.ToString () + " " + " x " + " " + ThirdNum.ToString () + " =";
+				questionString = firstNum.ToString () + " " + " x " + " " + NewSecondNum.ToString () + " " + " x " + " " + ThirdNum.ToString () + " =";
 			} else {
 				//Generate formatted question string and set text box text
-				QuestionString = FirstNum.ToString () + " x " + SecondNum.ToString () + " =";
+				questionString = firstNum.ToString () + " x " + secondNum.ToString () + " =";
 
 			}
 			//QuestionText.text = QuestionString;
-			A_Input.SetQuestion(QuestionString);
+			aInput.SetQuestion(questionString);
 
 			//Generate other possible answer choices
 			GenerateChoices ();
@@ -126,42 +126,42 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 		//Assign other choices depending on various factors
 		if (isDivide == 0) {
-			Choice1 = FirstNum * SecondNum;
+			Choice1 = firstNum * secondNum;
 
 			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
-                if(SecondNum - 1 == 0){
-                    Choice2 = FirstNum / SecondNum;
+                if(secondNum - 1 == 0){
+                    Choice2 = firstNum / secondNum;
                 }
                 else{
-                    Choice2 = FirstNum / (SecondNum - 1);
+                    Choice2 = firstNum / (secondNum - 1);
                 }
-                Choice3 = CorrectAnswer + Random.Range (1, 5);
+                Choice3 = correctAnswer + Random.Range (1, 5);
 			} else {
-				Choice2 = FirstNum / (SecondNum + 1);
-				Choice3 = CorrectAnswer - Random.Range (1, 5);
+				Choice2 = firstNum / (secondNum + 1);
+				Choice3 = correctAnswer - Random.Range (1, 5);
 			}
 		} else {
 			
-			Choice1 = FirstNum / SecondNum;
+			Choice1 = firstNum / secondNum;
 
 			int PlusOrMinus = Random.Range (0, 2);
 
 			if (PlusOrMinus == 0) {
-				Choice2 = FirstNum * (SecondNum - 1);
-				Choice3 = CorrectAnswer + Random.Range (1, 5);
+				Choice2 = firstNum * (secondNum - 1);
+				Choice3 = correctAnswer + Random.Range (1, 5);
 			} else {
-				Choice2 = FirstNum * (SecondNum + 1);
-				Choice3 = CorrectAnswer - Random.Range (1, 5);
+				Choice2 = firstNum * (secondNum + 1);
+				Choice3 = correctAnswer - Random.Range (1, 5);
 			}
 		}
 
 		//Array of all possible choices
-		int[] IntegerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
-		AnswerChoices = ChoicesToStringArray (IntegerChoices);
+		int[] IntegerChoices = new int[] { Choice1, Choice2, Choice3, correctAnswer };
+		answerChoices = ChoicesToStringArray (IntegerChoices);
 
-		A_Input.DisplayChoices (AnswerChoices);
+		aInput.DisplayChoices (answerChoices);
 	}
 
 	/// <summary>
@@ -192,30 +192,30 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 		}
 
 		//Populate choice array with generated answer choices, converted to strings for later use
-		AnswerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
+		answerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
 			IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
 
-		return AnswerChoices;
+		return answerChoices;
 	}
 
 	/**Return formatted question string
 	 */
 	public string GetQuestionString() {
-		return QuestionString;
+		return questionString;
 	}
 
 	/**Return formatted answer string
 	 */
-	public string getCorrectAnswer() {
-		return CorrectAnswer.ToString();
+	public string GetCorrectAnswer() {
+		return correctAnswer.ToString();
 	}
 
 	public void SetCorrectAnswer(string answer) {
-		this.CorrectAnswer =  System.Int32.Parse (answer);;
+		this.correctAnswer =  System.Int32.Parse (answer);;
 	}
 
 	public void SetQuestionString(string question) {
-		this.QuestionString = question;
+		this.questionString = question;
 	}
 
 	public void SetIncorrectAnswers(int incorrect) {
@@ -227,11 +227,11 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	}
 
 	public int GetFirstNum() {
-		return FirstNum;
+		return firstNum;
 	}
 
 	public int GetSecondNum() {
-		return SecondNum;
+		return secondNum;
 	}
 
 	public string GetQuestionCategory() {
@@ -240,5 +240,40 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 		else
 			return "Multiplication";
 	}
+
+    public string GetQuestionSubCategory()
+    {
+        int gtrValue = Mathf.Max(firstNum, secondNum);
+        if(gtrValue < 7)
+        {
+            return "1-6";
+        }else if (gtrValue < 13)
+        {
+            return "7-12";
+        }else if (gtrValue < 21)
+        {
+            return "13-20";
+        }
+        else
+        {
+            return "20+";
+        }
+    }
+
+    public bool GetAnsweredCorrectly()
+    {
+        return incorrectAnswers == 0;
+    }
+
+    /*
+    public string GetQuestionRange()
+    {
+        if (isDivide == 0)
+            return "0 - " + maxInt.ToString();
+        else
+            return "0 - " + (maxInt / 2).ToString();
+    }
+    */
+
 
 }

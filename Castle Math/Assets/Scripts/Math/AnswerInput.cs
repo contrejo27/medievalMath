@@ -56,7 +56,8 @@ public class AnswerInput : MonoBehaviour {
 		FeedbackTexts = GameObject.FindGameObjectsWithTag ("Feedback");
 
 		Tracker = new QuestionTracker ();
-	}
+        Tracker.ReadCSV();
+    }
 
 	public void SetCorrectAnswer(string Answer) {
 		this.CorrectAnswer = Answer;

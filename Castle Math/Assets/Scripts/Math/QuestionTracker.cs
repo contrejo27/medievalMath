@@ -2,21 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System.Text;
+using System.IO;
+using System.Linq;
+//using System;
 
-public class QuestionTracker  {
+
+public class QuestionTracker {
 
 
-	List <Question> incorrectQuestions;
-	List <Question> correctQuestions;
-	PlayerMathStats PlayerStats;
-	const int isIncorrect = -1;
-	const int isCorrect = 1;
+    List<Question> incorrectQuestions;
+    List<Question> correctQuestions;
+    PlayerMathStats PlayerStats;
+    const int isIncorrect = -1;
+    const int isCorrect = 1;
 
-	public QuestionTracker () {
-		incorrectQuestions = new List <Question>();
-		correctQuestions = new List <Question>();
-		PlayerStats = new PlayerMathStats ();
-	}
+    Dictionary<string, QuestionData> questionData = new Dictionary<string, QuestionData>();
+
+    public QuestionTracker() {
+        incorrectQuestions = new List<Question>();
+        correctQuestions = new List<Question>();
+        PlayerStats = new PlayerMathStats();
+    }
+    
 
 	/// <summary>
 	/// Adds the incorrect question to a list of all incorect questions.
@@ -45,11 +53,36 @@ public class QuestionTracker  {
 
 		//Set the question to add's values based on Question passed to the function
 		q.SetQuestionString (question.GetQuestionString());
-		q.SetCorrectAnswer (question.getCorrectAnswer());
+		q.SetCorrectAnswer (question.GetCorrectAnswer());
 		q.SetIncorrectAnswers (incorrectAnswers);
 		PlayerStats.UpdateScores (q, isIncorrect);
-		//Debug.Log ("Question to add: " + q.GetQuestionString());
+        //Debug.Log ("Question to add: " + q.GetQuestionString());
 
+        // Update Library
+        string questionType = question.GetQuestionCategory();
+        string questionSubType = question.GetQuestionSubCategory();
+        Debug.Log("Incorrect. Question type: " + questionType + ", question subtype: " + questionSubType);
+        if (questionData.ContainsKey(questionType))
+        {
+            if (questionData[questionType].data.ContainsKey(questionSubType))
+            {
+                questionData[questionType].IncIncorrect(questionSubType, 1);
+            }
+            else
+            {
+                questionData[questionType].data.Add(questionSubType, new QuestionData.DataLine(questionSubType, 0, 1, 0));
+            }
+
+        }
+        else
+        {
+            questionData.Add(questionType, new QuestionData(questionType));
+            questionData[questionType].data.Add(questionSubType, new QuestionData.DataLine(questionSubType, 0, 1, 0));
+        }
+
+        // CHANGE THIS IN THE FUTURE (way too frequent here)
+        SaveToCSV();
+    
 		incorrectQuestions.Add (q);
 	}
 
@@ -82,14 +115,168 @@ public class QuestionTracker  {
 		}
 
 		q.SetQuestionString (question.GetQuestionString());
-		q.SetCorrectAnswer (question.getCorrectAnswer());
+		q.SetCorrectAnswer (question.GetCorrectAnswer());
 		q.SetIncorrectAnswers (incorrectAnswers);
 		PlayerStats.UpdateScores (q, isCorrect);
 
-		correctQuestions.Add (q);
+        // Update Library
+        string questionType = question.GetQuestionCategory();
+        string questionSubType = question.GetQuestionSubCategory();
+        Debug.Log("Correct! Question type: " + questionType+ ", question subtype: " + questionSubType);
+        if (questionData.ContainsKey(questionType))
+        {
+            if (questionData[questionType].data.ContainsKey(questionSubType))
+            {
+                questionData[questionType].IncCorrect(questionSubType, 1);
+            }
+            else
+            {
+                questionData[questionType].data.Add(questionSubType, new QuestionData.DataLine(questionSubType, 1, 0, 100));
+            }
+
+        }
+        else
+        {
+            questionData.Add(questionType, new QuestionData(questionType));
+            questionData[questionType].data.Add(questionSubType, new QuestionData.DataLine(questionSubType, 1, 0, 100));
+        }
+
+        // CHANGE THIS IN THE FUTURE (way too frequent here)
+        SaveToCSV();
+
+        correctQuestions.Add (q);
+        
 	}
 
-	public void RemoveCorrectQuestion(Question question) {
+    #region CSV functions
+    
+    // Reference:
+    // https://sushanta1991.blogspot.com/2015/02/how-to-write-data-to-csv-file-in-unity.html
+
+    public void SaveToCSV()
+    {
+
+        var csv = new StringBuilder();
+        // Using linq to divide up categories + count relevant values
+        /*
+        foreach (var qType in allQuestions.GroupBy(x => x.GetType()).Select(group => new { Variant = group.Key, items = group.ToList()}))
+        {
+            csv.AppendLine(qType.Variant.ToString() + "," + qType.items.Count.ToString());
+            string line = "";
+            foreach(var q in qType.items.GroupBy( y => y.GetQuestionSubCategory()).Select(sGroup => new { SubType = sGroup.Key, items = sGroup.ToList() }))
+            {
+                line += q.SubType.ToString() + ",";
+                int totalQ = q.items.Count();
+                int numCorrect = (from n in q.items where n.GetAnsweredCorrectly() == true select n).Count();
+                line += numCorrect.ToString() + "," + (totalQ - numCorrect).ToString() + "," + (100*(float)numCorrect / (float)totalQ).ToString();
+                csv.AppendLine(line);
+                line = "";
+            }
+        }
+        */
+        foreach(string s in questionData.Keys)
+        {
+            csv.AppendLine(s + "," + questionData[s].data.Count);
+            foreach(QuestionData.DataLine dl in questionData[s].data.Values)
+            {
+                csv.AppendLine(dl.subCat + "," + dl.numCorrect + "," + dl.numIncorrect);
+                Debug.Log(csv.ToString());
+            }
+        }
+        
+        StreamWriter outStr = File.CreateText(GetCSVPath());
+        outStr.WriteLine(csv);
+        outStr.Close();
+    }
+
+    public void ReadCSV()
+    {
+        Debug.Log("Pre-CSV");
+        if (!File.Exists(GetCSVPath())) return;
+        Debug.Log("Reading CSV");
+
+        using(var reader = new StreamReader(GetCSVPath()))
+        {
+            
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                
+                Debug.Log("Line: " + line);
+                var values = line.Split(',');
+                if(values.Count() <= 1)
+                {
+                    break;
+                }
+                
+                string category = values[0];
+                int numSubCats = int.Parse(values[1]);
+
+                Debug.Log("Cat: " + category + " subcats: " + numSubCats);
+
+                QuestionData qd;
+                if (questionData.ContainsKey(category)) qd = questionData[category];
+                else qd = new QuestionData(category);
+                
+                for(int i = 0; i<numSubCats; i++)
+                {
+                    var sLine = reader.ReadLine();
+                    var sValues = sLine.Split(',');
+
+                    string subCat = sValues[0];
+
+                    int numCorrect = int.Parse(sValues[1]);
+                    int numIncorrect = int.Parse(sValues[2]);
+
+                    if (qd.data.ContainsKey(subCat)){
+                        QuestionData.DataLine dl = qd.data[subCat];
+                        dl.numCorrect += numIncorrect;
+                        dl.numIncorrect += numCorrect;
+                        dl.percentCorrect = (int)Mathf.Round(100*(float)dl.numCorrect / (dl.numCorrect + dl.numIncorrect));
+                        qd.data[subCat] = dl;
+
+                    }
+                    else
+                    {
+                        qd.data.Add(subCat, new QuestionData.DataLine(subCat, numCorrect, numIncorrect, (int)Mathf.Round(100*(float)numCorrect/(numCorrect+numIncorrect))));
+                    }
+                    
+                }
+
+                if (!questionData.ContainsKey(category)) questionData.Add(category, qd);
+
+
+            }
+        }
+
+        // bear with me here:
+        Debug.Log("DOFASODMASOSVM");
+        foreach(string s in questionData.Keys)
+        {
+            Debug.Log(s);
+            foreach(QuestionData.DataLine dl in questionData[s].data.Values)
+            {
+                Debug.Log(dl.ToString());
+            }
+        }
+    }
+
+    private string GetCSVPath()
+    {
+        #if UNITY_EDITOR
+            return Application.dataPath + "/CSV/" + "Question_Tracker.csv";
+        #elif UNITY_ANDROID
+            return Application.persistentDataPath+"Question_Tracker.csv";
+        #elif UNITY_IPHONE
+            return Application.persistentDataPath+"/"+"Question_Tracker.csv";
+        #else
+            return Application.dataPath +"/"+"Question_Tracker.csv";
+        #endif
+    }
+
+    #endregion
+
+    public void RemoveCorrectQuestion(Question question) {
 		correctQuestions.Remove (question);
 	}
 
@@ -145,5 +332,52 @@ public class QuestionTracker  {
         {
             Debug.Log("Saving: " + question.GetQuestionString());
         }
+    }
+}
+
+public class QuestionData{
+    public string type;
+    public Dictionary<string, DataLine> data = new Dictionary<string, DataLine>();
+    
+    public struct DataLine
+    {
+        public string subCat;
+        public int numCorrect;
+        public int numIncorrect;
+        public int percentCorrect;
+
+        public DataLine(string _subCat, int _numCorrect, int _numIncorrect, int _percentCorrect)
+        {
+            subCat = _subCat;
+            numCorrect = _numCorrect;
+            numIncorrect = _numIncorrect;
+            percentCorrect = _percentCorrect;
+        }
+
+        public override string ToString()
+        {
+            return subCat + "\t" + numCorrect.ToString() + "\t" + numIncorrect.ToString() + "\t" + percentCorrect.ToString() + "%"; 
+        }
+    }
+
+    public QuestionData(string _type)
+    {
+        type = _type;
+    }
+
+    public void IncCorrect(string subCat, int value)
+    {
+        DataLine dl = data[subCat];
+        dl.numCorrect += value;
+        dl.percentCorrect = (int)Mathf.Round(100 * (float)dl.numCorrect / (dl.numCorrect + dl.numIncorrect));
+        data[subCat] = dl;
+    }
+
+    public void IncIncorrect(string subCat, int value)
+    {
+        DataLine dl = data[subCat];
+        dl.numIncorrect += value;
+        dl.percentCorrect = (int)Mathf.Round(100 * (float)dl.numCorrect / (dl.numCorrect + dl.numIncorrect));
+        data[subCat] = dl;
     }
 }

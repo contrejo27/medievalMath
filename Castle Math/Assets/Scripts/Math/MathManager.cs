@@ -59,7 +59,7 @@ public class MathManager : MonoBehaviour {
 		Fraction.Start ();
 		AlgebraQuestion.Start ();
 
-		A_Input.Start ();
+		//A_Input.Start ();
 
 		QuestionTypes = new bool[4];
 		if(m_Controller != null){
@@ -87,7 +87,7 @@ public class MathManager : MonoBehaviour {
 
 		//Generates a fraction question for the interwave math question
 		Fraction.GenerateQuestion (-1);//-1 => temp fix
-		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+		A_Input.SetCorrectAnswer (Fraction.GetCorrectAnswer ());
 		currentQuestion = Fraction;
 
 		ActivateBillboard();
@@ -98,7 +98,7 @@ public class MathManager : MonoBehaviour {
 
 		//Generates a fraction question for the interwave math question
 		Fraction.GenerateQuestion (-1);//-1 => temp fix
-		A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+		A_Input.SetCorrectAnswer (Fraction.GetCorrectAnswer ());
 		currentQuestion = Fraction;
 
 	}
@@ -208,11 +208,11 @@ public class MathManager : MonoBehaviour {
  		int selectedMath = currentQuestionTypes[Random.Range (0, currentQuestionTypes.Count)];
 		if (selectedMath == 0) {
 			Add_Sub.GenerateQuestion (mathDifficultyAorS);
-			A_Input.SetCorrectAnswer (Add_Sub.getCorrectAnswer ());
+			A_Input.SetCorrectAnswer (Add_Sub.GetCorrectAnswer ());
 			currentQuestion = Add_Sub;
 		} else if (selectedMath == 1) {
 			Multi_Divide.GenerateQuestion (mathDifficultyMorD);
-			A_Input.SetCorrectAnswer (Multi_Divide.getCorrectAnswer ());
+			A_Input.SetCorrectAnswer (Multi_Divide.GetCorrectAnswer ());
 			currentQuestion = Multi_Divide;
 		}/* else if (selectedMath == 2) {
 			Comparision.GenerateQuestion (-1); //-1 => temp fix
@@ -224,11 +224,11 @@ public class MathManager : MonoBehaviour {
 			currentQuestion = True_False;
 		}*/ else if (selectedMath == 2) {
 			Fraction.GenerateQuestion (-1);//-1 => temp fix
-			A_Input.SetCorrectAnswer (Fraction.getCorrectAnswer ());
+			A_Input.SetCorrectAnswer (Fraction.GetCorrectAnswer ());
 			currentQuestion = Fraction;
 		} else if (selectedMath == 3) {
 			AlgebraQuestion.GenerateQuestion (mathDifficultyAorS);
-			A_Input.SetCorrectAnswer (AlgebraQuestion.getCorrectAnswer ());
+			A_Input.SetCorrectAnswer (AlgebraQuestion.GetCorrectAnswer ());
 			currentQuestion = AlgebraQuestion;
 		}
 

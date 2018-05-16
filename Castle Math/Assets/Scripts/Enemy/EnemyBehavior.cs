@@ -10,6 +10,8 @@ public class EnemyBehavior : MonoBehaviour {
 	bool dead = false;
 	public float MoveSpeed;
 	bool attacking = false;
+    [HideInInspector]
+    Queue<int> hitQueue = new Queue<int>();
 	
 	//audio
 	public AudioClip[] deathSounds;
@@ -66,7 +68,12 @@ public class EnemyBehavior : MonoBehaviour {
 			transform.rotation = Quaternion.Euler (new Vector3 (0, newRot.eulerAngles.y, 0));
 
 			if (isMoving == false) StartCoroutine (WalkToTarget());
-		}
+
+            if (hitQueue.Count > 0)
+            {
+                ReceiveDamage(hitQueue.Dequeue());
+            }
+        }
 		/*
 		if (dH.GetComponent<Renderer> ().enabled == false) {
 
@@ -90,20 +97,28 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	public void TakeDamage(int DMG)
 	{
-//		Anim.SetBool ("isHit", true);
-		if(!Anim.GetCurrentAnimatorStateInfo(0).IsName("death")) Anim.Play("wound1");
-
-		//Anim.SetBool ("isMoving", false);
-		//Anim.SetBool ("isHit", true);
-
-		HitPoints -= DMG;
-		if (HitPoints <= 0) {
-			if(!dead){
-				Killed ();
-				dead=true;
-			}
-		}
+        hitQueue.Enqueue(DMG);
+        
 	}
+
+    private void ReceiveDamage(int dmg)
+    {
+        //		Anim.SetBool ("isHit", true);
+        if (!Anim.GetCurrentAnimatorStateInfo(0).IsName("death")) Anim.Play("wound1");
+
+        //Anim.SetBool ("isMoving", false);
+        //Anim.SetBool ("isHit", true);
+
+        HitPoints -= dmg;
+        if (HitPoints <= 0)
+        {
+            if (!dead)
+            {
+                Killed();
+                dead = true;
+            }
+        }
+    }
 
 	IEnumerator WalkToTarget()
 	{

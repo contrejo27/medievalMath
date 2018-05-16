@@ -11,7 +11,11 @@ public interface Question  {
 	void SetIncorrectAnswers (int incorrect);
 	int GetIncorrectAnswers ();
 	string GetQuestionString ();
-	string getCorrectAnswer ();
+	string GetCorrectAnswer ();
 	string GetQuestionCategory();
+    string GetQuestionSubCategory();
+    bool GetAnsweredCorrectly();
+    //int GetLargestOperator();
+    //string GetQuestionRange();
 
 }

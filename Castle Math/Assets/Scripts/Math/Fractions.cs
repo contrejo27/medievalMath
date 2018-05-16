@@ -57,7 +57,7 @@ public class Fractions : MonoBehaviour, Question {
 		DecimalAnswer = (double)Numerator / (double)Denominator;
 		StringAnswer = Numerator.ToString() + "/" + Denominator.ToString();
 		GenerateChoices ();
-		displayItems();
+		DisplayItems();
 	}
 	/// <summary>
 	/// Method to generate choices for corresponding fraction classes
@@ -86,7 +86,7 @@ public class Fractions : MonoBehaviour, Question {
 			AnswerChoices [i] = NumeratorChoice.ToString () + "/" + DenominatorChoice.ToString ();
 		}
 
-		AnswerChoices [3] = this.getCorrectAnswer ();
+		AnswerChoices [3] = this.GetCorrectAnswer ();
 
 		//Shuffle array randomly
 		for (int i = 0; i < AnswerChoices.Length; i++ ) {
@@ -97,7 +97,7 @@ public class Fractions : MonoBehaviour, Question {
 
 		}
 
-		Debug.Log ("Correct Answer:\n\tFraction: " + getCorrectAnswer ());
+		Debug.Log ("Correct Answer:\n\tFraction: " + GetCorrectAnswer ());
 
 		//Display choices using AnswerInput functionality
 		A_Input.DisplayChoices (AnswerChoices);
@@ -106,9 +106,9 @@ public class Fractions : MonoBehaviour, Question {
 	/// <summary>
 	/// Displays gem item graphics
 	/// </summary>
-	void displayItems(){
+	void DisplayItems(){
 		if (gems.Count > 0) {
-			this.deleteGems ();
+			this.DeleteGems ();
 		}
 
 		int numeratorGems;
@@ -173,7 +173,7 @@ public class Fractions : MonoBehaviour, Question {
 	/// <summary>
 	/// Removes gems from scene
 	/// </summary>
-	private void deleteGems () {
+	private void DeleteGems () {
 		for (int i = 0; i < gems.Count; i++) {
 			Destroy (gems [i]);
 		}
@@ -191,7 +191,7 @@ public class Fractions : MonoBehaviour, Question {
 	/// Gets the correct answer.
 	/// </summary>
 	/// <returns>The correct answer.</returns>
-	public string getCorrectAnswer() {
+	public string GetCorrectAnswer() {
 		return this.StringAnswer;
 	}
 
@@ -215,7 +215,7 @@ public class Fractions : MonoBehaviour, Question {
 	/// Gets the correct answer in decimal form.
 	/// </summary>
 	/// <returns>The correct decimal answer.</returns>
-	private double getCorrectDecimalAnswer() {
+	private double GetCorrectDecimalAnswer() {
 		return this.DecimalAnswer;
 	}
 
@@ -223,11 +223,11 @@ public class Fractions : MonoBehaviour, Question {
 	/// Gets the numerator.
 	/// </summary>
 	/// <returns>The numerator.</returns>
-	private int  getNumerator() {
+	private int  GetNumerator() {
 		return this.Numerator;
 	}
 
-	private int getDenominator() {
+	private int GetDenominator() {
 		return this.Denominator;
 	}
 
@@ -242,5 +242,15 @@ public class Fractions : MonoBehaviour, Question {
 	public string GetQuestionCategory() {
 		return "Fraction";
 	}
+
+    public string GetQuestionSubCategory()
+    {
+        return "temp";
+    }
+
+    public bool GetAnsweredCorrectly()
+    {
+        return incorrectAnswers == 0;
+    }
 
 }

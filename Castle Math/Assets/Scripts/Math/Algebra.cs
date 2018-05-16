@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class Algebra : MonoBehaviour, Question {
 	AddOrSubtract addSub;
 	MultiplyOrDivide multiDiv;
-	int CorrectAnswer;
-	string [] AnswerChoices;
-	string QuestionString;
+	int correctAnswer;
+	string [] answerChoices;
+	string questionString;
 	int maxInt;
-	AnswerInput A_Input;
+	AnswerInput aInput;
 	private int incorrectAnswers = 0;
 
-	public Text QuestionText;
-	public Text QuestionText_hud;
+	public Text questionText;
+	public Text questionTextHUD;
 
 	int randomQuestion;
 
@@ -22,8 +22,8 @@ public class Algebra : MonoBehaviour, Question {
 	public void Start () {
 		addSub = GameObject.FindObjectOfType<AddOrSubtract> ();
 		multiDiv = GameObject.FindObjectOfType<MultiplyOrDivide> ();
-		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
-		QuestionText = GameObject.Find ("question").GetComponent<Text>();
+		aInput = GameObject.FindObjectOfType<AnswerInput> ();
+		questionText = GameObject.Find ("question").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
@@ -36,18 +36,18 @@ public class Algebra : MonoBehaviour, Question {
 
 		if (randomQuestion == 0) {
 			addSub.GenerateOperands (maxDifficulty);
-			string correctAnswer = addSub.getCorrectAnswer ().ToString ();
+			string correctAnswer = addSub.GetCorrectAnswer ().ToString ();
 
 			if (addSub.isSubtract == 0) {
-				QuestionString = addSub.GetFirstNum ().ToString() + " - " + "X" + " =" + correctAnswer;
+				questionString = addSub.GetFirstNum ().ToString() + " - " + "X" + " =" + correctAnswer;
 			} else {
-				QuestionString = addSub.GetFirstNum ().ToString() + " + " + "X" + " =" + correctAnswer;
+				questionString = addSub.GetFirstNum ().ToString() + " + " + "X" + " =" + correctAnswer;
 			}
 
-			this.CorrectAnswer = addSub.GetSecondNum ();
+			this.correctAnswer = addSub.GetSecondNum ();
 			//Set textbox display to formatted question string
 			//QuestionText.text = QuestionString;
-			A_Input.SetQuestion(QuestionString);
+			aInput.SetQuestion(questionString);
 
 
 			//Generate choices for possible answers 
@@ -63,15 +63,15 @@ public class Algebra : MonoBehaviour, Question {
 			if (multiDiv.isDivide == 0) {
 				char divSign = '\u00F7';
 
-				QuestionString = multiDiv.GetFirstNum ().ToString() + " " + divSign.ToString() + " " + "X" + " =" + multiDiv.getCorrectAnswer ().ToString ();
+				questionString = multiDiv.GetFirstNum ().ToString() + " " + divSign.ToString() + " " + "X" + " =" + multiDiv.GetCorrectAnswer ().ToString ();
 			} else {
-				QuestionString = multiDiv.GetFirstNum ().ToString() + " x " + "__" + " =" + multiDiv.getCorrectAnswer ().ToString ();
+				questionString = multiDiv.GetFirstNum ().ToString() + " x " + "__" + " =" + multiDiv.GetCorrectAnswer ().ToString ();
 			}
 
-			this.CorrectAnswer = multiDiv.GetSecondNum ();
+			this.correctAnswer = multiDiv.GetSecondNum ();
 			//Set textbox display to formatted question string
 			//QuestionText.text = QuestionString;
-			A_Input.SetQuestion(QuestionString);
+			aInput.SetQuestion(questionString);
 
 
 			//Generate choices for possible answers 
@@ -82,15 +82,15 @@ public class Algebra : MonoBehaviour, Question {
 
 	public void GenerateChoices() {
 
-		int Choice1 = CorrectAnswer - 1;
-		int Choice2 = CorrectAnswer + 1;
-		int Choice3 = CorrectAnswer + Random.Range (2, 5);
+		int Choice1 = correctAnswer - 1;
+		int Choice2 = correctAnswer + 1;
+		int Choice3 = correctAnswer + Random.Range (2, 5);
 
 		//Array of all possible choices
-		int[] IntegerChoices = new int[] { Choice1, Choice2, Choice3, CorrectAnswer };
-		AnswerChoices = ChoicesToStringArray (IntegerChoices);
+		int[] IntegerChoices = new int[] { Choice1, Choice2, Choice3, correctAnswer };
+		answerChoices = ChoicesToStringArray (IntegerChoices);
 
-		A_Input.DisplayChoices (AnswerChoices);
+		aInput.DisplayChoices (answerChoices);
 	}
 
 	/// <summary>
@@ -123,30 +123,30 @@ public class Algebra : MonoBehaviour, Question {
 		}
 
 		//Populate choice array with generated answer choices, converted to strings for later use
-		AnswerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
+		answerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(), 
 			IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
 
-		return AnswerChoices;
+		return answerChoices;
 	}
 
 	/**Return formatted question string
 	 */
 	public string GetQuestionString() {
-		return QuestionString;
+		return questionString;
 	}
 
 	/**Return formatted answer string
 	 */
-	public string getCorrectAnswer() {
-		return CorrectAnswer.ToString();
+	public string GetCorrectAnswer() {
+		return correctAnswer.ToString();
 	}
 
 	public void SetCorrectAnswer(string answer) {
-		this.CorrectAnswer =  System.Int32.Parse (answer);;
+		this.correctAnswer =  System.Int32.Parse (answer);;
 	}
 
 	public void SetQuestionString(string question) {
-		this.QuestionString = question;
+		this.questionString = question;
 	}
 
 	public void SetIncorrectAnswers(int incorrect) {
@@ -160,5 +160,15 @@ public class Algebra : MonoBehaviour, Question {
 	public string GetQuestionCategory() {
 		return "Pre-Algebra";
 	}
+
+    public string GetQuestionSubCategory()
+    {
+        return "temp";
+    }
+
+    public bool GetAnsweredCorrectly()
+    {
+        return incorrectAnswers == 0;
+    }
 
 }
