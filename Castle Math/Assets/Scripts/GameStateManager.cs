@@ -24,7 +24,7 @@ public class GameStateManager : MonoBehaviour {
 	public GameObject InsidePoint;
 
     // Game statistics
-    public QuestionTracker tracker;
+    public QuestionTracker tracker = new QuestionTracker();
 
 	//audio
 	public AudioClip LostTheCastle;
@@ -41,6 +41,19 @@ public class GameStateManager : MonoBehaviour {
 	public GameObject billboard;
     public int currentSkillLevel;
 
+    //Singleton
+    public static GameStateManager instance;
+
+    void Awake()
+    {
+        if (instance == null){
+            instance = this;
+        }else if(instance != this)
+        {
+            Destroy(gameObject);
+        }
+        tracker.ReadCSV();
+    }
 
     // Use this for initialization
     void Start () {

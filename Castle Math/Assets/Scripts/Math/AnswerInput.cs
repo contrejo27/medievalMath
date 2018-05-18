@@ -23,8 +23,6 @@ public class AnswerInput : MonoBehaviour {
 	public TutorialBehavior tutorial;
 	public UIEffects mathCanvas;
 
-	QuestionTracker Tracker;
-
 	private string CorrectAnswer;
 	private string [] AnswerChoices;
 
@@ -60,9 +58,7 @@ public class AnswerInput : MonoBehaviour {
 		
 		Math_Stats = GameObject.FindObjectOfType<PlayerMathStats> ();
 		FeedbackTexts = GameObject.FindGameObjectsWithTag ("Feedback");
-
-		Tracker = new QuestionTracker ();
-        Tracker.ReadCSV();
+        
     }
 
 	public void SetCorrectAnswer(string Answer) {
@@ -150,9 +146,9 @@ public class AnswerInput : MonoBehaviour {
 
 				//If answered incorrectly more than once, place in incorrect question tracker
 				if (M_Manager.GetIncorrectAnswersPerQuestion () >= 1) {
-					Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
+					GameStateManager.instance.tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
 				} else {
-					Tracker.AddCorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
+					GameStateManager.instance.tracker.AddCorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
 				}
 
 				PowerUp.CorrectAnswer ();
@@ -204,9 +200,9 @@ public class AnswerInput : MonoBehaviour {
 			//Resassign answer choices to new array
 			this.AnswerChoices = AnswerChoicesCopy;
 		} else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3) {
-			Tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
+			GameStateManager.instance.tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
 			Debug.Log ("Current Question: " + M_Manager.GetCurrentQuestion ().GetQuestionString ());
-			Tracker.ShowIncorrectQestions ();
+			GameStateManager.instance.tracker.ShowIncorrectQestions ();
 					print("incorrect answers generating new problem");
 
 			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
@@ -286,11 +282,11 @@ public class AnswerInput : MonoBehaviour {
 	}
 
 	public int GetCorrectOfType(System.Type type) {
-		return Tracker.GetCorrectOfType (type);
+		return GameStateManager.instance.tracker.GetCorrectOfType (type);
 	}
 
 	public int GetIncorrectOfType(System.Type type) {
-		return Tracker.GetIncorrectOfType (type);
+		return GameStateManager.instance.tracker.GetIncorrectOfType (type);
 	}
 
 	IEnumerator DisplayFeedback()
