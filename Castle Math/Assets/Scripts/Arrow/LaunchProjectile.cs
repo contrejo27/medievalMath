@@ -197,7 +197,7 @@ public class LaunchProjectile : MonoBehaviour {
 		reloading = true;
 		yield return new WaitForSeconds (.2f);
 
-		if(tutorialBehavior.tutorialDone) A_Supply.UseArrow ();
+		if(tutorialBehavior && tutorialBehavior.tutorialDone) A_Supply.UseArrow ();
 
 		if (A_Supply.NumberOfArrows > 0) {
 			CreateShot();
