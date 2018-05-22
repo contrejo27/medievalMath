@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 281501899}
   - component: {fileID: 281501903}
   - component: {fileID: 281501904}
+  - component: {fileID: 281501905}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -226,11 +227,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5a2f6e2edfeb14b86e48dad1d5fe2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropDowns:
-  - {fileID: 1135542378}
-  - {fileID: 0}
-  - {fileID: 0}
+  dropDowns: []
   lineSpacing: 1.5
+--- !u!114 &281501905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 281501898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad7e554e170b0640a1cc31a82055dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsMenu: {fileID: 281501904}
+  rectTransform: {fileID: 281501902}
+  xMargin: 50
+  yMargin: 50
+  lineSpacing: 30
 --- !u!1001 &559612636
 Prefab:
   m_ObjectHideFlags: 0
@@ -328,6 +342,14 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1320553346809630, guid: 4afdec3eb3128d2409b54257158ce719, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099405998165968, guid: 4afdec3eb3128d2409b54257158ce719, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4afdec3eb3128d2409b54257158ce719, type: 2}
   m_IsPrefabParent: 0
@@ -401,12 +423,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224896432297609106, guid: 4afdec3eb3128d2409b54257158ce719,
     type: 2}
   m_PrefabInternal: {fileID: 559612636}
---- !u!114 &1135542378 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114236264502853712, guid: 4afdec3eb3128d2409b54257158ce719,
-    type: 2}
-  m_PrefabInternal: {fileID: 559612636}
-  m_Script: {fileID: 11500000, guid: 3a1db46c5190f4745aeb71a700d2f91a, type: 3}
 --- !u!1 &1712906396
 GameObject:
   m_ObjectHideFlags: 0

@@ -358,7 +358,7 @@ public class QuestionData{
 
         public override string ToString()
         {
-            return subCat + "\t" + numCorrect.ToString() + "\t" + numIncorrect.ToString() + "\t" + percentCorrect.ToString() + "%"; 
+            return string.Format("{0,6}{1,20}{2,16}{3,10}", subCat, numCorrect.ToString(), numIncorrect.ToString(), (percentCorrect.ToString()+"%")); 
         }
     }
 

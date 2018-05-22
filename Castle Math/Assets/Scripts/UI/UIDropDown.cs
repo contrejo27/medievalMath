@@ -16,6 +16,7 @@ public class UIDropDown : MonoBehaviour {
     TextGenerationSettings textGenSettings;
     Dictionary<RectTransform, float> entryHeights = new Dictionary<RectTransform, float>();
 
+    [HideInInspector]
     public float titleHeight;
     float fullHeight;
     float lineSpacing = 1.2f;
@@ -26,27 +27,31 @@ public class UIDropDown : MonoBehaviour {
     public event CheckToggle OnClose;
 
     [HideInInspector]
-    public bool isExapnded = false;
+    public bool isExpanded = false;
 
     // Fuctions:
     // GetFullHeight
     // AddEntry
     // Expand
     // Collapse
-    
+
     // Additional scripts:
     // Scroll
 
-	// Use this for initialization
-	void Start () {
-        title = GetComponent<Text>();
-        rectTransform = GetComponent<RectTransform>();
-
+    // Use this for initialization
+    void Awake()
+    {
         textGen = new TextGenerator();
+    }
+
+    void Start () {
+        //title = GetComponent<Text>();
+        //rectTransform = GetComponent<RectTransform>();
+        
         textGenSettings = title.GetGenerationSettings(rectTransform.rect.size);
 
-		titleHeight = textGen.GetPreferredHeight(title.text, textGenSettings);
-
+        //titleHeight = textGen.GetPreferredHeight(title.text, textGenSettings);
+        titleHeight = title.gameObject.GetComponent<RectTransform>().rect.height;
         //TestAdd();
     }
 	
@@ -62,14 +67,14 @@ public class UIDropDown : MonoBehaviour {
         entryObject.transform.parent = transform;
         entryObject.transform.position = Vector3.zero;
 
-
         Text entryText = entryObject.GetComponent<Text>();
         entryText.text = entry;
 
         RectTransform entryRT = entryObject.GetComponent<RectTransform>();
-        entryRT.rect.Set(rectTransform.rect.x, rectTransform.rect.y, rectTransform.rect.width, rectTransform.rect.height);
-        entryRT.anchoredPosition = rectTransform.anchoredPosition;
-        entryHeights.Add(entryRT, textGen.GetPreferredHeight(entryText.text, entryText.GetGenerationSettings(entryRT.rect.size)));
+        entryRT.rect.Set(rectTransform.rect.x+GetComponent<RectTransform>().rect.width*1.5f, rectTransform.rect.y, 300, rectTransform.rect.height);
+        entryRT.anchoredPosition =  new Vector3(0,-entryRT.rect.height,0)*(2f/3f);
+        
+        entryHeights.Add(entryRT, /*textGen.GetPreferredHeight(entryText.text, entryText.GetGenerationSettings(entryRT.rect.size))*/ entryRT.rect.height);
         fullHeight += entryHeights[entryRT];
 
         dropDownInfo.Add(entryRT);
@@ -79,14 +84,14 @@ public class UIDropDown : MonoBehaviour {
 
     public void ToggleExapnd()
     {
-        if (!isExapnded)
+        if (!isExpanded)
         {
-            isExapnded = true;
+            isExpanded = true;
             Expand();
         }
         else
         {
-            isExapnded = false;
+            isExpanded = false;
             Close();
         }
     }
@@ -106,7 +111,8 @@ public class UIDropDown : MonoBehaviour {
             {
                 totalHeight -= entryHeights[dropDownInfo[i]] * lineSpacing / 2 + entryHeights[dropDownInfo[i]] * lineSpacing / 2;
             }
-            UtilityFunctions.instance.UILerp(dropDownInfo[i], .5f,Vector3.zero, new Vector3(0, -totalHeight, 0), true);
+            Debug.Log(totalHeight);
+            UtilityFunctions.instance.UIPositionLerp(dropDownInfo[i], .2f,new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -dropDownInfo[i].rect.height*(2f/3f),0), new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -totalHeight - dropDownInfo[i].rect.height * (2f / 3f), 0), true);
             
         }
     }
@@ -116,8 +122,9 @@ public class UIDropDown : MonoBehaviour {
         OnClose(this);
         for (int i = 0; i < dropDownInfo.Count; i++)
         {
-            
-            UtilityFunctions.instance.UILerp(dropDownInfo[i], .5f, dropDownInfo[i].anchoredPosition, Vector3.zero, true);
+            //dropDownInfo[i].anchoredPosition = new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -dropDownInfo[i].rect.height * (2f / 3f), 0);
+            //dropDownInfo[i].gameObject.SetActive(false);
+            UtilityFunctions.instance.UIPositionLerp(dropDownInfo[i], .2f, dropDownInfo[i].anchoredPosition, new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -dropDownInfo[i].rect.height * (2f / 3f), 0), true, true);
 
         }
     }
@@ -131,29 +138,10 @@ public class UIDropDown : MonoBehaviour {
 
     public float GetSubHeight()
     {
-        return (fullHeight+titleHeight)*lineSpacing;
+        Debug.Log("Subheight: " + ((fullHeight) * lineSpacing));
+        return (fullHeight)*lineSpacing;
     }
 
-    public void TestAdd()
-    {
-        AddDropDownEntry("To");
-        AddDropDownEntry("be");
-        AddDropDownEntry("fair");
-        AddDropDownEntry("you");
-        AddDropDownEntry("have");
-        AddDropDownEntry("to");
-        AddDropDownEntry("have");
-        AddDropDownEntry("a");/*
-        AddDropDownEntry("very");
-        AddDropDownEntry("high");
-        AddDropDownEntry("IQ");
-        AddDropDownEntry("to");
-        AddDropDownEntry("understand");
-        AddDropDownEntry("Rick");
-        AddDropDownEntry("and");
-        AddDropDownEntry("Morty");
-        */
-    }
 
     void OnDisable()
     {

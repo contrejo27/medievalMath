@@ -18,12 +18,12 @@ public class UtilityFunctions : MonoBehaviour {
         }
     }
 
-    public void UILerp(RectTransform rt, float time, Vector3 startPos, Vector3 targetPos, bool isLocal)
+    public void UIPositionLerp(RectTransform rt, float time, Vector3 startPos, Vector3 targetPos, bool isLocal, bool setInactive = false)
     {
-        StartCoroutine(UILerpCoroutine(rt, time, startPos, targetPos));
+        StartCoroutine(UIPositionLerpCoroutine(rt, time, startPos, targetPos, setInactive));
     }
 
-    IEnumerator UILerpCoroutine(RectTransform rt, float time, Vector3 initPos, Vector3 targetPos)
+    IEnumerator UIPositionLerpCoroutine(RectTransform rt, float time, Vector3 initPos, Vector3 targetPos, bool setInactive)
     {
         float timer = 0;
         while(timer < time && rt.gameObject.activeSelf)
@@ -32,8 +32,13 @@ public class UtilityFunctions : MonoBehaviour {
             rt.anchoredPosition = Vector3.Lerp(initPos, targetPos, timer/time);
             yield return null;
         }
-        
+        if (setInactive)
+        {
+            rt.gameObject.SetActive(false);
+        }
     }
+
+    //IEnumerator UITextFadeCoroutine
     
 
 	// Use this for initialization
