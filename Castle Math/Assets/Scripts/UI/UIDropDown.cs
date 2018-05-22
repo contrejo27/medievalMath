@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIDropDown : MonoBehaviour {
 
-    Text title;
+    public Text title;
 
     public RectTransform rectTransform;
 
@@ -16,13 +16,14 @@ public class UIDropDown : MonoBehaviour {
     TextGenerationSettings textGenSettings;
     Dictionary<RectTransform, float> entryHeights = new Dictionary<RectTransform, float>();
 
-    float titleHeight;
+    public float titleHeight;
     float fullHeight;
     float lineSpacing = 1.2f;
 
     // Delegates
-    public delegate void CheckForExpand(UIDropDown dropDown);
-    public event CheckForExpand OnExpand;
+    public delegate void CheckToggle(UIDropDown dropDown);
+    public event CheckToggle OnExpand;
+    public event CheckToggle OnClose;
 
     [HideInInspector]
     public bool isExapnded = false;
@@ -46,7 +47,7 @@ public class UIDropDown : MonoBehaviour {
 
 		titleHeight = textGen.GetPreferredHeight(title.text, textGenSettings);
 
-        TestAdd();
+        //TestAdd();
     }
 	
 	// Update is called once per frame
@@ -76,10 +77,24 @@ public class UIDropDown : MonoBehaviour {
 
     }
 
+    public void ToggleExapnd()
+    {
+        if (!isExapnded)
+        {
+            isExapnded = true;
+            Expand();
+        }
+        else
+        {
+            isExapnded = false;
+            Close();
+        }
+    }
+
     public void Expand()
     {
         OnExpand(this);
-        float totalHeight = fullHeight * lineSpacing +titleHeight*lineSpacing/2;
+        float totalHeight = (fullHeight  +titleHeight/2)*lineSpacing;
         for (int i = dropDownInfo.Count - 1; i >= 0; i--)
         {
             dropDownInfo[i].gameObject.SetActive(true);
@@ -93,6 +108,17 @@ public class UIDropDown : MonoBehaviour {
             }
             UtilityFunctions.instance.UILerp(dropDownInfo[i], .5f,Vector3.zero, new Vector3(0, -totalHeight, 0), true);
             
+        }
+    }
+
+    public void Close()
+    {
+        OnClose(this);
+        for (int i = 0; i < dropDownInfo.Count; i++)
+        {
+            
+            UtilityFunctions.instance.UILerp(dropDownInfo[i], .5f, dropDownInfo[i].anchoredPosition, Vector3.zero, true);
+
         }
     }
 
@@ -117,7 +143,7 @@ public class UIDropDown : MonoBehaviour {
         AddDropDownEntry("have");
         AddDropDownEntry("to");
         AddDropDownEntry("have");
-        AddDropDownEntry("a");
+        AddDropDownEntry("a");/*
         AddDropDownEntry("very");
         AddDropDownEntry("high");
         AddDropDownEntry("IQ");
@@ -126,5 +152,15 @@ public class UIDropDown : MonoBehaviour {
         AddDropDownEntry("Rick");
         AddDropDownEntry("and");
         AddDropDownEntry("Morty");
+        */
+    }
+
+    void OnDisable()
+    {
+        foreach(RectTransform rt in dropDownInfo)
+        {
+            rt.anchoredPosition = Vector3.zero;
+            rt.gameObject.SetActive(false);
+        }
     }
 }

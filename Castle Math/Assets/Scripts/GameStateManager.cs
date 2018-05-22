@@ -67,7 +67,7 @@ public class GameStateManager : MonoBehaviour {
         }
         */
 
-
+        /*
         RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
 		Player = GameObject.FindObjectOfType<LaunchProjectile> (); 
 		mainMenuEffects.fadeIn (.4f);
@@ -87,6 +87,7 @@ public class GameStateManager : MonoBehaviour {
         else{
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
+        */
 
     }
 

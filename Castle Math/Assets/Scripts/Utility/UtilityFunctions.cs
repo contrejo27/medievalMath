@@ -26,7 +26,7 @@ public class UtilityFunctions : MonoBehaviour {
     IEnumerator UILerpCoroutine(RectTransform rt, float time, Vector3 initPos, Vector3 targetPos)
     {
         float timer = 0;
-        while(timer < time)
+        while(timer < time && rt.gameObject.activeSelf)
         {
             timer += Time.deltaTime;
             rt.anchoredPosition = Vector3.Lerp(initPos, targetPos, timer/time);

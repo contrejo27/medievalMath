@@ -17,7 +17,7 @@ public class QuestionTracker {
     const int isIncorrect = -1;
     const int isCorrect = 1;
 
-    Dictionary<string, QuestionData> questionData = new Dictionary<string, QuestionData>();
+    public Dictionary<string, QuestionData> questionData = new Dictionary<string, QuestionData>();
 
     public QuestionTracker() {
         incorrectQuestions = new List<Question>();
