@@ -11,6 +11,7 @@ public class WaveManager : MonoBehaviour {
 	public GameObject trollPrefab;
 	public GameObject horseRiderPrefab;
     public int currentWave;
+    public int finalWave;
 	public GameObject storyText;
     
     //temp
@@ -37,12 +38,14 @@ public class WaveManager : MonoBehaviour {
 
     public ManaBar powerup;
 
-	//UI
-	public Text WaveTitle;
+
+    //UI
+    public Text WaveTitle;
 	public Text mathWaveTitle;
 	public CanvasGroup waveEffect;
 	public TutorialBehavior interMath;
 	public int CurrentEnemies;
+    public PlayerMathStats mStats;
 
 	int[][] footknightWaves = new int[20][];
 	int[][] horseknightWaves = new int[20][];
@@ -168,17 +171,8 @@ public class WaveManager : MonoBehaviour {
         }
 
         currentWave += 1;
-		if(currentWave == 20){
-            //print("newLevel");
-            //mathCanvas.GetComponent<UIEffects>().fadeOut(1);
-            storyText.SetActive(true);
-            billboard.SetActive(true);
-            billboardCanvas.SetActive(true);
-            billboardTutorialImage.SetActive(false);
-
-            billboard.GetComponent<Animator>().Play("show");
-
-            StartCoroutine(loadNextLevel());
+		if(currentWave == finalWave){
+            mStats.showWinUI();
 		}
         else{
             ActivateWave(currentWave);
@@ -188,7 +182,7 @@ public class WaveManager : MonoBehaviour {
     
     IEnumerator loadNextLevel(){
         yield return new WaitForSeconds(8f);
-        gManager.loadNextLevel();
+        //gManager.loadNextLevel();
     }
         
     IEnumerator FadingText(Text currentText)

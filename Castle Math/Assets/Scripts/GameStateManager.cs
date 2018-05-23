@@ -41,14 +41,19 @@ public class GameStateManager : MonoBehaviour {
 	public GameObject billboard;
     public int currentSkillLevel;
 
+    //analytics
+    GameMetrics gMetrics;
+    mathController m_Controller;
+
     //Singleton
     public static GameStateManager instance;
 
-    void Awake()
-    {
-        if (instance == null){
+    void Awake(){
+        if (instance == null)
+        {
             instance = this;
-        }else if(instance != this)
+        }
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
@@ -57,17 +62,11 @@ public class GameStateManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        /*
-        if(PlayerPrefs.HasKey("Skill Level")){
-            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
-        }
-        else{
-            PlayerPrefs.SetInt("Skill Level", 0);
-            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
-        }
-        */
+ 
+        m_Controller = GameObject.FindObjectOfType<mathController>();
 
-        /*
+        gMetrics = GameObject.FindObjectOfType<GameMetrics>();
+
         RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
 		Player = GameObject.FindObjectOfType<LaunchProjectile> (); 
 		mainMenuEffects.fadeIn (.4f);
@@ -87,7 +86,6 @@ public class GameStateManager : MonoBehaviour {
         else{
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
-        */
 
     }
 
@@ -100,6 +98,7 @@ public class GameStateManager : MonoBehaviour {
 		music.clip = gameplaySong;
 		music.loop = true;
 		music.Play ();
+
 	}
 
 	public void LoseState(){
@@ -145,10 +144,36 @@ public class GameStateManager : MonoBehaviour {
 
 	public void Quit()
 	{
-		StartCoroutine(ActivatorVR("None"));
+        float timeInVR;
+
+        if (m_Controller != null)
+        {
+            timeInVR = Time.time - m_Controller.startTime;
+        }
+        else{
+            timeInVR = 0f;
+        }
+
+        gMetrics.UpdateMetric("TimeInVR", timeInVR);
+        StartCoroutine(ActivatorVR("None"));
 	}
 
-	public IEnumerator ActivatorVR(string vrToggle){
+    void OnApplicationQuit()
+    {
+        float timeInVR;
+
+        if (m_Controller != null)
+        {
+            timeInVR = Time.time - m_Controller.startTime;
+        }
+        else
+        {
+            timeInVR = 0f;
+        }
+        gMetrics.UpdateMetric("TimeInVR", timeInVR);
+    }
+
+    public IEnumerator ActivatorVR(string vrToggle){
 		UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
 		yield return null;
 		UnityEngine.VR.VRSettings.enabled = false;

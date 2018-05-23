@@ -13,7 +13,7 @@ public class mathController : MonoBehaviour {
 	public bool preAlgebra;
 	//public bool wordProblems;
     public Text mathInstructions;
-
+    public float startTime;
 
     Color textColor; 
     // Use this for initialization
@@ -104,6 +104,6 @@ public class mathController : MonoBehaviour {
     public void StartGame()
     {
         StartCoroutine(ActivatorVR("Cardboard"));
-
+        startTime = Time.time;
     }    
 }

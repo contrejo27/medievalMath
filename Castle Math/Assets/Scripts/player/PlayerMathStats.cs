@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 //Controls player and global stats and displays them on scoreboard. 
 public class PlayerMathStats : MonoBehaviour {
@@ -10,7 +10,7 @@ public class PlayerMathStats : MonoBehaviour {
 	//stats
 	int correctAnswers;
     int incorrectAnswers;
-
+    int gradeNumber;
     int personalHighScore;
 	List<string> globalHighScores = new List<string>();
 
@@ -29,7 +29,14 @@ public class PlayerMathStats : MonoBehaviour {
     public Text grade;
     public Text towerWave;
     public GameObject tower;
+    public GameObject winUI;
+    public GameObject[] stars;
+    public GameObject statScreen;
+
+    //analytics
     GameMetrics gMetrics;
+    public ArrowSupplier aSupplier;
+    
 
     public void Start(){
 		getHighScores();
@@ -63,6 +70,7 @@ public class PlayerMathStats : MonoBehaviour {
 		}
         gMetrics.UpdateMetric("WaveLost", wManager.currentWave + 1);
 
+        gMetrics.UpdateMetric("ArrowsLeft", aSupplier.NumberOfArrows);
 
         UpdateHighScores();
 		DisplayStats();
@@ -98,8 +106,26 @@ public class PlayerMathStats : MonoBehaviour {
         towerWave.text = (wManager.currentWave + 1).ToString();
         wave.text = "Wave: " + (wManager.currentWave +1).ToString();
 		correctText.text = "Correct: " + correctAnswers.ToString ();
-        int gradeNumber = (int)correctAnswers * 100 / (correctAnswers + incorrectAnswers);
-        grade.text = gradeNumber.ToString() + "%";
+        gradeNumber = (int)correctAnswers * 100 / (correctAnswers + incorrectAnswers);
+
+        if(gradeNumber > 94){
+            grade.text = "A+";
+        }
+        else if (gradeNumber > 89){
+            grade.text = "A";
+        }
+        else if (gradeNumber > 84){
+            grade.text = "B+";
+        }
+        else if (gradeNumber > 79){
+            grade.text = "B";
+        }
+        else if (gradeNumber > 69){
+            grade.text = "C";
+        }
+        else{
+            grade.text = "D";
+        }
 
         foreach (string score in globalHighScores){
 			string[] line = score.Split(',');
@@ -138,5 +164,28 @@ public class PlayerMathStats : MonoBehaviour {
 			TrueOrFalseScore += attemptScore;	
 		}
 	}
-	
+
+    public void showWinUI(){
+        winUI.SetActive(true);
+        stars[0].SetActive(true);
+        SaveState();
+
+        if (aSupplier.NumberOfArrows > 50){
+            stars[1].SetActive(true);
+            if (gradeNumber > 89){
+                stars[2].SetActive(true);
+            }
+        }
+
+        StartCoroutine(loadNextScreen());
+    }
+
+    IEnumerator loadNextScreen(){
+        yield return new WaitForSeconds(3f);
+        winUI.SetActive(false);
+        stars[0].SetActive(false);
+        stars[1].SetActive(false);
+        stars[2].SetActive(false);
+        statScreen.SetActive(true);
+    }
 }
