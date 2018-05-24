@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,8 +21,9 @@ public class TutorialBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		tutorialImage = GetComponent<Image>();
+        tutorialDone = Convert.ToBoolean(PlayerPrefs.GetInt("tutorialDone"));
 
-		if(tutorialDone){
+        if (tutorialDone){
 			//if(bossLevel){
 				tutorialImage.sprite = storyImage;
 				target.SetActive(false);
@@ -49,7 +51,9 @@ public class TutorialBehavior : MonoBehaviour {
 
 		if(currentImage == 2){
 			tutorialDone = true;
-			startGame.SetActive(true);	
+            PlayerPrefs.SetInt("tutorialDone", 1);
+
+            startGame.SetActive(true);	
 			// UIAudio.clip = tutorialSounds[2]; // protect the castle you're our only hope
 			//UIAudio.Play ();
 		}
