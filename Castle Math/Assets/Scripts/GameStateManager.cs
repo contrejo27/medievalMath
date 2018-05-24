@@ -64,6 +64,7 @@ public class GameStateManager : MonoBehaviour {
     void Start () {
  
         m_Controller = GameObject.FindObjectOfType<mathController>();
+        PlayerPrefs.SetInt("tutorialDone", 0); //temp to force tutorial
 
         gMetrics = GameObject.FindObjectOfType<GameMetrics>();
 
