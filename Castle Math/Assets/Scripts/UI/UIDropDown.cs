@@ -19,7 +19,7 @@ public class UIDropDown : MonoBehaviour {
     [HideInInspector]
     public float titleHeight;
     float fullHeight;
-    float lineSpacing = 1.2f;
+    public float lineSpacing = 1.2f;
 
     // Delegates
     public delegate void CheckToggle(UIDropDown dropDown);
@@ -112,7 +112,7 @@ public class UIDropDown : MonoBehaviour {
                 totalHeight -= entryHeights[dropDownInfo[i]] * lineSpacing / 2 + entryHeights[dropDownInfo[i]] * lineSpacing / 2;
             }
             Debug.Log(totalHeight);
-            UtilityFunctions.instance.UIPositionLerp(dropDownInfo[i], .2f,new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -dropDownInfo[i].rect.height*(2f/3f),0), new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -totalHeight - dropDownInfo[i].rect.height * (2f / 3f), 0), true);
+            UtilityFunctions.instance.UIPositionLerp(dropDownInfo[i], .05f,new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -dropDownInfo[i].rect.height*(2f/3f),0), new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -totalHeight - dropDownInfo[i].rect.height * (2f / 3f), 0), true);
             
         }
     }
@@ -124,7 +124,7 @@ public class UIDropDown : MonoBehaviour {
         {
             //dropDownInfo[i].anchoredPosition = new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -dropDownInfo[i].rect.height * (2f / 3f), 0);
             //dropDownInfo[i].gameObject.SetActive(false);
-            UtilityFunctions.instance.UIPositionLerp(dropDownInfo[i], .2f, dropDownInfo[i].anchoredPosition, new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -dropDownInfo[i].rect.height * (2f / 3f), 0), true, true);
+            UtilityFunctions.instance.UIPositionLerp(dropDownInfo[i], .05f, dropDownInfo[i].anchoredPosition, new Vector3(GetComponent<RectTransform>().rect.width * 1.5f, -dropDownInfo[i].rect.height * (2f / 3f), 0), true, true);
 
         }
     }
@@ -138,7 +138,7 @@ public class UIDropDown : MonoBehaviour {
 
     public float GetSubHeight()
     {
-        Debug.Log("Subheight: " + ((fullHeight) * lineSpacing));
+        //Debug.Log("Subheight: " + ((fullHeight) * lineSpacing));
         return (fullHeight)*lineSpacing;
     }
 

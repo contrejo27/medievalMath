@@ -35,13 +35,14 @@ public class UIDropDownMenu : MonoBehaviour {
         float combinedInitHeight = dd.rectTransform.rect.height / 2 + lineSpacing;//(dd.isExpanded) ? 0 : dd.rectTransform.rect.height; //dd.rectTransform.rect.height*lineSpacing;//(index < dropDowns.Count-1) ? dropDowns[index+1].titleHeight*lineSpacing : dropDowns[index].titleHeight*lineSpacing;
         for(int i = index+1; i < dropDowns.Count; i++)
         {
+            Debug.Log("lineSpacing UIDropDownMenu: " + lineSpacing);
             combinedInitHeight += dropDowns[i].rectTransform.rect.height / 2;
             //combinedHeight = 0;
             if (dd.isExpanded)
             {
                 Debug.Log("Subheight: " + dd.GetSubHeight() + ", combinedhight: " + combinedInitHeight + ", added: " + (combinedInitHeight + dd.GetSubHeight()));
                 UtilityFunctions.instance.UIPositionLerp(dropDowns[i].rectTransform,
-                    .2f,
+                    .05f,
                     dropDowns[i].rectTransform.anchoredPosition,
                     dropDowns[index].rectTransform.anchoredPosition + new Vector2(0, -((dd.GetSubHeight() + combinedInitHeight)*scaleModifier)),
                     true);
@@ -50,7 +51,7 @@ public class UIDropDownMenu : MonoBehaviour {
             {
                 //if(combinedInitHeight == 0) combinedInitHeight = 
                 UtilityFunctions.instance.UIPositionLerp(dropDowns[i].rectTransform,
-                    .2f,
+                    .05f,
                     dropDowns[i].rectTransform.anchoredPosition,
                     dropDowns[index].rectTransform.anchoredPosition - new Vector2(0, combinedInitHeight*scaleModifier/*lineSpacing*/),
                     true);
