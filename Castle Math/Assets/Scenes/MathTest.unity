@@ -9471,7 +9471,7 @@ MonoBehaviour:
   horseRiderPrefab: {fileID: 1372078820083414, guid: 0f5a5b7deccc20241a03bdea3a668b45,
     type: 2}
   currentWave: 0
-  finalWave: 20
+  finalWave: 1
   storyText: {fileID: 585508146}
   billboardCanvas: {fileID: 505358069}
   billboardTutorialImage: {fileID: 206640371}
@@ -9486,6 +9486,7 @@ MonoBehaviour:
   AnotherWave: {fileID: 8300000, guid: 5b328eff29efc45b6b58915737cfc7a5, type: 3}
   enemySounds: {fileID: 1484829144}
   trollsUnleashed: {fileID: 8300000, guid: f9a2af3c456eb5c45b046a63c5a6aa07, type: 3}
+  winSound: {fileID: 8300000, guid: 07579731accce8d4ca11aad0362f75a1, type: 3}
   horseRiderSpawnSound: {fileID: 8300000, guid: 117f84c41b6976a48807f9289205d991,
     type: 3}
   halfwayThrough: {fileID: 8300000, guid: 7cafbcfc73bde1443a9fa59aea3fb96c, type: 3}
@@ -13932,6 +13933,7 @@ GameObject:
   - component: {fileID: 1307804671}
   - component: {fileID: 1307804670}
   - component: {fileID: 1307804669}
+  - component: {fileID: 1307804672}
   m_Layer: 14
   m_Name: statCanvas
   m_TagString: Untagged
@@ -14027,6 +14029,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1307804672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1307804667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 739800cd36aba44e9b04ce977e5784bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastMode: 0
+  ignoreReversedGraphics: 1
+  blockingObjects: 0
+  blockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1311783783
 GameObject:
   m_ObjectHideFlags: 0
@@ -20742,6 +20761,7 @@ MonoBehaviour:
   - {fileID: 1185686058}
   - {fileID: 1352548050}
   statScreen: {fileID: 1307804667}
+  Anim: {fileID: 0}
   aSupplier: {fileID: 108418313}
 --- !u!114 &1869398081
 MonoBehaviour:
@@ -20991,6 +21011,7 @@ GameObject:
   - component: {fileID: 1904141219}
   - component: {fileID: 1904141218}
   - component: {fileID: 1904141217}
+  - component: {fileID: 1904141220}
   m_Layer: 14
   m_Name: winCanvas
   m_TagString: Untagged
@@ -21077,6 +21098,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!95 &1904141220
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1904141215}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 553468390b01a594e91f017714f2da7f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1909190704
 Prefab:
   m_ObjectHideFlags: 0
@@ -22256,7 +22294,6 @@ GameObject:
   - component: {fileID: 2098842481}
   - component: {fileID: 2098842480}
   - component: {fileID: 2098842479}
-  - component: {fileID: 2098842478}
   - component: {fileID: 2098842477}
   - component: {fileID: 2098842476}
   - component: {fileID: 2098842475}
@@ -22303,23 +22340,6 @@ MonoBehaviour:
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &2098842478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2098842474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 739800cd36aba44e9b04ce977e5784bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  raycastMode: 0
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
-  blockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
 --- !u!114 &2098842479

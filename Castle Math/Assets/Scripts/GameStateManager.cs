@@ -73,9 +73,11 @@ public class GameStateManager : MonoBehaviour {
 		
 		//first time game is opened sets up initial playerPref values
 		if(!PlayerPrefs.HasKey("isFirstTime")){
-			// Set and save all your PlayerPrefs here.
-			// Now set the value of isFirstTime to be false in the PlayerPrefs.
-			PlayerPrefs.SetInt("isFirstTime", 1);
+            PlayerPrefs.SetInt("tutorialDone", 0);
+
+            // Set and save all your PlayerPrefs here.
+            // Now set the value of isFirstTime to be false in the PlayerPrefs.
+            PlayerPrefs.SetInt("isFirstTime", 1);
 			PlayerPrefs.SetString("globalHS1","JGC,3,8");
 			PlayerPrefs.SetString("globalHS2","HBK,2,5");
 			PlayerPrefs.SetString("globalHS3","JGC,2,3");

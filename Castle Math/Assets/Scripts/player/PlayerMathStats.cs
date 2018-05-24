@@ -32,6 +32,7 @@ public class PlayerMathStats : MonoBehaviour {
     public GameObject winUI;
     public GameObject[] stars;
     public GameObject statScreen;
+    public Animator Anim;
 
     //analytics
     GameMetrics gMetrics;
@@ -41,6 +42,8 @@ public class PlayerMathStats : MonoBehaviour {
     public void Start(){
 		getHighScores();
         gMetrics = GameObject.FindObjectOfType<GameMetrics>();
+        Anim = winUI.GetComponent<Animator>();
+
 
     }
 
@@ -167,7 +170,8 @@ public class PlayerMathStats : MonoBehaviour {
 
     public void showWinUI(){
         winUI.SetActive(true);
-        stars[0].SetActive(true);
+        Anim.Play("scaleUp");
+
         SaveState();
 
         if (aSupplier.NumberOfArrows > 50){
@@ -181,7 +185,21 @@ public class PlayerMathStats : MonoBehaviour {
     }
 
     IEnumerator loadNextScreen(){
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
+        stars[0].SetActive(true);
+        yield return new WaitForSeconds(1f);
+
+        if (aSupplier.NumberOfArrows > 50)
+        {
+            stars[1].SetActive(true);
+            if (gradeNumber > 89)
+            {
+                yield return new WaitForSeconds(1f);
+                stars[2].SetActive(true);
+            }
+        }
+
+        yield return new WaitForSeconds(2f);
         winUI.SetActive(false);
         stars[0].SetActive(false);
         stars[1].SetActive(false);

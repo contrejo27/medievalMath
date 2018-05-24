@@ -30,6 +30,7 @@ public class WaveManager : MonoBehaviour {
 	private AudioSource A_Source;
 	public AudioSource enemySounds;
     public AudioClip trollsUnleashed;
+    public AudioClip winSound;
     public AudioClip horseRiderSpawnSound;
     public AudioClip halfwayThrough;
 
@@ -173,7 +174,9 @@ public class WaveManager : MonoBehaviour {
         currentWave += 1;
 		if(currentWave == finalWave){
             mStats.showWinUI();
-		}
+            A_Source.clip = winSound;
+            A_Source.Play();
+        }
         else{
             ActivateWave(currentWave);
         }
