@@ -15,6 +15,9 @@ public class ScoreTrackerMenu : MonoBehaviour {
     RectTransform localRectTransform;
     Vector2 initPosition;
 
+    float lastMouseYPosition;
+    float mouseYDelta;
+
 	// Use this for initialization
 	void Start () {
 
@@ -52,6 +55,10 @@ public class ScoreTrackerMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            lastMouseYPosition = Input.mousePosition.y;
+        }
         Scroll();
 	}
 
@@ -59,7 +66,17 @@ public class ScoreTrackerMenu : MonoBehaviour {
     {
         float scrollAxis = Input.GetAxis("Mouse ScrollWheel");
         //Debug.Log("ScrolAxis: " + scrollAxis);
-        if (scrollAxis == 0) return;
+        if (scrollAxis == 0)
+        {
+            if (Input.GetButton("Fire1"))
+            {
+                scrollAxis = Mathf.Clamp(Input.mousePosition.y - lastMouseYPosition, -1, 1)*.1f;
+                lastMouseYPosition = Input.mousePosition.y;
+            }
+
+        }
+
+        if(scrollAxis == 0) return;
         
         if(statsMenu.dropDowns[0].rectTransform.anchoredPosition.y + scrollSpeed* scrollAxis < initPosition.y)
         {
