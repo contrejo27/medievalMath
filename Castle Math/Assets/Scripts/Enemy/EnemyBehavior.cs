@@ -103,12 +103,6 @@ public class EnemyBehavior : MonoBehaviour {
 
     private void ReceiveDamage(int dmg)
     {
-        //		Anim.SetBool ("isHit", true);
-        if (!Anim.GetCurrentAnimatorStateInfo(0).IsName("death")) Anim.Play("wound1");
-
-        //Anim.SetBool ("isMoving", false);
-        //Anim.SetBool ("isHit", true);
-
         HitPoints -= dmg;
         if (HitPoints <= 0)
         {
@@ -118,6 +112,15 @@ public class EnemyBehavior : MonoBehaviour {
                 dead = true;
             }
         }
+        else Anim.Play("wound1");
+
+        //		Anim.SetBool ("isHit", true);
+        //if (HitPoints > 0) 
+
+        //Anim.SetBool ("isMoving", false);
+        //Anim.SetBool ("isHit", true);
+
+        
     }
 
 	IEnumerator WalkToTarget()
@@ -185,7 +188,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Anim.SetBool ("isMoving", false);
 
 		Anim.SetBool ("isDead", true);
-		Anim.Play("death");
+		//Anim.Play("death");
 
 		wManager.EnemyKilled ();
 		StartCoroutine (WaitToDestroy());

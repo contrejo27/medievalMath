@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 135700286548168682}
   m_Layer: 0
   m_Name: MicroDragon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -560,9 +560,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitPoints: 1
   MoveSpeed: 6
-  deathSounds: []
-  attackSounds: []
-  footstepSound: {fileID: 0}
+  deathSounds:
+  - {fileID: 8300000, guid: 5cf3efc307f24485e9bcde4cc8a681f0, type: 3}
+  - {fileID: 8300000, guid: 8d6a76aa6d8664b0aa4a5db5bd73db0e, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: f577df486c180dc44b76412e2920f5c6, type: 3}
+  footstepSound: {fileID: 8300000, guid: c83c381627b3ce949a476c3261fcf1f9, type: 3}
   attackDistance: 8
   Target: {fileID: 0}
 --- !u!135 &135700286548168682
