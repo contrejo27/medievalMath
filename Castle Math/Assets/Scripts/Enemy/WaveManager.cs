@@ -348,7 +348,7 @@ public class WaveManager : MonoBehaviour {
 		//if all enemies were killed
 		if (CurrentEnemies <= 0) {
 
-			if((currentWave+2) % 3 == 0 && currentWave+2 > 1 && currentWave !=19 && mManager.QuestionTypes[1])
+			if((currentWave+2) % 3 == 0 && currentWave+2 > 1 && currentWave !=19 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
             {
 				Mathm.ActivateInterMath();
 			}

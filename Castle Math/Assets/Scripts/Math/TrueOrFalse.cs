@@ -51,13 +51,13 @@ public class TrueOrFalse : MonoBehaviour, Question {
 
 		//Load Json file from assets folder
 		TextAsset text = (TextAsset)Resources.Load <TextAsset>("questions");
-		TextQuestion[] TextQuestions;
+		List<TextQuestion> TextQuestions;
 
 		if (text != null) {
 			string questionJson = text.text;
 			TextQuestions = JsonHelper.FromJson<TextQuestion> (questionJson);
 
-			int rand = Random.Range (0, TextQuestions.Length);
+			int rand = Random.Range (0, TextQuestions.Count);
 			TextQuestion currQuestion = TextQuestions[rand];
 			//QuestionText.text = currQuestion.questionText;
 			aInput.SetQuestion(currQuestion.questionText);

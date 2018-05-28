@@ -1,0 +1,25 @@
+{
+	"items":[
+		{
+			"questionType":"Subtraction", 
+			"text":["A new ", " costs ", " gems and you have ", " gems. How many more do you need to buy the ", "?"], 
+			"replacementType" : ["s","i","i","0"], 
+			"variableStrings" : [{"array":["crossbow", "sword", "shield"]}], 
+			"ranges":[{"array":[20,40]},{"array":[1,20]}]
+		},
+		{
+			"questionType":"Subtraction", 
+			"text":["A "," runs to the castle in ", " seconds and a ", " in ", " seconds. How many seconds will the ", " have to wait for the ", "?"], 
+			"replacementType" : ["s","i","s","i","2","0"], 
+			"variableStrings":[{"array":["troll", "minotaur", "lion"]},{"array":["knight","ranger","mage"]}], 
+			"ranges":[{"array":[11,20]},{"array":[1,10]}] 
+		},
+		{
+			"questionType":"Division", 
+			"text":["This ", " is ", " feet tall and a ", " is ", " feet tall. How many ", " would you need to stack to be as tall as the ","?" ], 
+			"replacementType": ["s","i","s","i","2","0"], 
+			"variableStrings":[{"array":["troll","dragon","cyclops"]},{"array":["knight","goblin","elf"]}], 
+			"ranges":[{"array":[12,32]},{"array":[4, 7]}]
+		}
+	]
+}

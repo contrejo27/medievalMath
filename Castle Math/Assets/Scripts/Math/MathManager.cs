@@ -29,6 +29,7 @@ public class MathManager : MonoBehaviour {
 	//TrueOrFalse True_False;
 	Fractions Fraction;
 	Algebra AlgebraQuestion;
+    WordProblem wordProblem;
 
 	public bool [] QuestionTypes;
 	public int IncorrectAnswersPerQuestion;
@@ -79,16 +80,24 @@ public class MathManager : MonoBehaviour {
 		GenerateProblem (QuestionTypes);
 	}
 
-	/// <summary>
-	/// Activates the in-between math functionality. Called between waves
-	/// </summary>
-	public void ActivateInterMath(){
-		interwaveMath = true;
-
-		//Generates a fraction question for the interwave math question
-		Fraction.GenerateQuestion (-1);//-1 => temp fix
-		A_Input.SetCorrectAnswer (Fraction.GetCorrectAnswer ());
-		currentQuestion = Fraction;
+    /// <summary>
+    /// Activates the in-between math functionality. Called between waves
+    /// </summary>
+    public void ActivateInterMath()
+    {
+        interwaveMath = true;
+        if (QuestionTypes[0])
+        {
+            wordProblem.GenerateQuestion(-1);
+            A_Input.SetCorrectAnswer(wordProblem.GetCorrectAnswer());
+            currentQuestion = wordProblem;
+        }
+        else if (QuestionTypes[1]) { 
+            //Generates a fraction question for the interwave math question
+            Fraction.GenerateQuestion(-1);//-1 => temp fix
+            A_Input.SetCorrectAnswer(Fraction.GetCorrectAnswer());
+            currentQuestion = Fraction;
+        }
 
 		ActivateBillboard();
 		//Check to see if all three questions have been asked

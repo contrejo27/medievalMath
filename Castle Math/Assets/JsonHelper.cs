@@ -5,29 +5,30 @@ using UnityEngine.UI;
 
 public static class JsonHelper
 {
-	public static T[] FromJson<T>(string json)
+	public static List<T> FromJson<T>(string json)
 	{
 		Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
-		return wrapper.Items;
+        Debug.Log("Wrapper items: " + wrapper.items.Count );
+		return wrapper.items;
 	}
 
-	public static string ToJson<T>(T[] array)
+	public static string ToJson<T>(List<T> array)
 	{
 		Wrapper<T> wrapper = new Wrapper<T>();
-		wrapper.Items = array;
+		wrapper.items = array;
 		return JsonUtility.ToJson(wrapper);
 	}
 
-	public static string ToJson<T>(T[] array, bool prettyPrint)
+	public static string ToJson<T>(List<T> array, bool prettyPrint)
 	{
 		Wrapper<T> wrapper = new Wrapper<T>();
-		wrapper.Items = array;
+		wrapper.items = array;
 		return JsonUtility.ToJson(wrapper, prettyPrint);
 	}
 
 	[System.Serializable]
 	private class Wrapper<T>
 	{
-		public T[] Items;
+		public List<T> items;
 	}
 }

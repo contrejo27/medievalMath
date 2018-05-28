@@ -115,7 +115,7 @@ public class EnemyBehavior : MonoBehaviour {
         else Anim.Play("wound1");
 
         //		Anim.SetBool ("isHit", true);
-        //if (HitPoints > 0) 
+        // if (HitPoints > 0) 
 
         //Anim.SetBool ("isMoving", false);
         //Anim.SetBool ("isHit", true);
