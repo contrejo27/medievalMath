@@ -6,7 +6,7 @@ public class UIEffects : MonoBehaviour {
 	
 	 public void fadeOut(float speed)
 	 {
-        //p
+        //pp
 		StartCoroutine(fadePanelCoroutine(speed));
 	 }
 	 
