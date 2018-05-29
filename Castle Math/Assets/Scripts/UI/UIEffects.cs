@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UIEffects : MonoBehaviour {
-	
+     IEnumerator coroutine;
 	 public void fadeOut(float speed)
 	 {
-        //pp
-		StartCoroutine(fadePanelCoroutine(speed));
+        if(coroutine != null) StopCoroutine(coroutine);
+        coroutine = fadePanelCoroutine(speed);
+
+        StartCoroutine(coroutine);
 	 }
 	 
 	private IEnumerator fadePanelCoroutine(float speed)    {
@@ -22,8 +24,10 @@ public class UIEffects : MonoBehaviour {
 	
 	public void fadeIn(float speed)
 	{
-	//	transform.localScale = new Vector3(1f,1f,1f);
-		StartCoroutine(fadeInPanelCoroutine(speed));
+        //	transform.localScale = new Vector3(1f,1f,1f);
+        if(coroutine != null) StopCoroutine(coroutine);
+        coroutine = fadeInPanelCoroutine(speed);
+        StartCoroutine(coroutine);
 	}
 	 
 	private IEnumerator fadeInPanelCoroutine(float speed)    {
