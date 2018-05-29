@@ -110,7 +110,9 @@ public class QuestionTracker {
 			q = new TrueOrFalse ();
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(Algebra))) {
 			q = new Algebra ();
-		} else {
+		} else if (Object.ReferenceEquals (question.GetType (), typeof(WordProblem))) {
+            q = new WordProblem();
+        } else {
 			q = null;
 		}
 

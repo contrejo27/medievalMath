@@ -19,7 +19,7 @@ public class MenuManager : MonoBehaviour
     public AudioClip splashScreenSountrack;
 
     public Button m_loginButton;
-    public mathController mController;
+    public MathController mController;
 
     private void Start()
     {

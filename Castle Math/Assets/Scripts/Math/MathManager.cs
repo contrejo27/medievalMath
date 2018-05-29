@@ -23,60 +23,66 @@ public class MathManager : MonoBehaviour {
   
 	AnswerInput A_Input;
 
-	MultiplyOrDivide Multi_Divide;
-	AddOrSubtract Add_Sub;
+	MultiplyOrDivide multOrDiv;
+	AddOrSubtract addOrSub;
 	//Compare Comparision;
 	//TrueOrFalse True_False;
-	Fractions Fraction;
-	Algebra AlgebraQuestion;
+	Fractions fractions;
+	Algebra algebraQuestion;
     WordProblem wordProblem;
 
 	public bool [] QuestionTypes;
+    public List<int> intermathQTypeOptions;
 	public int IncorrectAnswersPerQuestion;
 	private int QuestionType;
 	private Question currentQuestion;
 
 
 	public GameObject mathCanvas;
-	public mathController m_Controller;
+	public MathController m_Controller;
 	public UIEffects interMathCanvas;
 	public UIEffects interMathButtons;
 
 	// Use this for initialization
 	void Start () {
-		A_Input = GameObject.FindObjectOfType<AnswerInput> ();
-		Multi_Divide = GameObject.FindObjectOfType<MultiplyOrDivide> ();
+		A_Input = GetComponent<AnswerInput> ();
+		multOrDiv = GetComponent<MultiplyOrDivide> ();
 		//Comparision = GameObject.FindObjectOfType<Compare> ();
-		Add_Sub = GameObject.FindObjectOfType<AddOrSubtract> ();
+		addOrSub = GetComponent<AddOrSubtract> ();
 	//	True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
-		Fraction = GameObject.FindObjectOfType<Fractions> ();
-		AlgebraQuestion = GameObject.FindObjectOfType<Algebra> ();
-		m_Controller = GameObject.FindObjectOfType<mathController> ();
+		fractions = GetComponent<Fractions> ();
+		algebraQuestion = GetComponent<Algebra> ();
+		m_Controller = GetComponent<MathController> ();
+        wordProblem = GetComponent<WordProblem>();
 
-		Multi_Divide.Start ();
-		Add_Sub.Start ();
+		multOrDiv.Start ();
+		addOrSub.Start ();
 	//	Comparision.Start ();
 	//	True_False.Start ();
-		Fraction.Start ();
-		AlgebraQuestion.Start ();
+		fractions.Start ();
+		algebraQuestion.Start ();
 
 		//A_Input.Start ();
 
 		QuestionTypes = new bool[4];
 		if(m_Controller != null){
 			QuestionTypes [0] = m_Controller.add_sub;
+            if (m_Controller.add_sub) intermathQTypeOptions.Add(0);
 			QuestionTypes [1] = m_Controller.mult_divide;
-			//QuestionTypes [2] = m_Controller.wordProblems;
-			//QuestionTypes [3] = m_Controller.wordProblems;
-			QuestionTypes [2] = m_Controller.fractions;
+            if (m_Controller.mult_divide) intermathQTypeOptions.Add(1);
+            //QuestionTypes [2] = m_Controller.wordProblems;
+            //QuestionTypes [3] = m_Controller.wordProblems;
+            QuestionTypes [2] = m_Controller.fractions;
 			QuestionTypes [3] = m_Controller.preAlgebra;
 		}
 		else{
 			QuestionTypes [0] = true;
-			QuestionTypes [1] = false;
+            intermathQTypeOptions.Add(0);
+            QuestionTypes [1] = false;
 			QuestionTypes [2] = false;
 			QuestionTypes [3] = false;
 		}
+        
 		GenerateProblem (QuestionTypes);
 	}
 
@@ -86,18 +92,8 @@ public class MathManager : MonoBehaviour {
     public void ActivateInterMath()
     {
         interwaveMath = true;
-        if (QuestionTypes[0])
-        {
-            wordProblem.GenerateQuestion(-1);
-            A_Input.SetCorrectAnswer(wordProblem.GetCorrectAnswer());
-            currentQuestion = wordProblem;
-        }
-        else if (QuestionTypes[1]) { 
-            //Generates a fraction question for the interwave math question
-            Fraction.GenerateQuestion(-1);//-1 => temp fix
-            A_Input.SetCorrectAnswer(Fraction.GetCorrectAnswer());
-            currentQuestion = Fraction;
-        }
+
+        GenerateInterMathQuestion();
 
 		ActivateBillboard();
 		//Check to see if all three questions have been asked
@@ -105,12 +101,29 @@ public class MathManager : MonoBehaviour {
 
 	public void GenerateInterMathQuestion(){
 
-		//Generates a fraction question for the interwave math question
-		Fraction.GenerateQuestion (-1);//-1 => temp fix
-		A_Input.SetCorrectAnswer (Fraction.GetCorrectAnswer ());
-		currentQuestion = Fraction;
+        switch (intermathQTypeOptions[Random.Range(0, intermathQTypeOptions.Count)])
+        {
+            case 0:
+                Debug.Log("Generating word problem");
+                GenerateQuestionForInterMath(wordProblem);
+                break;
+            case 1:
+                GenerateQuestionForInterMath(multOrDiv);
+                break;
+            default:
+                break;
+        }
+        
 
 	}
+
+    private void GenerateQuestionForInterMath(Question q)
+    {
+        //Generates a fraction question for the interwave math question
+        q.GenerateQuestion(-1);//-1 => temp fix
+        A_Input.SetCorrectAnswer(q.GetCorrectAnswer());
+        currentQuestion = q;
+    }
 
 	/// <summary>
 	/// Deactivates the in-between math functionality.
@@ -216,13 +229,13 @@ public class MathManager : MonoBehaviour {
         }
  		int selectedMath = currentQuestionTypes[Random.Range (0, currentQuestionTypes.Count)];
 		if (selectedMath == 0) {
-			Add_Sub.GenerateQuestion (mathDifficultyAorS);
-			A_Input.SetCorrectAnswer (Add_Sub.GetCorrectAnswer ());
-			currentQuestion = Add_Sub;
+			addOrSub.GenerateQuestion (mathDifficultyAorS);
+			A_Input.SetCorrectAnswer (addOrSub.GetCorrectAnswer ());
+			currentQuestion = addOrSub;
 		} else if (selectedMath == 1) {
-			Multi_Divide.GenerateQuestion (mathDifficultyMorD);
-			A_Input.SetCorrectAnswer (Multi_Divide.GetCorrectAnswer ());
-			currentQuestion = Multi_Divide;
+			multOrDiv.GenerateQuestion (mathDifficultyMorD);
+			A_Input.SetCorrectAnswer (multOrDiv.GetCorrectAnswer ());
+			currentQuestion = multOrDiv;
 		}/* else if (selectedMath == 2) {
 			Comparision.GenerateQuestion (-1); //-1 => temp fix
 			A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
@@ -232,13 +245,13 @@ public class MathManager : MonoBehaviour {
 			A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
 			currentQuestion = True_False;
 		}*/ else if (selectedMath == 2) {
-			Fraction.GenerateQuestion (-1);//-1 => temp fix
-			A_Input.SetCorrectAnswer (Fraction.GetCorrectAnswer ());
-			currentQuestion = Fraction;
+			fractions.GenerateQuestion (-1);//-1 => temp fix
+			A_Input.SetCorrectAnswer (fractions.GetCorrectAnswer ());
+			currentQuestion = fractions;
 		} else if (selectedMath == 3) {
-			AlgebraQuestion.GenerateQuestion (mathDifficultyAorS);
-			A_Input.SetCorrectAnswer (AlgebraQuestion.GetCorrectAnswer ());
-			currentQuestion = AlgebraQuestion;
+			algebraQuestion.GenerateQuestion (mathDifficultyAorS);
+			A_Input.SetCorrectAnswer (algebraQuestion.GetCorrectAnswer ());
+			currentQuestion = algebraQuestion;
 		}
 
 		totalQuestionsAnswered++;

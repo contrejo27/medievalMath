@@ -43,7 +43,7 @@ public class GameStateManager : MonoBehaviour {
 
     //analytics
     GameMetrics gMetrics;
-    mathController m_Controller;
+    MathController m_Controller;
 
     //Singleton
     public static GameStateManager instance;
@@ -63,7 +63,7 @@ public class GameStateManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
  
-        m_Controller = GameObject.FindObjectOfType<mathController>();
+        m_Controller = GameObject.FindObjectOfType<MathController>();
         PlayerPrefs.SetInt("tutorialDone", 0); //temp to force tutorial
 
         gMetrics = GameObject.FindObjectOfType<GameMetrics>();

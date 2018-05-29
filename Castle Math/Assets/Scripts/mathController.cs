@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class mathController : MonoBehaviour {
+public class MathController : MonoBehaviour {
 
 	public bool add_sub;
 	public bool mult_divide;
@@ -15,10 +15,25 @@ public class mathController : MonoBehaviour {
     public Text mathInstructions;
     public float startTime;
 
-    Color textColor; 
+    Color textColor;
+
+    MathController instance;
     // Use this for initialization
+    void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start () {
         PlayerPrefs.SetInt("LoggedIn",1); //for debugging 
+
 
         DontDestroyOnLoad(this.gameObject);
         if (PlayerPrefs.GetInt("LoggedIn") == 0) {

@@ -18,12 +18,12 @@ public class LoginPopup : MonoBehaviour
 
     private LogInDatabase m_database;
 
-    mathController mController;
+    MathController mController;
 
 	private void Start()
 	{
         m_database = FindObjectOfType<LogInDatabase>();
-        mController = GameObject.Find("mathController").GetComponent<mathController>();
+        mController = GameObject.Find("mathController").GetComponent<MathController>();
         if (m_database == null)
             Debug.LogError("No <b>LogInDatabase</b> object found in scene");
 
