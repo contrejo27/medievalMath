@@ -85,7 +85,7 @@ public class WordProblem : MonoBehaviour, Question {
 
             GenerateQuestionString();
             Debug.Log("final question: " + questionString);
-            aInput.SetQuestion(questionString);
+            aInput.SetQuestion(questionString, 1);
         }
         
         /*

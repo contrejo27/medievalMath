@@ -45,7 +45,7 @@ public class AnswerInput : MonoBehaviour {
 	// Use this for initialization
     public void Awake()
     {
-        QuestionTexts = GameObject.FindGameObjectsWithTag("Question");
+        //QuestionTexts = GameObject.FindGameObjectsWithTag("Question");
 
     }
 
@@ -272,13 +272,12 @@ public class AnswerInput : MonoBehaviour {
 	/// Sets the question display.
 	/// </summary>
 	/// <param name="question">Question.</param>
-	public void SetQuestion(string question) {
-        Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + QuestionTexts.Length);
-		for (int i = 0; i < QuestionTexts.Length; i++) {
-			Text QuestionText = QuestionTexts [i].GetComponent<Text>();
-            Debug.Log("(AInput) Setting Question to: " + question + " in " + QuestionText.name );
-			QuestionText.text = question;
-		}
+	public void SetQuestion(string question, int index = 0) {
+        //Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + QuestionTexts.Length);
+		
+		Text QuestionText = QuestionTexts [index].GetComponent<Text>();
+        //Debug.Log("(AInput) Setting Question to: " + question + " in " + QuestionText.name );
+		QuestionText.text = question;
 	}
 
 	public int GetCorrectOfType(System.Type type) {
