@@ -55,6 +55,8 @@ public class WaveManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        GameStateManager.instance.waveManager = this;
+
 		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
 
         //first integer in array is type of launch (0 all at once/1 staggered/2 waves/3 singles) second is number of enemies per lane
@@ -351,9 +353,10 @@ public class WaveManager : MonoBehaviour {
 			if((currentWave+2) % 3 == 0 && currentWave+2 > 1 && currentWave !=19 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
             {
 				Mathm.ActivateInterMath();
-			}
+            }
 			else{
-				NextWave();
+                GameStateManager.instance.ActivatePotionShop();
+				//NextWave();
 			}
 
 			A_Source.clip = WaveCleared;

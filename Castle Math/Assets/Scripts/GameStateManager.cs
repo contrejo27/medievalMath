@@ -34,12 +34,25 @@ public class GameStateManager : MonoBehaviour {
 	public PlayerMathStats playerMathStats;
 	
 	//Environment
-	private LaunchProjectile Player;
+    [HideInInspector]
+	public LaunchProjectile player;
 	public Light directionalLight;
 	private bool loseState = false;
 	public doorHealth fence1,fence2,fence3;
 	public GameObject billboard;
     public int currentSkillLevel;
+
+    //References
+    [HideInInspector]
+    public PlayerController playerController;
+    [HideInInspector]
+    public PotionShop potionShop;
+    [HideInInspector]
+    public Inventory inventory;
+    [HideInInspector]
+    public WaveManager waveManager;
+    [HideInInspector]
+    public MathManager mathManager;
 
     //analytics
     GameMetrics gMetrics;
@@ -62,14 +75,15 @@ public class GameStateManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
- 
+        // If this block is commented, uncomment it
+        /*
         m_Controller = GameObject.FindObjectOfType<MathController>();
         PlayerPrefs.SetInt("tutorialDone", 0); //temp to force tutorial
 
         gMetrics = GameObject.FindObjectOfType<GameMetrics>();
 
         RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
-		Player = GameObject.FindObjectOfType<LaunchProjectile> (); 
+		player = GameObject.FindObjectOfType<LaunchProjectile> (); 
 		mainMenuEffects.fadeIn (.4f);
 		
 		//first time game is opened sets up initial playerPref values
@@ -89,7 +103,7 @@ public class GameStateManager : MonoBehaviour {
         else{
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
-
+        */
     }
 
     public void StartGame(){
@@ -116,7 +130,7 @@ public class GameStateManager : MonoBehaviour {
 		}
 		SaveGame();
 
-		Player.isAlive = false;
+		player.isAlive = false;
 		
 		//set UI
 		LoseScreen.SetActive (true);
@@ -238,4 +252,9 @@ public class GameStateManager : MonoBehaviour {
 		playerMathStats.SaveState();
 		PlayerPrefs.SetString("PlayerName", playerName);
 	}
+
+    public void ActivatePotionShop()
+    {
+        potionShop.gameObject.SetActive(true);
+    }
 }

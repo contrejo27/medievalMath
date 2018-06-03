@@ -35,9 +35,15 @@ public class LaunchProjectile : MonoBehaviour {
 	public AudioClip LaunchSound;
 	public AudioClip ReloadSound;
 
+    void Awake()
+    {
+       // GameStateManager.instance.player = this;
+    }
+
 	// Use this for initialization
 	void Start () {
-		PowerUpDisplay = FindObjectOfType<ManaBar> ();
+        GameStateManager.instance.player = this;
+        PowerUpDisplay = FindObjectOfType<ManaBar> ();
 		ModiferEffectCounter = new int[System.Enum.GetValues (typeof(ArrowModifier)).Length];
 		crossbowAnim = crossbow.GetComponent<Animator>();
 		

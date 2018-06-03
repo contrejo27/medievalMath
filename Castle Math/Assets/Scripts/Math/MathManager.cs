@@ -45,6 +45,8 @@ public class MathManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        GameStateManager.instance.mathManager = this;
+
 		A_Input = GetComponent<AnswerInput> ();
 		multOrDiv = GetComponent<MultiplyOrDivide> ();
 		//Comparision = GameObject.FindObjectOfType<Compare> ();
