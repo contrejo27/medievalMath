@@ -98,7 +98,8 @@ public class Potion : BaseInteractableObject {
             
         } else if(currentState == PotionState.inventory)
         {
-            DoEffect();
+            if(!GameStateManager.instance.player.IsUnderTheInfluence())
+                DoEffect();
             /* Destroy object
              * Update inventory with relevant info
              * (This si in the doeffect function now)
@@ -151,11 +152,16 @@ public class Potion : BaseInteractableObject {
     {
         GameStateManager.instance.player.SetLookingAtInterface(true);
         if (!isHighlighted && UIEnabled) {
-            // TEMP VALUE FOR PLAYER GEM AMOUNT
-            int tempGemAmount = 10;
             //c consider colorblindness for the future
-            Color c = (GameStateManager.instance.playerController.gemsOwned >= cost || currentState == PotionState.inventory) ? Color.green : Color.red;
-            if (GameStateManager.instance.inventory.IsInventoryFull()) c = Color.yellow;
+            Color c = Color.green;
+            if (currentState == PotionState.shop)
+            {
+                c = (GameStateManager.instance.playerController.gemsOwned >= cost ) ? Color.green : Color.red;
+                if (GameStateManager.instance.inventory.IsInventoryFull()) c = Color.yellow;
+            }else if(currentState == PotionState.inventory)
+            {
+                c = (GameStateManager.instance.player.IsUnderTheInfluence()) ? Color.yellow : Color.green;
+            }
             foreach (MeshRenderer mr in meshRenderers)
             {
                 Material[] mBackup = new Material[mr.materials.Length];

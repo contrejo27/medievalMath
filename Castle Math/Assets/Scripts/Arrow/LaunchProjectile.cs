@@ -253,7 +253,7 @@ public class LaunchProjectile : MonoBehaviour {
 		playShootingSound(4);
 	}
 
-    public bool IsArrowUnderTheInfluence()
+    public bool IsUnderTheInfluence()
     {
         return CurrentArrowModifiers.Count > 0;
     }
