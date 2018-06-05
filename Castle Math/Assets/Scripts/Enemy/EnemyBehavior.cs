@@ -8,12 +8,14 @@ public class EnemyBehavior : MonoBehaviour {
 
 	//enemy
 	public int hitPoints;
-	bool dead = false;
+    bool dead = false;
 	public float moveSpeed;
 	bool attacking = false;
     [HideInInspector]
     Queue<int> hitQueue = new Queue<int>();
     public NavMeshAgent navMeshAgent;
+    [HideInInspector]
+    public bool hasBombDeath;
 	
 	//audio
 	public AudioClip[] deathSounds;
@@ -25,7 +27,7 @@ public class EnemyBehavior : MonoBehaviour {
 	private Animator animator; 
 	public float attackDistance;
 	private bool isMoving;
-	public bool atTarget {get; set;}
+	public bool AtTarget {get; set;}
 	
 	//environment
 	private doorHealth dH;
@@ -149,7 +151,8 @@ public class EnemyBehavior : MonoBehaviour {
 		float distance = heading.magnitude;
         */
         float distance = Vector3.Magnitude(target.position-transform.position);
-		animator.SetBool ("isMoving", true);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool ("isMoving", true);
 		
         //move tbe player at a constant velocity to the target until they are a certain disstance away
 		while (distance > attackDistance && hitPoints>0) {
@@ -215,6 +218,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public void Killed()
 	{
         navMeshAgent.speed = 0;
+        navMeshAgent.enabled = false;
 
 		currentAudioSource = Random.Range(0, audioSource.Length);
 		audioSource[currentAudioSource].loop = false;
@@ -222,8 +226,9 @@ public class EnemyBehavior : MonoBehaviour {
 		audioSource[currentAudioSource].Play ();
 
 		Collider enemyHitbox = this.GetComponent<Collider>();
-		Destroy(enemyHitbox);
+		//Destroy(enemyHitbox);
 		
+        if(!hasBombDeath)
 		this.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;		
 		
 		animator.SetBool ("isAttacking", false);
@@ -250,5 +255,9 @@ public class EnemyBehavior : MonoBehaviour {
 		dH.TakeDamageGate (damage);
 	}
 
+    public bool GetIsDead()
+    {
+        return dead;
+    }
 
 }
