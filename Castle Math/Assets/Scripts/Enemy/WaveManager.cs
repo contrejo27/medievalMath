@@ -20,6 +20,7 @@ public class WaveManager : MonoBehaviour {
 
     //Environment 
     public Transform[] SpawnPoints;
+    public Transform[] fenceTargets;
 	public MathManager Mathm;
     public GameObject billboard;
     public GameStateManager gManager;
@@ -333,7 +334,7 @@ public class WaveManager : MonoBehaviour {
 	void spawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn){
 		//int randomSpawn = Random.Range(0, SpawnPoints.Length);
 		GameObject enemyObject = Instantiate(enemy, SpawnPoints[spawn].position + new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[0].rotation);
-		enemyObject.GetComponent<EnemyBehavior>().SetTarget(spawn+1); //points enemy at right target. adjusted for UI name
+		enemyObject.GetComponent<EnemyBehavior>().SetTarget(fenceTargets[spawn]); //points enemy at right target. adjusted for UI name
 		addEnemyToWaveSize();
 		//GameObject enemyObject = Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[randomSpawn].rotation);
 

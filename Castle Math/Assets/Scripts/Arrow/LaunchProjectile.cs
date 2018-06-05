@@ -13,14 +13,14 @@ public class LaunchProjectile : MonoBehaviour {
 
 	//arrow
 	public GameObject crossbow;
-	public GameObject FirePoint;
+	public GameObject firePoint;
 	public GameObject[] Projectiles;
 	public bool isAlive { get; set;}
 	public List<ArrowModifier> CurrentArrowModifiers;
     public TutorialBehavior tutorialBehavior;
 
     ArrowSupplier A_Supply;
-	GameObject ArrowToLaunch;
+	GameObject arrowToLaunch;
 	bool burst;
 	bool ArrowLoaded;
 	int[] ModiferEffectCounter;
@@ -54,8 +54,8 @@ public class LaunchProjectile : MonoBehaviour {
 		//we Instantiate(create) a bullet at the postion and rotation of fire point
 		
 		//arrow we create and then delete after first one is shot.
-		tempArrow = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
-		tempArrow.transform.parent = FirePoint.transform;
+		tempArrow = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], firePoint.transform.position, firePoint.transform.rotation);
+		tempArrow.transform.parent = firePoint.transform;
 		tempArrow.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
 		tempArrow.GetComponent<Rigidbody> ().useGravity = false;
 
@@ -93,6 +93,8 @@ public class LaunchProjectile : MonoBehaviour {
 	{
 		CurrentArrowModifiers.Add (newModification);
 
+        CreateShot();
+
 		StartCoroutine (DelayRemovePowerUp (newModification, PowerUpIndex));
 
 		//set the counter of the associated int
@@ -101,7 +103,7 @@ public class LaunchProjectile : MonoBehaviour {
 	
 	void setModifiers(){
 		//an arrow can have multiple arrow class components
-		ArrowClass[] ArrowModifiers = ArrowToLaunch.GetComponents<ArrowClass> ();
+		ArrowClass[] ArrowModifiers = arrowToLaunch.GetComponents<ArrowClass> ();
 		for (int i = 0; i < ArrowModifiers.Length; i++) {
 			ArrowModifiers [i].ArrowLaunched();
 		}
@@ -149,11 +151,18 @@ public class LaunchProjectile : MonoBehaviour {
 			Destroy(tempArrow);
 			firstShot = false;
 		}
-		//we Instantiate(create) a bullet at the postion and rotation of fire point
-		ArrowToLaunch = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
+        //we Instantiate(create) a bullet at the postion and rotation of fire point
+        foreach(Transform child in firePoint.GetComponentsInChildren<Transform>())
+        {
+            if (child != firePoint.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+		arrowToLaunch = Instantiate (Projectiles[Mathf.Clamp(A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1], 0, A_Supply.ArrowIndex.Count-1)], firePoint.transform.position, firePoint.transform.rotation);
 
-		ArrowToLaunch.transform.parent = FirePoint.transform;
-		ArrowToLaunch.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
+		arrowToLaunch.transform.parent = firePoint.transform;
+		arrowToLaunch.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
 
 		//go through the list of modifiers and add them to the Arrow to give special abilities
 		for (int i = 0; i < CurrentArrowModifiers.Count; i++) {
@@ -161,7 +170,7 @@ public class LaunchProjectile : MonoBehaviour {
 			{
 			case ArrowModifier.Bomb:
 				//RemoveModifier (ArrowModifier.Bomb);
-				ArrowToLaunch.GetComponent<BombArrow>().activate(true);
+				arrowToLaunch.GetComponent<BombArrow>().activate(true);
 				break;
 			case ArrowModifier.Burst:
 				//RemoveModifier (ArrowModifier.Burst);
@@ -171,26 +180,26 @@ public class LaunchProjectile : MonoBehaviour {
 				break;
 			case ArrowModifier.Spread:
 				//RemoveModifier (ArrowModifier.Shotgun);
-				ArrowToLaunch.AddComponent<ShotgunArrow> ().activate(true);
+				arrowToLaunch.AddComponent<ShotgunArrow> ().activate(true);
 				break;
 			}
 		}
-		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = true;
-		ArrowToLaunch.GetComponent<BoxCollider> ().enabled = false; 
-		ArrowToLaunch.GetComponent<Rigidbody> ().useGravity = false;
+		arrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = true;
+		arrowToLaunch.GetComponent<BoxCollider> ().enabled = false; 
+		arrowToLaunch.GetComponent<Rigidbody> ().useGravity = false;
 	}
 
 	public void Launch(){
 		crossbowAnim.Play("crossbowShot");
-		ArrowToLaunch.transform.parent = null;
-		ArrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
+		arrowToLaunch.transform.parent = null;
+		arrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
 		setModifiers();
 		if(burst) LaunchBurst();
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
-		ArrowToLaunch.GetComponent<Rigidbody> ().useGravity = true;
-		ArrowToLaunch.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -5000);
-		ArrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
-		Destroy(ArrowToLaunch, 1.2f);
+		arrowToLaunch.GetComponent<Rigidbody> ().useGravity = true;
+		arrowToLaunch.GetComponent<Rigidbody> ().AddForce (firePoint.transform.right * -5000);
+		arrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
+		Destroy(arrowToLaunch, 1.2f);
 		StartCoroutine (ReloadTime ());
 	}
 
@@ -220,28 +229,33 @@ public class LaunchProjectile : MonoBehaviour {
 	IEnumerator burstShot(){
 		yield return new WaitForSeconds (.12f);
 		//Instantiate arrow at the postion and rotation of fire point
-		GameObject burstArrow = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
-		burstArrow.transform.parent = FirePoint.transform;
+		GameObject burstArrow = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], firePoint.transform.position, firePoint.transform.rotation);
+		burstArrow.transform.parent = firePoint.transform;
 		burstArrow.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
 		burstArrow.transform.parent = null;
 		burstArrow.GetComponent<ProjectileBehavior> ().isGrounded = false;
 		//We then access the rigidbody of the bullet and apply a strong forward force to it. 
-		burstArrow.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -5000);
+		burstArrow.GetComponent<Rigidbody> ().AddForce (firePoint.transform.right * -5000);
 		burstArrow.GetComponent<BoxCollider> ().enabled = true; 
 		Destroy(burstArrow, 1.2f);
 
 		playShootingSound(0);
 		yield return new WaitForSeconds (.12f);
-		GameObject burstArrow2 = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], FirePoint.transform.position, FirePoint.transform.rotation);
-		burstArrow2.transform.parent = FirePoint.transform;
+		GameObject burstArrow2 = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], firePoint.transform.position, firePoint.transform.rotation);
+		burstArrow2.transform.parent = firePoint.transform;
 		burstArrow2.transform.localRotation = Quaternion.Euler (new Vector3 (0, -83, 0));
 		burstArrow2.transform.parent = null;
 		burstArrow2.GetComponent<ProjectileBehavior> ().isGrounded = false;
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
-		burstArrow2.GetComponent<Rigidbody> ().AddForce (FirePoint.transform.right * -5000);
+		burstArrow2.GetComponent<Rigidbody> ().AddForce (firePoint.transform.right * -5000);
 		burstArrow2.GetComponent<BoxCollider> ().enabled = true; 
 		Destroy(burstArrow2, 1.2f);
 		playShootingSound(4);
 	}
+
+    public bool IsArrowUnderTheInfluence()
+    {
+        return CurrentArrowModifiers.Count > 0;
+    }
 
 }

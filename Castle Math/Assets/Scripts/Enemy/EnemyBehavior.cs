@@ -1,45 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour {
 	private WaveManager wManager;
 
 	//enemy
-	public int HitPoints;
+	public int hitPoints;
 	bool dead = false;
-	public float MoveSpeed;
+	public float moveSpeed;
 	bool attacking = false;
     [HideInInspector]
     Queue<int> hitQueue = new Queue<int>();
+    public NavMeshAgent navMeshAgent;
 	
 	//audio
 	public AudioClip[] deathSounds;
 	public AudioClip[] attackSounds;
 	public AudioClip footstepSound;
-	private AudioSource[] A_Source;
+	private AudioSource[] audioSource;
 
 	//animation
-	private Animator Anim; 
+	private Animator animator; 
 	public float attackDistance;
 	private bool isMoving;
-	public bool AtTarget {get; set;}
+	public bool atTarget {get; set;}
 	
 	//environment
 	private doorHealth dH;
-	public GameObject Target;
+	public Transform target;
 
 	private int currentAudioSource;
 	
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        
+        navMeshAgent.stoppingDistance = attackDistance;
+        //navMeshAgent.
+    }
+
 	// Use this for initialization
 	void Start () {
-		Anim = GetComponent<Animator> ();
-
+		
+        //navMeshAgent;
 		isMoving = false;
 		wManager = GameObject.FindObjectOfType<WaveManager> ();
 
 		//get 3 different audio sources so they don't overlap all the time
-		A_Source = new AudioSource[] {GameObject.Find ("EnemyAudio").GetComponent<AudioSource>(),
+		audioSource = new AudioSource[] {GameObject.Find ("EnemyAudio").GetComponent<AudioSource>(),
 					GameObject.Find ("EnemyAudio2").GetComponent<AudioSource>(),
 					GameObject.Find ("EnemyAudio3").GetComponent<AudioSource>()};
 
@@ -47,25 +58,25 @@ public class EnemyBehavior : MonoBehaviour {
 		//GameObject[] Targets = GameObject.FindGameObjectsWithTag ("Target");
 		//int RanNum = Random.Range (0, Targets.Length);
 		//Target = Targets [RanNum];
-		StartCoroutine(waitToPlay(2f));
+		StartCoroutine(WaitToPlay(2f));
 
-		StartCoroutine (WalkToTarget());
+		
 	}
 	
-	IEnumerator waitToPlay(float time){
+	IEnumerator WaitToPlay(float time){
 		yield return new WaitForSeconds (time);
-		currentAudioSource = Random.Range(0, A_Source.Length);
-		A_Source[currentAudioSource].loop = true;
-		A_Source[currentAudioSource].clip = footstepSound;
-		A_Source[currentAudioSource].Play ();
+		currentAudioSource = Random.Range(0, audioSource.Length);
+		audioSource[currentAudioSource].loop = true;
+		audioSource[currentAudioSource].clip = footstepSound;
+		audioSource[currentAudioSource].Play ();
 	}
 	void Update()
 	{
 		//if he's alive have him walk to target
-		if (HitPoints > 0) {
+		if (hitPoints > 0) {
 			//rotate the character correctly in the direction of the heading
-			Quaternion newRot = Quaternion.LookRotation (Target.transform.position - this.transform.position);
-			transform.rotation = Quaternion.Euler (new Vector3 (0, newRot.eulerAngles.y, 0));
+			//Quaternion newRot = Quaternion.LookRotation (target.transform.position - this.transform.position);
+			//transform.rotation = Quaternion.Euler (new Vector3 (0, newRot.eulerAngles.y, 0));
 
 			if (isMoving == false) StartCoroutine (WalkToTarget());
 
@@ -80,16 +91,18 @@ public class EnemyBehavior : MonoBehaviour {
 		}*/
 	}
 		
-	public void SetTarget(int initialTarget){
-		string targetName = "gateCollision" + initialTarget;
-		Target =  GameObject.Find (targetName);
-		dH = GameObject.Find (targetName).GetComponent<doorHealth>();
-	}
+	public void SetTarget(Transform initialTarget){
+		target = initialTarget;
+        navMeshAgent.SetDestination(target.position + new Vector3(0,3,0));
+        dH = initialTarget.gameObject.GetComponent<doorHealth>();
+        StartCoroutine(WalkToTarget());
+    }
 	
-	public void UpdateTarget(GameObject newTarget){
-		Target = newTarget;
-		Anim.SetBool ("isAttacking", false);
-		Anim.Play ("move");
+	public void UpdateTarget(Transform newTarget){
+		target = newTarget;
+        navMeshAgent.SetDestination(target.position + new Vector3(0,3,0));
+        animator.SetBool ("isAttacking", false);
+		animator.Play ("move");
 		isMoving = true;
 		attacking = false;
 		StartCoroutine (WalkToTarget());
@@ -103,8 +116,8 @@ public class EnemyBehavior : MonoBehaviour {
 
     private void ReceiveDamage(int dmg)
     {
-        HitPoints -= dmg;
-        if (HitPoints <= 0)
+        hitPoints -= dmg;
+        if (hitPoints <= 0)
         {
             if (!dead)
             {
@@ -112,7 +125,7 @@ public class EnemyBehavior : MonoBehaviour {
                 dead = true;
             }
         }
-        else Anim.Play("wound1");
+        else animator.Play("wound1");
 
         //		Anim.SetBool ("isHit", true);
         // if (HitPoints > 0) 
@@ -125,37 +138,64 @@ public class EnemyBehavior : MonoBehaviour {
 
 	IEnumerator WalkToTarget()
 	{
-		isMoving = true;
-		Vector3 StartPos = this.transform.position;
-		Vector3 heading = (Target.transform.position - StartPos);
+        //yield return new WaitForSeconds(.5f);
+        navMeshAgent.isStopped = false;
+        navMeshAgent.speed = moveSpeed;
+        isMoving = true;
+        // Old physics based movement
+        /*
+		Vector3 StartPos = transform.position;
+		Vector3 heading = (target.position - StartPos);
 		float distance = heading.magnitude;
-		Anim.SetBool ("isMoving", true);
-		//move tbe player at a constant velocity to the target until they are a certain disstance away
-		while (distance > attackDistance && HitPoints>0) {
+        */
+        float distance = Vector3.Magnitude(target.position-transform.position);
+		animator.SetBool ("isMoving", true);
+		
+        //move tbe player at a constant velocity to the target until they are a certain disstance away
+		while (distance > attackDistance && hitPoints>0) {
+            Debug.Log("Remaining distance: " + distance);
+            //Debug.DrawLine(transform.position, navMeshAgent.destination);
+            distance = Vector3.Magnitude(navMeshAgent.destination - transform.position);
+            Vector3 lastV3 = transform.position;
+            /*
+            foreach (Vector3 v3 in navMeshAgent.path.corners)
+            {
+                Debug.DrawLine(lastV3, v3, Color.blue);
+                lastV3 = v3;
+            }
+            */
+            // Old movement
+            /*
 			//Calculate the current heading, normalized
-			heading = (Target.transform.position  - this.transform.position).normalized;
+			heading = (target.transform.position  - this.transform.position).normalized;
 
 			//what is the current distance between the characters
-			distance = Mathf.Abs(Vector3.Distance (this.transform.position, Target.transform.position));
+			distance = Mathf.Abs(Vector3.Distance (this.transform.position, target.transform.position));
 
 			//set velocity
-			this.GetComponent<Rigidbody> ().velocity = (heading * MoveSpeed);
+			this.GetComponent<Rigidbody> ().velocity = (heading * moveSpeed);
 			transform.position = new Vector3(transform.position.x, Terrain.activeTerrain.SampleHeight(transform.position)-9.3f,transform.position.z);
-			yield return new WaitForFixedUpdate ();
+			*/
+
+            yield return new WaitForFixedUpdate ();
+            
+            
 		}
 
 		//make sure this only happens when the soldier is alive
-		if (HitPoints > 0 && !attacking) {
+		if (hitPoints > 0 && !attacking) {
 			//print("attacking = true");
 			attacking = true;
-			currentAudioSource = Random.Range(0, A_Source.Length);
+			currentAudioSource = Random.Range(0, audioSource.Length);
 
-			A_Source[currentAudioSource].loop = false;
-			A_Source[currentAudioSource].Stop();
+			audioSource[currentAudioSource].loop = false;
+			audioSource[currentAudioSource].Stop();
 
 			isMoving = false;
+            navMeshAgent.speed = 0;
+            navMeshAgent.isStopped = true;
 			this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
-			Anim.SetBool ("isMoving", false);
+			animator.SetBool ("isMoving", false);
 			/*
 			 if (Time.time > nextActionTime ) {
 				nextActionTime = Time.time + period; 
@@ -164,8 +204,8 @@ public class EnemyBehavior : MonoBehaviour {
 			print(dH.Health);
 			*/
 
-			Anim.SetBool ("isAttacking", true);
-			Anim.Play("attack");
+			animator.SetBool ("isAttacking", true);
+			animator.Play("attack");
 		}
 
 
@@ -174,20 +214,22 @@ public class EnemyBehavior : MonoBehaviour {
 	//do this when the player gets killed
 	public void Killed()
 	{
-		currentAudioSource = Random.Range(0, A_Source.Length);
-		A_Source[currentAudioSource].loop = false;
-		A_Source[currentAudioSource].clip = deathSounds[Random.Range(0, deathSounds.Length)];
-		A_Source[currentAudioSource].Play ();
+        navMeshAgent.speed = 0;
+
+		currentAudioSource = Random.Range(0, audioSource.Length);
+		audioSource[currentAudioSource].loop = false;
+		audioSource[currentAudioSource].clip = deathSounds[Random.Range(0, deathSounds.Length)];
+		audioSource[currentAudioSource].Play ();
 
 		Collider enemyHitbox = this.GetComponent<Collider>();
 		Destroy(enemyHitbox);
 		
 		this.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;		
 		
-		Anim.SetBool ("isAttacking", false);
-		Anim.SetBool ("isMoving", false);
+		animator.SetBool ("isAttacking", false);
+		animator.SetBool ("isMoving", false);
 
-		Anim.SetBool ("isDead", true);
+		animator.SetBool ("isDead", true);
 		//Anim.Play("death");
 
 		wManager.EnemyKilled ();
@@ -202,9 +244,9 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 
 	public void DamageGate(int damage) {
-		currentAudioSource = Random.Range(0, A_Source.Length);
-		A_Source[currentAudioSource].clip = attackSounds[Random.Range(0, attackSounds.Length)];
-		A_Source[currentAudioSource].Play ();
+		currentAudioSource = Random.Range(0, audioSource.Length);
+		audioSource[currentAudioSource].clip = attackSounds[Random.Range(0, attackSounds.Length)];
+		audioSource[currentAudioSource].Play ();
 		dH.TakeDamageGate (damage);
 	}
 

@@ -75,8 +75,9 @@ public class GameStateManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
         // If this block is commented, uncomment it
-        /*
+        
         m_Controller = GameObject.FindObjectOfType<MathController>();
         PlayerPrefs.SetInt("tutorialDone", 0); //temp to force tutorial
 
@@ -103,7 +104,7 @@ public class GameStateManager : MonoBehaviour {
         else{
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
-        */
+        
     }
 
     public void StartGame(){
@@ -144,7 +145,7 @@ public class GameStateManager : MonoBehaviour {
 		//change enemy target so they start running
 		EnemyBehavior[] Enemies = GameObject.FindObjectsOfType<EnemyBehavior> ();
 		for (int i = 0; i < Enemies.Length; i++) {
-			Enemies[i].UpdateTarget(InsidePoint);
+			Enemies[i].UpdateTarget(InsidePoint.transform);
 			//Enemies [i].Target = InsidePoint;
 			//Enemies [i].gameObject.transform.parent = null;
 		}
