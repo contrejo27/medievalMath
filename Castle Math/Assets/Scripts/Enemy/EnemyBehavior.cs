@@ -116,6 +116,30 @@ public class EnemyBehavior : MonoBehaviour {
         
 	}
 
+    public void StunsEnemy(float timeStunned)
+    {
+
+        //starts coroutine which sets speeds to 0 for the TimeStunned Seconds
+        StartCoroutine(StunTimer(timeStunned));
+    }
+
+    IEnumerator StunTimer(float stunTime)
+    {
+
+        //temp speeds
+        float normalNavMeshSpeed = navMeshAgent.speed;
+        float normalAnimSpeed = animator.speed;
+
+        //Setting speeds to 0
+        navMeshAgent.speed = 0f;
+        animator.speed = 0;
+        yield return new WaitForSeconds(stunTime);
+
+        //returning the speeds to normal
+        navMeshAgent.speed = normalNavMeshSpeed;
+        animator.speed = normalAnimSpeed;
+    }
+
     private void ReceiveDamage(int dmg)
     {
         hitPoints -= dmg;
