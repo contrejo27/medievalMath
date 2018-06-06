@@ -40,7 +40,7 @@ public class EnemyBehavior : MonoBehaviour {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         
-        navMeshAgent.stoppingDistance = attackDistance;
+        //navMeshAgent.stoppingDistance = attackDistance;
         //navMeshAgent.
     }
 
@@ -80,7 +80,7 @@ public class EnemyBehavior : MonoBehaviour {
 			//Quaternion newRot = Quaternion.LookRotation (target.transform.position - this.transform.position);
 			//transform.rotation = Quaternion.Euler (new Vector3 (0, newRot.eulerAngles.y, 0));
 
-			if (isMoving == false) StartCoroutine (WalkToTarget());
+			//if (isMoving == false) StartCoroutine (WalkToTarget());
 
             if (hitQueue.Count > 0)
             {
@@ -209,8 +209,8 @@ public class EnemyBehavior : MonoBehaviour {
             
 		}
 
-		//make sure this only happens when the soldier is alive
-		if (hitPoints > 0 && !attacking) {
+        //make sure this only happens when the soldier is alive
+        if (hitPoints > 0 && !attacking) {
 			//print("attacking = true");
 			attacking = true;
 			currentAudioSource = Random.Range(0, audioSource.Length);
@@ -219,8 +219,10 @@ public class EnemyBehavior : MonoBehaviour {
 			audioSource[currentAudioSource].Stop();
 
 			isMoving = false;
-            navMeshAgent.speed = 0;
             navMeshAgent.isStopped = true;
+            navMeshAgent.speed = 0;
+            navMeshAgent.velocity = Vector3.zero;
+            
 			this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			animator.SetBool ("isMoving", false);
 			/*

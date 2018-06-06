@@ -12,6 +12,9 @@ public class PotionShop : MonoBehaviour {
     [HideInInspector]
     public List<Potion> potionsInShop = new List<Potion>();
 
+    UIEffects canvasFade;
+    int isAwakeCounter = 0;
+
     void Awake()
     {
         // Moving to Start() for now 
@@ -23,13 +26,20 @@ public class PotionShop : MonoBehaviour {
     void Start()
     {
         GameStateManager.instance.potionShop = this;
+        canvasFade = MathManager.instance.mathCanvas.GetComponent<UIEffects>();
         gameObject.SetActive(false);
+        
     }
 
     // May casue issue in the future; see if this happens before Awake()/Start()
     void OnEnable()
     {
-        LoadPotions();   
+        LoadPotions();
+        if (isAwakeCounter > 0)
+        {
+            canvasFade.fadeOut(1);
+        }
+        isAwakeCounter++;
     }
 
     void LoadPotions()
@@ -55,6 +65,11 @@ public class PotionShop : MonoBehaviour {
             Destroy(p.gameObject);
         }
         potionsInShop.Clear();
+        if (isAwakeCounter > 1)
+        {
+            canvasFade.fadeIn(1);
+        }
+        isAwakeCounter++;
     }
 
     public void RemoveFromShop(Potion p)
