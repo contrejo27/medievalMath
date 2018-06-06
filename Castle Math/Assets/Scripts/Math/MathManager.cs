@@ -43,8 +43,22 @@ public class MathManager : MonoBehaviour {
 	public UIEffects interMathCanvas;
 	public UIEffects interMathButtons;
 
-	// Use this for initialization
-	void Start () {
+    public static MathManager instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         GameStateManager.instance.mathManager = this;
 
 		A_Input = GetComponent<AnswerInput> ();
