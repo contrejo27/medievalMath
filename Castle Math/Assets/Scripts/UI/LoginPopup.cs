@@ -30,9 +30,6 @@ public class LoginPopup : MonoBehaviour
         //m_instructionsText.text = "Enter Email";
         m_feedbackText.text = "";
 
-        m_input.ActivateInputField();
-        m_input.Select();
-
         m_liteButton.onClick.AddListener(liteLogin);
 
         m_loginButton.onClick.AddListener(SubmitEmail);
@@ -86,9 +83,6 @@ public class LoginPopup : MonoBehaviour
         m_instructionsText.text = "Enter Password";
         m_input.text = "";
         m_input.contentType = InputField.ContentType.Password;
-
-        m_input.ActivateInputField();
-        m_input.Select();
 
         m_loginButton.onClick.RemoveAllListeners();
         m_loginButton.onClick.AddListener(SubmitPassword);
