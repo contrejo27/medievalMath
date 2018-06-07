@@ -29,6 +29,7 @@ public class Inventory : MonoBehaviour {
 
     void Start()
     {
+        
         GameStateManager.instance.inventory = this;
         if (SaveData.unlockedUpgrades[EnumManager.Upgrades.ShockArrows1])
         {
@@ -42,6 +43,7 @@ public class Inventory : MonoBehaviour {
         {
             quivers[2].SetActive(true);
         }
+        
     }
     
 	

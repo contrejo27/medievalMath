@@ -204,7 +204,7 @@ public class EnemyBehavior : MonoBehaviour {
 		
         //move tbe player at a constant velocity to the target until they are a certain disstance away
 		while (distance > attackDistance && hitPoints>0) {
-            Debug.Log("Remaining distance: " + distance);
+            //Debug.Log("Remaining distance: " + distance);
             //Debug.DrawLine(transform.position, navMeshAgent.destination);
             distance = Vector3.Magnitude(navMeshAgent.destination - transform.position);
             Vector3 lastV3 = transform.position;
@@ -234,7 +234,7 @@ public class EnemyBehavior : MonoBehaviour {
 		}
 
         //make sure this only happens when the soldier is alive
-        if (hitPoints > 0 && !attacking) {
+        if (hitPoints > 0 && !attacking && !GameStateManager.instance.IsLost()) {
 			//print("attacking = true");
 			attacking = true;
 			currentAudioSource = Random.Range(0, audioSource.Length);

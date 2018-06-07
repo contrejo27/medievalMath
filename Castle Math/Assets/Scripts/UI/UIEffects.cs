@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UIEffects : MonoBehaviour {
      IEnumerator coroutine;
+     bool disabling;
+
 	 public void fadeOut(float speed)
 	 {
         if(coroutine != null) StopCoroutine(coroutine);
@@ -24,8 +26,10 @@ public class UIEffects : MonoBehaviour {
 	
 	public void fadeIn(float speed)
 	{
+        if (disabling) return;
         //	transform.localScale = new Vector3(1f,1f,1f);
         if(coroutine != null) StopCoroutine(coroutine);
+
         coroutine = fadeInPanelCoroutine(speed);
         StartCoroutine(coroutine);
 	}
@@ -37,7 +41,11 @@ public class UIEffects : MonoBehaviour {
 			yield return null;
 		}
 	}
-	
+	void OnDisable()
+    {
+        coroutine = null;
+        disabling = true;
+    }
 	// Use this for initialization
 	void Start () {
 		

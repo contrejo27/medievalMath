@@ -204,7 +204,7 @@ public class QuestionTracker {
             {
                 var line = reader.ReadLine();
                 
-                Debug.Log("Line: " + line);
+                //Debug.Log("Line: " + line);
                 var values = line.Split(',');
                 if(values.Count() <= 1)
                 {
