@@ -140,6 +140,30 @@ public class EnemyBehavior : MonoBehaviour {
         animator.speed = normalAnimSpeed;
     }
 
+    public void  SlowsEnemy(float slowAmount, float slowTimeSpan)
+    {
+        //starts Coroutine which slows the enemies NavMeshAgentSpeed
+        //for the slowTimeSpan in seconds
+
+        StartCoroutine(SlowTimer(slowAmount, slowTimeSpan));
+
+    }
+
+    IEnumerator SlowTimer(float slowAmount, float slowTimeSpan)
+    {
+        //Temp Speeds
+        float normalNavMeshAgentSpeed = moveSpeed;
+        float normalAnimSpeed = animator.speed;
+
+        //Adjusting Speeds
+        navMeshAgent.speed = moveSpeed - slowAmount;
+        animator.speed = animator.speed - slowAmount;
+        yield return new WaitForSeconds(slowTimeSpan);
+
+        //Return speeds to normal
+        navMeshAgent.speed = normalNavMeshAgentSpeed;
+        animator.speed = normalAnimSpeed;
+    }
     private void ReceiveDamage(int dmg)
     {
         hitPoints -= dmg;

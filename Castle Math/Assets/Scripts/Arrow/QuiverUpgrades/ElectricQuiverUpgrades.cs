@@ -29,6 +29,7 @@ public class ElectricQuiverUpgrades : MonoBehaviour {
 
     [Header("Audio")]
     public AudioClip projectileHit;
+    public AudioClip electricStormHit;
     public AudioClip powerUpActivated;
     private AudioSource A_Source;
 
@@ -53,11 +54,13 @@ public class ElectricQuiverUpgrades : MonoBehaviour {
 
         switch (currentUpgradeLevel) {
             case ElectricArrowModifier.UpgradeOne:
-                /*
+                    /*  
                     Upgrade 1 Effects: Damages for 2 and Stuns for 2 seconds
                     */
                 if (otherCollision.transform.tag == "Enemy")
                 {
+                    A_Source.clip = projectileHit;
+                    A_Source.Play();
                     EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeOneDmg);
                     EB.StunsEnemy(upgradeOneStunTime);
@@ -71,6 +74,10 @@ public class ElectricQuiverUpgrades : MonoBehaviour {
             */
                 Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 6);
                 int enemiesCollided = 0;
+
+                A_Source.clip = electricStormHit;
+                A_Source.Play();
+
                 while (enemiesCollided < hitColliders.Length)
                 {
                     if (hitColliders[enemiesCollided].gameObject.tag == "Enemy")
@@ -88,6 +95,8 @@ public class ElectricQuiverUpgrades : MonoBehaviour {
                 */
                 if (otherCollision.transform.tag == "Enemy")
                 {
+                    A_Source.clip = projectileHit;
+                    A_Source.Play();
                     EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeTwoBDmg);
                     EB.StunsEnemy(upgradeTwoBStunTime);
