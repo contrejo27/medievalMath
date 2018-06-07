@@ -71,6 +71,7 @@ public class GameStateManager : MonoBehaviour {
             Destroy(gameObject);
         }
         tracker.ReadCSV();
+        SaveData.LoadDataFromJSon();
     }
 
     // Use this for initialization
@@ -173,6 +174,7 @@ public class GameStateManager : MonoBehaviour {
         }
 
         gMetrics.UpdateMetric("TimeInVR", timeInVR);
+        SaveData.SaveDataToJSon();
         StartCoroutine(ActivatorVR("None"));
 	}
 
@@ -188,6 +190,7 @@ public class GameStateManager : MonoBehaviour {
         {
             timeInVR = 0f;
         }
+        SaveData.SaveDataToJSon();
         gMetrics.UpdateMetric("TimeInVR", timeInVR);
     }
 

@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour {
 
     bool[] unlockedSlots = {true, true, true, false, false };
     bool[] filledSlots = { false, false, false, false, false };
-    bool[] unlockedQuivers = { false, false, false, false };
+    //bool[] unlockedQuivers = { false, false, false, false };
 
     // some of these might belong in the PlayerController. We'll see.
     [Range(3,5)]
@@ -30,6 +30,18 @@ public class Inventory : MonoBehaviour {
     void Start()
     {
         GameStateManager.instance.inventory = this;
+        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.ShockArrows1])
+        {
+            quivers[0].SetActive(true);
+        }
+        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.IceArrows1])
+        {
+            quivers[1].SetActive(true);
+        }
+        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.FireArrows1])
+        {
+            quivers[2].SetActive(true);
+        }
     }
     
 	
