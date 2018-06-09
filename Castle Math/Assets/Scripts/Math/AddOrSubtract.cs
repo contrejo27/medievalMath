@@ -18,9 +18,11 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	AnswerInput aInput;
 	private int incorrectAnswers;
 
+    /*
 	public AddOrSubtract() {
 		
 	} 
+    */
 
 	// Use this for initialization
 	public void Start () {

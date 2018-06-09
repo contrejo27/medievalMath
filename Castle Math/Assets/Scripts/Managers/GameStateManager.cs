@@ -22,8 +22,6 @@ public class GameStateManager : MonoBehaviour {
     [HideInInspector]
 	public LaunchProjectile player;
 	private bool loseState = false;
-	public doorHealth fence1,fence2,fence3;
-	public GameObject billboard;
     public int currentSkillLevel;
 
     //References
@@ -59,7 +57,6 @@ public class GameStateManager : MonoBehaviour {
         }
         tracker.ReadCSV();
         SaveData.LoadDataFromJSon();
-        Debug.Log("Should have read save data");
     }
 
     // Use this for initialization

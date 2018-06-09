@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour {
     public void StartGame()
     {
         billboard.GetComponent<Animator>().Play("hide");
+        Debug.Log("Hiding billboard");
         tutorialImage.SetActive(false);
         target.SetActive(false);
         mainMenuEffects.fadeOut(1.5f);
