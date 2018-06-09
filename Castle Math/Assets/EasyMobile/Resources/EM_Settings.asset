@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4452e2410c04b34915077cbe0f3a4d, type: 3}
+  m_Name: EM_Settings
+  m_EditorClassIdentifier: 
+  _advertisingSettings:
+    _iosAdColonyConfig:
+      _appId: 
+      _interstitialAdId: 
+      _rewardedAdId: 
+    _androidAdColonyConfig:
+      _appId: 
+      _interstitialAdId: 
+      _rewardedAdId: 
+    _adColonyAdOrientation: 2
+    _adColonyShowRewardedAdPrePopup: 0
+    _adColonyShowRewardedAdPostPopup: 0
+    _iosAdMobConfig:
+      _appId: 
+      _bannerAdId: 
+      _interstitialAdId: 
+      _rewardedAdId: 
+    _androidAdMobConfig:
+      _appId: 
+      _bannerAdId: 
+      _interstitialAdId: 
+      _rewardedAdId: 
+    _admobTargeting:
+      gender: 0
+      setBirthday: 0
+      tagForChildDirectedTreatment: 0
+      extras: []
+    _admobEnableTestMode: 0
+    _admobTestDeviceIds: []
+    _heyzapPublisherId: 
+    _heyzapShowTestSuite: 0
+    _autoLoadDefaultAds: 1
+    _adCheckingInterval: 10
+    _adLoadingInterval: 20
+    _iosDefaultAdNetworks:
+      bannerAdNetwork: 0
+      interstitialAdNetwork: 0
+      rewardedAdNetwork: 0
+    _androidDefaultAdNetwork:
+      bannerAdNetwork: 0
+      interstitialAdNetwork: 0
+      rewardedAdNetwork: 0
+  _gameServiceSettings:
+    _gpgsDebugLog: 0
+    _autoInit: 1
+    _autoInitDelay: 0
+    _androidMaxLoginRequests: 3
+    _leaderboards: []
+    _achievements: []
+    _androidXmlResources: 
+    _enableSavedGames: 0
+    _autoConflictResolutionStrategy: 0
+    _gpgsDataSource: 0
+  _inAppPurchaseSettings:
+    _targetAndroidStore: 0
+    _validateAppleReceipt: 1
+    _validateGooglePlayReceipt: 1
+    _products:
+    - _name: Small Subscription
+      _type: 2
+      _id: com.medievalMath.smallSub
+      _price: $3.99
+      _description: 1 Month Subscription
+      _storeSpecificIds: []
+      _isEditingAdvanced: 1
+    - _name: Medium Subscription
+      _type: 2
+      _id: com.medievalMath.medSub
+      _price: $9.99
+      _description: 3 Month Subscription
+      _storeSpecificIds: []
+      _isEditingAdvanced: 1
+    - _name: Large Subscription
+      _type: 2
+      _id: com.medievalMath.largeSub
+      _price: $15.99
+      _description: 6 Month Subscription
+      _storeSpecificIds: []
+      _isEditingAdvanced: 1
+  _notificationSettings:
+    _autoInit: 1
+    _autoInitDelay: 0
+    _iosAuthOptions: 7
+    _pushNotificationService: 0
+    _oneSignalAppId: 
+    _categoryGroups: []
+    _defaultCategory:
+      id: notification.category.default
+      groupId: 
+      name: Default
+      description: 
+      importance: 0
+      enableBadge: 1
+      lights: 1
+      lightColor: {r: 1, g: 1, b: 1, a: 1}
+      vibration: 1
+      vibrationPattern: 
+      lockScreenVisibility: 2
+      sound: 1
+      soundName: 
+      actionButtons: []
+    _userCategories: []
+  _ratingRequestSettings:
+    _defaultRatingDialogContent:
+      _title: Rate $PRODUCT_NAME
+      _message: How would you rate $PRODUCT_NAME?
+      _lowRatingMessage: That's bad. Would you like to give us some feedback instead?
+      _highRatingMessage: Awesome! Let's do it!
+      _postponeButtonText: Not Now
+      _refuseButtonText: Don't Ask Again
+      _rateButtonText: Rate Now!
+      _cancelButtonText: Cancel
+      _feedbackButtonText: Send Feedback
+    _minimumAcceptedStars: 4
+    _supportEmail: 
+    _iosAppId: 
+    _annualCap: 12
+    _delayAfterInstallation: 10
+    _coolingOffPeriod: 10
+    _ignoreContraintsInDevelopment: 0
+  _isAdModuleEnable: 0
+  _isIAPModuleEnable: 1
+  _isGameServiceModuleEnable: 0
+  _isNotificationModuleEnable: 0
+  _activeModuleIndex: 1

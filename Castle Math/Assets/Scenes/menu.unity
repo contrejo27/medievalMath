@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657856, g: 0.49641234, b: 0.57481724, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -77,15 +77,17 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -924,6 +926,7 @@ MonoBehaviour:
   fractions: 0
   preAlgebra: 0
   mathInstructions: {fileID: 1509247977}
+  startTime: 0
 --- !u!4 &399500503
 Transform:
   m_ObjectHideFlags: 0
@@ -1655,12 +1658,18 @@ MonoBehaviour:
   music: {fileID: 0}
   gameplaySong: {fileID: 0}
   playerMathStats: {fileID: 0}
+  player: {fileID: 0}
   directionalLight: {fileID: 0}
   fence1: {fileID: 0}
   fence2: {fileID: 0}
   fence3: {fileID: 0}
   billboard: {fileID: 0}
   currentSkillLevel: 0
+  playerController: {fileID: 0}
+  potionShop: {fileID: 0}
+  inventory: {fileID: 0}
+  waveManager: {fileID: 0}
+  mathManager: {fileID: 0}
 --- !u!114 &774563490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4229,6 +4238,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1454875372
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4131251811391232, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131251811391232, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131251811391232, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131251811391232, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131251811391232, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131251811391232, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131251811391232, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131251811391232, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a9fbd11d0b6594784876e1f67dfb7ab2, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1456369101
 Prefab:
   m_ObjectHideFlags: 0
