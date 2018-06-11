@@ -21,11 +21,30 @@ public class MenuManager : MonoBehaviour
     public Button m_loginButton;
     public MathController mController;
 
-    private void Start()
+    public Text userInfoText;
+
+    private void Awake()
+    {
+        if (userInfoText) userInfoText.text = "";
+    }
+
+	private void Start()
     {
         UIAudio.clip = splashScreenSountrack;
         UIAudio.Play();
         print("Logged in " + PlayerPrefs.GetInt("LoggedIn"));
+
+        if(DatabaseManager.instance && PlayerPrefs.GetString("LoggedInEmail") != null)
+        {
+            string userEmail = PlayerPrefs.GetString("LoggedInEmail");
+            if(userInfoText)
+            {
+                string userInfo = DatabaseManager.instance.GetUserName(userEmail);
+                userInfo += "\n" + DatabaseManager.instance.GetDaysLeftOfSub(userEmail) + " Days Left";
+
+                userInfoText.text = userInfo;
+            }
+        }
     }
 
     private void Update()

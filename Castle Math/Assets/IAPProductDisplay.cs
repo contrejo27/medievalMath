@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using EasyMobile;
-public class IAPHandler : MonoBehaviour 
+
+
+public class IAPProductDisplay : MonoBehaviour 
 {
     [Header("UI References")]
-    [SerializeField]private Text _description;
-    private Button _button;
-    private IAPProduct _product;
+    [SerializeField] private Text description = null;
+
+    private Button button;
+    private IAPProduct product;
 
 	private void Awake()
 	{
-        _button = GetComponentInChildren<Button>();
-        if (_description) _description.text = "";
-        if (_button) _button.interactable = false;
+        button = GetComponentInChildren<Button>();
+        if (description) description.text = "";
+        if (button) button.interactable = false;
 	}
 
     #region Event Subscriptions
@@ -34,27 +37,27 @@ public class IAPHandler : MonoBehaviour
     // Initialize the product and display proper details
 	public void InitializeProduct(IAPProduct product)
     {
-        _product = product;
+        this.product = product;
 
         string prodDescription = "";
-        prodDescription += _product.Description;
+        prodDescription += product.Description;
         prodDescription += "\n";
-        prodDescription += _product.Price;
+        prodDescription += product.Price;
 
-        if (_description) _description.text = prodDescription;
+        if (description) description.text = prodDescription;
 
-        if (_button) 
+        if (button) 
         {
-            _button.interactable = true;
-            _button.onClick.RemoveAllListeners();
-            _button.onClick.AddListener(PurchaseProduct);
+            button.interactable = true;
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(PurchaseProduct);
         }
     }
 
     // Purhcase the product
     void PurchaseProduct()
     {
-        switch (_product.Name)
+        switch (product.Name)
         {
             case EM_IAPConstants.Product_Small_Subscription:
                 InAppPurchasing.Purchase(EM_IAPConstants.Product_Small_Subscription);
