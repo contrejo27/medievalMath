@@ -1274,13 +1274,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 134828723}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.25, y: 0.2, z: -0.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1907053247}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &135717195
 Prefab:
   m_ObjectHideFlags: 0
@@ -1475,13 +1475,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 163879891}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.25, y: 0.2, z: 0.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1907053247}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &176034703 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4007913983656706, guid: df00b95dd377f8f4fa6a75377aa47a42,
@@ -1517,6 +1517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf044f411574014c9f8c3ad0d3cca1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   playerMathStats: {fileID: 1869398080}
   player: {fileID: 0}
   currentSkillLevel: 0
@@ -1988,6 +1989,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1426159621377282, guid: 3c1f2c452add7764087d3d5eb442cf58,
         type: 2}
+    - target: {fileID: 224934434504997550, guid: 2ec8738219abd5f4fb0a4f37f6a55971,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.69
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ec8738219abd5f4fb0a4f37f6a55971, type: 2}
   m_IsPrefabParent: 0
@@ -4175,6 +4181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxPotions: 3
   gemsOwned: 10
+  numStars: 0
   controls: 0
   sensitivityX: 7
   sensitivityY: 7
@@ -8503,13 +8510,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 772701390}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.25, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1907053247}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &774077750
 GameObject:
   m_ObjectHideFlags: 0
@@ -21641,6 +21648,7 @@ MonoBehaviour:
   - {fileID: 134828724}
   - {fileID: 772701391}
   - {fileID: 163879892}
+  potionsInInventory: []
   inventorySize: 3
   numPotions: 0
 --- !u!4 &1907053247

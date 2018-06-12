@@ -71,9 +71,12 @@ public class PlayerMathStats : MonoBehaviour {
 		if(correctAnswers > personalHighScore) {
 			personalHighScore = correctAnswers;
 		}
-        gMetrics.UpdateMetric("WaveLost", wManager.currentWave + 1);
+        if (GameMetrics.m_instance)
+        {
+            gMetrics.UpdateMetric("WaveLost", wManager.currentWave + 1);
 
-        gMetrics.UpdateMetric("ArrowsLeft", aSupplier.NumberOfArrows);
+            gMetrics.UpdateMetric("ArrowsLeft", aSupplier.NumberOfArrows);
+        }
 
         UpdateHighScores();
 		DisplayStats();

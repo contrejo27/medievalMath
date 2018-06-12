@@ -4,11 +4,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* TO DO:
+ * Save how many stars have been earned for each level.
+ */ 
+
 public static class SaveData {
 
     public static Dictionary<EnumManager.Upgrades, bool> unlockedUpgrades = new Dictionary<EnumManager.Upgrades, bool>();
     public static Dictionary<EnumManager.ActiveQuestionCategories, bool> activeQuestionCategories = new Dictionary<EnumManager.ActiveQuestionCategories, bool>();
     public static int levelsCompleted;
+    public static int numStars;
 
     public static bool loaded = false;
 
@@ -20,7 +25,7 @@ public static class SaveData {
         public List<bool> unlockedAbilities;
         public List<bool> questionTypesActive;
         public int levelsCompleted;
-
+        public int numStars;
         
     }
 
@@ -55,6 +60,7 @@ public static class SaveData {
             activeQuestionCategories.Add(cat, pd.questionTypesActive[Convert.ToInt32(cat)]);
         }
         levelsCompleted = pd.levelsCompleted;
+        numStars = pd.numStars;
         loaded = true;
         Debug.Log("Save data loaded");
     }

@@ -11,14 +11,10 @@ public class Potion : BaseInteractableObject {
     public Text toolTip;
     public int cost;
     public float duration;
-    public Material outlineMaterial;
-
-    public GameObject confirmationMenu;
     
-
-    [HideInInspector]
-    public bool isHighlighted = false;
-
+    public GameObject purchaseConfirmationMenu;
+    public GameObject tossConfirmationMenu;
+    
     [HideInInspector]
     public int inventoryPosition;
 
@@ -26,29 +22,21 @@ public class Potion : BaseInteractableObject {
     [HideInInspector]
     public bool UIEnabled = true;
 
-    private MaterialPropertyBlock mpb;
-
-    List<MeshRenderer> meshRenderers = new List<MeshRenderer>();
-    List<Material[]> materials = new List<Material[]>();
-
 	// Use this for initialization
 
     protected override void Init()
     {
         currentState = PotionState.shop;
-        mpb = new MaterialPropertyBlock();
-        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
-        {
-            meshRenderers.Add(mr);
-            materials.Add(mr.materials);
-
-        }
+        
         base.Init();
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(currentState == PotionState.menu && GameStateManager.instance.currentState == EnumManager.GameState.Wave)
+        {
+            CloseTossMenu();
+        }
 	}
 
     /// <summary>
@@ -57,10 +45,8 @@ public class Potion : BaseInteractableObject {
     public virtual void DoEffect()
     {
 
-        Debug.Log("Doing effect!");
-        GameStateManager.instance.inventory.RemoveUsedPotion(inventoryPosition);
-        GameStateManager.instance.player.SetLookingAtInterface(false);
-        Destroy(gameObject);
+        //Debug.Log("Doing effect!");
+        DestroyPotionFromInventory();
     }
 
     public void OnEnable()
@@ -83,7 +69,7 @@ public class Potion : BaseInteractableObject {
             )
             {
                 currentState = PotionState.menu;
-                confirmationMenu.SetActive(true);
+                purchaseConfirmationMenu.SetActive(true);
                 GameStateManager.instance.potionShop.DisablePotionUI(this);
                 /* Set menu text to show confirm? + relevant info
                  * Maybe have error messages for not enough money or 
@@ -98,12 +84,14 @@ public class Potion : BaseInteractableObject {
             
         } else if(currentState == PotionState.inventory)
         {
-            if(!GameStateManager.instance.player.IsUnderTheInfluence())
+            if(!GameStateManager.instance.player.IsUnderTheInfluence() && GameStateManager.instance.currentState == EnumManager.GameState.Wave)
                 DoEffect();
-            /* Destroy object
-             * Update inventory with relevant info
-             * (This si in the doeffect function now)
-             */ 
+            else if(GameStateManager.instance.currentState != EnumManager.GameState.Wave && UIEnabled)
+            {
+                currentState = PotionState.menu;
+                tossConfirmationMenu.SetActive(true);
+                GameStateManager.instance.inventory.DisablePotionUI(this);
+            }
         }
         base.OnInteract();
     }
@@ -123,14 +111,14 @@ public class Potion : BaseInteractableObject {
 
             GameStateManager.instance.potionShop.EnablePotionUI();
 
-            confirmationMenu.SetActive(false);
+            purchaseConfirmationMenu.SetActive(false);
             OnEndPassOver();
             
         }
         
     }
 
-    public void CloseMenu()
+    public void ClosePurchaseMenu()
     {
         if (currentState == PotionState.menu)
         {
@@ -139,10 +127,39 @@ public class Potion : BaseInteractableObject {
 
             GameStateManager.instance.potionShop.EnablePotionUI();
 
-            confirmationMenu.SetActive(false);
+            purchaseConfirmationMenu.SetActive(false);
             OnEndPassOver();
 
         }
+    }
+
+    public void Toss()
+    {
+        GameStateManager.instance.potionShop.EnablePotionUI();
+
+        DestroyPotionFromInventory();
+               
+    }
+
+    public void CloseTossMenu()
+    {
+        if(currentState  == PotionState.menu)
+        {
+            currentState = PotionState.inventory;
+
+            GameStateManager.instance.potionShop.EnablePotionUI();
+
+            tossConfirmationMenu.SetActive(false);
+            OnEndPassOver();
+            
+        }
+    }
+
+    public void DestroyPotionFromInventory()
+    {
+        GameStateManager.instance.inventory.RemoveUsedPotion(this);
+        GameStateManager.instance.player.SetLookingAtInterface(false);
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -160,40 +177,14 @@ public class Potion : BaseInteractableObject {
                 if (GameStateManager.instance.inventory.IsInventoryFull()) c = Color.yellow;
             }else if(currentState == PotionState.inventory)
             {
-                c = (GameStateManager.instance.player.IsUnderTheInfluence()) ? Color.yellow : Color.green;
+                if(GameStateManager.instance.currentState != EnumManager.GameState.Wave) c = Color.yellow;
+                else c = (GameStateManager.instance.player.IsUnderTheInfluence()) ? Color.red : Color.green;
             }
-            foreach (MeshRenderer mr in meshRenderers)
-            {
-                Material[] mBackup = new Material[mr.materials.Length];
-                Material[] ms = new Material[mr.materials.Length];
-                for(int i = 0; i<mr.materials.Length; i++)
-                {
-                    mBackup[i] = mr.materials[i];
-                    ms[i] = outlineMaterial;
-                }
-                mr.materials = ms;
-                for(int i = 0; i<mr.materials.Length; i++)
-                {
-                    //mr.GetPropertyBlock(mpb);
-                    mr.materials[i].SetColor("_Color", mBackup[i].color);
-                    mr.materials[i].SetColor("_OutlineColor", c);
-                    //mpb.SetColor("_Color", mBackup[i].color);
-                    //mpb.SetColor("_OutlineColor", c);
-                    if (mBackup[i].mainTexture != null)
-                    {
-                        //mpb.SetTexture("_MainTex", mBackup[i].mainTexture);
-                        mr.materials[i].SetTexture("_MainTex", mBackup[i].mainTexture);
-                    }
-                    //mr.SetPropertyBlock(mpb);
-                    /*
-                    Debug.Log("Set material to outline: " + mr.materials[i].name +", from: " + mBackup[i].name);
-                    Debug.Log("Set Color " + outlineMaterial.color.ToString() + " to " + mBackup[i].color.ToString() + "(" + mr.materials[i].color + ")");
-                    Debug.Log("Boop");
-                    */
-                }
-            }
+
+            SetHighlight(c);
+
             toolTip.gameObject.SetActive(true);
-            isHighlighted = true;
+            
             
         }
     }
@@ -202,15 +193,9 @@ public class Potion : BaseInteractableObject {
     {
         GameStateManager.instance.player.SetLookingAtInterface(false);
         if (isHighlighted && currentState != PotionState.menu) {
-            int i = 0;
-            foreach (MeshRenderer mr in meshRenderers)
-            {
-                mr.materials = materials[i];
-                i++;
-                Debug.Log("Removed outline");
-            }
+            RemoveHighlight();
             toolTip.gameObject.SetActive(false);
-            isHighlighted = false;
+            
         }
     }
 }

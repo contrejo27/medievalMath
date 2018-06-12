@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour {
     // for activation/deactivation 
     public GameObject[] quivers;
     public Transform[] potionSlots;
+    public List<Potion> potionsInInventory = new List<Potion>();
 
     bool[] unlockedSlots = {true, true, true, false, false };
     bool[] filledSlots = { false, false, false, false, false };
@@ -61,7 +62,9 @@ public class Inventory : MonoBehaviour {
                 filledSlots[i] = true;
                 g.transform.parent = potionSlots[i];
                 g.transform.localPosition = Vector3.zero;
+                g.transform.localRotation = Quaternion.identity;
                 g.GetComponent<Potion>().inventoryPosition = i;
+                potionsInInventory.Add(g.GetComponent<Potion>());
                 numPotions++;
                 break;
                 
@@ -69,10 +72,30 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public void RemoveUsedPotion(int i)
+    public void RemoveUsedPotion(Potion p)
     {
-        filledSlots[i] = false;
+        filledSlots[p.inventoryPosition] = false;
+        potionsInInventory.Remove(p);
         numPotions--;
+    }
+
+    public void DisablePotionUI(Potion potion)
+    {
+        foreach (Potion p in potionsInInventory)
+        {
+            if (p != potion)
+            {
+                p.UIEnabled = false;
+            }
+        }
+    }
+
+    public void EnablePotionUI()
+    {
+        foreach (Potion p in potionsInInventory)
+        {
+            p.UIEnabled = true;
+        }
     }
 
     public bool IsInventoryFull()

@@ -7,13 +7,28 @@ public class BaseInteractableObject : MonoBehaviour {
     PlayerController playerController;
     EventTrigger eventTrigger;
 
+    private MaterialPropertyBlock mpb;
+
+    public Material outlineMaterial;
+    List<MeshRenderer> meshRenderers = new List<MeshRenderer>();
+    List<Material[]> materials = new List<Material[]>();
+
+    [HideInInspector]
+    public bool isHighlighted = false;
+
     // Use this for initialization
     void Start () {
         Init();	
 	}
 
     protected virtual void Init() {
+        mpb = new MaterialPropertyBlock();
+        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        {
+            meshRenderers.Add(mr);
+            materials.Add(mr.materials);
 
+        }
     }
 	
 	// Update is called once per frame
@@ -35,6 +50,54 @@ public class BaseInteractableObject : MonoBehaviour {
     {
         //playerController = eventTrigger.
         //Debug.Log("Interact with " + name);
+    }
+
+    protected void SetHighlight(Color c)
+    {
+        foreach (MeshRenderer mr in meshRenderers)
+        {
+            Material[] mBackup = new Material[mr.materials.Length];
+            Material[] ms = new Material[mr.materials.Length];
+            for (int i = 0; i < mr.materials.Length; i++)
+            {
+                mBackup[i] = mr.materials[i];
+                ms[i] = outlineMaterial;
+            }
+            mr.materials = ms;
+            for (int i = 0; i < mr.materials.Length; i++)
+            {
+                //mr.GetPropertyBlock(mpb);
+                mr.materials[i].SetColor("_Color", mBackup[i].color);
+                mr.materials[i].SetColor("_OutlineColor", c);
+                //mpb.SetColor("_Color", mBackup[i].color);
+                //mpb.SetColor("_OutlineColor", c);
+                if (mBackup[i].mainTexture != null)
+                {
+                    //mpb.SetTexture("_MainTex", mBackup[i].mainTexture);
+                    mr.materials[i].SetTexture("_MainTex", mBackup[i].mainTexture);
+                }
+                //mr.SetPropertyBlock(mpb);
+                /*
+                Debug.Log("Set material to outline: " + mr.materials[i].name +", from: " + mBackup[i].name);
+                Debug.Log("Set Color " + outlineMaterial.color.ToString() + " to " + mBackup[i].color.ToString() + "(" + mr.materials[i].color + ")");
+                Debug.Log("Boop");
+                */
+            }
+        }
+        isHighlighted = true;
+    }
+
+    protected void RemoveHighlight()
+    {
+        int i = 0;
+        foreach (MeshRenderer mr in meshRenderers)
+        {
+            mr.materials = materials[i];
+            i++;
+            Debug.Log("Removed outline");
+
+        }
+        isHighlighted = false;
     }
 
 

@@ -8,7 +8,9 @@ using UnityEngine.VR;
 
 //This script should contain anything that activates or deactivates things between state changes like lose or next wave
 public class GameStateManager : MonoBehaviour {
-	
+
+    public EnumManager.GameState currentState;
+
 	//UI
 	private string playerName = "JGC";
     
@@ -37,6 +39,10 @@ public class GameStateManager : MonoBehaviour {
     public MathManager mathManager;
     [HideInInspector]
     public LevelManager levelManager;
+
+    // User stats
+    private int numStars;
+
 
     //analytics
     GameMetrics gMetrics;
@@ -86,6 +92,8 @@ public class GameStateManager : MonoBehaviour {
         {
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
+
+        numStars = SaveData.numStars;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -148,7 +156,10 @@ public class GameStateManager : MonoBehaviour {
             timeInVR = 0f;
         }
 
-        gMetrics.UpdateMetric("TimeInVR", timeInVR);
+        if (GameMetrics.m_instance)
+        {
+            gMetrics.UpdateMetric("TimeInVR", timeInVR);
+        }
         SaveData.SaveDataToJSon();
         StartCoroutine(ActivatorVR("None"));
 	}
@@ -189,5 +200,24 @@ public class GameStateManager : MonoBehaviour {
     public void ActivatePotionShop()
     {
         potionShop.gameObject.SetActive(true);
+    }
+
+    public int GetStars()
+    {
+        return numStars; 
+    }
+
+    public void AddStars(int n)
+    {
+        SaveData.numStars += n;
+        SaveData.SaveDataToJSon();
+        numStars += n;
+    }
+
+    public void SpendStars(int n)
+    {
+        SaveData.numStars -= n;
+        SaveData.SaveDataToJSon();
+        numStars -= n;
     }
 }

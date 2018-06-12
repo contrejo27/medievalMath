@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     List<Potion> potions;
     public int maxPotions;
     public int gemsOwned = 0;
+    public int numStars;
         
     public enum ControlMethod { keyboard, mouse};
     [Header("Controls")]
