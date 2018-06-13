@@ -351,12 +351,12 @@ public class WaveManager : MonoBehaviour {
 		//if all enemies were killed
 		if (CurrentEnemies <= 0) {
 
-			if((currentWave+2) % 3 == 0 && currentWave+2 > 1 && currentWave !=19 && currentWave != 15 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
+			if((currentWave+2) % 3 == 0 && currentWave+2 > 1 && currentWave !=19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
             {
                 GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
 				Mathm.ActivateInterMath();
             }
-			else if((currentWave%5==0) && currentWave != 19){
+			else if(((currentWave+2)%5==0) && currentWave != 19){
                 // Temporary
                 GameStateManager.instance.playerController.gemsOwned += 15;
 
