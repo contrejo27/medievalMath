@@ -15,6 +15,8 @@ public class MathController : MonoBehaviour {
     public Text mathInstructions;
     public float startTime;
 
+    bool hasStarted;
+
     Color textColor;
 
     MathController instance;
@@ -29,14 +31,24 @@ public class MathController : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+        //SaveData.LoadDataFromJSon();
     }
 
     void Start () {
         PlayerPrefs.SetInt("LoggedIn",1); //for debugging 
-
-
+        
         DontDestroyOnLoad(this.gameObject);
-        if (PlayerPrefs.GetInt("LoggedIn") == 0) {
+
+        if (Debug.isDebugBuild || Application.isEditor)
+        {
+            Debug.Log("IN EDITOR/DEBUG");
+            GameObject.Find("add/sub").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract];
+
+            GameObject.Find("mult/divide").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.MultiplyOrDivide];
+
+            GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra];
+        }
+        else if (PlayerPrefs.GetInt("LoggedIn") == 0) {
             GameObject.Find("add/sub").GetComponent<Toggle>().isOn = true;
 
             GameObject multGO = GameObject.Find("mult/divide");
@@ -64,6 +76,8 @@ public class MathController : MonoBehaviour {
             multGO.GetComponent<Toggle>().isOn = true;
             mult_divide = multGO.GetComponent<Toggle>().interactable = true;
         }
+
+        hasStarted = true;
     }
 
 	public void unlockMath(){
@@ -104,6 +118,15 @@ public class MathController : MonoBehaviour {
         print("fractions " + fractions);
         preAlgebra = GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn;
         print("preAlgebra " + preAlgebra);
+
+        if (hasStarted)
+        {
+            SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract] = add_sub;
+            SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.MultiplyOrDivide] = mult_divide;
+            SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra] = preAlgebra;
+        }
+
+        SaveData.SaveDataToJSon();
         //wordProblems = GameObject.Find("Word Problems").GetComponent<Toggle>().isOn;
     }
 

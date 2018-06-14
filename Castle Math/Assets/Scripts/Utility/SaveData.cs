@@ -52,11 +52,12 @@ public static class SaveData {
 
         foreach(EnumManager.Upgrades upgrade in Enum.GetValues(typeof(EnumManager.Upgrades)))
         {
-            Debug.Log("Upgrade: " + upgrade.ToString() + " index " + Convert.ToInt32(upgrade));
+            // Debug.Log("Upgrade: " + upgrade.ToString() + " index " + Convert.ToInt32(upgrade));
             unlockedUpgrades.Add(upgrade, pd.unlockedAbilities[Convert.ToInt32(upgrade)]);
         }
         foreach(EnumManager.ActiveQuestionCategories cat in Enum.GetValues(typeof(EnumManager.ActiveQuestionCategories)))
         {
+            Debug.Log("Upgrade: " + cat.ToString() + ", index: " + Convert.ToInt32(cat) + ", value: " + pd.questionTypesActive[Convert.ToInt32(cat)]);
             activeQuestionCategories.Add(cat, pd.questionTypesActive[Convert.ToInt32(cat)]);
         }
         levelsCompleted = pd.levelsCompleted;
@@ -78,6 +79,7 @@ public static class SaveData {
         foreach(bool b in activeQuestionCategories.Values)
         {
             pd.questionTypesActive.Add(b);
+            Debug.Log("Adding activeQuestionValue: " + b);
         }
         pd.levelsCompleted = levelsCompleted;
 

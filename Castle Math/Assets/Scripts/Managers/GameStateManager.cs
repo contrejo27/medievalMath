@@ -63,6 +63,7 @@ public class GameStateManager : MonoBehaviour {
         }
         tracker.ReadCSV();
         SaveData.LoadDataFromJSon();
+        Debug.Log("Loading JSON");
     }
 
     // Use this for initialization
@@ -112,6 +113,11 @@ public class GameStateManager : MonoBehaviour {
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
 
+    }
+
+    public void SetTimeScale(float newTimeScale, float duration)
+    {
+        
     }
 
     public bool IsLost()
@@ -219,5 +225,12 @@ public class GameStateManager : MonoBehaviour {
         SaveData.numStars -= n;
         SaveData.SaveDataToJSon();
         numStars -= n;
+    }
+
+    IEnumerator ChangeTimeScale(float timeScale, float duration)
+    {
+        Time.timeScale = timeScale;
+        yield return new WaitForSecondsRealtime(duration);
+        Time.timeScale = 1;
     }
 }
