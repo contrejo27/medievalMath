@@ -9,7 +9,7 @@ public class BaseInteractableObject : MonoBehaviour {
 
     private MaterialPropertyBlock mpb;
 
-    public Material outlineMaterial;
+    protected Material outlineMaterial;
     List<MeshRenderer> meshRenderers = new List<MeshRenderer>();
     List<Material[]> materials = new List<Material[]>();
 
@@ -22,6 +22,7 @@ public class BaseInteractableObject : MonoBehaviour {
 	}
 
     protected virtual void Init() {
+        outlineMaterial = Resources.Load<Material>("Materials/Outline");
         mpb = new MaterialPropertyBlock();
         foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
         {
@@ -38,11 +39,13 @@ public class BaseInteractableObject : MonoBehaviour {
 
     public virtual void OnPassOver()
     {
+        GameStateManager.instance.player.SetLookingAtInterface(true);
         //Debug.Log("passing over " + name);
     }
 
     public virtual void OnEndPassOver()
     {
+        GameStateManager.instance.player.SetLookingAtInterface(false);
         //Debug.Log("end pass over " + name);
     }
 
@@ -67,7 +70,10 @@ public class BaseInteractableObject : MonoBehaviour {
             for (int i = 0; i < mr.materials.Length; i++)
             {
                 //mr.GetPropertyBlock(mpb);
-                mr.materials[i].SetColor("_Color", mBackup[i].color);
+                if (mBackup[i].HasProperty("_Color"))
+                    mr.materials[i].SetColor("_Color", mBackup[i].color);
+                else
+                    mr.materials[i].SetColor("_Color", Color.white);
                 mr.materials[i].SetColor("_OutlineColor", c);
                 //mpb.SetColor("_Color", mBackup[i].color);
                 //mpb.SetColor("_OutlineColor", c);
@@ -75,6 +81,7 @@ public class BaseInteractableObject : MonoBehaviour {
                 {
                     //mpb.SetTexture("_MainTex", mBackup[i].mainTexture);
                     mr.materials[i].SetTexture("_MainTex", mBackup[i].mainTexture);
+                    mr.materials[i].SetTextureOffset("_MainTex", mBackup[i].GetTextureOffset("_MainTex"));
                 }
                 //mr.SetPropertyBlock(mpb);
                 /*

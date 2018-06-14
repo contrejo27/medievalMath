@@ -88,6 +88,11 @@ public class LaunchProjectile : MonoBehaviour {
 		
 	}
 
+    public void RefreshArrow()
+    {
+        CreateShot();
+    }
+
 	//adds a modification and sets how long that mod will last
 	public void AddModifier(ArrowModifier newModification, int PowerUpIndex)
 	{
@@ -182,6 +187,16 @@ public class LaunchProjectile : MonoBehaviour {
 				//RemoveModifier (ArrowModifier.Shotgun);
 				arrowToLaunch.AddComponent<ShotgunArrow> ().activate(true);
 				break;
+            case ArrowModifier.Fire:
+                arrowToLaunch.AddComponent<FireArrowScript>();
+                break;
+            case ArrowModifier.Ice:
+                arrowToLaunch.AddComponent<IceArrowScript>();
+                break;
+            case ArrowModifier.Shock:
+                arrowToLaunch.AddComponent<ShockArrowScript>();
+                break;
+
 			}
 		}
 		arrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = true;
@@ -193,6 +208,11 @@ public class LaunchProjectile : MonoBehaviour {
 		crossbowAnim.Play("crossbowShot");
 		arrowToLaunch.transform.parent = null;
 		arrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
+        ArrowClass[] arrowAttributes = arrowToLaunch.GetComponents<ArrowClass>();
+        foreach(ArrowClass ac in arrowAttributes)
+        {
+            ac.ArrowLaunched();
+        }
 		setModifiers();
 		if(burst) LaunchBurst();
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 

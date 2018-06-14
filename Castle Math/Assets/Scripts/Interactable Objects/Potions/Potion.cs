@@ -167,7 +167,7 @@ public class Potion : BaseInteractableObject {
     /// </summary>
     public override void OnPassOver()
     {
-        GameStateManager.instance.player.SetLookingAtInterface(true);
+        
         if (!isHighlighted && UIEnabled) {
             //c consider colorblindness for the future
             Color c = Color.green;
@@ -187,15 +187,17 @@ public class Potion : BaseInteractableObject {
             
             
         }
+        base.OnPassOver();
     }
 
     public override void OnEndPassOver()
     {
-        GameStateManager.instance.player.SetLookingAtInterface(false);
+        
         if (isHighlighted && currentState != PotionState.menu) {
             RemoveHighlight();
             toolTip.gameObject.SetActive(false);
             
         }
+        base.OnEndPassOver();
     }
 }

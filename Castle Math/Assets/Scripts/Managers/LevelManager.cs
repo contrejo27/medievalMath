@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
 
-    //UI
+    [Header("UI")]
     public UIEffects mainMenuEffects;
     public UIEffects notificationEffects;
     public GameObject LoseScreen;
@@ -12,18 +12,18 @@ public class LevelManager : MonoBehaviour {
     public GameObject tutorialImage;
     public GameObject target;
 
-    //enemy behavior
+    [Header("Enemy Behavior")]
     public GameObject InsidePoint;
 
     public GameObject StatScreen;
 
     public Light directionalLight;
 
-    //Environment
+    [Header("Environment")]
     public doorHealth fence1, fence2, fence3;
     public GameObject billboard;
 
-    //audio
+    [Header("Audio")]
     public AudioClip LostTheCastle;
     public AudioClip[] CastleScreams;
     public AudioSource music;

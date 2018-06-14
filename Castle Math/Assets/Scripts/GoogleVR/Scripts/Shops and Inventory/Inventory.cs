@@ -18,6 +18,8 @@ public class Inventory : MonoBehaviour {
     public int inventorySize = 3;
     [HideInInspector]
     public int numPotions = 0;
+    [HideInInspector]
+    public bool isQuiverActive;
 
     void Awake()
     {
@@ -32,6 +34,8 @@ public class Inventory : MonoBehaviour {
     {
         
         GameStateManager.instance.inventory = this;
+        //SaveData.unlockedUpgrades[EnumManager.Upgrades.ShockArrows1] = true;
+        //SaveData.SaveDataToJSon();
         if (SaveData.unlockedUpgrades[EnumManager.Upgrades.ShockArrows1])
         {
             quivers[0].SetActive(true);
