@@ -51,6 +51,11 @@ public class GameMetrics : MonoBehaviour
 
     private void Awake()
     {
+        if(Debug.isDebugBuild || Application.isEditor)
+        {
+            Destroy(this);
+        }
+
         m_instance = this;
 
         UnityInitializer.AttachToGameObject(this.gameObject);

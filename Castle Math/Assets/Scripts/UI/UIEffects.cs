@@ -30,11 +30,11 @@ public class UIEffects : MonoBehaviour {
         //	transform.localScale = new Vector3(1f,1f,1f);
         if(coroutine != null) StopCoroutine(coroutine);
 
-        coroutine = fadeInPanelCoroutine(speed);
+        coroutine = FadeInPanelCoroutine(speed);
         StartCoroutine(coroutine);
 	}
 	 
-	private IEnumerator fadeInPanelCoroutine(float speed)    {
+	private IEnumerator FadeInPanelCoroutine(float speed)    {
 		
 		while(GetComponent<CanvasGroup>().alpha < 1){
 			GetComponent<CanvasGroup>().alpha += Time.deltaTime * speed;

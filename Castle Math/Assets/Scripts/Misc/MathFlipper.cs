@@ -5,7 +5,9 @@ using UnityEngine;
 public class MathFlipper : MonoBehaviour {
 
     [HideInInspector]
-    public bool on;
+    public bool isOn;
+
+    IEnumerator coroutine;
 
 	// Use this for initialization
 	void Start () {
@@ -19,12 +21,20 @@ public class MathFlipper : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
+        isOn = !isOn;
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+
+        coroutine = Flip();
+        StartCoroutine(coroutine);
 
     }
 
-    IEnumerator Flip()
+    IEnumerator Flip(bool b = true)
     {
-        Quaternion target = on ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 359.9f, 0);
+        Quaternion target = isOn ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 359.9f, 0);
         Quaternion initial = transform.rotation;
         float timer = 0;
         Debug.Log("Target y in euler: " + target.eulerAngles.y);
@@ -34,6 +44,6 @@ public class MathFlipper : MonoBehaviour {
             transform.rotation = Quaternion.Lerp(initial, target, timer/3);
             yield return null;
         }
-        transform.rotation = Quaternion.Euler(0, on ? 180 : 0, 0);
+        transform.rotation = Quaternion.Euler(0, isOn ? 180 : 0, 0);
     }
 }
