@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EasyMobile;
+#if EM_UIAP
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Security;
+#endif
 
 public static class LocalUserData 
 {
@@ -42,6 +44,7 @@ public static class LocalUserData
 
 	static bool IsAppleReceiptActive()
 	{
+		#if EM_UIAP
 		AppleInAppPurchaseReceipt receipt = null;
 
 		// Checked if user has ever purchased a sub
@@ -79,6 +82,7 @@ public static class LocalUserData
 			}
 		}
 
+		#endif
 		if (Application.isEditor)
 			return true;
 		
@@ -88,6 +92,7 @@ public static class LocalUserData
 
 	static bool IsGoogleReceiptActive()
 	{
+		#if EM_UIAP
 		GooglePlayReceipt receipt = null;
 
 		// Checked if user has ever purchased a sub
@@ -118,6 +123,7 @@ public static class LocalUserData
 			}
 		}
 
+		#endif
 		if (Application.isEditor)
 			return true;
 		

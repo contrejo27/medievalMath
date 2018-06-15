@@ -22,6 +22,10 @@ public class FreeOrPaidCanvas : CanvasNavigation
     void FreeButtonPressed()
     {
         Debug.Log("Free button pressed");
+
+		MathController mController = FindObjectOfType<MathController> ();
+		if (mController)
+			mController.StartGame ();
 		// TODO start free demo 
     }
 
