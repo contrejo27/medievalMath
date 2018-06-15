@@ -8,9 +8,9 @@ namespace EasyMobile
 {
 	public static class EM_IAPConstants
 	{
-		public const string Product_Small_Subscription = "Small Subscription";
-		public const string Product_Large_Subscription = "Large Subscription";
-		public const string Product_Medium_Subscription = "Medium Subscription";
+		public const string Product_12_Month_Subscription = "12 Month Subscription";
+		public const string Product_6_Month_Subscription = "6 Month Subscription";
+		public const string Product_1_Month_Subscription = "1 Month Subscription";
 
 	}
 }

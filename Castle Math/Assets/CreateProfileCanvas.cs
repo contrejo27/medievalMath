@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using EasyMobile;
+using System.Security.Cryptography;
 
 public class CreateProfileCanvas : CanvasNavigation
 {
@@ -32,18 +33,21 @@ public class CreateProfileCanvas : CanvasNavigation
         if (!IsProfileValid())
             return;
        
+		string hashPass = PasswordEncryption.Md5Sum (password.InputField.text);
+
         if (DatabaseManager.instance)
         {
             DatabaseManager.UserData userData = new DatabaseManager.UserData
             {
                 UserName = displayName.InputField.text,
                 UserEmail = email.InputField.text,
-                UserPassword = password.InputField.text,
+				UserPassword = hashPass,
                 DaysLeft = 0
             };
 
             DatabaseManager.instance.CreateNewProfile(userData);
-            PlayerPrefs.SetString("LoggedInEmail", email.InputField.text.ToLower());
+			LocalUserData.SetUserEmail (email.InputField.text.ToLower ());
+			GoToNextCanvas ();
         }
     }
 

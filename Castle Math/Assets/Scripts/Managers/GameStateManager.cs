@@ -182,10 +182,15 @@ public class GameStateManager : MonoBehaviour {
         {
             timeInVR = 0f;
         }
+<<<<<<< Updated upstream
         if (gMetrics != null)
         {
             gMetrics.UpdateMetric("TimeInVR", timeInVR);
         }
+=======
+		if(gMetrics)
+        	gMetrics.UpdateMetric("TimeInVR", timeInVR);
+>>>>>>> Stashed changes
     }
 
     public IEnumerator ActivatorVR(string vrToggle){

@@ -191,8 +191,13 @@ public class DatabaseManager : MonoBehaviour
     {
         foreach (UserData data in m_userDatas)
         {
-            if (data.UserEmail.ToLower() == email.ToLower())
-                return data.UserPassword == password;
+			if (data.UserEmail.ToLower () == email.ToLower ()) 
+			{
+				if (data.UserEmail.ToLower () == "dev@lucernastudios.com")
+					return password == data.UserPassword;
+				else
+					return PasswordEncryption.Md5Sum (password) == data.UserPassword;
+			}
         }
         return false;
     }

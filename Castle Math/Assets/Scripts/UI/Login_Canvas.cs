@@ -7,8 +7,6 @@ using UnityEngine.EventSystems;
 public class Login_Canvas : CanvasNavigation 
 {
 #pragma warning disable
-    [SerializeField] private GameObject signUpCanvas;
-
     [Header("UI References")]
     [SerializeField] private Button loginButton;
     [SerializeField] private Button signUpButton;
@@ -27,12 +25,6 @@ public class Login_Canvas : CanvasNavigation
 
         if (feedbackText) feedbackText.text = "";
 	}
-
-    void liteLogin()
-    {
-        //login is set to 0 so this will launch game without unlocking full content
-        mController.StartGame();
-    }
 
     void LoginPressed()
     {
@@ -59,13 +51,12 @@ public class Login_Canvas : CanvasNavigation
         }
 
         Debug.Log("Login Successful!");
-        PlayerPrefs.SetString("LoggedInEmail", emailInput.text.ToLower());
-        GoToNextCanvas();
+		LocalUserData.SetUserEmail (emailInput.text.ToLower ());
+		Destroy (this.gameObject);
     }
 
     void SignUpPressed()
     {
-        if (signUpCanvas)
-            GoToNextCanvas(signUpCanvas);
+		GoToNextCanvas ();
     }
 }

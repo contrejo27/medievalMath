@@ -9,15 +9,18 @@ public class IAPProductDisplay : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private Text description = null;
+	[SerializeField] private Button purchaseButton;
 
-    private Button button;
     private IAPProduct product;
 
 	private void Awake()
 	{
-        button = GetComponentInChildren<Button>();
         if (description) description.text = "";
-        if (button) button.interactable = false;
+		if (purchaseButton) 
+		{
+			purchaseButton.onClick.RemoveAllListeners();
+			purchaseButton.onClick.AddListener(PurchaseProduct);
+		}
 	}
 
     #region Event Subscriptions
@@ -40,33 +43,39 @@ public class IAPProductDisplay : MonoBehaviour
         this.product = product;
 
         string prodDescription = "";
-        prodDescription += product.Description;
-        prodDescription += "\n";
+        
+		prodDescription += product.Name;
+		prodDescription += "\n";
         prodDescription += product.Price;
+		prodDescription += "\n";
+		prodDescription += product.Description;
 
         if (description) description.text = prodDescription;
-
-        if (button) 
-        {
-            button.interactable = true;
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(PurchaseProduct);
-        }
     }
+
+	void Update()
+	{
+		if (purchaseButton)
+		{
+			purchaseButton.gameObject.GetComponentInChildren<Text> ().color = (LocalUserData.IsLoggedIn () && LocalUserData.IsSubActive() == false) ? Color.white : Color.grey;
+			purchaseButton.interactable = (LocalUserData.IsLoggedIn () && LocalUserData.IsSubActive() == false);
+		}
+	}
+
 
     // Purhcase the product
     void PurchaseProduct()
     {
         switch (product.Name)
         {
-            case EM_IAPConstants.Product_Small_Subscription:
-                InAppPurchasing.Purchase(EM_IAPConstants.Product_Small_Subscription);
+            case EM_IAPConstants.Product_1_Month_Subscription:
+                InAppPurchasing.Purchase(EM_IAPConstants.Product_1_Month_Subscription);
                 break;
-            case EM_IAPConstants.Product_Medium_Subscription:
-                InAppPurchasing.Purchase(EM_IAPConstants.Product_Medium_Subscription);
+            case EM_IAPConstants.Product_6_Month_Subscription:
+                InAppPurchasing.Purchase(EM_IAPConstants.Product_6_Month_Subscription);
                 break;
-            case EM_IAPConstants.Product_Large_Subscription:
-                InAppPurchasing.Purchase(EM_IAPConstants.Product_Large_Subscription);
+            case EM_IAPConstants.Product_12_Month_Subscription:
+                InAppPurchasing.Purchase(EM_IAPConstants.Product_12_Month_Subscription);
                 break;
         }
     }
@@ -76,16 +85,18 @@ public class IAPProductDisplay : MonoBehaviour
     {
         switch(product.Name)
         {
-            case EM_IAPConstants.Product_Small_Subscription:
+            case EM_IAPConstants.Product_1_Month_Subscription:
                 Debug.Log("Purchased Small Subscription");
                 break;
-            case EM_IAPConstants.Product_Medium_Subscription:
+            case EM_IAPConstants.Product_6_Month_Subscription:
                 Debug.Log("Purchased Medium Subscription");
                 break;
-            case EM_IAPConstants.Product_Large_Subscription:
+            case EM_IAPConstants.Product_12_Month_Subscription:
                 Debug.Log("Purchased Large Subscription");
                 break;
         }
+
+		Destroy (this.transform.root.gameObject);
     }
 
     // Failed purchase handler

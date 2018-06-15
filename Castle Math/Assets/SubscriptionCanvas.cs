@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using EasyMobile;
 
+
 #pragma warning disable 0649
 
 public class SubscriptionCanvas : CanvasNavigation
@@ -12,42 +13,18 @@ public class SubscriptionCanvas : CanvasNavigation
     [SerializeField] private IAPProductDisplay productPrefab;
     [SerializeField] private Transform subscriptionDisplay;
     [SerializeField] private Button loginButton;
-    [SerializeField] private Button purchaseButton;
+    [SerializeField] private Text daysLeftText;
+	[SerializeField] private Text activeSubText;
 
     private IAPProduct[] _products;
 
-    private IAPProduct chosenProduct;
-
-    #region Event Subscriptions
-    private void OnEnable()
-    {
-        InAppPurchasing.PurchaseCompleted += PurchaseCompletedHandler;
-        InAppPurchasing.PurchaseFailed += PurchaseFailedHandler;
-    }
-
-    private void OnDisable()
-    {
-        InAppPurchasing.PurchaseCompleted -= PurchaseCompletedHandler;
-        InAppPurchasing.PurchaseFailed -= PurchaseFailedHandler;
-    }
-    #endregion
+    private int daysLeft = 0;
 
 	private void Start()
 	{
         StartCoroutine(CoWaitForIAPInitializtion());
         if (loginButton) 
-        {
             loginButton.onClick.AddListener(LogInPressed);
-            if (PlayerPrefs.HasKey("LoggedInEmail") && PlayerPrefs.GetString("LoggedInEmail") != null)
-                loginButton.gameObject.SetActive(false);
-        }
-            
-        if (purchaseButton) 
-        {
-            purchaseButton.onClick.AddListener(PurchaseSubPressed);
-            if (!PlayerPrefs.HasKey("LoggedInEmail") || PlayerPrefs.GetString("LoggedInEmail") == null)
-                purchaseButton.gameObject.SetActive(false);
-        }
 	}
 
 	void InitializeProducts()
@@ -67,7 +44,7 @@ public class SubscriptionCanvas : CanvasNavigation
                 return;
             }
 
-            _products = InAppPurchasing.GetAllIAPProducts();
+			_products = InAppPurchasing.GetAllIAPProducts ();
 
             foreach(IAPProduct prod in _products)
             {
@@ -103,57 +80,20 @@ public class SubscriptionCanvas : CanvasNavigation
             Debug.LogWarning("IAP Not initialized!");
     }
 
-    void PurchaseSubPressed()
-    {
-        if (chosenProduct == null) return;
-
-        switch (chosenProduct.Name)
-        {
-            case EM_IAPConstants.Product_Small_Subscription:
-                InAppPurchasing.Purchase(EM_IAPConstants.Product_Small_Subscription);
-                break;
-            case EM_IAPConstants.Product_Medium_Subscription:
-                InAppPurchasing.Purchase(EM_IAPConstants.Product_Medium_Subscription);
-                break;
-            case EM_IAPConstants.Product_Large_Subscription:
-                InAppPurchasing.Purchase(EM_IAPConstants.Product_Large_Subscription);
-                break;
-        }
-    }
-
     void LogInPressed()
     {
-        GoToNextCanvas();
+		GoToNextCanvas(destroyPrevious:false);
     }
 
-    // Successful purchase handler
-    void PurchaseCompletedHandler(IAPProduct purchasedProduct)
+    void Update()
     {
-        int daysAdded = 0;
+        if(daysLeftText)
+            daysLeftText.text = "Days Left: " + daysLeft.ToString();
 
-        switch (purchasedProduct.Name)
-        {
-            case EM_IAPConstants.Product_Small_Subscription:
-                Debug.Log("Purchased Small Subscription");
-                daysAdded = 1;
-                break;
-            case EM_IAPConstants.Product_Medium_Subscription:
-                Debug.Log("Purchased Medium Subscription");
-                daysAdded = 3;
-                break;
-            case EM_IAPConstants.Product_Large_Subscription:
-                Debug.Log("Purchased Large Subscription");
-                daysAdded = 6;
-                break;
-        }
+		if (loginButton)
+			loginButton.gameObject.SetActive (LocalUserData.IsLoggedIn () == false);
 
-        // TODO add daysAdded amount to user's subscription
+		if (activeSubText)
+			activeSubText.gameObject.SetActive((LocalUserData.IsSubActive()));
     }
-
-    // Failed purchase handler
-    void PurchaseFailedHandler(IAPProduct failedProduct)
-    {
-        Debug.Log("The Purchase of product " + failedProduct.Name + " has failed.");
-    }
-
 }

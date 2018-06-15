@@ -8,8 +8,9 @@ public abstract class CanvasNavigation : MonoBehaviour
 #pragma warning disable
     [Header("Navigation")]
     [SerializeField] private Button backButton;
-    [SerializeField] GameObject previousCanvas;
-    [SerializeField] GameObject nextCanvas;
+    [SerializeField] private GameObject nextCanvas;
+	[SerializeField] private GameObject previousCanvas = null;
+
 #pragma warning restore
 
     protected virtual void Awake()
@@ -23,10 +24,19 @@ public abstract class CanvasNavigation : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    protected virtual void GoToNextCanvas(GameObject nextCanvasOverride = null)
+	protected virtual void GoToNextCanvas(GameObject nextCanvasOverride = null, bool destroyPrevious = true)
     {
-        if (nextCanvasOverride) Instantiate(nextCanvasOverride);
-        else if (nextCanvas) Instantiate(nextCanvas);
-        Destroy(this.gameObject);
+		GameObject canvasToSpawn = null;
+
+		if (nextCanvasOverride)
+			canvasToSpawn = nextCanvasOverride;
+		else if (nextCanvas) 
+			canvasToSpawn = nextCanvas;
+
+		if (canvasToSpawn) 
+			canvasToSpawn = Instantiate (canvasToSpawn);
+
+		if(destroyPrevious)
+        	Destroy(this.gameObject);
     }
 }

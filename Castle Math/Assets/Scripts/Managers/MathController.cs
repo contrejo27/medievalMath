@@ -141,6 +141,7 @@ public class MathController : MonoBehaviour {
 
     public void StartGame()
     {
+		Debug.Log ("Starting game");
         StartCoroutine(ActivatorVR("Cardboard"));
         startTime = Time.time;
     }    
