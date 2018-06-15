@@ -149,7 +149,7 @@ public class WaveManager : MonoBehaviour {
     public void NextWave()
 	{
         int adjustedCurrentWave = currentWave + 1; //adjusted for 0 being wave 1
-        if(adjustedCurrentWave % 5 == 0 && PlayerPrefs.GetInt("LoggedIn") == 1)
+		if(adjustedCurrentWave % 5 == 0 && LocalUserData.IsLoggedIn())
         {
             powerup.UpgradeLevel(1);
             //print("leveledUp");

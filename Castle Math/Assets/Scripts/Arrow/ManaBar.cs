@@ -32,11 +32,8 @@ public class ManaBar : MonoBehaviour {
     void Start () {
 		A_Source = GameObject.Find ("UIAudio").GetComponent<AudioSource> ();
 		ProjectileLauncher = FindObjectOfType<LaunchProjectile> ();
-        if (PlayerPrefs.GetInt("LoggedIn") == 0)
-        {
-            NumberOfQuestions = 10;
-        }
-
+		if (LocalUserData.IsLoggedIn () == false)
+			NumberOfQuestions = 10;
     }
 
     public void ClearPowerUp(int PowerupIndex)
@@ -57,7 +54,7 @@ public class ManaBar : MonoBehaviour {
 			CurrentNumber = 0f;
             ArrowModifier newMod;
 
-            if (PlayerPrefs.GetInt("LoggedIn") == 0)
+			if (LocalUserData.IsLoggedIn() == false)
             {
                 newMod = ArrowModifier.Spread;
                 perk.text = "Spread";

@@ -35,8 +35,6 @@ public class MathController : MonoBehaviour {
     }
 
     void Start () {
-        PlayerPrefs.SetInt("LoggedIn",1); //for debugging 
-        
         DontDestroyOnLoad(this.gameObject);
 
         if (Debug.isDebugBuild || Application.isEditor)
@@ -48,7 +46,7 @@ public class MathController : MonoBehaviour {
 
             GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra];
         }
-        else if (PlayerPrefs.GetInt("LoggedIn") == 0) {
+		else if (LocalUserData.IsLoggedIn() == false) {
             GameObject.Find("add/sub").GetComponent<Toggle>().isOn = true;
 
             GameObject multGO = GameObject.Find("mult/divide");
