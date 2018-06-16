@@ -288,5 +288,8 @@ public class AddOrSubtract : MonoBehaviour, Question {
         return incorrectAnswers == 0;
     }
     
+    public void OnEndQuestion()
+    {
 
+    }
 }

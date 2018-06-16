@@ -114,4 +114,9 @@ public class TrueOrFalse : MonoBehaviour, Question {
     {
         return incorrectAnswers == 0;
     }
+
+    public void OnEndQuestion()
+    {
+
+    }
 }

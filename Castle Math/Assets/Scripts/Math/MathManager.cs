@@ -30,6 +30,7 @@ public class MathManager : MonoBehaviour {
 	Fractions fractions;
 	Algebra algebraQuestion;
     WordProblem wordProblem;
+    FractionTargets fractionTargets;
 
 	public bool [] QuestionTypes;
     public List<int> intermathQTypeOptions;
@@ -70,6 +71,7 @@ public class MathManager : MonoBehaviour {
 		algebraQuestion = GetComponent<Algebra> ();
 		m_Controller = GetComponent<MathController> ();
         wordProblem = GetComponent<WordProblem>();
+        fractionTargets = GetComponent<FractionTargets>();
 
 		multOrDiv.Start ();
 		addOrSub.Start ();
@@ -121,9 +123,11 @@ public class MathManager : MonoBehaviour {
         {
             case 0:
                 Debug.Log("Generating word problem");
-                GenerateQuestionForInterMath(wordProblem);
+                GenerateQuestionForInterMath(fractionTargets);
+                //GenerateQuestionForInterMath(wordProblem);
                 break;
             case 1:
+                //GenerateQuestionForInterMath(fractionTargets);
                 GenerateQuestionForInterMath(multOrDiv);
                 break;
             default:
@@ -183,6 +187,7 @@ public class MathManager : MonoBehaviour {
 		interMathCanvas.fadeOut(1);
 		mathCanvas.GetComponent<UIEffects>().fadeIn(1);
 		interMathButtons.fadeOut(1);
+        currentQuestion.OnEndQuestion();
 	}
 
 
@@ -299,6 +304,7 @@ public class MathManager : MonoBehaviour {
 	}
 
 	public Question GetCurrentQuestion() {
+        Debug.Log("IsCurrentQuestion Null?: " + (currentQuestion == null));
 		return this.currentQuestion;
 	}
 
