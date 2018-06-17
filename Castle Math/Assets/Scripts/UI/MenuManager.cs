@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.VR;
 using UnityEngine.UI;
-
+using EasyMobile;
 public class MenuManager : MonoBehaviour
 {
     public Animator mathMenu;
@@ -28,10 +27,6 @@ public class MenuManager : MonoBehaviour
 
 	private void Start()
     {
-		System.DateTime dt = System.DateTime.Now;
-		Debug.Log (dt.ToShortDateString ());
-		Debug.Log (System.DateTime.Today.Date.ToString ());
-
         UIAudio.clip = splashScreenSountrack;
         UIAudio.Play();
 
@@ -44,6 +39,8 @@ public class MenuManager : MonoBehaviour
 	void Update()
 	{
 		RefreshLoginData ();
+//		if(Time.time > timeToStart)
+//			RefreshLoginData ();
 	}
 
 	public void RefreshLoginData()
@@ -56,8 +53,6 @@ public class MenuManager : MonoBehaviour
 
 		if (userNameText)
 			userNameText.text = (LocalUserData.IsLoggedIn () && DatabaseManager.instance) ? DatabaseManager.instance.GetUserName (LocalUserData.GetUserEmail ()) : "";
-
-		userNameText.text = DatabaseManager.instance.GetUserName (LocalUserData.GetUserEmail ());
 	}
 
 	public void StartGameButtonPressed()

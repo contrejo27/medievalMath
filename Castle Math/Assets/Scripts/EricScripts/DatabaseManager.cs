@@ -160,6 +160,7 @@ public class DatabaseManager : MonoBehaviour
 
     public void CreateNewProfile(UserData userData)
     {
+		Debug.Log ("creating new profile...");
         // Save Data
         Context.SaveAsync(userData, (result) =>
         {
