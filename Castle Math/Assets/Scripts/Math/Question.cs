@@ -9,6 +9,7 @@ public interface Question  {
 	void SetQuestionString (string question);
 	void SetCorrectAnswer(string answer);
 	void SetIncorrectAnswers (int incorrect);
+    void OnEndQuestion();
 	int GetIncorrectAnswers ();
 	string GetQuestionString ();
 	string GetCorrectAnswer ();

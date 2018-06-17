@@ -275,5 +275,9 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
     }
     */
 
+    public void OnEndQuestion()
+    {
+
+    }
 
 }

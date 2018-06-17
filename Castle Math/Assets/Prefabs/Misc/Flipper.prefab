@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 223125230839787710}
   - component: {fileID: 114269288355644648}
   - component: {fileID: 114247603908248688}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Off
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4012335262243106}
   - component: {fileID: 65777895159820250}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 224608055211523334}
   - component: {fileID: 222678726833097390}
   - component: {fileID: 114885716878897518}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 223768602067224704}
   - component: {fileID: 114405629744593150}
   - component: {fileID: 114679975927706102}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: On
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4604730208398372}
   - component: {fileID: 54695583507016406}
   - component: {fileID: 114998761189491772}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Flipper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 224474889384729286}
   - component: {fileID: 222883381116039964}
   - component: {fileID: 114118325831084352}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753534538413082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5443516, y: 2.5294356, z: 4.226781}
+  m_LocalPosition: {x: 6.24, y: -3.49, z: -0.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224658966011212884}
@@ -168,7 +168,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.1}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114118325831084352
 MonoBehaviour:
@@ -309,7 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c12323f49226ea47b099e154d9b69f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  on: 0
+  isOn: 0
+  fractionTargets: {fileID: 0}
 --- !u!222 &222678726833097390
 CanvasRenderer:
   m_ObjectHideFlags: 1

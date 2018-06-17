@@ -112,6 +112,8 @@ public class QuestionTracker {
 			q = new Algebra ();
 		} else if (Object.ReferenceEquals (question.GetType (), typeof(WordProblem))) {
             q = new WordProblem();
+        } else if (Object.ReferenceEquals(question.GetType(), typeof(FractionTargets))) {
+            q = new FractionTargets();
         } else {
 			q = null;
 		}

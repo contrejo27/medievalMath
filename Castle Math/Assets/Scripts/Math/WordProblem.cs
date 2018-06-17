@@ -442,6 +442,10 @@ public class WordProblem : MonoBehaviour, Question {
         yield return null;
     }
 
+    public void OnEndQuestion()
+    {
+
+    }
 }
 
 [System.Serializable]
