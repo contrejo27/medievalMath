@@ -165,11 +165,11 @@ public class MathManager : MonoBehaviour {
 			QuestionTypes [2] = false;
 			QuestionTypes [3] = false;
 		}
+        currentQuestion.OnEndQuestion();
+        //Debug.Log("AS Difficulty: " + mathDifficultyAorS);
+        //Debug.Log("MD Difficulty: " + mathDifficultyMorD);
 
-		//Debug.Log("AS Difficulty: " + mathDifficultyAorS);
-		//Debug.Log("MD Difficulty: " + mathDifficultyMorD);
-
-		GenerateProblem (QuestionTypes);
+        GenerateProblem (QuestionTypes);
 		DeactivateBillboard();
 		W_man.NextWave();
 	}
@@ -187,7 +187,7 @@ public class MathManager : MonoBehaviour {
 		interMathCanvas.fadeOut(1);
 		mathCanvas.GetComponent<UIEffects>().fadeIn(1);
 		interMathButtons.fadeOut(1);
-        currentQuestion.OnEndQuestion();
+        
 	}
 
 

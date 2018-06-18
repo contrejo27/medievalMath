@@ -23,7 +23,7 @@ public class MathFlipper : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("Flipping");
+        //Debug.Log("Flipping");
         isOn = !isOn;
         if (isOn) fractionTargets.IncrementFlips();
         else fractionTargets.DecrementFlips();
@@ -43,14 +43,14 @@ public class MathFlipper : MonoBehaviour {
         Quaternion target = isOn ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 359.9f, 0);
         Quaternion initial = transform.rotation;
         float timer = 0;
-        Debug.Log("Initial Rotation: " + transform.eulerAngles.y);
-        Debug.Log("Target y in euler: " + target.eulerAngles.y);
+        //Debug.Log("Initial Rotation: " + transform.eulerAngles.y);
+        //Debug.Log("Target y in euler: " + target.eulerAngles.y);
         while ((transform.eulerAngles.y < target.eulerAngles.y && !isOn)
             || ((transform.eulerAngles.y > target.eulerAngles.y || transform.eulerAngles.y == 0) && isOn))
         {
             timer += Time.deltaTime;
             transform.rotation = Quaternion.Lerp(initial, target, timer*3);
-            Debug.Log("New rotation: " + transform.eulerAngles.y);
+            //Debug.Log("New rotation: " + transform.eulerAngles.y);
             yield return null;
         }
         transform.rotation = Quaternion.Euler(0, isOn ? 180 : 0, 0);
