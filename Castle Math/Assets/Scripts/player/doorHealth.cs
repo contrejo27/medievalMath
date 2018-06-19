@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class doorHealth : MonoBehaviour {
 
-	public int Health = 100;
+    public int baseHealth = 100;
+    [HideInInspector]
+	public int currentHealth;
 	
 	private GameStateManager GameManager;
 	
@@ -24,6 +26,13 @@ public class doorHealth : MonoBehaviour {
 	bool gameLost = false;
 	// Use this for initialization
 	void Start () {
+        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.Barricade2])
+            currentHealth = baseHealth + baseHealth/2;
+        else if (SaveData.unlockedUpgrades[EnumManager.Upgrades.Barrricade1])
+            currentHealth = baseHealth + baseHealth / 4;
+        else
+            currentHealth = baseHealth;
+        
 		jiggleFence = fence1;
 		GameManager = GameObject.FindObjectOfType<GameStateManager> ();
 	}
@@ -34,19 +43,19 @@ public class doorHealth : MonoBehaviour {
 			Animator Anim = jiggleFence.GetComponent<Animator> ();
 			Anim.Play("fenceHit");
 
-			Health -= damage;
+			currentHealth -= damage;
 
 			//hides fences when gate gets hit enough
-			if(Health < 85 && firstFence){
+			if(currentHealth < 85 && firstFence){
 				fence1.GetComponent<Renderer> ().enabled = false;
 				jiggleFence = fence2;
 				firstFence = false;
 			}
-			if(Health < 40 && secondFence){
+			if(currentHealth < 40 && secondFence){
 				fence2.GetComponent<Renderer> ().enabled = false;
 				secondFence = false;
 			}
-			if(Health < 0 && thirdFence){
+			if(currentHealth < 0 && thirdFence){
 				jiggleFence = fence3;
 				fence3.GetComponent<Renderer> ().enabled = false;
 				post1.GetComponent<Renderer> ().enabled = false;
@@ -64,15 +73,15 @@ public class doorHealth : MonoBehaviour {
 	}
 	
 	public void UpdateHealth(int extraHealth){
-			Health += extraHealth;
-			if(Health>100) Health = 100;
+			currentHealth += extraHealth;
+			if(currentHealth>100) currentHealth = 100;
 
 			//checks fences to see if we should add them back on
-			if(Health > 85 && !firstFence){
+			if(currentHealth > 85 && !firstFence){
 				fence1.GetComponent<Renderer> ().enabled = true;
 				firstFence = true;
 			}
-			if(Health > 40 && !secondFence){
+			if(currentHealth > 40 && !secondFence){
 				fence2.GetComponent<Renderer> ().enabled = true;
 				secondFence = true;
 			}
@@ -88,7 +97,7 @@ public class doorHealth : MonoBehaviour {
 		fence2.GetComponent<BoxCollider> ().enabled = false;
 
 		gameLost = true;
-		Health = 0;
+		currentHealth = 0;
 	}
 	
 	//set invincibility and change the fence color

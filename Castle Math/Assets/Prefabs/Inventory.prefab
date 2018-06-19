@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4688141007497544}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: PotionPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4757028899718658}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: PotionPoint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,6 +213,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1818430923792286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4006812036864764}
+  m_Layer: 0
+  m_Name: PotionPoint4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1819016712385050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4894102921643784}
+  m_Layer: 0
+  m_Name: PotionPoint5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1826662541994560
 GameObject:
   m_ObjectHideFlags: 1
@@ -240,7 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4231057263979802}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PotionPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,6 +342,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4006812036864764
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1818430923792286}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.25, y: 0.2, z: 1.244}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4777938944678046}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4079042516013184
 Transform:
   m_ObjectHideFlags: 1
@@ -488,7 +531,7 @@ Transform:
   m_GameObject: {fileID: 1907271573345786}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.222, y: 0.075, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.15, z: 2.792317}
+  m_LocalScale: {x: 0.8, y: 0.15, z: 3.63233}
   m_Children: []
   m_Father: {fileID: 4777938944678046}
   m_RootOrder: 1
@@ -534,6 +577,8 @@ Transform:
   - {fileID: 4231057263979802}
   - {fileID: 4688141007497544}
   - {fileID: 4757028899718658}
+  - {fileID: 4006812036864764}
+  - {fileID: 4894102921643784}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 52.548004, z: 0}
@@ -550,6 +595,19 @@ Transform:
   m_Father: {fileID: 4123809383724774}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4894102921643784
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1819016712385050}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.24999994, y: 0.19999981, z: -1.167}
+  m_LocalScale: {x: 1.0000018, y: 1, z: 1.0000018}
+  m_Children: []
+  m_Father: {fileID: 4777938944678046}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4898422701971172
 Transform:
   m_ObjectHideFlags: 1
@@ -1053,6 +1111,8 @@ MonoBehaviour:
   - {fileID: 4231057263979802}
   - {fileID: 4688141007497544}
   - {fileID: 4757028899718658}
+  - {fileID: 4006812036864764}
+  - {fileID: 4894102921643784}
   potionsInInventory: []
   inventorySize: 3
   numPotions: 0

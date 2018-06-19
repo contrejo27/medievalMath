@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArrowSupplier : MonoBehaviour {
 
-	public int NumberToSpawn;
+	public int defaultNumberToSpawn;
 
 	public AudioClip spawnSound;
 
@@ -30,27 +30,27 @@ public class ArrowSupplier : MonoBehaviour {
 		//NumberOfArrows += NumberToSpawn;
 		uiSound.clip = spawnSound;
 		uiSound.Play ();
-		StartCoroutine (DelaySpawn (0));
+		StartCoroutine (DelaySpawn (0, defaultNumberToSpawn));
 	}
 
-	public void CreateArrowIntermath()
+	public void CreateArrowIntermath(int numArrowsToSpawn)
 	{
 		//NumberOfArrows += NumberToSpawn;
 		uiSound.clip = spawnSound;
 		uiSound.Play ();
-		StartCoroutine (DelaySpawnIntermath (0));
+		StartCoroutine (DelaySpawnIntermath (0, numArrowsToSpawn));
 	}
 
-	IEnumerator DelaySpawnIntermath(int Index)
+	IEnumerator DelaySpawnIntermath(int Index, int numArrowsToSpawn)
 	{
-		GroupResize (NumberOfArrows+NumberToSpawn*2,ref Arrows);
+		GroupResize (NumberOfArrows+numArrowsToSpawn*2,ref Arrows);
 
 
-		for (int i = 0; i < NumberToSpawn*2; i++) {
+		for (int i = 0; i < numArrowsToSpawn; i++) {
 			GameObject newArrow = Instantiate (ArrowToSpawn[Index], transform.position, transform.rotation);
 
 
-			Arrows [i + (Arrows.Length-NumberToSpawn*2)] = newArrow;
+			Arrows [i + (Arrows.Length-numArrowsToSpawn)] = newArrow;
 			ArrowIndex.Add (Index);
 			NumberOfArrows++;
 
@@ -63,16 +63,16 @@ public class ArrowSupplier : MonoBehaviour {
 		}
 	}
 
-	IEnumerator DelaySpawn(int Index)
+	IEnumerator DelaySpawn(int Index, int numArrowsToSpawn)
 	{
-		GroupResize (NumberOfArrows+NumberToSpawn,ref Arrows);
+		GroupResize (NumberOfArrows+numArrowsToSpawn,ref Arrows);
 
 
-		for (int i = 0; i < NumberToSpawn; i++) {
+		for (int i = 0; i < numArrowsToSpawn; i++) {
 			GameObject newArrow = Instantiate (ArrowToSpawn[Index], transform.position, transform.rotation);
 
 
-			Arrows [i + (Arrows.Length-NumberToSpawn)] = newArrow;
+			Arrows [i + (Arrows.Length-numArrowsToSpawn)] = newArrow;
 			ArrowIndex.Add (Index);
 			NumberOfArrows++;
 
@@ -83,7 +83,7 @@ public class ArrowSupplier : MonoBehaviour {
 
 	public void UseArrow()
 	{
-		if (NumberOfArrows > 0) {
+		if (NumberOfArrows > 0 && GameStateManager.instance.currentState ==EnumManager.GameState.Wave) {
 			NumberOfArrows -= 1;
 /*
 			GameObject destroyObject = Arrows [NumberOfArrows].gameObject;
