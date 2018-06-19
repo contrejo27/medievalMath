@@ -170,7 +170,7 @@ Transform:
   - {fileID: 1394033103}
   - {fileID: 1252711082}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &15072402
 Prefab:
@@ -512,6 +512,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 59360638}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &75205510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 75205511}
+  m_Layer: 0
+  m_Name: BillboardCenterPin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &75205511
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 75205510}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 10.37, y: -1.0678792, z: -3.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &76571162
 Prefab:
   m_ObjectHideFlags: 0
@@ -904,7 +932,7 @@ RectTransform:
   - {fileID: 1807948685}
   - {fileID: 1323480255}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 177.647, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1084,7 +1112,7 @@ Transform:
   - {fileID: 1234738880}
   - {fileID: 1254925716}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &135717195
 Prefab:
@@ -3621,7 +3649,7 @@ Transform:
   - {fileID: 813910358}
   - {fileID: 1772680968}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &450570752
 MonoBehaviour:
@@ -3733,7 +3761,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &456038730
 MonoBehaviour:
@@ -6522,7 +6550,7 @@ Transform:
   - {fileID: 610165123}
   - {fileID: 2098842481}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &657052360
 MonoBehaviour:
@@ -8996,7 +9024,7 @@ Transform:
   - {fileID: 1776234398}
   - {fileID: 1299033271}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &901128301
 GameObject:
@@ -10151,7 +10179,7 @@ Transform:
   - {fileID: 1662219267}
   - {fileID: 277194580}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &1003063072 stripped
 Transform:
@@ -11502,7 +11530,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1156790800 stripped
 Transform:
@@ -19555,7 +19583,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1868013880 stripped
 GameObject:
@@ -19811,6 +19839,7 @@ MonoBehaviour:
   QuestionText_hud: {fileID: 0}
   flipperPrefab: {fileID: 1753534538413082, guid: a425178315b4f0b409fc8f2396c459ec,
     type: 2}
+  billboardCenter: {fileID: 75205511}
   flipperSpacing: 0.2
   flipperSize: 1
   currentFlips: 0

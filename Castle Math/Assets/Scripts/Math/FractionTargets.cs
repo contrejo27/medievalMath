@@ -11,6 +11,9 @@ public class FractionTargets : MonoBehaviour, Question
     public Text QuestionText;
     public Text QuestionText_hud;
     public GameObject flipperPrefab;
+    // This is messy, but it's honestly easier than calculating the 
+    // Billboard's off-center position.
+    public Transform billboardCenter;
 
     public float flipperSpacing = .2f;
     public int flipperSize = 1;
@@ -43,6 +46,7 @@ public class FractionTargets : MonoBehaviour, Question
     { //int maxDifficulty => temp fix
         xDim = Random.Range(2, 6);
         yDim = Random.Range(2, 6);
+        currentFlips = 0;
 
         // Maybe consider trying to avoid the 35/36 situation
         int initDenom = xDim * yDim;
@@ -104,8 +108,11 @@ public class FractionTargets : MonoBehaviour, Question
         //Find the InterMath billboard in the scene
         GameObject billboard = GameObject.Find("MathCanvas_Billboard");
 
-        Vector3 billboardPos = billboard.transform.position;
-        Vector3 flipperStartPoint = billboardPos + new Vector3(-((flipperSpacing + flipperSize) * (xDim - 1) / 2), ((flipperSpacing + flipperSize) * (yDim - 1) / 2) + 17, 0.5f);
+        Vector3 billboardPos = billboardCenter.position;
+        Debug.Log("Billboard position: " + billboardPos);
+        Debug.Log("new Y Pos: " + ((flipperSpacing + flipperSize) * (yDim - 1) / 2).ToString());
+        Vector3 flipperStartPoint = billboardPos + new Vector3(-((flipperSpacing + flipperSize) * (xDim - 1) / 2), ((flipperSpacing + flipperSize) * (yDim - 1) / 2), 0.5f);
+        Debug.Log("Start poiitn for flippers: " + flipperStartPoint);
 
         for (int i = 0; i<yDim; i++)
         {
