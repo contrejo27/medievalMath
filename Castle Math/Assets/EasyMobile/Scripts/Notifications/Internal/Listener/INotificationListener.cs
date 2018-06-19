@@ -25,5 +25,9 @@ namespace EasyMobile.NotificationsInternal
 
         OneSignal.NotificationOpened OnOneSignalNotificationOpened { get; }
         #endif
+
+        #if EM_FIR_MESSAGING
+        Action<Firebase.Messaging.MessageReceivedEventArgs> OnFirebaseNotificationReceived { get; }
+        #endif
     }
 }

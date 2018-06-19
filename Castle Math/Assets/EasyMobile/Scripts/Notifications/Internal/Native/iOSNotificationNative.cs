@@ -232,6 +232,11 @@ namespace EasyMobile.NotificationsInternal.iOS
 
             return iOSListenerInfo;
         }
+
+        internal static bool IsEMLocalNotification(Dictionary<string, object> userInfo)
+        {
+            return userInfo != null && userInfo.ContainsKey(IOS_USERINFO_ORIGIN_KEY) && userInfo[IOS_USERINFO_ORIGIN_KEY].Equals(IOS_USERINFO_EM_KEY);
+        }
     }
 
     #endregion // iOSNotificationHelper

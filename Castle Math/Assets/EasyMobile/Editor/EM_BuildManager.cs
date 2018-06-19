@@ -11,7 +11,31 @@ using UnityEditor.iOS.Xcode;
 
 namespace EasyMobile.Editor
 {
-    #if UNITY_5_6_OR_NEWER
+#if UNITY_2018_1_OR_NEWER
+    using UnityEditor.Build;
+    using UnityEditor.Build.Reporting;
+
+    public class EM_PreBuildProcessor : IPreprocessBuildWithReport
+    {
+        public int callbackOrder { get { return 0; } }
+
+        public void OnPreprocessBuild(BuildReport report)
+        {
+            EM_BuildProcessorUtil.PreBuildProcessing(report.summary.platform, report.summary.outputPath);
+        }
+    }
+
+    public class EM_PostBuildProcessor : IPostprocessBuildWithReport
+    {
+        public int callbackOrder { get { return 9999; } }
+
+        public void OnPostprocessBuild(BuildReport report)
+        {
+            EM_BuildProcessorUtil.PostBuildProcessing(report.summary.platform, report.summary.outputPath);
+        }
+    }
+
+#elif UNITY_5_6_OR_NEWER
     using UnityEditor.Build;
 
     public class EM_PreBuildProcessor : IPreprocessBuild
@@ -24,10 +48,6 @@ namespace EasyMobile.Editor
         }
     }
 
-    //---------------------------------------------------------------------
-    // UNCOMMENT IF WE NEED TO DO POST-BUILD PROCESSING ON UNITY >= 5.6
-    //---------------------------------------------------------------------
-    /*
     public class EM_PostBuildProcessor : IPostprocessBuild
     {
         public int callbackOrder { get { return 9999; } }
@@ -37,14 +57,8 @@ namespace EasyMobile.Editor
             EM_BuildProcessorUtil.PostBuildProcessing(target, path);
         }
     }
-    */
-    #endif
 
-    //---------------------------------------------------------------------
-    // UNCOMMENT IF WE NEED TO DO POST-BUILD PROCESSING ON UNITY < 5.6
-    //---------------------------------------------------------------------
-    /*
-    #if !UNITY_5_6_OR_NEWER
+#else
     using UnityEditor.Callbacks;
 
     public class EM_LegacyBuildProcessor
@@ -55,8 +69,8 @@ namespace EasyMobile.Editor
             EM_BuildProcessorUtil.PostBuildProcessing(target, path);
         }
     }
-    #endif
-    */
+#endif
+
 
     public class EM_BuildProcessorUtil
     {
@@ -74,22 +88,18 @@ namespace EasyMobile.Editor
                     string title = "EasyMobile Instance Missing";
                     string msg = "No root-level instance of the EasyMobile prefab was found in the enabled scene(s). " +
                                  "Please add one to the first scene of your game for the plugin to function properly.";
-                    #if !UNITY_CLOUD_BUILD
+#if !UNITY_CLOUD_BUILD
                     EM_EditorUtil.Alert(title, msg);
-                    #else   
+#else
                     Debug.LogWarning(msg);
-                    #endif
+#endif
                 }
             }
         }
 
         public static void PostBuildProcessing(BuildTarget target, string path)
         {
-            //---------------------------------------------------------------------
-            // UNCOMMENT IF WE NEED TO DO POST-BUILD PROCESSING ON IOS
-            //---------------------------------------------------------------------
-            /*
-            #if UNITY_IOS
+#if UNITY_IOS
             if (target == BuildTarget.iOS)
             {
                 // Read.
@@ -108,8 +118,7 @@ namespace EasyMobile.Editor
                 // Write.
                 File.WriteAllText(pbxPath, project.WriteToString());
             }
-            #endif
-            */
+#endif
         }
     }
 }

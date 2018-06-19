@@ -57,6 +57,11 @@ namespace EasyMobile
         public readonly OneSignalNotificationPayload oneSignalPayload;
 
         /// <summary>
+        /// The original payload object if Firebase is used, <c>null</c> otherwise.
+        /// </summary>
+        public readonly FirebaseMessage firebasePayload;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EasyMobile.RemoteDeliveredNotification"/> class.
         /// This constructor will automatically build the service-specific payload object based on 
         /// the user info dictionary (which was converted from the notification payload JSON string).
@@ -96,6 +101,21 @@ namespace EasyMobile
             : base(payload.notificationID, actionId, payload.ToNotificationContent(), isForeground, isOpened)
         {
             this.oneSignalPayload = payload;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EasyMobile.RemoteDeliveredNotification"/> class.
+        /// This is intended to be used when handling remote notification events raised by Firebase API, 
+        /// where <c>FirebaseMessage</c> can be constructed from the event arguments received.
+        /// </summary>
+        /// <param name="actionId">Action identifier.</param>
+        /// <param name="payload">Payload.</param>
+        /// <param name="isForeground">If set to <c>true</c> is foreground.</param>
+        /// <param name="isOpened">If set to <c>true</c> is opened.</param>
+        public RemoteNotification(string actionId, FirebaseMessage payload, bool isForeground, bool isOpened)
+            : base(payload.MessageId, actionId, payload.ToNotificationContent(), isForeground, isOpened)
+        {
+            this.firebasePayload = payload;
         }
     }
 }

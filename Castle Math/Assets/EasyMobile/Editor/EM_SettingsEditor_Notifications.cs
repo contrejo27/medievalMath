@@ -12,6 +12,8 @@ namespace EasyMobile.Editor
         const string NotificationModuleIntro = "Notifications module simplifies the implementation of local and remote (push) notifications in your game.";
         const string OneSignalImportInstruction = "OneSignal plugin is required. Please download and import it.";
         const string OneSignalAvailMsg = "OneSignal plugin is imported and ready to use.";
+        const string FirebaseImportInstruction = "Firebase plugin is required. Please download and import it.";
+        const string FirebaseAvailMsg = "Firebase plugin is imported and ready to use.";
         const string NotificationManualInitInstruction = "You can initialize manually from script by calling Notifications.Init() method.";
         const string NotificationAndroidResourcesIntro = "Use the Android Notification Icon Generator to prepare notification icons. Default small icon should be named " + NotificationContent.DEFAULT_ANDROID_SMALL_ICON +
                                                          ", while default large icon should be " + NotificationContent.DEFAULT_ANDROID_LARGE_ICON + ". You can optionally add" +
@@ -147,6 +149,53 @@ namespace EasyMobile.Editor
                     // OneSignal setup
                     EditorGUILayout.Space();
                     NotificationProperties.oneSignalAppId.property.stringValue = EditorGUILayout.TextField(NotificationProperties.oneSignalAppId.content, NotificationProperties.oneSignalAppId.property.stringValue);
+                    #endif
+                }
+
+                if (NotificationProperties.pushNotificationService.property.enumValueIndex == (int)PushNotificationProvider.Firebase)
+                {
+                    #if !EM_FIR_MESSAGING
+                    EditorGUILayout.Space();
+                    EditorGUILayout.HelpBox(FirebaseImportInstruction, MessageType.Error);
+                    EditorGUILayout.Space();
+                    if (GUILayout.Button("Download Firebase Plugin", GUILayout.Height(EM_GUIStyleManager.buttonHeight)))
+                    {
+                        EM_ExternalPluginManager.DownloadFirebasePlugin();
+                    }
+                    #else
+                    EditorGUILayout.Space();
+                    EditorGUILayout.HelpBox(FirebaseAvailMsg, MessageType.Info);
+                    EditorGUILayout.Space();
+                    if (GUILayout.Button("Download Firebase Plugin", GUILayout.Height(EM_GUIStyleManager.buttonHeight)))
+                    {
+                        EM_ExternalPluginManager.DownloadFirebasePlugin();
+                    }
+
+                    // Firebase setup
+                    EditorGUILayout.Space();
+
+                    EditorGUILayout.BeginHorizontal();
+                    EditorGUILayout.LabelField("Default Firebase Topics");
+
+                    if (GUILayout.Button("+", GUILayout.MaxWidth(EM_GUIStyleManager.smallButtonWidth)))
+                    {
+                        var p = NotificationProperties.firebaseTopics.property;
+                        p.arraySize++;
+                        p.GetArrayElementAtIndex(p.arraySize - 1).stringValue = string.Empty;
+                    }
+
+                    if (GUILayout.Button("-", GUILayout.MaxWidth(EM_GUIStyleManager.smallButtonWidth)) && NotificationProperties.firebaseTopics.property.arraySize > 0)
+                    {
+                        NotificationProperties.firebaseTopics.property.arraySize--;
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUI.indentLevel++;
+                    for (int i = 0; i < NotificationProperties.firebaseTopics.property.arraySize; i++)
+                    {
+                        EditorGUILayout.PropertyField(NotificationProperties.firebaseTopics.property.GetArrayElementAtIndex(i));
+                    }
+                    EditorGUI.indentLevel--;
                     #endif
                 }
 

@@ -769,5 +769,16 @@ namespace EasyMobile.Editor
 
             return default(TKey);
         }
+
+        /// <summary>
+        /// Escapes the input string so it becomes URL-friendly,
+        /// any instances of "+" will be replaced by "%20" (URL-friendly space).
+        /// </summary>
+        /// <returns>The escaped URL.</returns>
+        /// <param name="s">Input string.</param>
+        public static string EscapeURL(string s)
+        {
+            return WWW.EscapeURL(s).Replace("+", "%20");
+        }
     }
 }

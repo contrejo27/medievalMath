@@ -26,6 +26,12 @@ namespace EasyMobile
         }
 
         /// <summary>
+        /// Occurs when a token is received once the selected remote notification service
+        /// has been initialized.
+        /// </summary>
+        public static event Action<string> PushTokenReceived;
+
+        /// <summary>
         /// Occurs when a remote notification is opened, either by the default open action,
         /// or by a custom notification action button.
         /// Note that if the notification arrives when the app is in foreground it won't be
@@ -42,6 +48,15 @@ namespace EasyMobile
         /// as if the notification was opened by the user.
         /// </summary>
         public static event Action<LocalNotification> LocalNotificationOpened;
+
+        /// <summary>
+        /// If a remote notification service is used, this contains the registration
+        /// token for your app once it is received from the server.
+        /// If no remote notification service was selected, or if it hasn't been initialized,
+        /// this will be null.
+        /// </summary>
+        /// <value>The token.</value>
+        public static string PushToken { get; private set; }
 
         private static ILocalNotificationClient LocalNotificationClient
         {
@@ -61,13 +76,22 @@ namespace EasyMobile
         // Platform-dependent notification event listeners.
         private static INotificationListener sListener;
 
+        // Whether initialization has been done.
+        private static bool sIsInitialized = false;
+
         #region Public API
 
         /// <summary>
-        /// Initializes the notification service.
+        /// Initializes local and remote notification services.
         /// </summary>
         public static void Init()
         {
+            if (sIsInitialized)
+            {
+                Debug.Log("Notifications module has been initialized. Ignoring this call.");
+                return;
+            }
+
             // Get the listener.
             sListener = GetNotificationListener();
 
@@ -78,9 +102,7 @@ namespace EasyMobile
                 sListener.RemoteNotificationOpened += InternalOnRemoteNotificationOpened;
             }
 
-            // Initialize remote notification service.
-            // On iOS, OneSignal's NotificationReceived & NotificationOpened will not really fire,
-            // because all notification events are handled by us from native side.
+            // Initialize OneSignal push notification service if it's used.
             if (EM_Settings.Notifications.PushNotificationService == PushNotificationProvider.OneSignal)
             {
                 #if EM_ONESIGNAL
@@ -93,24 +115,68 @@ namespace EasyMobile
                 .InFocusDisplaying(OneSignal.OSInFocusDisplayOption.None)
                 .EndInit();
 
+                // Handle when the OneSignal token becomes available.
+                // Must be called after StartInit.
+                OneSignal.IdsAvailable((playerId, pushToken) =>
+                {
+                    PushToken = pushToken;
+
+                    if (PushTokenReceived != null)
+                    PushTokenReceived(pushToken);
+                });
                 #else
                 Debug.LogError("SDK missing. Please import OneSignal plugin for Unity.");
                 #endif
             }
 
+            // Initialize Firebase push notification service if it's used.
+            if (EM_Settings.Notifications.PushNotificationService == PushNotificationProvider.Firebase)
+            {
+                #if EM_FIR_MESSAGING
+                // FirebaseMessaging will initialize once we subscribe to 
+                // the TokenReceived or MessageReceived event.
+                Firebase.Messaging.FirebaseMessaging.TokenReceived += (_, tokenArg) =>
+                {
+                    // Cache the registration token and fire event.
+                    PushToken = tokenArg.Token;
+
+                    if (PushTokenReceived != null)
+                        PushTokenReceived(tokenArg.Token);
+
+                    // Subscribe default Firebase topics if any.
+                    // This must be done after the token has been received.
+                    if (EM_Settings.Notifications.FirebaseTopics != null)
+                    {
+                        foreach (string topic in EM_Settings.Notifications.FirebaseTopics)
+                        {
+                            if (!string.IsNullOrEmpty(topic))
+                                Firebase.Messaging.FirebaseMessaging.Subscribe(topic);
+                        }
+                    }
+                };
+
+                // Register the event handler to be invoked once a Firebase message is received.
+                Firebase.Messaging.FirebaseMessaging.MessageReceived += 
+                    (_, param) => sListener.OnFirebaseNotificationReceived(param);
+                #else
+                Debug.LogError("SDK missing. Please import FirebaseMessaging plugin for Unity.");
+                #endif
+            }
+
             // Initialize local notification client.
-            // We may need to override some configuration done by the initialization
-            // of the remote notification service, so this should be done later.
             LocalNotificationClient.Init(EM_Settings.Notifications, sListener);
+
+            // Done initializing.
+            sIsInitialized = true;
         }
 
         /// <summary>
-        /// Determines if the service is initialized and notifications can be posted.
+        /// Determines if the module has been initialized.
         /// </summary>
         /// <returns><c>true</c> if is initialized; otherwise, <c>false</c>.</returns>
         public static bool IsInitialized()
         {
-            return LocalNotificationClient.IsInitialized();
+            return sIsInitialized;
         }
 
         /// <summary>
@@ -195,6 +261,32 @@ namespace EasyMobile
         public static void ClearAllDeliveredNotifications()
         {
             LocalNotificationClient.RemoveAllDeliveredNotifications();
+        }
+
+        /// <summary>
+        /// Gets the app icon badge number. This methods is only effective on iOS.
+        /// On other platforms it always returns 0.
+        /// </summary>
+        /// <returns>The app icon badge number.</returns>
+        public static int GetAppIconBadgeNumber()
+        {
+            #if UNITY_IOS && !UNITY_EDITOR
+            return Internal.iOS.UIApplication.SharedApplication.GetApplicationIconBadgeNumber();
+            #else
+            return 0;
+            #endif
+        }
+
+        /// <summary>
+        /// Sets the app icon badge number. This methods is only effective on iOS.
+        /// On other platforms it is a no-op.
+        /// </summary>
+        /// <param name="value">Value.</param>
+        public static void SetAppIconBadgeNumber(int value)
+        {
+            #if UNITY_IOS && !UNITY_EDITOR
+            Internal.iOS.UIApplication.SharedApplication.SetApplicationIconBadgeNumber(value);
+            #endif
         }
 
         #endregion

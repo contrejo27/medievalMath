@@ -32,6 +32,9 @@ namespace EasyMobile.Editor
         // OneSignal
         public const string OneSignalClassName = "OneSignal";
 
+        // Firebase Messaging
+        public const string FirebaseMessagingClassName = "FirebaseMessaging";
+
         // PlayMaker Unity UI add-on
         public const string PlayMakerUguiAddOnClass = "PlayMakerUGuiSceneProxy";
 
@@ -42,6 +45,7 @@ namespace EasyMobile.Editor
         public const string GoogleMobileAdsDownloadURL = "https://github.com/googleads/googleads-mobile-unity/releases";
         public const string GooglePlayGamesDownloadURL = "https://github.com/playgameservices/play-games-plugin-for-unity";
         public const string OneSignalDownloadURL = "https://github.com/OneSignal/OneSignal-Unity-SDK";
+        public const string FirebaseDownloadURL = "https://firebase.google.com/docs/unity/setup";
 
         /// <summary>
         /// Determines if AdColony plugin is available.
@@ -68,7 +72,6 @@ namespace EasyMobile.Editor
         public static bool IsChartboostAvail()
         {
             System.Type chartboost = EM_EditorUtil.FindClass(ChartboostClassName, ChartboostNameSpace);
-
             return chartboost != null;
         }
 
@@ -99,7 +102,6 @@ namespace EasyMobile.Editor
         public static bool IsGPGSAvail()
         {
             System.Type gpgs = EM_EditorUtil.FindClass(GPGSClassName, GPGSNameSpace);
-
             return gpgs != null;
         }
 
@@ -110,8 +112,16 @@ namespace EasyMobile.Editor
         public static bool IsOneSignalAvail()
         {
             System.Type oneSignal = EM_EditorUtil.FindClass(OneSignalClassName);
-
             return oneSignal != null;
+        }
+
+        /// <summary>
+        /// Determines if FirebaseMessaging plugin is available.
+        /// </summary>
+        public static bool IsFirebaseMessagingAvail()
+        {
+            System.Type firMsg = EM_EditorUtil.FindClass(FirebaseMessagingClassName);
+            return firMsg != null;
         }
 
         /// <summary>
@@ -162,6 +172,11 @@ namespace EasyMobile.Editor
         public static void DownloadAdColonyPlugin()
         {
             Application.OpenURL(AdColonyDownloadURL);
+        }
+
+        public static void DownloadFirebasePlugin()
+        {
+            Application.OpenURL(FirebaseDownloadURL);
         }
     }
 }

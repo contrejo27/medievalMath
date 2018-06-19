@@ -31,7 +31,6 @@ namespace EasyMobile
         // Construct the payload from a dictionary (converted from OneSignal's JSON payload format).
         public static OneSignalNotificationPayload FromJSONDict(string id, Dictionary<string, object> jsonDict)
         {
-            // TODO: remove the id param
             /****************************************************************
              * Build the payload object from OneSignal's JSON payload format.
              * Sample OneSignal JSON payload:

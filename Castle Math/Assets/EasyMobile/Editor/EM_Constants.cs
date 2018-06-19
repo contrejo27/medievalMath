@@ -10,8 +10,8 @@ namespace EasyMobile.Editor
         public const string Copyright = "© 2017-2018 SgLib Games LLC. All Rights Reserved.";
 
         // Current version
-        public const string versionString = "1.2.1";
-        public const int versionInt = 0x01210;
+        public const string versionString = "1.3.0";
+        public const int versionInt = 0x010300;
 
         // Folder
         public const string RootPath = "Assets/EasyMobile";
@@ -57,7 +57,8 @@ namespace EasyMobile.Editor
 
         // URLs
         public const string DocumentationURL = "https://sglibgames.gitbooks.io/easy-mobile-user-guide/content/";
-        public const string SupportEmail = "sglib.games@gmail.com";
+        public const string SupportEmail = "support@sglibgames.com";
+        public const string SupportEmailSubject = "[EM Pro][YOUR_INVOICE_NUMBER]";
 
         // Common symbols
         public const string NoneSymbol = "[None]";

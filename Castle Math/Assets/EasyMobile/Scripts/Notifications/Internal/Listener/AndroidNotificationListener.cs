@@ -79,6 +79,13 @@ namespace EasyMobile.NotificationsInternal
         }
         #endif
 
+        #if EM_FIR_MESSAGING
+        public Action<Firebase.Messaging.MessageReceivedEventArgs> OnFirebaseNotificationReceived
+        {
+            get { return this.HandleOnFirebaseNotificationReceived; }
+        }
+        #endif
+
         #endregion // INotificationListener Implementation
 
         #region Internal Notification Event Handlers
@@ -143,11 +150,19 @@ namespace EasyMobile.NotificationsInternal
         // Called when your app is in focus and a notification is recieved (no action taken by the user).
         private void HandleOneSignalNotificationReceived(OSNotification notification)
         {
-            var delivered = OneSignalHelper.ToCrossPlatformRemoteNotification(null, notification);
+            // If isAppInFocus == false, the app was brought to foreground by user opening the notification directly and
+            // HandleOneSignalNotificationOpened will be invoked, so we'll ignore such case to prevent firing duplicate events.
+            // If isAppInFocus == true, the notification is received when the app is in foreground and not posted to
+            // the notification center/system tray (and HandleOneSignalNotificationOpened never gets invoked), so no
+            // risk of duplicate events.
+            if (notification.isAppInFocus)
+            {
+                var delivered = OneSignalHelper.ToCrossPlatformRemoteNotification(null, notification);
 
-            // Fire event
-            if (RemoteNotificationOpened != null)
-                RemoteNotificationOpened(delivered);
+                // Fire event
+                if (RemoteNotificationOpened != null)
+                    RemoteNotificationOpened(delivered);
+            }
         }
 
 
@@ -160,6 +175,17 @@ namespace EasyMobile.NotificationsInternal
             if (RemoteNotificationOpened != null)
                 RemoteNotificationOpened(delivered);
 
+        }
+        #endif
+
+        #if EM_FIR_MESSAGING
+        private void HandleOnFirebaseNotificationReceived(Firebase.Messaging.MessageReceivedEventArgs receivedMessage)
+        {
+            var delivered = receivedMessage.ToCrossPlatformRemoteNotification();
+
+            // Fire event
+            if (RemoteNotificationOpened != null)
+                RemoteNotificationOpened(delivered);
         }
         #endif
 

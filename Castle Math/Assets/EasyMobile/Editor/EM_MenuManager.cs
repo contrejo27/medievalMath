@@ -51,6 +51,12 @@ namespace EasyMobile.Editor
             Application.OpenURL(EM_Constants.DocumentationURL);
         }
 
+        [MenuItem("Window/" + EM_Constants.ProductName + "/Support", false, 5)]
+        public static void SendSupportEmail()
+        {
+            Application.OpenURL("mailto:" + EM_Constants.SupportEmail + "?subject=" + EM_EditorUtil.EscapeURL(EM_Constants.SupportEmailSubject));
+        }
+
         [MenuItem("Window/" + EM_Constants.ProductName + "/About", false, 6)]
         public static void About()
         {

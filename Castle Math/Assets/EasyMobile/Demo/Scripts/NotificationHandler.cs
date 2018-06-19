@@ -25,18 +25,29 @@ namespace EasyMobile.Demo
 
         void OnEnable()
         {
+            Notifications.PushTokenReceived += OnPushNotificationTokenReceived;
             Notifications.LocalNotificationOpened += OnLocalNotificationOpened;
             Notifications.RemoteNotificationOpened += OnPushNotificationOpened;
         }
 
         void OnDisable()
         {
+            Notifications.PushTokenReceived -= OnPushNotificationTokenReceived;
             Notifications.LocalNotificationOpened -= OnLocalNotificationOpened;
             Notifications.RemoteNotificationOpened -= OnPushNotificationOpened;
         }
 
+        void OnPushNotificationTokenReceived(string token)
+        {
+            Debug.Log("OnPushNotificationTokenReceived: " + token);
+        }
+
         void OnLocalNotificationOpened(LocalNotification delivered)
         {
+            // Reset app icon badge number (iOS only)
+            if (delivered.isOpened)
+                Notifications.SetAppIconBadgeNumber(0);
+
             DisplayNotification(delivered, false);
         }
 
@@ -51,64 +62,99 @@ namespace EasyMobile.Demo
             var content = delivered.content;
             var sb = new StringBuilder();
 
-            bool hasNewUpdate = content.userInfo.ContainsKey("newUpdate");
+            bool hasNewUpdate = content.userInfo != null ? content.userInfo.ContainsKey("newUpdate") : false;
 
             if (hasNewUpdate)
             {
                 sb.Append("A new version is available. Do you want to update now?\n");
             }
 
-            sb.Append("----- NOTIFICATION DATA -----\n")
-            .Append("ActionID: " + delivered.actionId + "\n")
-            .Append("isAppInForeground: " + delivered.isAppInForeground + "\n")
-                .Append("isOpened: " + delivered.isOpened + "\n")
-                .Append("Title: " + content.title + "\n")
-                .Append("Body: " + content.body + "\n")
-                .Append("Badge: " + content.badge.ToString() + "\n")
-                .Append("CategoryID: " + content.categoryId + "\n")
-                .Append("UserInfo: " + Json.Serialize(content.userInfo));
+            sb.AppendLine("----- NOTIFICATION DATA -----")
+                .AppendLine("ActionID: " + delivered.actionId ?? "null")
+                .AppendLine("isAppInForeground: " + delivered.isAppInForeground)
+                .AppendLine("isOpened: " + delivered.isOpened)
+                .AppendLine("Title: " + content.title ?? "null")
+                .AppendLine("Body: " + content.body ?? "null")
+                .AppendLine("Badge: " + content.badge.ToString())
+                .AppendLine("CategoryID: " + content.categoryId ?? "null")
+                .AppendLine("UserInfo: " + (content.userInfo != null ? Json.Serialize(content.userInfo) : "null"));
 
             string popupTitle;
             if (isRemote)
-                popupTitle = Notifications.CurrentPushNotificationService == PushNotificationProvider.OneSignal ?
-                "OneSignal Push Notification Received" : "Remote Notification Received";
+                popupTitle = Notifications.CurrentPushNotificationService.ToString() + " Push Notification Received";
             else
                 popupTitle = "Local Notification Received";
 
             StartCoroutine(CRWaitAndShowPopup(hasNewUpdate, popupTitle, sb.ToString()));
 
             // Print original OneSignal payload for debug purpose.
-            if (isRemote && Notifications.CurrentPushNotificationService == PushNotificationProvider.OneSignal)
+            if (isRemote)
             {
-                var oneSignalPayload = ((RemoteNotification)delivered).oneSignalPayload;
+                if (Notifications.CurrentPushNotificationService == PushNotificationProvider.OneSignal)
+                {
+                    var oneSignalPayload = ((RemoteNotification)delivered).oneSignalPayload;
 
-                if (oneSignalPayload == null)
-                {
-                    Debug.Log("Something wrong: using OneSignal service but oneSignalPayload was not initialized.");
+                    if (oneSignalPayload == null)
+                    {
+                        Debug.Log("Something wrong: using OneSignal service but oneSignalPayload was not initialized.");
+                    }
+                    else
+                    {
+                        var oneSignalPayloadSb = new StringBuilder()
+                            .AppendLine("----- START ONESIGNAL PAYLOAD -----")
+                            .AppendLine("notificationID: " + oneSignalPayload.notificationID ?? "null")
+                            .AppendLine("sound: " + oneSignalPayload.sound ?? "null")
+                            .AppendLine("title: " + oneSignalPayload.title ?? "null")
+                            .AppendLine("body: " + oneSignalPayload.body ?? "null")
+                            .AppendLine("subtitle: " + oneSignalPayload.subtitle ?? "null")
+                            .AppendLine("launchURL: " + oneSignalPayload.launchURL ?? "null")
+                            .AppendLine("additionalData: " + oneSignalPayload.additionalData != null ? Json.Serialize(oneSignalPayload.additionalData) : "null")
+                            .AppendLine("actionButtons: " + oneSignalPayload.actionButtons != null ? Json.Serialize(oneSignalPayload.actionButtons) : "null")
+                            .AppendLine("contentAvailable: " + oneSignalPayload.contentAvailable.ToString())
+                            .AppendLine("badge: " + oneSignalPayload.badge)
+                            .AppendLine("smallIcon: " + oneSignalPayload.smallIcon ?? "null")
+                            .AppendLine("largeIcon: " + oneSignalPayload.largeIcon ?? "null")
+                            .AppendLine("bigPicture: " + oneSignalPayload.bigPicture ?? "null")
+                            .AppendLine("smallIconAccentColor: " + oneSignalPayload.smallIconAccentColor ?? "null")
+                            .AppendLine("ledColor: " + oneSignalPayload.ledColor ?? "null")
+                            .AppendLine("lockScreenVisibility: " + oneSignalPayload.lockScreenVisibility)
+                            .AppendLine("groupKey: " + oneSignalPayload.groupKey ?? "null")
+                            .AppendLine("groupMessage: " + oneSignalPayload.groupMessage ?? "null")
+                            .AppendLine("fromProjectNumber: " + oneSignalPayload.fromProjectNumber ?? "null")
+                            .AppendLine("----- END ONESIGNAL PAYLOAD -----");
+
+                        Debug.Log(oneSignalPayloadSb.ToString());
+                    }
                 }
-                else
+                else if (Notifications.CurrentPushNotificationService == PushNotificationProvider.Firebase)
                 {
-                    Debug.Log("----- START ONESIGNAL PAYLOAD -----");
-                    Debug.Log("notificationID: " + oneSignalPayload.notificationID);
-                    Debug.Log("sound: " + oneSignalPayload.sound);
-                    Debug.Log("title: " + oneSignalPayload.title);
-                    Debug.Log("body: " + oneSignalPayload.body);
-                    Debug.Log("subtitle: " + oneSignalPayload.subtitle);
-                    Debug.Log("launchURL: " + oneSignalPayload.launchURL);
-                    Debug.Log("additionalData: " + Json.Serialize(oneSignalPayload.additionalData));
-                    Debug.Log("actionButtons: " + Json.Serialize(oneSignalPayload.actionButtons));
-                    Debug.Log("contentAvailable: " + oneSignalPayload.contentAvailable.ToString());
-                    Debug.Log("badge: " + oneSignalPayload.badge);
-                    Debug.Log("smallIcon: " + oneSignalPayload.smallIcon);
-                    Debug.Log("largeIcon: " + oneSignalPayload.largeIcon);
-                    Debug.Log("bigPicture: " + oneSignalPayload.bigPicture);
-                    Debug.Log("smallIconAccentColor: " + oneSignalPayload.smallIconAccentColor);
-                    Debug.Log("ledColor: " + oneSignalPayload.ledColor);
-                    Debug.Log("lockScreenVisibility: " + oneSignalPayload.lockScreenVisibility);
-                    Debug.Log("groupKey: " + oneSignalPayload.groupKey);
-                    Debug.Log("groupMessage: " + oneSignalPayload.groupMessage);
-                    Debug.Log("fromProjectNumber: " + oneSignalPayload.fromProjectNumber);
-                    Debug.Log("----- END ONESIGNAL PAYLOAD -----");
+                    var firebasePayload = ((RemoteNotification)delivered).firebasePayload;
+
+                    if (firebasePayload == null)
+                    {
+                        Debug.Log("Something wrong: using Firebase service but firebasePayload was not initialized.");
+                    }
+                    else
+                    {
+                        var firebasePayloadSb = new StringBuilder()
+                            .AppendLine("----- START FIREBASE PAYLOAD -----")
+                            .AppendLine("Title: " + firebasePayload.Notification.Title)
+                            .AppendLine("Body: " + firebasePayload.Notification.Body)
+                            .AppendLine("Icon: " + firebasePayload.Notification.Icon)
+                            .AppendLine("Sound: " + firebasePayload.Notification.Sound)
+                            .AppendLine("Badge: " + firebasePayload.Notification.Badge)
+                            .AppendLine("Tag: " + firebasePayload.Notification.Tag)
+                            .AppendLine("ClickAction: " + firebasePayload.Notification.ClickAction)
+                            .AppendLine("Data: " + (firebasePayload.Data != null ? Json.Serialize(firebasePayload.Data) : "null"))
+                            .AppendLine("NotificationOpened: " + firebasePayload.NotificationOpened)
+                            .AppendLine("MessageId: " + firebasePayload.MessageId)
+                            .AppendLine("From: " + firebasePayload.From)
+                            .AppendLine("To: " + firebasePayload.To)
+                            .AppendLine("ErrorDescription: " + firebasePayload.ErrorDescription)
+                            .AppendLine("----- END FIREBASE PAYLOAD -----");
+
+                        Debug.Log(firebasePayloadSb.ToString());
+                    }
                 }
             }
         }
@@ -118,7 +164,7 @@ namespace EasyMobile.Demo
             // Wait until no other alert is showing.
             while (NativeUI.IsShowingAlert())
                 yield return new WaitForSeconds(0.1f);
-            
+
             if (!hasNewUpdate)
                 NativeUI.Alert(title, message);
             else

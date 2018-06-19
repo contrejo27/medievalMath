@@ -13,7 +13,6 @@ public class SubscriptionCanvas : CanvasNavigation
     [SerializeField] private IAPProductDisplay productPrefab;
     [SerializeField] private Transform subscriptionDisplay;
     [SerializeField] private Button loginButton;
-    [SerializeField] private Text daysLeftText;
 	[SerializeField] private Text activeSubText;
 
     private IAPProduct[] _products;
@@ -87,9 +86,6 @@ public class SubscriptionCanvas : CanvasNavigation
 
     void Update()
     {
-        if(daysLeftText)
-            daysLeftText.text = "Days Left: " + daysLeft.ToString();
-
 		if (loginButton)
 			loginButton.gameObject.SetActive (LocalUserData.IsLoggedIn () == false);
 

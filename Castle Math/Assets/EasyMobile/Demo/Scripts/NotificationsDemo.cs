@@ -32,6 +32,7 @@ namespace EasyMobile.Demo
 
         [Header("Object References")]
         public GameObject curtain;
+        public GameObject pushNotifService;
         public GameObject isAutoInitInfo;
         public GameObject isInitializedInfo;
         public Text pendingNotificationList;
@@ -44,6 +45,11 @@ namespace EasyMobile.Demo
         {
             curtain.SetActive(!EM_Settings.IsNotificationsModuleEnable);
 
+            demoUtils.DisplayBool(
+                pushNotifService,
+                Notifications.CurrentPushNotificationService != PushNotificationProvider.None,
+                "Remote Notification Service: " + Notifications.CurrentPushNotificationService.ToString());
+
             bool autoInit = EM_Settings.Notifications.IsAutoInit;
             demoUtils.DisplayBool(
                 isAutoInitInfo,
@@ -51,7 +57,7 @@ namespace EasyMobile.Demo
                 "Auto Initialization: " + autoInit.ToString().ToUpper()); 
 
             orgNotificationListText = pendingNotificationList.text;
-            InvokeRepeating("UpdatePendingNotificationList", 1, 2);
+            InvokeRepeating("UpdatePendingNotificationList", 1, 1);
         }
 
         void Update()
@@ -78,7 +84,7 @@ namespace EasyMobile.Demo
         {
             if (!InitCheck())
                 return;
-            
+
             var notif = new NotificationContent();
             notif.title = title;
             notif.subtitle = subtitle;
@@ -93,6 +99,9 @@ namespace EasyMobile.Demo
 
             notif.categoryId = categoryId;
 
+            // Increase badge number (iOS only)
+            notif.badge = Notifications.GetAppIconBadgeNumber() + 1;
+
             DateTime triggerDate = DateTime.Now + new TimeSpan(delayHours, delayMinutes, delaySeconds);
             Notifications.ScheduleLocalNotification(triggerDate, notif);
         }
@@ -101,7 +110,7 @@ namespace EasyMobile.Demo
         {
             if (!InitCheck())
                 return;
-            
+
             var notif = new NotificationContent();
             notif.title = repeatTitle;
             notif.body = repeatMessage;
@@ -114,7 +123,7 @@ namespace EasyMobile.Demo
         {
             if (!InitCheck())
                 return;
-            
+
             if (string.IsNullOrEmpty(idInputField.text))
             {
                 NativeUI.Alert("Alert", "Please enter the ID of the notification to cancel.");
@@ -129,7 +138,7 @@ namespace EasyMobile.Demo
         {
             if (!InitCheck())
                 return;
-            
+
             Notifications.CancelAllPendingLocalNotifications();
             NativeUI.Alert("Alert", "Canceled all pending local notifications of this app.");
         }
@@ -168,7 +177,7 @@ namespace EasyMobile.Demo
                             .Append("Badge: " + content.badge.ToString() + "\n")
                             .Append("UserInfo: " + Json.Serialize(content.userInfo) + "\n")
                             .Append("CategoryID: " + content.categoryId + "\n")
-                            .Append("NextTriggerDate: " + req.nextTriggerDate.ToShortDateString() + " " + req.nextTriggerDate.ToLongTimeString() + "\n")
+                            .Append("NextTriggerDate: " + req.nextTriggerDate.ToShortDateString() + "\n")
                             .Append("Repeat: " + req.repeat.ToString() + "\n")
                             .Append("-------------------------\n");
                     }

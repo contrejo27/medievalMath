@@ -277,12 +277,19 @@ namespace EasyMobile.Editor
         {
             EM_EditorUtil.AddModuleToPrefab<Notifications>(mainPrefab);
 
+            // Define related symbols.
+            var symbols = new List<string>();
+
             // Check if OneSignal is available.
-            bool isOneSignalAvail = EM_ExternalPluginManager.IsOneSignalAvail();
-            if (isOneSignalAvail)
-            {
-                GlobalDefineManager.SDS_AddDefine(EM_ScriptingSymbols.OneSignal, EditorUserBuildSettings.selectedBuildTargetGroup);
-            }
+            if (EM_ExternalPluginManager.IsOneSignalAvail())
+                symbols.Add(EM_ScriptingSymbols.OneSignal);
+
+            // Check if Firebase Messaging is available.
+            if (EM_ExternalPluginManager.IsFirebaseMessagingAvail())
+                symbols.Add(EM_ScriptingSymbols.FirebaseMessaging);
+
+            GlobalDefineManager.SDS_AddDefines(
+                symbols.ToArray(), EditorUserBuildSettings.selectedBuildTargetGroup);
         }
 
         internal static void DisableNotificationModule(GameObject mainPrefab)
@@ -290,7 +297,8 @@ namespace EasyMobile.Editor
             EM_EditorUtil.RemoveModuleFromPrefab<Notifications>(mainPrefab);
 
             // Remove associated scripting symbol on all platforms it was defined.
-            GlobalDefineManager.SDS_RemoveDefineOnAllPlatforms(EM_ScriptingSymbols.OneSignal);
+            GlobalDefineManager.SDS_RemoveDefinesOnAllPlatforms(
+                new string[] { EM_ScriptingSymbols.OneSignal, EM_ScriptingSymbols.FirebaseMessaging });
         }
 
         #endregion

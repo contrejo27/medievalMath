@@ -115,6 +115,7 @@ namespace EasyMobile.Editor
             public static EMProperty iosAuthOptions = new EMProperty(null, new GUIContent("[iOS] Authorization Options", "The types of notification interaction your app requests on iOS"));
             public static EMProperty pushNotificationService = new EMProperty(null, new GUIContent("Push Notification Service", "The service used for push (remote) notifications"));
             public static EMProperty oneSignalAppId = new EMProperty(null, new GUIContent("OneSignal App Id", "The app Id obtained from OneSignal dashboard"));
+            public static EMProperty firebaseTopics = new EMProperty(null, new GUIContent("Firebase Topics"));
             public static EMProperty categoryGroups = new EMProperty(null, new GUIContent("Category Groups", "Optional groups for notification categories"));
             public static EMProperty defaultCategory = new EMProperty(null, new GUIContent("Default Category", "The default notification category. Your app mush have at least one category, you can modify this default category but not remove it."));
             public static EMProperty userCategories = new EMProperty(null, new GUIContent("User Categories", "Custom notification categories for your app"));
@@ -217,6 +218,7 @@ namespace EasyMobile.Editor
             NotificationProperties.iosAuthOptions.property = NotificationProperties.mainProperty.FindPropertyRelative("_iosAuthOptions");
             NotificationProperties.pushNotificationService.property = NotificationProperties.mainProperty.FindPropertyRelative("_pushNotificationService");
             NotificationProperties.oneSignalAppId.property = NotificationProperties.mainProperty.FindPropertyRelative("_oneSignalAppId");
+            NotificationProperties.firebaseTopics.property = NotificationProperties.mainProperty.FindPropertyRelative("_firebaseTopics");
             NotificationProperties.categoryGroups.property = NotificationProperties.mainProperty.FindPropertyRelative("_categoryGroups");
             NotificationProperties.defaultCategory.property = NotificationProperties.mainProperty.FindPropertyRelative("_defaultCategory");
             NotificationProperties.userCategories.property = NotificationProperties.mainProperty.FindPropertyRelative("_userCategories");

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using EasyMobile;
-
+#if EM_UIAP
+using UnityEngine.Purchasing;
+#endif
 
 public class IAPProductDisplay : MonoBehaviour 
 {
@@ -44,9 +46,9 @@ public class IAPProductDisplay : MonoBehaviour
 
         string prodDescription = "";
         
-		prodDescription += product.Name;
+        prodDescription += product.Name;
 		prodDescription += "\n";
-        prodDescription += product.Price;
+        prodDescription += "$" + product.Price;
 		prodDescription += "\n";
 		prodDescription += product.Description;
 

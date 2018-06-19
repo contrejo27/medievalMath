@@ -45,7 +45,7 @@ namespace EasyMobile.NotificationsInternal
             }
         }
 
-        #region INotificationListener Implementation
+#region INotificationListener Implementation
 
         public event Action<LocalNotification> LocalNotificationOpened;
 
@@ -66,7 +66,7 @@ namespace EasyMobile.NotificationsInternal
             get { return this._OnNativeNotificationFromBackground; }
         }
 
-        #if EM_ONESIGNAL
+#if EM_ONESIGNAL
         public OneSignal.NotificationReceived OnOneSignalNotificationReceived
         { 
             get { return this.HandleOneSignalNotificationReceived; }
@@ -76,15 +76,21 @@ namespace EasyMobile.NotificationsInternal
         { 
             get { return this.HandleOneSignalNotificationOpened; }
         }
-        #endif
+#endif
 
-        #endregion // INotificationListener Implementation
+#if EM_FIR_MESSAGING
+        public Action<Firebase.Messaging.MessageReceivedEventArgs> OnFirebaseNotificationReceived
+        {
+            get { return this.HandleOnFirebaseNotificationReceived; }
+        }
+#endif
 
-        #region Internal Notification Event Handlers
+#endregion // INotificationListener Implementation
+
+#region Internal Notification Event Handlers
 
         //--------------------------------------------------------
         // Native Notification Event Handlers
-        // Note that on iOS we'll handle both local and remote notification events.
         //--------------------------------------------------------
 
         private void _OnNativeNotificationFromForeground(string notifID)
@@ -97,21 +103,17 @@ namespace EasyMobile.NotificationsInternal
             InternalOnNativeNotificationEvent(false, notifID);
         }
 
-        #if EM_ONESIGNAL
         //--------------------------------------------------------
         // OneSignal Event Handlers
-        // On iOS, OneSignal's NotificationReceived & NotificationOpened will not really fire,
-        // because all notification events are handled by us from native side.
         //--------------------------------------------------------
-
+#if EM_ONESIGNAL
         // Called when your app is in focus and a notification is recieved (no action taken by the user).
         private void HandleOneSignalNotificationReceived(OSNotification notification)
         {
             var delivered = OneSignalHelper.ToCrossPlatformRemoteNotification(null, notification);
 
             // Fire event
-            if (RemoteNotificationOpened != null)
-                RemoteNotificationOpened(delivered);
+            RaiseRemoteNotificationEvent(delivered);
         }
 
 
@@ -121,17 +123,38 @@ namespace EasyMobile.NotificationsInternal
             var delivered = OneSignalHelper.ToCrossPlatformRemoteNotification(result);
 
             // Fire event
-            if (RemoteNotificationOpened != null)
-                RemoteNotificationOpened(delivered);
+            RaiseRemoteNotificationEvent(delivered);
 
         }
-        #endif
+#endif
+
+        //--------------------------------------------------------
+        // FirebaseMessaging Event Handlers
+        //--------------------------------------------------------
+#if EM_FIR_MESSAGING
+        private void HandleOnFirebaseNotificationReceived(Firebase.Messaging.MessageReceivedEventArgs receivedMessage)
+        {
+            var delivered = receivedMessage.ToCrossPlatformRemoteNotification();
+
+            if (!iOSNotificationHelper.IsEMLocalNotification(delivered.content.userInfo))
+            {
+                // Not EM's local notification
+                RaiseRemoteNotificationEvent(delivered);
+            }
+        }
+#endif
 
         #endregion // Internal Notification Event Handlers
 
         #region Internal Stuff
 
-        IEnumerator CRRaiseEvents(string actionId, NotificationRequest request, bool isForeground, bool isRemote)
+        void RaiseRemoteNotificationEvent(RemoteNotification notification)
+        {
+            if (RemoteNotificationOpened != null)
+                RemoteNotificationOpened(notification);
+        }
+
+        IEnumerator CRRaiseLocalNotificationEvent(string actionId, NotificationRequest request, bool isForeground)
         {
             // This could be called at app-launch-from-notification, so we'd better
             // check if the Helper is ready before asking it to schedule a job on main thread.
@@ -140,33 +163,16 @@ namespace EasyMobile.NotificationsInternal
             
             Helper.RunOnMainThread(() =>
                 {
-                    if (isRemote)
-                    {
-                        var delivered = new RemoteNotification(
-                                            request.id,
-                                            actionId,
-                                            request.content,
-                                            isForeground,
-                                            isForeground ? false : true
-                                        );
+                    var delivered = new LocalNotification(
+                                        request.id,
+                                        actionId,
+                                        request.content,
+                                        isForeground,
+                                        isForeground ? false : true // isOpened
+                                    );
 
-                        if (RemoteNotificationOpened != null)
-                            RemoteNotificationOpened(delivered);
-                    }
-                    else
-                    {
-                        // Local notification.
-                        var delivered = new LocalNotification(
-                                            request.id,
-                                            actionId,
-                                            request.content,
-                                            isForeground,
-                                            isForeground ? false : true // isOpened
-                                        );
-
-                        if (LocalNotificationOpened != null)
-                            LocalNotificationOpened(delivered);
-                    }
+                    if (LocalNotificationOpened != null)
+                        LocalNotificationOpened(delivered);
                 });
         }
 
@@ -193,7 +199,10 @@ namespace EasyMobile.NotificationsInternal
 
                     bool isRemote;
                     var request = iOSNotificationHelper.ToCrossPlatformNotificationRequest(iOSRequest, out isRemote);
-                    StartCoroutine(CRRaiseEvents(actionID, request, isForeground, isRemote));
+
+                    // Only handle local notification events.
+                    if (!isRemote)
+                        StartCoroutine(CRRaiseLocalNotificationEvent(actionID, request, isForeground));
                 });
         }
 
@@ -224,7 +233,7 @@ namespace EasyMobile.NotificationsInternal
                 callbackPtr);
         }
 
-        #endregion // Internal Stuff
+#endregion // Internal Stuff
     }
 }
 

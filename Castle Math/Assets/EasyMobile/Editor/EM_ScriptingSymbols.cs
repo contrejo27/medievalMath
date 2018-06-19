@@ -10,6 +10,7 @@ namespace EasyMobile.Editor
         public const string GooglePlayGames = "EM_GPGS";
         public const string NoGooglePlayGames = "NO_GPGS";
         public const string OneSignal = "EM_ONESIGNAL";
+        public const string FirebaseMessaging = "EM_FIR_MESSAGING";
 
         // Ad networks
         public const string AdColony = "EM_ADCOLONY";

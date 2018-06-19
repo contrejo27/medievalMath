@@ -21,6 +21,8 @@ namespace EasyMobile
 
         public string OneSignalAppId { get { return _oneSignalAppId; } }
 
+        public string[] FirebaseTopics { get { return _firebaseTopics; } }
+
         public NotificationCategoryGroup[] CategoryGroups { get { return _categoryGroups; } }
 
         public NotificationCategory DefaultCategory { get { return _defaultCategory; } }
@@ -43,6 +45,9 @@ namespace EasyMobile
 
         [SerializeField]
         private string _oneSignalAppId;
+
+        [SerializeField]
+        private string[] _firebaseTopics;
 
         // Category groups
         [SerializeField]
@@ -85,7 +90,8 @@ namespace EasyMobile
     public enum PushNotificationProvider
     {
         None,
-        OneSignal
+        OneSignal,
+        Firebase,
     }
 
     [Flags]

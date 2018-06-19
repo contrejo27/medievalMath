@@ -76,8 +76,21 @@ namespace EasyMobile.NotificationsInternal
                 };
             }
         }
-#endif
+        #endif
+
+        #if EM_FIR_MESSAGING
+        public Action<Firebase.Messaging.MessageReceivedEventArgs> OnFirebaseNotificationReceived
+        {
+            get
+            {
+                return (param) =>
+                {
+                };
+            }
+        }
+        #endif
 
         #endregion // INotificationListener Implementation
     }
 }
+    
