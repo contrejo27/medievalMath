@@ -219,7 +219,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 111b1337086dbd547a9386caf96c2714, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 111b1337086dbd547a9386caf96c2714, type: 3}
       propertyPath: m_Name
@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 33746734}
   - component: {fileID: 33746733}
   - component: {fileID: 33746732}
+  - component: {fileID: 33746735}
   m_Layer: 5
   m_Name: barricade2
   m_TagString: Untagged
@@ -383,6 +384,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 33746730}
+--- !u!114 &33746735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 33746730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 1
+  buttonSelected: {fileID: 33746732}
+  buttonImage: {fileID: 33746733}
+  unlockGraphic: {fileID: 0}
+  starCost: 10
+  levelDependency: -1
+  dependent: {fileID: 0}
+  prerequisite: {fileID: 307449448}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 426004454}
 --- !u!1001 &72273717
 Prefab:
   m_ObjectHideFlags: 0
@@ -1024,6 +1046,7 @@ GameObject:
   - component: {fileID: 307449447}
   - component: {fileID: 307449446}
   - component: {fileID: 307449445}
+  - component: {fileID: 307449448}
   m_Layer: 5
   m_Name: barricade1
   m_TagString: Untagged
@@ -1124,6 +1147,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 307449443}
+--- !u!114 &307449448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 307449443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 0
+  buttonSelected: {fileID: 307449445}
+  buttonImage: {fileID: 307449446}
+  unlockGraphic: {fileID: 0}
+  starCost: 9
+  levelDependency: -1
+  dependent: {fileID: 0}
+  prerequisite: {fileID: 0}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 848456766}
 --- !u!1 &308324926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,7 +1288,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 8685915653000a74a98a1a019eb215e4, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 8685915653000a74a98a1a019eb215e4, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1298,7 +1342,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: d1036415f6ea442a9afc3adb6e466f76, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: d1036415f6ea442a9afc3adb6e466f76, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1407,6 +1451,7 @@ GameObject:
   - component: {fileID: 415470683}
   - component: {fileID: 415470682}
   - component: {fileID: 415470681}
+  - component: {fileID: 415470684}
   m_Layer: 5
   m_Name: inventory1
   m_TagString: Untagged
@@ -1507,6 +1552,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 415470679}
+--- !u!114 &415470684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 415470679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 11
+  buttonSelected: {fileID: 415470681}
+  buttonImage: {fileID: 415470682}
+  unlockGraphic: {fileID: 0}
+  starCost: 7
+  levelDependency: -1
+  dependent: {fileID: 0}
+  prerequisite: {fileID: 0}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 745304}
 --- !u!1 &415685302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,6 +1761,7 @@ GameObject:
   - component: {fileID: 483132973}
   - component: {fileID: 483132972}
   - component: {fileID: 483132971}
+  - component: {fileID: 483132974}
   m_Layer: 5
   m_Name: iceQuiver2
   m_TagString: Untagged
@@ -1759,7 +1826,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 483132972}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 483132974}
+        m_MethodName: SetUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &483132972
@@ -1795,6 +1873,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 483132969}
+--- !u!114 &483132974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 483132969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 3
+  buttonSelected: {fileID: 483132971}
+  buttonImage: {fileID: 483132972}
+  unlockGraphic: {fileID: 21300000, guid: 8156ecb291c3bfe4cabe58612b50fdec, type: 3}
+  starCost: 1
+  levelDependency: -1
+  dependent: {fileID: 1003182521}
+  prerequisite: {fileID: 1669303507}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 2007864938}
 --- !u!1 &488091607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,6 +1974,7 @@ GameObject:
   - component: {fileID: 510292609}
   - component: {fileID: 510292608}
   - component: {fileID: 510292607}
+  - component: {fileID: 510292610}
   m_Layer: 5
   m_Name: inventory2
   m_TagString: Untagged
@@ -1975,6 +2075,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 510292605}
+--- !u!114 &510292610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 510292605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 12
+  buttonSelected: {fileID: 510292607}
+  buttonImage: {fileID: 510292608}
+  unlockGraphic: {fileID: 0}
+  starCost: 8
+  levelDependency: -1
+  dependent: {fileID: 0}
+  prerequisite: {fileID: 415470684}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 600698036}
 --- !u!1 &518283716
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,6 +2107,7 @@ GameObject:
   - component: {fileID: 518283720}
   - component: {fileID: 518283719}
   - component: {fileID: 518283718}
+  - component: {fileID: 518283721}
   m_Layer: 5
   m_Name: fireQuiver2
   m_TagString: Untagged
@@ -2050,7 +2172,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 518283719}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 518283721}
+        m_MethodName: SetUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &518283719
@@ -2086,6 +2219,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 518283716}
+--- !u!114 &518283721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 518283716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 6
+  buttonSelected: {fileID: 518283718}
+  buttonImage: {fileID: 518283719}
+  unlockGraphic: {fileID: 21300000, guid: f1ea3b2b929e86a4695e5d5f0471b919, type: 3}
+  starCost: 3
+  levelDependency: -1
+  dependent: {fileID: 601917457}
+  prerequisite: {fileID: 1657763866}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 2116773413}
 --- !u!1001 &536425090
 Prefab:
   m_ObjectHideFlags: 0
@@ -2123,7 +2277,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4046070576589902, guid: 201c78675408b09469905e225d5cac6a, type: 2}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 4046070576589902, guid: 201c78675408b09469905e225d5cac6a, type: 2}
       propertyPath: m_LocalScale.x
@@ -2255,7 +2409,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4265579823906616, guid: 4d272402a09cecd42a5f9f5d73589fc7, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4265579823906616, guid: 4d272402a09cecd42a5f9f5d73589fc7, type: 2}
       propertyPath: m_LocalScale.x
@@ -2332,7 +2486,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &560128497
 GameObject:
@@ -2553,7 +2707,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570997366}
-  m_LocalRotation: {x: -0.0015159951, y: 0.99666643, z: 0.07931459, w: 0.019049983}
+  m_LocalRotation: {x: -0.0015159952, y: 0.9966665, z: 0.0793146, w: 0.019049985}
   m_LocalPosition: {x: 30.43, y: 6.97, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2645,6 +2799,7 @@ GameObject:
   - component: {fileID: 601917456}
   - component: {fileID: 601917455}
   - component: {fileID: 601917454}
+  - component: {fileID: 601917457}
   m_Layer: 5
   m_Name: fireQuiver3
   m_TagString: Untagged
@@ -2709,7 +2864,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 601917455}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 601917457}
+        m_MethodName: SetUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &601917455
@@ -2745,6 +2911,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 601917452}
+--- !u!114 &601917457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 601917452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 7
+  buttonSelected: {fileID: 601917454}
+  buttonImage: {fileID: 601917455}
+  unlockGraphic: {fileID: 21300000, guid: 9c4e29f379c2fb742b8d53d4821dd98b, type: 3}
+  starCost: 4
+  levelDependency: -1
+  dependent: {fileID: 518283721}
+  prerequisite: {fileID: 1657763866}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 1648595903}
 --- !u!1 &611063917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3358,7 +3545,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 16.078001, y: -154.81201, z: 2.9290001}
 --- !u!1 &747432155
 GameObject:
@@ -3460,6 +3647,52 @@ Transform:
   m_Father: {fileID: 2121658117}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &847465400
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4030030195024754, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 20.16524
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030030195024754, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.2990084
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030030195024754, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -12.114531
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030030195024754, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030030195024754, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030030195024754, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030030195024754, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030030195024754, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426159621377282, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3c1f2c452add7764087d3d5eb442cf58, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &848456764
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,7 +3804,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4265579823906616, guid: 4d272402a09cecd42a5f9f5d73589fc7, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4265579823906616, guid: 4d272402a09cecd42a5f9f5d73589fc7, type: 2}
       propertyPath: m_LocalScale.x
@@ -3615,6 +3848,7 @@ GameObject:
   - component: {fileID: 878555148}
   - component: {fileID: 878555147}
   - component: {fileID: 878555146}
+  - component: {fileID: 878555149}
   m_Layer: 5
   m_Name: lightningQuiver
   m_TagString: Untagged
@@ -3638,7 +3872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: -1.3001537}
+  m_AnchoredPosition: {x: -3, y: -1.32}
   m_SizeDelta: {x: 230, y: 260}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &878555146
@@ -3715,6 +3949,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 878555144}
+--- !u!114 &878555149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878555144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 8
+  buttonSelected: {fileID: 878555146}
+  buttonImage: {fileID: 878555147}
+  unlockGraphic: {fileID: 21300000, guid: 9cd1d5c62a6dbf3448c798546f707c66, type: 3}
+  starCost: 0
+  levelDependency: -1
+  dependent: {fileID: 0}
+  prerequisite: {fileID: 0}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 0}
 --- !u!1 &909729232
 GameObject:
   m_ObjectHideFlags: 0
@@ -3726,6 +3981,7 @@ GameObject:
   - component: {fileID: 909729236}
   - component: {fileID: 909729235}
   - component: {fileID: 909729234}
+  - component: {fileID: 909729237}
   m_Layer: 5
   m_Name: lightningQuiver2
   m_TagString: Untagged
@@ -3790,7 +4046,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 909729235}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 909729237}
+        m_MethodName: SetUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &909729235
@@ -3826,6 +4093,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 909729232}
+--- !u!114 &909729237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 909729232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 9
+  buttonSelected: {fileID: 909729234}
+  buttonImage: {fileID: 909729235}
+  unlockGraphic: {fileID: 21300000, guid: 6ae445ff4bbf83d428d640400e640e85, type: 3}
+  starCost: 5
+  levelDependency: -1
+  dependent: {fileID: 1863992437}
+  prerequisite: {fileID: 878555149}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 177453751}
 --- !u!1 &917142988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4004,6 +4292,56 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 942639647}
+--- !u!1 &952417192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 952417194}
+  - component: {fileID: 952417193}
+  m_Layer: 0
+  m_Name: GameStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &952417193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 952417192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf044f411574014c9f8c3ad0d3cca1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  playerMathStats: {fileID: 0}
+  player: {fileID: 0}
+  currentSkillLevel: 0
+  playerController: {fileID: 0}
+  potionShop: {fileID: 0}
+  inventory: {fileID: 0}
+  waveManager: {fileID: 0}
+  mathManager: {fileID: 0}
+  levelManager: {fileID: 0}
+--- !u!4 &952417194
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 952417192}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 32.060154, y: 7.049754, z: -40.22457}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &960519895
 Prefab:
   m_ObjectHideFlags: 0
@@ -4111,6 +4449,7 @@ GameObject:
   - component: {fileID: 1003182520}
   - component: {fileID: 1003182519}
   - component: {fileID: 1003182518}
+  - component: {fileID: 1003182521}
   m_Layer: 5
   m_Name: iceQuiver3
   m_TagString: Untagged
@@ -4163,7 +4502,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 9a9c86606dc5f584fad77f2a46f6458f,
+      type: 3}
     m_PressedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
   m_AnimationTriggers:
@@ -4175,7 +4515,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1003182519}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1003182521}
+        m_MethodName: SetUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1003182519
@@ -4211,6 +4562,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1003182516}
+--- !u!114 &1003182521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1003182516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 4
+  buttonSelected: {fileID: 1003182518}
+  buttonImage: {fileID: 1003182519}
+  unlockGraphic: {fileID: 21300000, guid: 32ef754319695b24ba0c2ab92b63398b, type: 3}
+  starCost: 2
+  levelDependency: -1
+  dependent: {fileID: 483132974}
+  prerequisite: {fileID: 1669303507}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 205887381}
 --- !u!4 &1042855697 stripped
 Transform:
   m_PrefabParentObject: {fileID: 449376, guid: 8de23ea89093a8e4c922b0d019cb9040, type: 2}
@@ -4324,6 +4696,7 @@ GameObject:
   - component: {fileID: 1139436477}
   - component: {fileID: 1139436476}
   - component: {fileID: 1139436475}
+  - component: {fileID: 1139436479}
   m_Layer: 5
   m_Name: Upgrades
   m_TagString: Untagged
@@ -4342,7 +4715,7 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -4414,13 +4787,24 @@ RectTransform:
   - {fileID: 307449444}
   - {fileID: 33746731}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 33.24, y: 7.82}
   m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1139436479
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1139436474}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1153176768
 Prefab:
   m_ObjectHideFlags: 0
@@ -4458,7 +4842,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4046070576589902, guid: 201c78675408b09469905e225d5cac6a, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4046070576589902, guid: 201c78675408b09469905e225d5cac6a, type: 2}
       propertyPath: m_LocalScale.x
@@ -4546,7 +4930,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477428, guid: 7aea892cf56e0344f84ae9eea30c643a, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 477428, guid: 7aea892cf56e0344f84ae9eea30c643a, type: 2}
       propertyPath: m_LocalScale.x
@@ -4730,7 +5114,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4265579823906616, guid: 4d272402a09cecd42a5f9f5d73589fc7, type: 2}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4265579823906616, guid: 4d272402a09cecd42a5f9f5d73589fc7, type: 2}
       propertyPath: m_LocalScale.x
@@ -4832,7 +5216,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!1 &1345891851
 GameObject:
@@ -5033,7 +5417,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1546100335
 GameObject:
@@ -5140,7 +5524,7 @@ Transform:
   - {fileID: 1573003244}
   - {fileID: 153120263}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1573003243
 GameObject:
@@ -5582,6 +5966,7 @@ GameObject:
   - component: {fileID: 1657763865}
   - component: {fileID: 1657763864}
   - component: {fileID: 1657763863}
+  - component: {fileID: 1657763866}
   m_Layer: 5
   m_Name: fireQuiver
   m_TagString: Untagged
@@ -5682,6 +6067,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1657763861}
+--- !u!114 &1657763866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1657763861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 5
+  buttonSelected: {fileID: 1657763863}
+  buttonImage: {fileID: 1657763864}
+  unlockGraphic: {fileID: 21300000, guid: 807d92d06766560448cda550be25940c, type: 3}
+  starCost: 0
+  levelDependency: -1
+  dependent: {fileID: 0}
+  prerequisite: {fileID: 0}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 0}
 --- !u!1 &1662777006
 GameObject:
   m_ObjectHideFlags: 0
@@ -5766,6 +6172,7 @@ GameObject:
   - component: {fileID: 1669303506}
   - component: {fileID: 1669303505}
   - component: {fileID: 1669303504}
+  - component: {fileID: 1669303507}
   m_Layer: 5
   m_Name: iceQuiver
   m_TagString: Untagged
@@ -5866,6 +6273,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1669303502}
+--- !u!114 &1669303507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1669303502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 2
+  buttonSelected: {fileID: 1669303504}
+  buttonImage: {fileID: 1669303505}
+  unlockGraphic: {fileID: 21300000, guid: e7d9a4ea6a50fac4e8a214539fd90fab, type: 3}
+  starCost: 0
+  levelDependency: -1
+  dependent: {fileID: 0}
+  prerequisite: {fileID: 0}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 0}
 --- !u!1 &1672939955
 GameObject:
   m_ObjectHideFlags: 0
@@ -6247,7 +6675,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4296929895643056, guid: 6191d242d97347540a6f4263049bdfed, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4296929895643056, guid: 6191d242d97347540a6f4263049bdfed, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6301,7 +6729,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 480968, guid: 3ac146b9578b7914db23c8e3518933b2, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 480968, guid: 3ac146b9578b7914db23c8e3518933b2, type: 2}
       propertyPath: m_LocalScale.x
@@ -6341,6 +6769,7 @@ GameObject:
   - component: {fileID: 1863992436}
   - component: {fileID: 1863992435}
   - component: {fileID: 1863992434}
+  - component: {fileID: 1863992437}
   m_Layer: 5
   m_Name: lightningQuiver3
   m_TagString: Untagged
@@ -6405,7 +6834,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1863992435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1863992437}
+        m_MethodName: SetUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1863992435
@@ -6441,6 +6881,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1863992432}
+--- !u!114 &1863992437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863992432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0f4f61b1ab1dd4183cca22ab98765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeSelection: 10
+  buttonSelected: {fileID: 1863992434}
+  buttonImage: {fileID: 1863992435}
+  unlockGraphic: {fileID: 21300000, guid: 4174e6f42fbd65d46b015c5395a78684, type: 3}
+  starCost: 6
+  levelDependency: -1
+  dependent: {fileID: 909729237}
+  prerequisite: {fileID: 878555149}
+  lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  starText: {fileID: 942639649}
 --- !u!1 &1873073126
 GameObject:
   m_ObjectHideFlags: 0
@@ -7036,7 +7497,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1972558248
 GameObject:
@@ -7185,7 +7646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7267,7 +7728,7 @@ Transform:
   - {fileID: 960519896}
   - {fileID: 1709885594}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &2007864936
 GameObject:
@@ -7537,7 +7998,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4592893630859702, guid: c9fe9b7cfbd59cf4cbff2cc62e4ea9a9, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4592893630859702, guid: c9fe9b7cfbd59cf4cbff2cc62e4ea9a9, type: 2}
       propertyPath: m_LocalScale.x
