@@ -258,7 +258,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 33746733}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 33746735}
+        m_MethodName: SetPurchased
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &33746733
@@ -308,13 +319,15 @@ MonoBehaviour:
   upgradeSelection: 1
   buttonSelected: {fileID: 33746732}
   buttonImage: {fileID: 33746733}
-  unlockGraphic: {fileID: 0}
-  starCost: 10
   levelDependency: -1
   dependent: {fileID: 0}
   prerequisite: {fileID: 307449448}
+  purchasedGraphic: {fileID: 21300000, guid: de8cebc8445d21d40b9033b486f21241, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: df7b1b5bdf106ad4e9d02c30dda19bb6, type: 3}
+  starCost: 0
   starText: {fileID: 426004454}
+  starPanel: {fileID: 130071246}
 --- !u!1 &45358319
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &130071245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -754,7 +767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &161393539
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1447,7 +1460,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 307449446}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 307449448}
+        m_MethodName: SetPurchased
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &307449446
@@ -1497,13 +1521,15 @@ MonoBehaviour:
   upgradeSelection: 0
   buttonSelected: {fileID: 307449445}
   buttonImage: {fileID: 307449446}
-  unlockGraphic: {fileID: 0}
-  starCost: 9
   levelDependency: -1
   dependent: {fileID: 0}
   prerequisite: {fileID: 0}
+  purchasedGraphic: {fileID: 21300000, guid: 1f7986bfe8080ef4da7e0f48a95919eb, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 697e7df05513ad04db23cfdc58bd6d24, type: 3}
+  starCost: 0
   starText: {fileID: 848456766}
+  starPanel: {fileID: 409832246}
 --- !u!1 &308324926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,7 +1886,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 415470682}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 415470684}
+        m_MethodName: SetPurchased
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &415470682
@@ -1910,13 +1947,15 @@ MonoBehaviour:
   upgradeSelection: 11
   buttonSelected: {fileID: 415470681}
   buttonImage: {fileID: 415470682}
-  unlockGraphic: {fileID: 0}
-  starCost: 7
   levelDependency: -1
   dependent: {fileID: 0}
   prerequisite: {fileID: 0}
+  purchasedGraphic: {fileID: 21300000, guid: 69162ab057520a04b85982c7b08b927e, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: c1e9e338b5c51e6429d05df4c1a1fa3c, type: 3}
+  starCost: 0
   starText: {fileID: 745304}
+  starPanel: {fileID: 1959477322}
 --- !u!1 &415685302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,7 +2242,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 483132974}
-        m_MethodName: SetUnlocked
+        m_MethodName: SetPurchased
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2262,13 +2301,15 @@ MonoBehaviour:
   upgradeSelection: 3
   buttonSelected: {fileID: 483132971}
   buttonImage: {fileID: 483132972}
-  unlockGraphic: {fileID: 21300000, guid: 8156ecb291c3bfe4cabe58612b50fdec, type: 3}
-  starCost: 1
   levelDependency: -1
   dependent: {fileID: 1003182521}
   prerequisite: {fileID: 1669303507}
+  purchasedGraphic: {fileID: 21300000, guid: 8156ecb291c3bfe4cabe58612b50fdec, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 583404d43cdb3f844b4ad567c7ab451c, type: 3}
+  starCost: 0
   starText: {fileID: 2007864938}
+  starPanel: {fileID: 161393540}
 --- !u!1 &488091607
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,7 +2326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &488091608
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2486,7 +2527,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 510292608}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510292610}
+        m_MethodName: SetPurchased
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &510292608
@@ -2536,13 +2588,15 @@ MonoBehaviour:
   upgradeSelection: 12
   buttonSelected: {fileID: 510292607}
   buttonImage: {fileID: 510292608}
-  unlockGraphic: {fileID: 0}
-  starCost: 8
   levelDependency: -1
   dependent: {fileID: 0}
   prerequisite: {fileID: 415470684}
+  purchasedGraphic: {fileID: 21300000, guid: 7a55210312423a648b0d48a8c180f5f7, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 77d9f5264ae5d1c488c73f9643f79af1, type: 3}
+  starCost: 0
   starText: {fileID: 600698036}
+  starPanel: {fileID: 567878879}
 --- !u!1 &518283716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2621,7 +2675,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 518283721}
-        m_MethodName: SetUnlocked
+        m_MethodName: SetPurchased
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2680,13 +2734,15 @@ MonoBehaviour:
   upgradeSelection: 6
   buttonSelected: {fileID: 518283718}
   buttonImage: {fileID: 518283719}
-  unlockGraphic: {fileID: 21300000, guid: f1ea3b2b929e86a4695e5d5f0471b919, type: 3}
-  starCost: 3
   levelDependency: -1
   dependent: {fileID: 601917457}
   prerequisite: {fileID: 1657763866}
+  purchasedGraphic: {fileID: 21300000, guid: f1ea3b2b929e86a4695e5d5f0471b919, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 6cc4b71d9f68b854e9c231ad4a833383, type: 3}
+  starCost: 0
   starText: {fileID: 2116773413}
+  starPanel: {fileID: 488091609}
 --- !u!1001 &536425090
 Prefab:
   m_ObjectHideFlags: 0
@@ -3034,7 +3090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &567878878
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3328,7 +3384,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 601917457}
-        m_MethodName: SetUnlocked
+        m_MethodName: SetPurchased
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3387,13 +3443,15 @@ MonoBehaviour:
   upgradeSelection: 7
   buttonSelected: {fileID: 601917454}
   buttonImage: {fileID: 601917455}
-  unlockGraphic: {fileID: 21300000, guid: 9c4e29f379c2fb742b8d53d4821dd98b, type: 3}
-  starCost: 4
   levelDependency: -1
   dependent: {fileID: 518283721}
   prerequisite: {fileID: 1657763866}
+  purchasedGraphic: {fileID: 21300000, guid: 9c4e29f379c2fb742b8d53d4821dd98b, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 4b93f93bc0cd58440ac4208cae36518c, type: 3}
+  starCost: 0
   starText: {fileID: 1648595903}
+  starPanel: {fileID: 1696986194}
 --- !u!1 &611063917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,7 +3604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &619999920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4025,7 +4083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &747432156
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4555,7 +4613,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 878555147}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 878555149}
+        m_MethodName: SetPurchased
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &878555147
@@ -4605,13 +4674,15 @@ MonoBehaviour:
   upgradeSelection: 8
   buttonSelected: {fileID: 878555146}
   buttonImage: {fileID: 878555147}
-  unlockGraphic: {fileID: 21300000, guid: 9cd1d5c62a6dbf3448c798546f707c66, type: 3}
-  starCost: 0
   levelDependency: -1
   dependent: {fileID: 0}
   prerequisite: {fileID: 0}
+  purchasedGraphic: {fileID: 21300000, guid: 9cd1d5c62a6dbf3448c798546f707c66, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 72767d66d95ea594e831b3e54d45ef20, type: 3}
+  starCost: 0
   starText: {fileID: 0}
+  starPanel: {fileID: 0}
 --- !u!1 &892807792
 GameObject:
   m_ObjectHideFlags: 0
@@ -4847,7 +4918,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 909729237}
-        m_MethodName: SetUnlocked
+        m_MethodName: SetPurchased
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4906,13 +4977,15 @@ MonoBehaviour:
   upgradeSelection: 9
   buttonSelected: {fileID: 909729234}
   buttonImage: {fileID: 909729235}
-  unlockGraphic: {fileID: 21300000, guid: 6ae445ff4bbf83d428d640400e640e85, type: 3}
-  starCost: 5
   levelDependency: -1
   dependent: {fileID: 1863992437}
   prerequisite: {fileID: 878555149}
+  purchasedGraphic: {fileID: 21300000, guid: 6ae445ff4bbf83d428d640400e640e85, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 067a8cec0dfa31249b8597b08adb01c6, type: 3}
+  starCost: 0
   starText: {fileID: 177453751}
+  starPanel: {fileID: 619999921}
 --- !u!1 &917142988
 GameObject:
   m_ObjectHideFlags: 0
@@ -5316,7 +5389,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1003182521}
-        m_MethodName: SetUnlocked
+        m_MethodName: SetPurchased
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5375,13 +5448,15 @@ MonoBehaviour:
   upgradeSelection: 4
   buttonSelected: {fileID: 1003182518}
   buttonImage: {fileID: 1003182519}
-  unlockGraphic: {fileID: 21300000, guid: 32ef754319695b24ba0c2ab92b63398b, type: 3}
-  starCost: 2
   levelDependency: -1
   dependent: {fileID: 483132974}
   prerequisite: {fileID: 1669303507}
+  purchasedGraphic: {fileID: 21300000, guid: 32ef754319695b24ba0c2ab92b63398b, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 07dd41dc51903624796c75364485128f, type: 3}
+  starCost: 0
   starText: {fileID: 205887381}
+  starPanel: {fileID: 747432157}
 --- !u!4 &1042855697 stripped
 Transform:
   m_PrefabParentObject: {fileID: 449376, guid: 8de23ea89093a8e4c922b0d019cb9040, type: 2}
@@ -6302,7 +6377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1345891852
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7274,7 +7349,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1657763864}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1657763866}
+        m_MethodName: SetPurchased
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1657763864
@@ -7324,13 +7410,15 @@ MonoBehaviour:
   upgradeSelection: 5
   buttonSelected: {fileID: 1657763863}
   buttonImage: {fileID: 1657763864}
-  unlockGraphic: {fileID: 21300000, guid: 807d92d06766560448cda550be25940c, type: 3}
-  starCost: 0
   levelDependency: -1
   dependent: {fileID: 0}
   prerequisite: {fileID: 0}
+  purchasedGraphic: {fileID: 21300000, guid: 807d92d06766560448cda550be25940c, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 42aefe94915700343b09a36781591cfd, type: 3}
+  starCost: 0
   starText: {fileID: 0}
+  starPanel: {fileID: 0}
 --- !u!1 &1662777006
 GameObject:
   m_ObjectHideFlags: 0
@@ -7480,7 +7568,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1669303505}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1669303507}
+        m_MethodName: SetPurchased
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1669303505
@@ -7530,13 +7629,15 @@ MonoBehaviour:
   upgradeSelection: 2
   buttonSelected: {fileID: 1669303504}
   buttonImage: {fileID: 1669303505}
-  unlockGraphic: {fileID: 21300000, guid: e7d9a4ea6a50fac4e8a214539fd90fab, type: 3}
-  starCost: 0
   levelDependency: -1
   dependent: {fileID: 0}
   prerequisite: {fileID: 0}
+  purchasedGraphic: {fileID: 21300000, guid: e7d9a4ea6a50fac4e8a214539fd90fab, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: fb21755dddde0754d9c02390e83dea53, type: 3}
+  starCost: 0
   starText: {fileID: 0}
+  starPanel: {fileID: 0}
 --- !u!1 &1672939955
 GameObject:
   m_ObjectHideFlags: 0
@@ -7738,7 +7839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1696986193
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8126,7 +8227,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1863992437}
-        m_MethodName: SetUnlocked
+        m_MethodName: SetPurchased
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8185,13 +8286,15 @@ MonoBehaviour:
   upgradeSelection: 10
   buttonSelected: {fileID: 1863992434}
   buttonImage: {fileID: 1863992435}
-  unlockGraphic: {fileID: 21300000, guid: 4174e6f42fbd65d46b015c5395a78684, type: 3}
-  starCost: 6
   levelDependency: -1
   dependent: {fileID: 909729237}
   prerequisite: {fileID: 878555149}
+  purchasedGraphic: {fileID: 21300000, guid: 4174e6f42fbd65d46b015c5395a78684, type: 3}
   lockedGraphic: {fileID: 21300000, guid: 4faeecd19dd902d43b281c6df80b82a9, type: 3}
+  unlockGraphic: {fileID: 21300000, guid: 4762ccd409a61024eb234df85015dd12, type: 3}
+  starCost: 0
   starText: {fileID: 942639649}
+  starPanel: {fileID: 1345891853}
 --- !u!1001 &1870449425
 Prefab:
   m_ObjectHideFlags: 0
@@ -8291,7 +8394,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1143307831770406, guid: 17d46cc8304f48a4bb277a0b4e96865b, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 17d46cc8304f48a4bb277a0b4e96865b, type: 2}
