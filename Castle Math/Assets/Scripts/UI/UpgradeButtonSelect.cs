@@ -21,6 +21,11 @@ public class UpgradeButtonSelect : MonoBehaviour {
     public Sprite lockedGraphic;
     public Sprite unlockGraphic;
 
+    [Header("Confirmation Panel")]
+    public Image purchasePanel;
+    public Text purchasePanelText;
+    public Image failPurchasePanel;
+
     [Header("Star Info")]
     public int starCost;
     public Text starText;
@@ -87,6 +92,7 @@ public class UpgradeButtonSelect : MonoBehaviour {
     {
         buttonImage.sprite = purchasedGraphic;
         buttonSelected.enabled = false;
+
         if (starText != null)
         {
             starPanel.gameObject.SetActive(false);
@@ -94,15 +100,16 @@ public class UpgradeButtonSelect : MonoBehaviour {
         }
         Debug.Log("Purchased");
     }
-    public void SetPurchased()
+    public void AttemptPurchase()
     {
         Debug.Log("EnteredSetUnlocked");
         if(starCost <= SaveData.numStars)
         {
-            SaveData.unlockedUpgrades[upgradeSelection] = true;
-            GameStateManager.instance.SpendStars(starCost);
-            ShowPurchased();
-
+            if (purchasePanel != null && purchasePanelText != null)
+            {
+                purchasePanelText.text = "Are you sure you wish to purchase " + upgradeSelection + "?";
+                purchasePanel.gameObject.SetActive(true);
+            }
             if(dependent != null)
             {
                 dependent.ShowLocked();
@@ -110,6 +117,29 @@ public class UpgradeButtonSelect : MonoBehaviour {
             
             //SaveData.SaveDataToJSon();
         }
-        
+        else if(starCost > SaveData.numStars)
+        {
+            StartCoroutine(CostFailPanelFade());
+        } 
+    }
+    public void ConfirmPurchase()
+    {
+        SaveData.unlockedUpgrades[upgradeSelection] = true;
+        GameStateManager.instance.SpendStars(starCost);
+        purchasePanel.gameObject.SetActive(false);
+        ShowPurchased();
+    }
+    public void DeclinePurchase()
+    {
+        purchasePanel.gameObject.SetActive(false);
+    }
+    IEnumerator CostFailPanelFade()
+    {
+        failPurchasePanel.gameObject.SetActive(true);
+        failPurchasePanel.CrossFadeAlpha(0, 2f, false);
+        failPurchasePanel.GetComponentInChildren<Text>().CrossFadeAlpha(0, 2f, false);
+
+        yield return new WaitForSeconds(2f);
+        failPurchasePanel.gameObject.SetActive(false);
     }
 }
