@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+
+// TODO set up dictionaries for gems
 
 public class LevelManager : MonoBehaviour {
 
@@ -14,14 +18,12 @@ public class LevelManager : MonoBehaviour {
 
     [Header("Enemy Behavior")]
     public GameObject InsidePoint;
-
     public GameObject StatScreen;
-
     public Light directionalLight;
 
     [Header("Environment")]
-    public doorHealth fence1, fence2, fence3;
     public GameObject billboard;
+    public DoorHealth fence1, fence2, fence3, fence4;
 
     [Header("Audio")]
     public AudioClip LostTheCastle;
@@ -30,8 +32,15 @@ public class LevelManager : MonoBehaviour {
     public AudioClip gameplaySong;
     public PlayerMathStats playerMathStats;
 
+    //[Header("Game")]
+    [HideInInspector]
+    public Dictionary<EnumManager.GemType, float> gemValues;
+    [HideInInspector]
+    public Dictionary<EnumManager.GemType, int> gemsOwned;
+
     // Use this for initialization
     void Start () {
+
         GameStateManager.instance.levelManager = this;
 	}
 
@@ -60,7 +69,7 @@ public class LevelManager : MonoBehaviour {
         LoseScreen.SetActive(true);
         MathScreen.SetActive(false);
         StatScreen.SetActive(true);
-        doorHealth[] dh = GameObject.FindObjectsOfType<doorHealth>();
+        DoorHealth[] dh = GameObject.FindObjectsOfType<DoorHealth>();
         for (int i = 0; i < dh.Length; i++)
         {
             dh[i].loseFences();
@@ -87,6 +96,17 @@ public class LevelManager : MonoBehaviour {
     {
         StartCoroutine(fadeSky(0.0f, 0.8f));
         StartCoroutine(fadeLight(true));
+    }
+
+    void SetupDictionaries()
+    {
+        /*
+        foreach (EnumManager.GemType upgrade in Enum.GetValues(typeof(EnumManager.Upgrades)))
+        {
+            // Debug.Log("Upgrade: " + upgrade.ToString() + " index " + Convert.ToInt32(upgrade));
+            unlockedUpgrades.Add(upgrade, pd.unlockedAbilities[Convert.ToInt32(upgrade)]);
+        }
+        */
     }
 
     IEnumerator fadeSky(float initialValue, float endValue)

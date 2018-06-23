@@ -10,9 +10,9 @@ public class ManaBar : MonoBehaviour {
 	public GameObject manaBarEnd;
 	public CanvasGroup mathCanvas;
 	public hudManager hud;
-	public doorHealth healthLeft;
-	public doorHealth healthMid;
-	public doorHealth healthRight;
+	public DoorHealth healthLeft;
+	public DoorHealth healthMid;
+	public DoorHealth healthRight;
     public GameStateManager gManager;
     public AudioClip burstPowerUpSound;
     public AudioClip spreadPowerUpSound;

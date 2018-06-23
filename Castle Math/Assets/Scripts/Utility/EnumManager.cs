@@ -18,4 +18,6 @@ public static class EnumManager{
     public enum GameState { MainMenu, LevelSelect, Wave, PotionShop, Intermath}
 
     public enum PotionState { shop, menu, inventory }
+
+    public enum GemType { Red, Yello, Purple, Cyan, Green}
 }

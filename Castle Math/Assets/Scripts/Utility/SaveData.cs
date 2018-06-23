@@ -82,6 +82,7 @@ public static class SaveData {
             Debug.Log("Adding activeQuestionValue: " + b);
         }
         pd.levelsCompleted = levelsCompleted;
+        pd.numStars = numStars;
 
         string jSonFile = JsonUtility.ToJson(pd);
 

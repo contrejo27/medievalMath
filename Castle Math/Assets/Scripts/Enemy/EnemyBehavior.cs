@@ -30,7 +30,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public bool AtTarget {get; set;}
 	
 	//environment
-	private doorHealth dH;
+	private DoorHealth dH;
 	public Transform target;
 
 	private int currentAudioSource;
@@ -96,7 +96,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public void SetTarget(Transform initialTarget){
 		target = initialTarget;
         navMeshAgent.SetDestination(target.position + new Vector3(0,3,0));
-        dH = initialTarget.gameObject.GetComponent<doorHealth>();
+        dH = initialTarget.gameObject.GetComponent<DoorHealth>();
         StartCoroutine(WalkToTarget());
     }
 	

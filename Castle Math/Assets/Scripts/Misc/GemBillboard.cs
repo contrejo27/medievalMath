@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GemBillboard : MonoBehaviour {
     float risingSpeed;
+    float lifeTime;
 
 
 	// Use this for initialization

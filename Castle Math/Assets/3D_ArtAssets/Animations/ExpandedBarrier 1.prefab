@@ -35,7 +35,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4797911531952514}
-  - component: {fileID: 95262154508337336}
   m_Layer: 0
   m_Name: BarrierBuilt
   m_TagString: Untagged
@@ -343,7 +342,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1754057131469978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.41, y: 1.21, z: 5.53}
+  m_LocalPosition: {x: 10.5, y: -5.91, z: 1.7064209}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4999663305749494}
@@ -661,23 +660,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95262154508337336
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1104983886036338}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 210cbba3ca4165649bf207826cf60f83, type: 3}
-  m_Controller: {fileID: 9100000, guid: e337621085101834fb9417b98a348669, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95389111343456800
 Animator:
   serializedVersion: 3
@@ -759,12 +741,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 100
   currentHealth: 0
-  fence1: {fileID: 0}
-  fence2: {fileID: 0}
-  fence3: {fileID: 0}
-  post1: {fileID: 0}
-  post2: {fileID: 0}
-  post3: {fileID: 0}
+  fence1: {fileID: 1585799621836062}
+  fence2: {fileID: 1479457216410488}
+  fence3: {fileID: 1681214746866398}
+  fence4: {fileID: 1419991727550406}
+  post1: {fileID: 1933709426072826}
+  post2: {fileID: 1927271778340438}
 --- !u!212 &212096736935537848
 SpriteRenderer:
   m_ObjectHideFlags: 1
