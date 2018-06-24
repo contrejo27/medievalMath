@@ -34,9 +34,15 @@ public class LevelManager : MonoBehaviour {
 
     //[Header("Game")]
     [HideInInspector]
-    public Dictionary<EnumManager.GemType, float> gemValues;
-    [HideInInspector]
-    public Dictionary<EnumManager.GemType, int> gemsOwned;
+    public Dictionary<EnumManager.GemType, int> gemsOwned =
+        new Dictionary<EnumManager.GemType, int>()
+        {
+            {EnumManager.GemType.Red, 0 },
+            {EnumManager.GemType.Yellow, 0 },
+            {EnumManager.GemType.Purple, 0 },
+            {EnumManager.GemType.Cyan, 0 },
+            {EnumManager.GemType.Green, 0 }
+        };
 
     // Use this for initialization
     void Start () {
@@ -88,14 +94,14 @@ public class LevelManager : MonoBehaviour {
 
     void FadeWorldOut()
     {
-        StartCoroutine(fadeSky(0.8f, 0.0f));
-        StartCoroutine(fadeLight(false));
+        StartCoroutine(FadeSky(0.8f, 0.0f));
+        StartCoroutine(FadeLight(false));
     }
 
     void FadeWorldIn()
     {
-        StartCoroutine(fadeSky(0.0f, 0.8f));
-        StartCoroutine(fadeLight(true));
+        StartCoroutine(FadeSky(0.0f, 0.8f));
+        StartCoroutine(FadeLight(true));
     }
 
     void SetupDictionaries()
@@ -109,7 +115,12 @@ public class LevelManager : MonoBehaviour {
         */
     }
 
-    IEnumerator fadeSky(float initialValue, float endValue)
+    public void RecieveGems(int amount, EnumManager.GemType type)
+    {
+        gemsOwned[type] += amount;
+    }
+
+    IEnumerator FadeSky(float initialValue, float endValue)
     {
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / 3f)
         {
@@ -119,7 +130,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     //fades light when you lose
-    IEnumerator fadeLight(bool fadeIn)
+    IEnumerator FadeLight(bool fadeIn)
     {
         Color sunLightColor = directionalLight.color;
         Color ambientLightColor = RenderSettings.ambientSkyColor;

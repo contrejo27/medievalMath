@@ -25,6 +25,7 @@ public class WaveManager : MonoBehaviour {
     public GameObject billboard;
     public GameStateManager gManager;
     public MathManager mManager;
+    public Transform gemSpawnPoint;
 
     //Audio
     public AudioClip AnotherWave;
@@ -351,28 +352,43 @@ public class WaveManager : MonoBehaviour {
 		//if all enemies were killed
 		if (CurrentEnemies <= 0) {
 
-			if((currentWave+2) % 3 == 0 && currentWave+2 > 1 && currentWave !=19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
-            {
-                GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
-				Mathm.ActivateInterMath();
-            }
-			else if(((currentWave+2)%5==0) && currentWave != 19){
-                // Temporary
-                GameStateManager.instance.playerController.gemsOwned += 15;
+            //Test
+            if (currentWave == 0) AwardGems(10, EnumManager.GemType.Red);
+            
+            if (currentWave == 4) AwardGems(1, EnumManager.GemType.Cyan);
+            else if (currentWave == 9) AwardGems(3, EnumManager.GemType.Cyan);
+            else if (currentWave == 14) AwardGems(2, EnumManager.GemType.Green);
 
-                GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
-                GameStateManager.instance.ActivatePotionShop();
-                //NextWave();
-            }
-            else
-            {
-                NextWave();
-            }
+                if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
+                {
+                    GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
+                    Mathm.ActivateInterMath();
+                }
+                else if (((currentWave + 2) % 5 == 0) && currentWave != 19)
+                {
+                    // Temporary
+                    GameStateManager.instance.playerController.gemsOwned += 15;
+
+                    GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
+                    GameStateManager.instance.ActivatePotionShop();
+                    //NextWave();
+                }
+                else
+                {
+                    NextWave();
+                }
 
 			A_Source.clip = WaveCleared;
 			A_Source.Play ();
 		}
 	}
+
+    void AwardGems(int count, EnumManager.GemType type)
+    {
+        GameStateManager.instance.levelManager.RecieveGems(count, type);
+        GameObject GemSpawner = Instantiate(Resources.Load("Misc/GemSpawner"), gemSpawnPoint.position, Quaternion.identity) as GameObject;
+        GemSpawner.GetComponent<GemSpawner>().SetGemAndStartSpawn(type, gemSpawnPoint, count);
+    }
 
 	//used when enemies are added extra from the main footsoldiers
 	public void addEnemyToWaveSize()
