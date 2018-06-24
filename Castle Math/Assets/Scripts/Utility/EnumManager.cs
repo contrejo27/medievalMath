@@ -19,5 +19,15 @@ public static class EnumManager{
 
     public enum PotionState { shop, menu, inventory }
 
-    public enum GemType { Red, Yello, Purple, Cyan, Green}
+    public enum GemType { Red, Yellow, Purple, Cyan, Green}
+
+    public static Dictionary<EnumManager.GemType, float> gemsValues = new Dictionary<GemType, float>()
+    {
+        {GemType.Red, .01f },
+        {GemType.Yellow, .05f },
+        {GemType.Purple, .1f },
+        {GemType.Cyan, .25f },
+        {GemType.Green, 1f }
+
+    };
 }
