@@ -13,10 +13,24 @@ public class levelSelect : MonoBehaviour {
 	
     public void loadLevel(string level)
     {
-        if(level == "vordum")
+        switch (level)
         {
-            SceneManager.LoadScene("BossLevel", LoadSceneMode.Single);
+            case "kells":
+                SceneManager.LoadScene("MathTest");
+                break;
+            case "frostLevel":
+                SceneManager.LoadScene("frostLevel");
+                break;
+            case "desertLevel":
+                SceneManager.LoadScene("desertLevel");
+                break;
+            case "vordum":
+                SceneManager.LoadScene("BossLevel");
+                break;
+            default:
+                break;
         }
+       
     }
 	// Update is called once per frame
 	void Update () {

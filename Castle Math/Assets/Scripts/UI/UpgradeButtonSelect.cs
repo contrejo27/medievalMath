@@ -22,6 +22,7 @@ public class UpgradeButtonSelect : MonoBehaviour {
     public Sprite unlockGraphic;
 
     [Header("Confirmation Panel")]
+    public Image dimmerImage;
     public Image purchasePanel;
     public Text purchasePanelText;
     public Image failPurchasePanel;
@@ -108,6 +109,7 @@ public class UpgradeButtonSelect : MonoBehaviour {
             if (purchasePanel != null && purchasePanelText != null)
             {
                 purchasePanelText.text = "Are you sure you wish to purchase " + upgradeSelection + "?";
+                dimmerImage.gameObject.SetActive(true);
                 purchasePanel.gameObject.SetActive(true);
             }
             if(dependent != null)
@@ -126,11 +128,13 @@ public class UpgradeButtonSelect : MonoBehaviour {
     {
         SaveData.unlockedUpgrades[upgradeSelection] = true;
         GameStateManager.instance.SpendStars(starCost);
+        dimmerImage.gameObject.SetActive(false);
         purchasePanel.gameObject.SetActive(false);
         ShowPurchased();
     }
     public void DeclinePurchase()
     {
+        dimmerImage.gameObject.SetActive(false);
         purchasePanel.gameObject.SetActive(false);
     }
     IEnumerator CostFailPanelFade()
