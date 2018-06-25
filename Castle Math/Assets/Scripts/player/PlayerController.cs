@@ -53,6 +53,14 @@ public class PlayerController : MonoBehaviour {
         GameStateManager.instance.playerController = this;
         originalRotation = transform.localRotation;
         //launchProjectile = GameStateManager.instance.player;
+        if (Application.isEditor)
+        {
+            controls = ControlMethod.mouse;
+        }
+        else
+        {
+            controls = ControlMethod.keyboard;
+        }
 	}
 	
 	// Update is called once per frame
