@@ -51,11 +51,12 @@ public class DatabaseManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         UnityInitializer.AttachToGameObject(this.gameObject);
-        Amazon.AWSConfigs.HttpClient = Amazon.AWSConfigs.HttpClientOption.UnityWebRequest;
     }
 
     private void Start()
     {
+		Amazon.AWSConfigs.HttpClient = Amazon.AWSConfigs.HttpClientOption.UnityWebRequest;
+
         m_credentials = new CognitoAWSCredentials("us-east-1:30e8de39-1567-46d7-a033-02870c1d2102", RegionEndpoint.USEast1);
         m_credentials.GetIdentityIdAsync(delegate (AmazonCognitoIdentityResult<string> result)
         {

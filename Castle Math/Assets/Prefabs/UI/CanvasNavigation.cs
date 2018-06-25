@@ -26,6 +26,7 @@ public abstract class CanvasNavigation : MonoBehaviour
 
 	protected virtual void GoToNextCanvas(GameObject nextCanvasOverride = null, bool destroyPrevious = true)
     {
+		Debug.Log ("going to next canvs");
 		GameObject canvasToSpawn = null;
 
 		if (nextCanvasOverride)

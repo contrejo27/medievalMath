@@ -5,7 +5,7 @@ using UnityEngine;
 public class LaunchProjectile : MonoBehaviour {
 
 	//player
-	doorHealth health;
+	DoorHealth health;
 
 	//UI
 	bool lookingAtMathInterface;
