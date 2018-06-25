@@ -52,6 +52,8 @@ public class Login_Canvas : CanvasNavigation
 
         Debug.Log("Login Successful!");
 		LocalUserData.SetUserEmail (emailInput.text.ToLower ());
+		if (FindObjectOfType<SubscriptionCanvas> ())
+			FindObjectOfType<SubscriptionCanvas> ().Refresh ();
 		Destroy (this.gameObject);
     }
 
