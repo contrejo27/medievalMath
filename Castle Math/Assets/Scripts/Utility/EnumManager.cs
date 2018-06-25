@@ -21,7 +21,7 @@ public static class EnumManager{
 
     public enum GemType { Red, Yellow, Purple, Cyan, Green}
 
-    public static Dictionary<EnumManager.GemType, float> gemsValues = new Dictionary<GemType, float>()
+    public static Dictionary<EnumManager.GemType, float> gemValues = new Dictionary<GemType, float>()
     {
         {GemType.Red, .01f },
         {GemType.Yellow, .05f },
