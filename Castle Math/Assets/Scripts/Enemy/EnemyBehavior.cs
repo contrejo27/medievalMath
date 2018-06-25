@@ -6,10 +6,12 @@ using UnityEngine.AI;
 public class EnemyBehavior : MonoBehaviour {
 	private WaveManager wManager;
 
-	//enemy
+	[Header("Enemy Info")]
 	public int hitPoints;
     bool dead = false;
 	public float moveSpeed;
+    public EnumManager.GemType rewardGemType;
+    public int rewardGemAmount;
 	bool attacking = false;
     [HideInInspector]
     Queue<int> hitQueue = new Queue<int>();
@@ -17,20 +19,20 @@ public class EnemyBehavior : MonoBehaviour {
     [HideInInspector]
     public bool hasBombDeath;
 	
-	//audio
+	[Header("Audio")]
 	public AudioClip[] deathSounds;
 	public AudioClip[] attackSounds;
 	public AudioClip footstepSound;
 	private AudioSource[] audioSource;
 
-	//animation
+	[Header("Animation")]
 	private Animator animator; 
 	public float attackDistance;
 	private bool isMoving;
 	public bool AtTarget {get; set;}
 	
-	//environment
-	private doorHealth dH;
+	[Header("Environment")]
+	private DoorHealth dH;
 	public Transform target;
 
 	private int currentAudioSource;
@@ -96,7 +98,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public void SetTarget(Transform initialTarget){
 		target = initialTarget;
         navMeshAgent.SetDestination(target.position + new Vector3(0,3,0));
-        dH = initialTarget.gameObject.GetComponent<doorHealth>();
+        dH = initialTarget.gameObject.GetComponent<DoorHealth>();
         StartCoroutine(WalkToTarget());
     }
 	
@@ -274,6 +276,10 @@ public class EnemyBehavior : MonoBehaviour {
 		audioSource[currentAudioSource].loop = false;
 		audioSource[currentAudioSource].clip = deathSounds[Random.Range(0, deathSounds.Length)];
 		audioSource[currentAudioSource].Play ();
+
+        GameObject GemSpawner = Instantiate(Resources.Load("Misc/GemSpawner"),transform.position, Quaternion.identity) as GameObject;
+        GemSpawner.GetComponent<GemSpawner>().SetGemAndStartSpawn(rewardGemType, transform.parent, rewardGemAmount);
+        GameStateManager.instance.levelManager.RecieveGems(rewardGemAmount, rewardGemType);
 
 		Collider enemyHitbox = this.GetComponent<Collider>();
 		//Destroy(enemyHitbox);

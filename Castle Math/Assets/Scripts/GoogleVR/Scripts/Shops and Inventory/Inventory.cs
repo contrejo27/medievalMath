@@ -48,7 +48,17 @@ public class Inventory : MonoBehaviour {
         {
             quivers[2].SetActive(true);
         }
-        
+        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.Inventory1])
+        {
+            inventorySize = 4;
+            unlockedSlots[3] = true;
+        }
+        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.Inventory1])
+        {
+            inventorySize = 5;
+            unlockedSlots[4] = true;
+        }
+
     }
     
 	

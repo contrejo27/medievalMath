@@ -70,11 +70,24 @@ public class FractionTargets : MonoBehaviour, Question
         numerator = initNum / factor;
         denominator = initDenom / factor;
         targetFlips = initNum;
-        
-        QuestionText.text = (Random.Range(0f,1f) > .5f && initDenom / maxFactor <= 10) 
-                ? "Fill in " + ((float)numerator / denominator).ToString() + " of the squares by shooting them!"
-                : "Fill in " + numerator.ToString() + "/" + denominator.ToString() + " of the squares by shooting them!";
 
+        float dieRoll = Random.Range(0f, 1f);
+        if(initDenom/maxFactor <= 10 && dieRoll > .3333f)
+        {
+            if (dieRoll > .6667f)
+            {
+                QuestionText.text = "Fill in " + ((float)numerator / denominator).ToString() + " of the squares by shooting them!";
+            }
+            else
+            {
+                QuestionText.text = "Fill in " + (((float)numerator / denominator) * 100).ToString() + "% of the squares by shooting them!";
+            }
+        }
+        else
+        {
+            QuestionText.text = "Fill in " + numerator.ToString() + "/" + denominator.ToString() + " of the squares by shooting them!";
+        }
+        
         DecimalAnswer = (double)numerator / (double)denominator;
         StringAnswer = numerator.ToString() + "/" + denominator.ToString();
         Debug.Log("StringAnswer: " + StringAnswer);

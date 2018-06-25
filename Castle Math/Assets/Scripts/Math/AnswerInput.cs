@@ -219,7 +219,7 @@ public class AnswerInput : MonoBehaviour {
 		if (interwaveQuestions == 2) {
 			interwaveQuestions = -1;
 
-			A_Supply.CreateArrowIntermath ();
+			A_Supply.CreateArrowIntermath (8);
 			StartCoroutine(delayDeactivateMath());
 		}
 		else M_Manager.GenerateInterMathQuestion();
@@ -232,6 +232,17 @@ public class AnswerInput : MonoBehaviour {
 		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
 		A_Source.clip = IncorrectSound;
 		A_Source.Play ();
+        switch (interwaveQuestions)
+        {
+            case 0:
+                A_Supply.CreateArrowIntermath(2);
+                break;
+            case 1:
+                A_Supply.CreateArrowIntermath(4);
+                break;
+            default:
+                break;
+        }
 		interwaveQuestions = -1;
 		StartCoroutine(delayDeactivateMath());
 		

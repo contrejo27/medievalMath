@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+
+// TODO set up dictionaries for gems
 
 public class LevelManager : MonoBehaviour {
 
@@ -14,14 +18,12 @@ public class LevelManager : MonoBehaviour {
 
     [Header("Enemy Behavior")]
     public GameObject InsidePoint;
-
     public GameObject StatScreen;
-
     public Light directionalLight;
 
     [Header("Environment")]
-    public doorHealth fence1, fence2, fence3;
     public GameObject billboard;
+    public DoorHealth fence1, fence2, fence3, fence4;
 
     [Header("Audio")]
     public AudioClip LostTheCastle;
@@ -30,13 +32,27 @@ public class LevelManager : MonoBehaviour {
     public AudioClip gameplaySong;
     public PlayerMathStats playerMathStats;
 
+    //[Header("Game")]
+    [HideInInspector]
+    public Dictionary<EnumManager.GemType, int> gemsOwned =
+        new Dictionary<EnumManager.GemType, int>()
+        {
+            {EnumManager.GemType.Red, 0 },
+            {EnumManager.GemType.Yellow, 0 },
+            {EnumManager.GemType.Purple, 0 },
+            {EnumManager.GemType.Cyan, 0 },
+            {EnumManager.GemType.Green, 0 }
+        };
+
     // Use this for initialization
     void Start () {
+
         GameStateManager.instance.levelManager = this;
 	}
 
     public void StartGame()
     {
+        GameStateManager.instance.currentState = EnumManager.GameState.Wave;
         billboard.GetComponent<Animator>().Play("hide");
         Debug.Log("Hiding billboard");
         tutorialImage.SetActive(false);
@@ -59,7 +75,7 @@ public class LevelManager : MonoBehaviour {
         LoseScreen.SetActive(true);
         MathScreen.SetActive(false);
         StatScreen.SetActive(true);
-        doorHealth[] dh = GameObject.FindObjectsOfType<doorHealth>();
+        DoorHealth[] dh = GameObject.FindObjectsOfType<DoorHealth>();
         for (int i = 0; i < dh.Length; i++)
         {
             dh[i].loseFences();
@@ -78,17 +94,33 @@ public class LevelManager : MonoBehaviour {
 
     void FadeWorldOut()
     {
-        StartCoroutine(fadeSky(0.8f, 0.0f));
-        StartCoroutine(fadeLight(false));
+        StartCoroutine(FadeSky(0.8f, 0.0f));
+        StartCoroutine(FadeLight(false));
     }
 
     void FadeWorldIn()
     {
-        StartCoroutine(fadeSky(0.0f, 0.8f));
-        StartCoroutine(fadeLight(true));
+        StartCoroutine(FadeSky(0.0f, 0.8f));
+        StartCoroutine(FadeLight(true));
     }
 
-    IEnumerator fadeSky(float initialValue, float endValue)
+    void SetupDictionaries()
+    {
+        /*
+        foreach (EnumManager.GemType upgrade in Enum.GetValues(typeof(EnumManager.Upgrades)))
+        {
+            // Debug.Log("Upgrade: " + upgrade.ToString() + " index " + Convert.ToInt32(upgrade));
+            unlockedUpgrades.Add(upgrade, pd.unlockedAbilities[Convert.ToInt32(upgrade)]);
+        }
+        */
+    }
+
+    public void RecieveGems(int amount, EnumManager.GemType type)
+    {
+        gemsOwned[type] += amount;
+    }
+
+    IEnumerator FadeSky(float initialValue, float endValue)
     {
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / 3f)
         {
@@ -98,7 +130,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     //fades light when you lose
-    IEnumerator fadeLight(bool fadeIn)
+    IEnumerator FadeLight(bool fadeIn)
     {
         Color sunLightColor = directionalLight.color;
         Color ambientLightColor = RenderSettings.ambientSkyColor;
