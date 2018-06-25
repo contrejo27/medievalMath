@@ -17,15 +17,48 @@ public class SubscriptionCanvas : CanvasNavigation
 
     private IAPProduct[] _products;
 
-    private int daysLeft = 0;
-
-	private void Start()
+	void OnEnable()
 	{
-        StartCoroutine(CoWaitForIAPInitializtion());
-        if (loginButton) 
-            loginButton.onClick.AddListener(LogInPressed);
+		StartCoroutine (CoWaitForIAPInitializtion ());
+		Refresh ();
 	}
 
+	public void Refresh()
+	{
+		if (loginButton)
+		{
+			loginButton.gameObject.SetActive (LocalUserData.IsLoggedIn () == false);
+			loginButton.onClick.RemoveAllListeners ();
+			loginButton.onClick.AddListener (LogInPressed);
+		}
+
+		if (activeSubText)
+		{
+			activeSubText.text = "";
+
+			activeSubText.gameObject.SetActive((LocalUserData.IsSubActive()));
+
+			if(LocalUserData.IsSubActive())
+			{
+				activeSubText.text = "You already have an active subscription!\n";
+				activeSubText.text += "Days Left:" + LocalUserData.GetDaysLeftOfSub ().ToString();
+			}
+		}
+	}
+
+	void OnDisable()
+	{
+		StopAllCoroutines ();
+		if (loginButton)
+			loginButton.onClick.RemoveAllListeners ();
+	}
+	void OnDestroy()
+	{
+		StopAllCoroutines ();
+		if (loginButton)
+			loginButton.onClick.RemoveAllListeners ();
+
+	}
 	void InitializeProducts()
     {
         bool isInitialized = InAppPurchasing.IsInitialized();
@@ -65,10 +98,11 @@ public class SubscriptionCanvas : CanvasNavigation
     IEnumerator CoWaitForIAPInitializtion()
     {
         bool isInitialized = InAppPurchasing.IsInitialized();
-        float timeToWaitUntil = Time.time + 5.0f;
 
-        while(isInitialized == false && Time.time < timeToWaitUntil)
+        while(isInitialized == false)
         {
+			yield return new WaitForSeconds (.5f);
+			Debug.Log ("Waiting for initialization...");
             isInitialized = InAppPurchasing.IsInitialized();
             yield return null;
         }
@@ -82,14 +116,5 @@ public class SubscriptionCanvas : CanvasNavigation
     void LogInPressed()
     {
 		GoToNextCanvas(destroyPrevious:false);
-    }
-
-    void Update()
-    {
-		if (loginButton)
-			loginButton.gameObject.SetActive (LocalUserData.IsLoggedIn () == false);
-
-		if (activeSubText)
-			activeSubText.gameObject.SetActive((LocalUserData.IsSubActive()));
     }
 }
