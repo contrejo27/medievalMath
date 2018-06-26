@@ -24,6 +24,12 @@ public class AnimateTransformValues : MonoBehaviour {
     public float posY;
     public float posZ;
 
+    /*
+    float prevPosX;
+    float prevPosY;
+    float prevPosZ;
+    */
+    
     [Header("Rotation Values")]
     public float rotX;
     public float rotY;
@@ -34,27 +40,29 @@ public class AnimateTransformValues : MonoBehaviour {
     public float scaleY;
     public float scaleZ;
 
+    Vector3 initialPos;
+
     void Awake()
     {
-        
+        initialPos = transform.position;
     }
 
 	// Use this for initialization
 	void Start () {
-        
-	}
+    }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         if (animatePosX || animatePosY || animatePosZ)
         {
             transform.position =
                 new Vector3
                 (
-                    animatePosX ? posX : transform.position.x,
-                    animatePosY ? posY : transform.position.y,
-                    animatePosZ ? posZ : transform.position.z
+                    animatePosX ? posX + initialPos.x : transform.position.x,
+                    animatePosY ? posY + initialPos.y : transform.position.y,
+                    animatePosZ ? posZ + initialPos.z : transform.position.z
                 );
+
         }
 
         if (animateRotX || animateRotY || animateRotZ)
@@ -64,9 +72,9 @@ public class AnimateTransformValues : MonoBehaviour {
                 (
                     new Vector3
                     (
-                        animateRotX ? rotX : transform.rotation.eulerAngles.x,
-                        animateRotY ? rotY : transform.rotation.eulerAngles.y,
-                        animateRotZ ? rotZ : transform.rotation.eulerAngles.z
+                        animateRotX ? rotX : transform.rotation.eulerAngles.x + rotX,
+                        animateRotY ? rotY : transform.rotation.eulerAngles.y + rotY,
+                        animateRotZ ? rotZ : transform.rotation.eulerAngles.z + rotZ
                     )
                 );
         }
@@ -76,9 +84,9 @@ public class AnimateTransformValues : MonoBehaviour {
             transform.localScale =
                 new Vector3
                 (
-                    animateScaleX ? scaleX : transform.localScale.x,
-                    animateScaleY ? scaleY : transform.localScale.y,
-                    animateScaleZ ? scaleZ : transform.localScale.z
+                    animateScaleX ? scaleX : transform.localScale.x + scaleX,
+                    animateScaleY ? scaleY : transform.localScale.y + scaleY,
+                    animateScaleZ ? scaleZ : transform.localScale.z + 1
                 );
         }
     }
