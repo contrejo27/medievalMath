@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GemSpawner : MonoBehaviour {
 
-    public GameObject redGem;
-    public GameObject yellowGem;
-    public GameObject purpleGem;
-    public GameObject cyanGem;
-    public GameObject greenGem;
+    public GameObject pennyGem;
+    public GameObject nickelGem;
+    public GameObject dimeGem;
+    public GameObject quarterGem;
+    public GameObject dollarGem;
 
     GameObject gemToSpawn;
     Transform parentTransform;
@@ -21,11 +21,11 @@ public class GemSpawner : MonoBehaviour {
     {
         gems = new Dictionary<EnumManager.GemType, GameObject>()
         {
-            {EnumManager.GemType.Red, redGem },
-            {EnumManager.GemType.Yellow, yellowGem },
-             {EnumManager.GemType.Purple, purpleGem },
-             {EnumManager.GemType.Cyan, cyanGem },
-             {EnumManager.GemType.Green, greenGem }
+            {EnumManager.GemType.Penny, pennyGem },
+            {EnumManager.GemType.Nickel, nickelGem },
+             {EnumManager.GemType.Dime, dimeGem },
+             {EnumManager.GemType.Quarter, quarterGem },
+             {EnumManager.GemType.Dollar, dollarGem }
         };
     }
 
