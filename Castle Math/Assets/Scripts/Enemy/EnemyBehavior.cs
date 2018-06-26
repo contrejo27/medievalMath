@@ -64,7 +64,7 @@ public class EnemyBehavior : MonoBehaviour {
 		//Target = Targets [RanNum];
 		StartCoroutine(WaitToPlay(2f));
 
-		
+        GameStateManager.instance.levelManager.activeEnemies.Add(this);
 	}
 	
 	IEnumerator WaitToPlay(float time){
@@ -269,6 +269,7 @@ public class EnemyBehavior : MonoBehaviour {
 	//do this when the player gets killed
 	public void Killed()
 	{
+        GameStateManager.instance.levelManager.activeEnemies.Remove(this);
         navMeshAgent.speed = 0;
         navMeshAgent.enabled = false;
 

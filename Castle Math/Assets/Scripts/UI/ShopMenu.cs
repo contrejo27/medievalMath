@@ -8,11 +8,12 @@ public class ShopMenu : MonoBehaviour {
     string moneyFormat = "0.##";
 
     public Transform potionPoint;
-    float potionPrice;
+    List<Potion> potionsInShop;
+    //float potionPrice;
 
     public Text potionPriceText;
     public Text potionName;
-    public Text[] gemValues = new Text[5];
+    //public Text[] gemValues = new Text[5];
     public Text[] gemTotalsInShop = new Text[5];
     public Text[] gemsInShop = new Text[5];
     public Text[] gemsAvailable = new Text[5];
@@ -43,7 +44,7 @@ public class ShopMenu : MonoBehaviour {
             {EnumManager.GemType.Dollar, 0 }
         };
 
-    Dictionary<EnumManager.GemType, int> dGemsInShop
+    public Dictionary<EnumManager.GemType, int> dGemsInShop
         = new Dictionary<EnumManager.GemType, int>()
         {
             {EnumManager.GemType.Penny, 0 },
@@ -53,7 +54,7 @@ public class ShopMenu : MonoBehaviour {
             {EnumManager.GemType.Dollar, 0 }
         };
 
-    Dictionary<EnumManager.GemType, int> dGemsAvailable
+    public Dictionary<EnumManager.GemType, int> dGemsAvailable
         = new Dictionary<EnumManager.GemType, int>()
         {
             {EnumManager.GemType.Penny, 0 },
@@ -68,11 +69,13 @@ public class ShopMenu : MonoBehaviour {
    
     void Awake()
     {
+        /*
         gemValues[0].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Penny]);
         gemValues[1].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Nickel]);
         gemValues[2].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Dime]);
         gemValues[3].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Quarter]);
         gemValues[4].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Dollar]);
+        */
     }
 
 	void OnEnable()
@@ -81,17 +84,16 @@ public class ShopMenu : MonoBehaviour {
         {
             foreach(EnumManager.GemType type in dGemsAvailable.Keys)
                 dGemsAvailable[type] = GameStateManager.instance.levelManager.gemsOwned[type];
-            
         }
         else isAwake = true;
     }
 
-    void LoadPotion(Potion potionToBuy)
+    public void LoadPotions(List<Potion> potionsToBuy)
     {
-
+        potionsInShop = new List<Potion>(potionsToBuy);
     }
 
-    void AddGemToShop(EnumManager.GemType type)
+    public void AddGemToShop(EnumManager.GemType type)
     {
         --dGemsAvailable[type];
         ++dGemsInShop[type];
@@ -102,7 +104,7 @@ public class ShopMenu : MonoBehaviour {
         UpdateShopNumericalText(type);
     }
 
-    void RemoveGemFromShop(EnumManager.GemType type)
+    public void RemoveGemFromShop(EnumManager.GemType type)
     {
         ++dGemsAvailable[type];
         --dGemsInShop[type];

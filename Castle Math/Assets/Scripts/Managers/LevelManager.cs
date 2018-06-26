@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour {
     public GameObject InsidePoint;
     public GameObject StatScreen;
     public Light directionalLight;
+    public List<EnemyBehavior> activeEnemies = new List<EnemyBehavior>();
 
     [Header("Environment")]
     public GameObject billboard;
@@ -48,7 +49,8 @@ public class LevelManager : MonoBehaviour {
     void Start () {
 
         GameStateManager.instance.levelManager = this;
-	}
+        RenderSettings.skybox.SetFloat("_Exposure", .8f);
+    }
 
     public void StartGame()
     {
@@ -113,6 +115,14 @@ public class LevelManager : MonoBehaviour {
             unlockedUpgrades.Add(upgrade, pd.unlockedAbilities[Convert.ToInt32(upgrade)]);
         }
         */
+    }
+
+    public void SlowAllEnemeies(float slowScale, float duration)
+    {
+        foreach(EnemyBehavior eb in activeEnemies)
+        {
+            eb.SlowsEnemy(slowScale, duration);
+        }
     }
 
     public void RecieveGems(int amount, EnumManager.GemType type)
