@@ -26,41 +26,41 @@ public class ShopMenu : MonoBehaviour {
     Dictionary<EnumManager.GemType, int> gemToArray
         = new Dictionary<EnumManager.GemType, int>()
         {
-            {EnumManager.GemType.Red, 0 },
-            {EnumManager.GemType.Yellow, 1 },
-            {EnumManager.GemType.Purple, 2 },
-            {EnumManager.GemType.Cyan, 3 },
-            {EnumManager.GemType.Green, 4 }
+            {EnumManager.GemType.Penny, 0 },
+            {EnumManager.GemType.Nickel, 1 },
+            {EnumManager.GemType.Dime, 2 },
+            {EnumManager.GemType.Quarter, 3 },
+            {EnumManager.GemType.Dollar, 4 }
         };
 
     Dictionary<EnumManager.GemType, float> dGemTotalsInShop 
         = new Dictionary<EnumManager.GemType, float>()
         {
-            {EnumManager.GemType.Red, 0 },
-            {EnumManager.GemType.Yellow, 0 },
-            {EnumManager.GemType.Purple, 0 },
-            {EnumManager.GemType.Cyan, 0 },
-            {EnumManager.GemType.Green, 0 }
+            {EnumManager.GemType.Penny, 0 },
+            {EnumManager.GemType.Nickel, 0 },
+            {EnumManager.GemType.Dime, 0 },
+            {EnumManager.GemType.Quarter, 0 },
+            {EnumManager.GemType.Dollar, 0 }
         };
 
     Dictionary<EnumManager.GemType, int> dGemsInShop
         = new Dictionary<EnumManager.GemType, int>()
         {
-            {EnumManager.GemType.Red, 0 },
-            {EnumManager.GemType.Yellow, 0 },
-            {EnumManager.GemType.Purple, 0 },
-            {EnumManager.GemType.Cyan, 0 },
-            {EnumManager.GemType.Green, 0 }
+            {EnumManager.GemType.Penny, 0 },
+            {EnumManager.GemType.Nickel, 0 },
+            {EnumManager.GemType.Dime, 0 },
+            {EnumManager.GemType.Quarter, 0 },
+            {EnumManager.GemType.Dollar, 0 }
         };
 
     Dictionary<EnumManager.GemType, int> dGemsAvailable
         = new Dictionary<EnumManager.GemType, int>()
         {
-            {EnumManager.GemType.Red, 0 },
-            {EnumManager.GemType.Yellow, 0 },
-            {EnumManager.GemType.Purple, 0 },
-            {EnumManager.GemType.Cyan, 0 },
-            {EnumManager.GemType.Green, 0 }
+            {EnumManager.GemType.Penny, 0 },
+            {EnumManager.GemType.Nickel, 0 },
+            {EnumManager.GemType.Dime, 0 },
+            {EnumManager.GemType.Quarter, 0 },
+            {EnumManager.GemType.Dollar, 0 }
         };
     #endregion
 
@@ -68,11 +68,11 @@ public class ShopMenu : MonoBehaviour {
    
     void Awake()
     {
-        gemValues[0].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Red]);
-        gemValues[1].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Yellow]);
-        gemValues[2].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Purple]);
-        gemValues[3].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Cyan]);
-        gemValues[4].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Green]);
+        gemValues[0].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Penny]);
+        gemValues[1].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Nickel]);
+        gemValues[2].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Dime]);
+        gemValues[3].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Quarter]);
+        gemValues[4].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Dollar]);
     }
 
 	void OnEnable()

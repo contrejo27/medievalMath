@@ -37,11 +37,11 @@ public class LevelManager : MonoBehaviour {
     public Dictionary<EnumManager.GemType, int> gemsOwned =
         new Dictionary<EnumManager.GemType, int>()
         {
-            {EnumManager.GemType.Red, 0 },
-            {EnumManager.GemType.Yellow, 0 },
-            {EnumManager.GemType.Purple, 0 },
-            {EnumManager.GemType.Cyan, 0 },
-            {EnumManager.GemType.Green, 0 }
+            {EnumManager.GemType.Penny, 0 },
+            {EnumManager.GemType.Nickel, 0 },
+            {EnumManager.GemType.Dime, 0 },
+            {EnumManager.GemType.Quarter, 0 },
+            {EnumManager.GemType.Dollar, 0 }
         };
 
     // Use this for initialization

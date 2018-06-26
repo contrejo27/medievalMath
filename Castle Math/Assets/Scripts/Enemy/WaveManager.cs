@@ -353,11 +353,11 @@ public class WaveManager : MonoBehaviour {
 		if (CurrentEnemies <= 0) {
 
             //Test
-            if (currentWave == 0) AwardGems(10, EnumManager.GemType.Red);
+            if (currentWave == 0) AwardGems(10, EnumManager.GemType.Penny);
             
-            if (currentWave == 4) AwardGems(1, EnumManager.GemType.Cyan);
-            else if (currentWave == 9) AwardGems(3, EnumManager.GemType.Cyan);
-            else if (currentWave == 14) AwardGems(2, EnumManager.GemType.Green);
+            if (currentWave == 4) AwardGems(1, EnumManager.GemType.Quarter);
+            else if (currentWave == 9) AwardGems(3, EnumManager.GemType.Quarter);
+            else if (currentWave == 14) AwardGems(2, EnumManager.GemType.Dollar);
 
                 if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
                 {
