@@ -117,7 +117,7 @@ public class GameStateManager : MonoBehaviour {
 
     public void SetTimeScale(float newTimeScale, float duration)
     {
-        
+        StartCoroutine(ChangeTimeScale(newTimeScale, duration));
     }
 
     public bool IsLost()
