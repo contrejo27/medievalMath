@@ -9,7 +9,7 @@ public class ShopMenu : MonoBehaviour {
 
     public Transform potionPoint;
     List<Potion> potionsInShop;
-    //float potionPrice;
+    float potionPrice;
 
     public Text potionPriceText;
     public Text potionName;
@@ -128,5 +128,26 @@ public class ShopMenu : MonoBehaviour {
     string FormatMoneyString(float cost)
     {
         return cost.ToString(moneyFormat);
+    }
+
+    public void CheckPurchase()
+    {
+        if (finalTotal >= potionPrice)
+            DoCompletePurchase();
+        else
+            DoIncompletePutchase();
+    }
+
+    public void DoCompletePurchase()
+    {
+        foreach(KeyValuePair<EnumManager.GemType, int> pair in dGemsInShop)
+        {
+            //GameStateManager.instance.levelManager.
+        }
+    }
+
+    public void DoIncompletePutchase()
+    {
+        // a poppup maybe?
     }
 }
