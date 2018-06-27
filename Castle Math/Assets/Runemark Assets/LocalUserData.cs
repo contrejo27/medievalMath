@@ -42,15 +42,11 @@ public static class LocalUserData
                 {
                     string intro_json = (dict == null || !dict.ContainsKey(item.definition.storeSpecificId)) ? null : dict[item.definition.storeSpecificId];
 
-                    if (intro_json != null)
-                    {
-                        SubscriptionManager p = new SubscriptionManager(item, intro_json);
-                        SubscriptionInfo info = p.getSubscriptionInfo();
+                    SubscriptionManager p = new SubscriptionManager(item, intro_json);
+                    SubscriptionInfo info = p.getSubscriptionInfo();
 
-                        if (info.isExpired() == Result.False && info.isSubscribed() == Result.True)
-                            return true;
-                    }
-
+                    if (info.isExpired() == Result.False && info.isSubscribed() == Result.True)
+                        return true;
                 }
             }
         }
@@ -70,15 +66,11 @@ public static class LocalUserData
                 {
                     string intro_json = (dict == null || !dict.ContainsKey(item.definition.storeSpecificId)) ? null : dict[item.definition.storeSpecificId];
 
-                    if (intro_json != null)
-                    {
-                        SubscriptionManager p = new SubscriptionManager(item, intro_json);
-                        SubscriptionInfo info = p.getSubscriptionInfo();
+                    SubscriptionManager p = new SubscriptionManager(item, intro_json);
+                    SubscriptionInfo info = p.getSubscriptionInfo();
 
-                        if (info.isExpired() == Result.False && info.isSubscribed() == Result.True)
-                            return info.getRemainingTime().TotalDays;
-                    }
-
+                    if (info.isExpired() == Result.False && info.isSubscribed() == Result.True)
+                        return info.getRemainingTime().TotalDays;
                 }
             }
         }
