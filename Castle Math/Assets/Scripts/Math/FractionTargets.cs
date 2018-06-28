@@ -15,8 +15,8 @@ public class FractionTargets : MonoBehaviour, Question
     // Billboard's off-center position.
     public Transform billboardCenter;
 
-    public float flipperSpacing = .2f;
-    public int flipperSize = 1;
+    public float flipperSpacing = .1f;
+    public float flipperSize = .5f;
     private int numerator;
     private int denominator;
     private int targetFlips;
@@ -76,11 +76,11 @@ public class FractionTargets : MonoBehaviour, Question
         {
             if (dieRoll > .6667f)
             {
-                QuestionText.text = "Fill in " + ((float)numerator / denominator).ToString() + " of the squares by shooting them!";
+                QuestionText.text = "Fill in " + ((float)numerator / denominator).ToString("0.##") + " of the squares by shooting them!";
             }
             else
             {
-                QuestionText.text = "Fill in " + (((float)numerator / denominator) * 100).ToString() + "% of the squares by shooting them!";
+                QuestionText.text = "Fill in " + (((float)numerator / denominator) * 100).ToString("0.##") + "% of the squares by shooting them!";
             }
         }
         else

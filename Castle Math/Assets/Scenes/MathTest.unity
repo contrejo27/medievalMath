@@ -534,7 +534,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 75205510}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 10.37, y: -1.0678792, z: -3.67}
+  m_LocalPosition: {x: 10.37, y: -2.21, z: -3.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1509,6 +1509,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 256913074}
     m_Modifications:
+    - target: {fileID: 114391279113973526, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4811953230998824, guid: d1c601ed0e6ca8449bb9e42b3d54088c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1556,6 +1561,61 @@ Prefab:
     - target: {fileID: 4811953230998824, guid: d1c601ed0e6ca8449bb9e42b3d54088c, type: 2}
       propertyPath: m_LocalScale.z
       value: 38.665916
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583434614082104, guid: d1c601ed0e6ca8449bb9e42b3d54088c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853133973913436, guid: d1c601ed0e6ca8449bb9e42b3d54088c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519676619271288, guid: d1c601ed0e6ca8449bb9e42b3d54088c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391279113973526, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391279113973526, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391279113973526, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1497001011}
+    - target: {fileID: 114391279113973526, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateShop
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391279113973526, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167937135702758, guid: d1c601ed0e6ca8449bb9e42b3d54088c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223835640552280, guid: d1c601ed0e6ca8449bb9e42b3d54088c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391279113973526, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391279113973526, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1c601ed0e6ca8449bb9e42b3d54088c, type: 2}
@@ -7630,6 +7690,28 @@ Transform:
   m_PrefabParentObject: {fileID: 4552243802719944, guid: 06feddaacfebcc845a71837d24b4ed20,
     type: 2}
   m_PrefabInternal: {fileID: 293230251}
+--- !u!1 &785996729 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1995219045725938, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+    type: 2}
+  m_PrefabInternal: {fileID: 200535351}
+--- !u!114 &785996734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 785996729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 739800cd36aba44e9b04ce977e5784bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastMode: 0
+  ignoreReversedGraphics: 1
+  blockingObjects: 0
+  blockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &786069270
 GameObject:
   m_ObjectHideFlags: 0
@@ -8733,7 +8815,7 @@ MonoBehaviour:
     type: 2}
   horseRiderPrefab: {fileID: 1372078820083414, guid: 0f5a5b7deccc20241a03bdea3a668b45,
     type: 2}
-  currentWave: 2
+  currentWave: 0
   finalWave: 20
   storyText: {fileID: 585508146}
   billboardCanvas: {fileID: 505358069}
@@ -15455,6 +15537,58 @@ Transform:
   m_Father: {fileID: 343477063}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1567654851 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1405647383219778, guid: d1c601ed0e6ca8449bb9e42b3d54088c,
+    type: 2}
+  m_PrefabInternal: {fileID: 200535351}
+--- !u!114 &1567654856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1567654851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1497001011}
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1497001011}
+          m_MethodName: OnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1 &1575577186
 GameObject:
   m_ObjectHideFlags: 0
@@ -15663,6 +15797,10 @@ Prefab:
     - target: {fileID: 4777938944678046, guid: ff8a2a68e9ba5044fb08ba35b2f35191, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794417142348274, guid: ff8a2a68e9ba5044fb08ba35b2f35191, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff8a2a68e9ba5044fb08ba35b2f35191, type: 2}
@@ -19065,8 +19203,8 @@ MonoBehaviour:
   flipperPrefab: {fileID: 1753534538413082, guid: a425178315b4f0b409fc8f2396c459ec,
     type: 2}
   billboardCenter: {fileID: 75205511}
-  flipperSpacing: 0.2
-  flipperSize: 1
+  flipperSpacing: 0.15
+  flipperSize: 0.75
   currentFlips: 0
 --- !u!1 &1880499303
 GameObject:

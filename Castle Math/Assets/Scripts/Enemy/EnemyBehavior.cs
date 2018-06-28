@@ -98,7 +98,9 @@ public class EnemyBehavior : MonoBehaviour {
 	public void SetTarget(Transform initialTarget){
 		target = initialTarget;
         navMeshAgent.SetDestination(target.position + new Vector3(0,3,0));
+        Debug.Log(initialTarget.name);
         dH = initialTarget.gameObject.GetComponent<DoorHealth>();
+        Debug.Log("Dh null? " + dH == null);
         StartCoroutine(WalkToTarget());
     }
 	
