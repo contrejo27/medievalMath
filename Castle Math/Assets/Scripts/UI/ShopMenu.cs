@@ -34,6 +34,16 @@ public class ShopMenu : MonoBehaviour {
             {EnumManager.GemType.Dollar, 4 }
         };
 
+    Dictionary<int, EnumManager.GemType> arrayToGem
+        = new Dictionary<int, EnumManager.GemType>()
+        {
+            {0,EnumManager.GemType.Penny },
+            {1,EnumManager.GemType.Nickel },
+            {2,EnumManager.GemType.Dime },
+            {3,EnumManager.GemType.Quarter },
+            {4,EnumManager.GemType.Dollar }
+        };
+
     Dictionary<EnumManager.GemType, float> dGemTotalsInShop 
         = new Dictionary<EnumManager.GemType, float>()
         {
@@ -140,10 +150,26 @@ public class ShopMenu : MonoBehaviour {
 
     public void DoCompletePurchase()
     {
+        float priceTemp = potionPrice;
+
+        for(int i = 4; i>=0; i--)
+        {
+            while(dGemsInShop[arrayToGem[i]] > 0 && priceTemp > 0)
+            {
+
+            }
+            if(priceTemp <= 0)
+            {
+                break;
+            }
+        }
+        //while(dGemsInShop[EnumManager.])
+        /*
         foreach(KeyValuePair<EnumManager.GemType, int> pair in dGemsInShop)
         {
             //GameStateManager.instance.levelManager.
         }
+        */
     }
 
     public void DoIncompletePutchase()
