@@ -67,28 +67,34 @@ MonoBehaviour:
   _inAppPurchaseSettings:
     _targetAndroidStore: 0
     _validateAppleReceipt: 1
-    _validateGooglePlayReceipt: 0
+    _validateGooglePlayReceipt: 1
     _products:
     - _name: 1 Month Subscription
       _type: 2
       _id: com.medievalMath.autoSmall
       _price: 8.99
       _description: 
-      _storeSpecificIds: []
+      _storeSpecificIds:
+      - store: 2
+        id: com.medievalmath.autosmall
       _isEditingAdvanced: 1
     - _name: 6 Month Subscription
       _type: 2
       _id: com.medievalMath.autoMed
       _price: 23.99
       _description: 
-      _storeSpecificIds: []
+      _storeSpecificIds:
+      - store: 2
+        id: com.medievalmath.automed
       _isEditingAdvanced: 1
     - _name: 12 Month Subscription
       _type: 2
       _id: com.medievalMath.autoLarge
       _price: 83.99
       _description: 
-      _storeSpecificIds: []
+      _storeSpecificIds:
+      - store: 2
+        id: com.medievalmath.autolarge
       _isEditingAdvanced: 1
   _notificationSettings:
     _autoInit: 1
