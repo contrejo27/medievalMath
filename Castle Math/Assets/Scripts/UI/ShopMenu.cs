@@ -9,7 +9,7 @@ public class ShopMenu : MonoBehaviour {
 
     public Transform potionPoint;
     List<Potion> potionsInShop;
-    //float potionPrice;
+    float potionPrice;
 
     public Text potionPriceText;
     public Text potionName;
@@ -32,6 +32,16 @@ public class ShopMenu : MonoBehaviour {
             {EnumManager.GemType.Dime, 2 },
             {EnumManager.GemType.Quarter, 3 },
             {EnumManager.GemType.Dollar, 4 }
+        };
+
+    Dictionary<int, EnumManager.GemType> arrayToGem
+        = new Dictionary<int, EnumManager.GemType>()
+        {
+            {0,EnumManager.GemType.Penny },
+            {1,EnumManager.GemType.Nickel },
+            {2,EnumManager.GemType.Dime },
+            {3,EnumManager.GemType.Quarter },
+            {4,EnumManager.GemType.Dollar }
         };
 
     Dictionary<EnumManager.GemType, float> dGemTotalsInShop 
@@ -128,5 +138,69 @@ public class ShopMenu : MonoBehaviour {
     string FormatMoneyString(float cost)
     {
         return cost.ToString(moneyFormat);
+    }
+
+    public void CheckPurchase()
+    {
+        if (finalTotal >= potionPrice)
+            DoCompletePurchase();
+        else
+            DoIncompletePutchase();
+    }
+
+    public void DoCompletePurchase()
+    {
+        float priceTemp = potionPrice;
+        float remainder = 0;
+
+        for(int i = 4; i>=0; i--)
+        {
+            while(dGemsInShop[arrayToGem[i]] > 0 && priceTemp > 0)
+            {
+                dGemsInShop[arrayToGem[i]]--;
+                if(priceTemp - EnumManager.gemValues[arrayToGem[i]] < 0)
+                {
+                    priceTemp = 0;
+                    remainder = priceTemp - EnumManager.gemValues[arrayToGem[i]];
+
+                }
+                else
+                {
+                    priceTemp -= EnumManager.gemValues[arrayToGem[i]];
+                }
+                GameStateManager.instance.levelManager.RemoveGems(1, arrayToGem[i]);
+            }
+            if(priceTemp <= 0)
+            {
+                for(int j = i; j >=0; j--)
+                {
+                    while(remainder - EnumManager.gemValues[arrayToGem[j]] >= 0)
+                    {
+                        remainder -= EnumManager.gemValues[arrayToGem[j]];
+                        GameStateManager.instance.levelManager.RecieveGems(1, arrayToGem[j]);
+                    }
+                    if(remainder <= 0)
+                    {
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        // Then create a spawner that shows the change returning
+
+
+        //while(dGemsInShop[EnumManager.])
+        /*
+        foreach(KeyValuePair<EnumManager.GemType, int> pair in dGemsInShop)
+        {
+            //GameStateManager.instance.levelManager.
+        }
+        */
+    }
+
+    public void DoIncompletePutchase()
+    {
+        // a poppup maybe?
     }
 }

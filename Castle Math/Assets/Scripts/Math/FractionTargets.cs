@@ -15,8 +15,8 @@ public class FractionTargets : MonoBehaviour, Question
     // Billboard's off-center position.
     public Transform billboardCenter;
 
-    public float flipperSpacing = .2f;
-    public int flipperSize = 1;
+    public float flipperSpacing = .1f;
+    public float flipperSize = .5f;
     private int numerator;
     private int denominator;
     private int targetFlips;
@@ -44,8 +44,8 @@ public class FractionTargets : MonoBehaviour, Question
     /// <param name="maxDifficulty">maximum end of range</param>
     public void GenerateQuestion(int maxDifficulty)
     { //int maxDifficulty => temp fix
-        xDim = Random.Range(2, 6);
-        yDim = Random.Range(2, 6);
+        xDim = Random.Range(2, 7);
+        yDim = Random.Range(2, 5);
         currentFlips = 0;
 
         // Maybe consider trying to avoid the 35/36 situation
@@ -76,11 +76,11 @@ public class FractionTargets : MonoBehaviour, Question
         {
             if (dieRoll > .6667f)
             {
-                QuestionText.text = "Fill in " + ((float)numerator / denominator).ToString() + " of the squares by shooting them!";
+                QuestionText.text = "Fill in " + ((float)numerator / denominator).ToString("0.##") + " of the squares by shooting them!";
             }
             else
             {
-                QuestionText.text = "Fill in " + (((float)numerator / denominator) * 100).ToString() + "% of the squares by shooting them!";
+                QuestionText.text = "Fill in " + (((float)numerator / denominator) * 100).ToString("0.##") + "% of the squares by shooting them!";
             }
         }
         else

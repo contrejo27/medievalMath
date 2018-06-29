@@ -130,6 +130,11 @@ public class LevelManager : MonoBehaviour {
         gemsOwned[type] += amount;
     }
 
+    public void RemoveGems(int amount, EnumManager.GemType type)
+    {
+        gemsOwned[type] -= amount;
+    }
+
     IEnumerator FadeSky(float initialValue, float endValue)
     {
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / 3f)
