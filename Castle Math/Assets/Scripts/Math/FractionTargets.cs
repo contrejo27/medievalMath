@@ -44,8 +44,8 @@ public class FractionTargets : MonoBehaviour, Question
     /// <param name="maxDifficulty">maximum end of range</param>
     public void GenerateQuestion(int maxDifficulty)
     { //int maxDifficulty => temp fix
-        xDim = Random.Range(2, 6);
-        yDim = Random.Range(2, 6);
+        xDim = Random.Range(2, 7);
+        yDim = Random.Range(2, 5);
         currentFlips = 0;
 
         // Maybe consider trying to avoid the 35/36 situation
