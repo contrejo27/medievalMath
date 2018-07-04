@@ -30,7 +30,10 @@ public static class LocalUserData
     {
         // Check if logged in
         if (IsLoggedIn() == false)
-            return false;
+        {
+            if (Application.isEditor) return true;
+            else return false;
+        }
 
         Dictionary<string, string> dict = InAppPurchasing.StoreExtensionProvider.GetExtension<IAppleExtensions>().GetIntroductoryPriceDictionary();
 

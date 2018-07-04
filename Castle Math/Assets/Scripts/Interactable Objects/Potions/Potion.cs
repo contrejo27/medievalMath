@@ -9,7 +9,7 @@ public class Potion : BaseInteractableObject {
     enum PotionState { shop, menu, inventory }
     PotionState currentState;
     public Text toolTip;
-    public int cost;
+    public float cost;
     public float duration;
     
     public GameObject purchaseConfirmationMenu;
@@ -103,7 +103,7 @@ public class Potion : BaseInteractableObject {
 
             currentState = PotionState.inventory;
 
-            GameStateManager.instance.playerController.BuyItem(cost);
+            GameStateManager.instance.playerController.BuyItem((int)cost);
 
             GameStateManager.instance.inventory.AddPotion(gameObject);
 

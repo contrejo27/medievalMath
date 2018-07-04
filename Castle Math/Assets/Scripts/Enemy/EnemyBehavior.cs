@@ -13,6 +13,7 @@ public class EnemyBehavior : MonoBehaviour {
     public EnumManager.GemType rewardGemType;
     public int rewardGemAmount;
 	bool attacking = false;
+    bool alternateRoute;
     [HideInInspector]
     Queue<int> hitQueue = new Queue<int>();
     public NavMeshAgent navMeshAgent;
@@ -33,7 +34,10 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	[Header("Environment")]
 	private DoorHealth dH;
-	public Transform target;
+	public Transform currentTarget;
+    [HideInInspector]
+    public Transform fenceTarget;
+
 
 	private int currentAudioSource;
 	
@@ -96,8 +100,8 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 		
 	public void SetTarget(Transform initialTarget){
-		target = initialTarget;
-        navMeshAgent.SetDestination(target.position + new Vector3(0,3,0));
+		fenceTarget = currentTarget = initialTarget;
+        navMeshAgent.SetDestination(currentTarget.position + new Vector3(0,3,0));
         Debug.Log(initialTarget.name);
         dH = initialTarget.gameObject.GetComponent<DoorHealth>();
         Debug.Log("Dh null? " + dH == null);
@@ -105,8 +109,8 @@ public class EnemyBehavior : MonoBehaviour {
     }
 	
 	public void UpdateTarget(Transform newTarget){
-		target = newTarget;
-        navMeshAgent.SetDestination(target.position + new Vector3(0,3,0));
+		currentTarget = newTarget;
+        navMeshAgent.SetDestination(currentTarget.position + new Vector3(0,3,0));
         animator.SetBool ("isAttacking", false);
 		animator.Play ("move");
 		isMoving = true;
@@ -202,7 +206,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Vector3 heading = (target.position - StartPos);
 		float distance = heading.magnitude;
         */
-        float distance = Vector3.Magnitude(target.position-transform.position);
+        float distance = Vector3.Magnitude(currentTarget.position-transform.position);
         animator.SetBool("isAttacking", false);
         animator.SetBool ("isMoving", true);
 		

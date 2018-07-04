@@ -21,6 +21,9 @@ public class LevelManager : MonoBehaviour {
     public GameObject StatScreen;
     public Light directionalLight;
     public List<EnemyBehavior> activeEnemies = new List<EnemyBehavior>();
+    public Transform scarecrowSpawnPoint;
+    public GameObject dummyPrefab;
+    public GameObject explosiveDummyPrefab;
 
     [Header("Environment")]
     public GameObject billboard;
@@ -135,6 +138,11 @@ public class LevelManager : MonoBehaviour {
         gemsOwned[type] -= amount;
     }
 
+    public void SetDummyEnemies(Transform target, float duration, bool doesExplode = false)
+    {
+        StartCoroutine(PullEnemies(target, duration, doesExplode));
+    }
+
     IEnumerator FadeSky(float initialValue, float endValue)
     {
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / 3f)
@@ -171,6 +179,28 @@ public class LevelManager : MonoBehaviour {
                 yield return null;
             }
         }
+    }
+
+    IEnumerator PullEnemies(Transform target, float duration, bool doesExplode)
+    {
+        GameObject dummy =
+            (doesExplode) ? Instantiate(explosiveDummyPrefab, target.position, Quaternion.identity, target) as GameObject
+            : Instantiate(dummyPrefab, target.position, Quaternion.identity, target) as GameObject;
+
+        foreach (EnemyBehavior eb in activeEnemies)
+        {
+            eb.SetTarget(target);
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        foreach(EnemyBehavior eb in activeEnemies)
+        {
+            eb.SetTarget(eb.fenceTarget);
+        }
+
+        // do extra stuff if it explodes
+        Destroy(dummy);
     }
 
 }
