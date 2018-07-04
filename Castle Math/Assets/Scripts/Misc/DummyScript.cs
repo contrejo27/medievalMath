@@ -8,10 +8,10 @@ public class DummyScript : MonoBehaviour {
 
     public void DoOnDestroy()
     {
-        if (doesExplode) Explode();
+        //if (doesExplode) Explode();
         Destroy(gameObject);
     }
-	
+	/*
     public void Explode()
     {
         A_Source.clip = boom;
@@ -42,5 +42,6 @@ public class DummyScript : MonoBehaviour {
             i += 1;
         }
     }
+    */
 
 }
