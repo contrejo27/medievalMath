@@ -39,13 +39,15 @@ public class BaseInteractableObject : MonoBehaviour {
 
     public virtual void OnPassOver()
     {
-        GameStateManager.instance.player.SetLookingAtInterface(true);
+        if(GameStateManager.instance.player)
+            GameStateManager.instance.player.SetLookingAtInterface(true);
         //Debug.Log("passing over " + name);
     }
 
     public virtual void OnEndPassOver()
     {
-        GameStateManager.instance.player.SetLookingAtInterface(false);
+        if(GameStateManager.instance.player)
+            GameStateManager.instance.player.SetLookingAtInterface(false);
         //Debug.Log("end pass over " + name);
     }
 

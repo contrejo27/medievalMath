@@ -7538,7 +7538,6 @@ GameObject:
   - component: {fileID: 896461579}
   - component: {fileID: 896461582}
   - component: {fileID: 896461581}
-  - component: {fileID: 896461580}
   m_Layer: 14
   m_Name: Background (1)
   m_TagString: Untagged
@@ -7565,54 +7564,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.13439894, y: -0.1897698}
   m_SizeDelta: {x: 1264, y: 850}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &896461580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114642819715657730, guid: 17103c2358dc54b42b73bae7c44229a9,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 896461578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: SetLookingAtInterface
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: SetLookingAtInterface
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  delegates: []
 --- !u!114 &896461581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9727,7 +9678,6 @@ GameObject:
   - component: {fileID: 1149680794}
   - component: {fileID: 1149680797}
   - component: {fileID: 1149680796}
-  - component: {fileID: 1149680795}
   m_Layer: 14
   m_Name: map
   m_TagString: Untagged
@@ -9754,54 +9704,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.2894988, y: -0.1873798}
   m_SizeDelta: {x: 1264, y: 850}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1149680795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114768545065542268, guid: 17103c2358dc54b42b73bae7c44229a9,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1149680793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: SetLookingAtInterface
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: SetLookingAtInterface
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  delegates: []
 --- !u!114 &1149680796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10426,7 +10328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastMode: 0
   ignoreReversedGraphics: 1
-  blockingObjects: 0
+  blockingObjects: 2
   blockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
