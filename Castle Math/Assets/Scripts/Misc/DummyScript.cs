@@ -5,17 +5,25 @@ using UnityEngine;
 public class DummyScript : MonoBehaviour {
 
     public bool doesExplode;
+    public GameObject explosion;
+    AudioSource audioSource;
+    public AudioClip boom;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void DoOnDestroy()
     {
-        //if (doesExplode) Explode();
+        if (doesExplode) Explode();
         Destroy(gameObject);
     }
-	/*
+	
     public void Explode()
     {
-        A_Source.clip = boom;
-        A_Source.Play();
+        audioSource.clip = boom;
+        audioSource.Play();
         var expl = Instantiate(explosion, transform.position, Quaternion.identity);
         //get all the colliders within a 10 radius
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 13);
@@ -42,6 +50,6 @@ public class DummyScript : MonoBehaviour {
             i += 1;
         }
     }
-    */
+    
 
 }

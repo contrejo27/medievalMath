@@ -138,9 +138,9 @@ public class LevelManager : MonoBehaviour {
         gemsOwned[type] -= amount;
     }
 
-    public void SetDummyEnemies(Transform target, float duration, bool doesExplode = false)
+    public void SetDummyEnemies(float duration, bool doesExplode = false)
     {
-        StartCoroutine(PullEnemies(target, duration, doesExplode));
+        StartCoroutine(PullEnemies(scarecrowSpawnPoint, duration, doesExplode));
     }
 
     IEnumerator FadeSky(float initialValue, float endValue)
@@ -200,7 +200,7 @@ public class LevelManager : MonoBehaviour {
         }
 
         // do extra stuff if it explodes
-        Destroy(dummy);
+        dummy.GetComponent<DummyScript>().DoOnDestroy();
     }
 
 }
