@@ -22,12 +22,17 @@ public class LaunchProjectile : MonoBehaviour {
     ArrowSupplier A_Supply;
 	GameObject arrowToLaunch;
 	bool burst;
+    bool rapidFire;
+    float rapidFireMod = 1 / 3;
+    float quickShotMod = 1 / 1.75f;
+    bool quickShot;
 	bool ArrowLoaded;
 	int[] ModiferEffectCounter;
 	GameObject tempArrow;
 	bool firstShot = true;
 	Animator crossbowAnim;
 	bool reloading = false;
+    float reloadTime = .2f;
 
 	//Audio
 	AudioSource A_Source;
@@ -60,31 +65,59 @@ public class LaunchProjectile : MonoBehaviour {
 		tempArrow.GetComponent<Rigidbody> ().useGravity = false;
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-		if (Input.GetButtonDown ("Fire1") && lookingAtMathInterface == false && isAlive == true) {
+    // Update is called once per frame
+    void Update()
+    {
+        if (lookingAtMathInterface == false && isAlive == true)
+        { 
+            if (Input.GetButton("Fire1") && rapidFire)
+            {
+                if (A_Supply.NumberOfArrows > 0)
+                {
 
-			if (A_Supply.NumberOfArrows > 0) {
+                    if (ArrowLoaded == false)
+                    {
+                        CreateShot();
+                    }
+                    
+                    if (!reloading)
+                    {
+                        playShootingSound(Random.Range(0, LaunchSounds.Length));
+                        Launch(rapidFireMod);
+                    }
+                }
+                
+            }
+            else if (Input.GetButtonDown("Fire1"))
+            {
 
-				if (ArrowLoaded == false) {
-					CreateShot();
-				}
+                if (A_Supply.NumberOfArrows > 0)
+                {
 
-				playShootingSound(Random.Range (0, LaunchSounds.Length));
+                    if (ArrowLoaded == false)
+                    {
+                        CreateShot();
+                    }
 
-				if(!reloading){
-					Launch();
-				}
-			} else {
-				A_Source.clip = ReloadSound;
-				A_Source.volume = .6f;
-				A_Source.pitch = 1f;
-				A_Source.Play ();
-			}
+                    playShootingSound(Random.Range(0, LaunchSounds.Length));
 
-		}
+                    if (!reloading)
+                    {
+                        if (quickShot) Launch(quickShotMod);
+                        else Launch();
+                    }
+                }
+                else
+                {
+                    A_Source.clip = ReloadSound;
+                    A_Source.volume = .6f;
+                    A_Source.pitch = 1f;
+                    A_Source.Play();
+                }
+
+            }
+        }
 		
 	}
 
@@ -204,7 +237,7 @@ public class LaunchProjectile : MonoBehaviour {
 		arrowToLaunch.GetComponent<Rigidbody> ().useGravity = false;
 	}
 
-	public void Launch(){
+	public void Launch(float reloadModifier = 1){
 		crossbowAnim.Play("crossbowShot");
 		arrowToLaunch.transform.parent = null;
 		arrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
@@ -220,7 +253,7 @@ public class LaunchProjectile : MonoBehaviour {
 		arrowToLaunch.GetComponent<Rigidbody> ().AddForce (firePoint.transform.right * -5000);
 		arrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
 		Destroy(arrowToLaunch, 1.2f);
-		StartCoroutine (ReloadTime ());
+		StartCoroutine (ReloadTime (reloadModifier));
 	}
 
 	void playShootingSound(int soundNum){
@@ -228,9 +261,9 @@ public class LaunchProjectile : MonoBehaviour {
 		A_Source.Play();
 	}
 	
-	IEnumerator ReloadTime(){
+	IEnumerator ReloadTime(float reloadModifier = 1){
 		reloading = true;
-		yield return new WaitForSeconds (.2f);
+		yield return new WaitForSeconds (reloadTime*reloadModifier);
 
 		if(tutorialBehavior && tutorialBehavior.tutorialDone) A_Supply.UseArrow ();
 
@@ -242,11 +275,44 @@ public class LaunchProjectile : MonoBehaviour {
 	}
 	
 	public void LaunchBurst(){
-		StartCoroutine (burstShot());
+		StartCoroutine (BurstShot());
 	}
+
+    public void SetQuickShot(float duration)
+    {
+        StartCoroutine(QuickShotCooldown(duration));
+    }
+
+    IEnumerator QuickShotCooldown(float duration)
+    {
+        quickShot = true;
+        yield return new WaitForSeconds(duration);
+        quickShot = false;
+    }
+
+    public void SetRapidFire(float duration)
+    {
+        StartCoroutine(RapidFireCooldown(duration));
+    }
+
+    IEnumerator RapidFireCooldown(float duration)
+    {
+        rapidFire = true;
+        yield return new WaitForSeconds(duration);
+        rapidFire = false;
+    }
+
+    /*
+    IEnumerator Booldown(ref bool targetBool, float duration)
+    {
+        targetBool = true;
+        yield return new WaitForSeconds(duration);
+        targetBool = false;
+    }
+    */
 	
 	//creates 2 extra shots after the first shot
-	IEnumerator burstShot(){
+	IEnumerator BurstShot(){
 		yield return new WaitForSeconds (.12f);
 		//Instantiate arrow at the postion and rotation of fire point
 		GameObject burstArrow = Instantiate (Projectiles[A_Supply.ArrowIndex[A_Supply.NumberOfArrows-1]], firePoint.transform.position, firePoint.transform.rotation);

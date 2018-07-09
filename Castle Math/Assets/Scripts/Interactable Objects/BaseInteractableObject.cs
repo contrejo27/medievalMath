@@ -103,7 +103,7 @@ public class BaseInteractableObject : MonoBehaviour {
         {
             mr.materials = materials[i];
             i++;
-            Debug.Log("Removed outline");
+            //Debug.Log("Removed outline");
 
         }
         isHighlighted = false;

@@ -189,14 +189,14 @@ public class LevelManager : MonoBehaviour {
 
         foreach (EnemyBehavior eb in activeEnemies)
         {
-            eb.SetTarget(target);
+            eb.UpdateTarget(target, true);
         }
 
         yield return new WaitForSeconds(duration);
 
         foreach(EnemyBehavior eb in activeEnemies)
         {
-            eb.SetTarget(eb.fenceTarget);
+            eb.UpdateTarget(eb.fenceTarget);
         }
 
         // do extra stuff if it explodes

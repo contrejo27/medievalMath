@@ -103,7 +103,7 @@ public class GvrPointerPhysicsRaycaster : GvrBasePointerRaycaster {
         sortingOrder = 0
       };
 
-            Debug.Log("Gvr hit: " + hits[b].collider.name);
+            //Debug.Log("Gvr hit: " + hits[b].collider.name);
 
       resultAppendList.Add(result);
     }

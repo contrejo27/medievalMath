@@ -20,7 +20,7 @@ public class BombArrow : ArrowClass {
 	
 	void Start(){
 		A_Source = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
-        print("playingSound");
+        //print("playingSound");
        // A_Source.clip = powerUpSound;
         //A_Source.Play();
 

@@ -37,6 +37,8 @@ public class EnemyBehavior : MonoBehaviour {
 	public Transform currentTarget;
     [HideInInspector]
     public Transform fenceTarget;
+    [HideInInspector]
+    public bool isTargetDummy;
 
 
 	private int currentAudioSource;
@@ -102,20 +104,21 @@ public class EnemyBehavior : MonoBehaviour {
 	public void SetTarget(Transform initialTarget){
 		fenceTarget = currentTarget = initialTarget;
         navMeshAgent.SetDestination(currentTarget.position + new Vector3(0,3,0));
-        Debug.Log(initialTarget.name);
         dH = initialTarget.gameObject.GetComponent<DoorHealth>();
-        Debug.Log("Dh null? " + dH == null);
         StartCoroutine(WalkToTarget());
+        
     }
 	
-	public void UpdateTarget(Transform newTarget){
+	public void UpdateTarget(Transform newTarget, bool isDummy = false)
+    {
 		currentTarget = newTarget;
         navMeshAgent.SetDestination(currentTarget.position + new Vector3(0,3,0));
         animator.SetBool ("isAttacking", false);
 		animator.Play ("move");
 		isMoving = true;
 		attacking = false;
-		StartCoroutine (WalkToTarget());
+        isTargetDummy = isDummy;
+        StartCoroutine (WalkToTarget());
 	}
 	
 	public void TakeDamage(int DMG)
@@ -312,10 +315,13 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 
 	public void DamageGate(int damage) {
-		currentAudioSource = Random.Range(0, audioSource.Length);
-		audioSource[currentAudioSource].clip = attackSounds[Random.Range(0, attackSounds.Length)];
-		audioSource[currentAudioSource].Play ();
-		dH.TakeDamageGate (damage);
+        if (!isTargetDummy)
+        {
+            currentAudioSource = Random.Range(0, audioSource.Length);
+            audioSource[currentAudioSource].clip = attackSounds[Random.Range(0, attackSounds.Length)];
+            audioSource[currentAudioSource].Play();
+            dH.TakeDamageGate(damage);
+        }
 	}
 
     public bool GetIsDead()

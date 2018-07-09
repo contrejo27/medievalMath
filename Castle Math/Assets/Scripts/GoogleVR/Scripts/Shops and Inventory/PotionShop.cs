@@ -8,7 +8,14 @@ public class PotionShop : MonoBehaviour {
     // potion/playercontroller scripts
 
     public Transform[] shopSlots;
-    public GameObject[] availablePotions;
+    public GameObject scatterShotPotion;
+    public GameObject burstFirePotion;
+    public GameObject slowTimePotion;
+    public GameObject doubleAgentPotion;
+    public GameObject freezeTimePotion;
+    public GameObject quickShotPotion;
+    public GameObject rapidFirePotion;
+    public GameObject scarecrowPotion;
     [HideInInspector]
     public List<Potion> potionsInShop = new List<Potion>();
 
@@ -49,13 +56,35 @@ public class PotionShop : MonoBehaviour {
         // (consider avoiding dupes in the future)
         foreach (Transform t in shopSlots)
         {
-            GameObject g = Instantiate(availablePotions[Random.Range(0, availablePotions.Length)], Vector3.zero, Quaternion.identity, t) as GameObject;
+            GameObject g = Instantiate(GeneratePotion(), Vector3.zero, Quaternion.identity, t) as GameObject;
             g.transform.localPosition = Vector3.zero;
             g.transform.localRotation = Quaternion.identity;
             potionsInShop.Add(g.GetComponent<Potion>());
 
 
         }
+    }
+
+    GameObject GeneratePotion()
+    {
+        float temp = Random.Range(0f, 1f);
+        if (temp < .15f)
+            return slowTimePotion;
+        else if (temp < .23f)
+            return freezeTimePotion;
+        else if (temp < .35f)
+            return scarecrowPotion;
+        else if (temp < .42f)
+            return doubleAgentPotion;
+        else if (temp < .63f)
+            return burstFirePotion;
+        else if (temp < .79f)
+            return scatterShotPotion;
+        else if (temp < .92f)
+            return quickShotPotion;
+        else
+            return rapidFirePotion;
+
     }
 
     void OnDisable()
