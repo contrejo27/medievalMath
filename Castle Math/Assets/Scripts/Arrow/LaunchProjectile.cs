@@ -69,7 +69,7 @@ public class LaunchProjectile : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (lookingAtMathInterface == false && isAlive == true)
+        if (!lookingAtMathInterface && isAlive && !GameStateManager.instance.levelManager.isGamePaused)
         { 
             if (Input.GetButton("Fire1") && rapidFire)
             {

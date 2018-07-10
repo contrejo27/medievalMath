@@ -15,5 +15,6 @@ public class DummyPotion : Potion {
 	public override void DoEffect()
     {
         GameStateManager.instance.levelManager.SetDummyEnemies(duration, doesExplode);
+        base.DoEffect();
     }
 }

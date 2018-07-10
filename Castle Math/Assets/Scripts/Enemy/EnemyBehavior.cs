@@ -31,6 +31,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public float attackDistance;
 	private bool isMoving;
 	public bool AtTarget {get; set;}
+    float prePauseAnimationSpeed;
 	
 	[Header("Environment")]
 	private DoorHealth dH;
@@ -313,6 +314,20 @@ public class EnemyBehavior : MonoBehaviour {
 		yield return new WaitForSeconds (2);
 		Destroy (this.gameObject);
 	}
+
+    public void PauseEnemy()
+    {
+        prePauseAnimationSpeed = animator.speed;
+        animator.speed = 0;
+        navMeshAgent.speed = 0;
+
+    }
+
+    public void ResumeEnemy()
+    {
+        animator.speed = prePauseAnimationSpeed;
+        navMeshAgent.speed = moveSpeed;
+    }
 
 	public void DamageGate(int damage) {
         if (!isTargetDummy)

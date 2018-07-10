@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour {
     public GameObject MathScreen;
     public GameObject tutorialImage;
     public GameObject target;
+    public GameObject PauseMenu;
 
     [Header("Enemy Behavior")]
     public GameObject InsidePoint;
@@ -28,6 +29,8 @@ public class LevelManager : MonoBehaviour {
     [Header("Environment")]
     public GameObject billboard;
     public DoorHealth fence1, fence2, fence3, fence4;
+    [HideInInspector]
+    public bool isGamePaused;
 
     [Header("Audio")]
     public AudioClip LostTheCastle;
@@ -141,6 +144,29 @@ public class LevelManager : MonoBehaviour {
     public void SetDummyEnemies(float duration, bool doesExplode = false)
     {
         StartCoroutine(PullEnemies(scarecrowSpawnPoint, duration, doesExplode));
+    }
+
+    public void PauseGame()
+    {
+        //billboard.SetActive(true);
+        //billboard.GetComponent<Animator>().Play("show");
+        PauseMenu.SetActive(true);
+        
+        isGamePaused = true;
+        StartCoroutine(FadeSky(.8f, .4f));
+        foreach (EnemyBehavior eb in activeEnemies)
+            eb.PauseEnemy();
+    }
+
+    public void ResumeGame()
+    {
+        //billboard.GetComponent<Animator>().Play("hide");
+        PauseMenu.GetComponent<UIEffects>().fadeOut(.3f);
+        //PauseMenu.SetActive(t);
+        isGamePaused = false;
+        StartCoroutine(FadeSky(.4f, .8f));
+        foreach (EnemyBehavior eb in activeEnemies)
+            eb.ResumeEnemy();
     }
 
     IEnumerator FadeSky(float initialValue, float endValue)
