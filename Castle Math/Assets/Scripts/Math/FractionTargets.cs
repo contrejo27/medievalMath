@@ -35,7 +35,7 @@ public class FractionTargets : MonoBehaviour, Question
     public void Start()
     {
         A_Input = GameObject.FindObjectOfType<AnswerInput>();
-        QuestionText = GameObject.Find("question").GetComponent<Text>();
+        //QuestionText = GameObject.Find("question").GetComponent<Text>();
     }
 
     /// <summary>

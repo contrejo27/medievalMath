@@ -47,7 +47,7 @@ public class WordProblem : MonoBehaviour, Question {
 	// Use this for initialization
 	public void Start () {
 		aInput = GameObject.FindObjectOfType<AnswerInput> ();
-		questionText = GameObject.Find ("question").GetComponent<Text>();
+		//questionText = GameObject.Find ("question").GetComponent<Text>();
 
         StartCoroutine(GetQuestions());
 	}
