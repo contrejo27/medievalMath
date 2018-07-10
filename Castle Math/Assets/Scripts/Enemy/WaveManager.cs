@@ -41,6 +41,9 @@ public class WaveManager : MonoBehaviour {
 
     public ManaBar powerup;
 
+    public float spawnAdjustmentMin = -15;
+    public float spawnAdjustmentMax = 10;
+
 
     //UI
     public Text WaveTitle;
@@ -334,7 +337,7 @@ public class WaveManager : MonoBehaviour {
 	//spawns enemy at a random spawn point
 	void spawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn){
 		//int randomSpawn = Random.Range(0, SpawnPoints.Length);
-		GameObject enemyObject = Instantiate(enemy, SpawnPoints[spawn].position + new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[0].rotation);
+		GameObject enemyObject = Instantiate(enemy, SpawnPoints[spawn].position + SpawnPoints[spawn].right* Random.Range(spawnAdjustmentMin, spawnAdjustmentMax), SpawnPoints[0].rotation);
 		enemyObject.GetComponent<EnemyBehavior>().SetTarget(fenceTargets[spawn]); //points enemy at right target. adjusted for UI name
 		addEnemyToWaveSize();
 		//GameObject enemyObject = Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[randomSpawn].rotation);

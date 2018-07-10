@@ -19,7 +19,7 @@ public class ArrowSupplier : MonoBehaviour {
 	private int AmountToSpawn;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		Arrows = new GameObject[0];
 		CreateArrow ();
     }
