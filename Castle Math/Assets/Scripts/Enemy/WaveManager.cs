@@ -236,6 +236,7 @@ public class WaveManager : MonoBehaviour {
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
 				spawnEnemy(enemyPrefab, spawnSound,0);
+                //while(GameStateManager.instance.is)
 				yield return new WaitForSeconds (.1f);
 				spawnEnemy(enemyPrefab, spawnSound,1);
 				yield return new WaitForSeconds (.1f);

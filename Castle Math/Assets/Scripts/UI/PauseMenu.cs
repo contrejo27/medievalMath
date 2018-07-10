@@ -17,7 +17,7 @@ public class PauseMenu : MonoBehaviour {
 
     void OnEnable()
     {
-        GetComponent<UIEffects>().fadeIn(3f);
+        //GetComponent<UIEffects>().fadeIn(3f);
     }
 
     public void ReturnToWarRoom()
