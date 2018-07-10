@@ -161,7 +161,7 @@ public class LevelManager : MonoBehaviour {
     public void ResumeGame()
     {
         //billboard.GetComponent<Animator>().Play("hide");
-        PauseMenu.GetComponent<UIEffects>().fadeOut(.3f);
+        PauseMenu.GetComponent<UIEffects>().fadeOut(3f);
         //PauseMenu.SetActive(t);
         isGamePaused = false;
         StartCoroutine(FadeSky(.4f, .8f));
