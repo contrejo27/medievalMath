@@ -151,6 +151,7 @@ public class LevelManager : MonoBehaviour {
         //billboard.SetActive(true);
         //billboard.GetComponent<Animator>().Play("show");
         PauseMenu.SetActive(true);
+        Time.timeScale = 0;
         
         isGamePaused = true;
         StartCoroutine(FadeSky(.8f, .4f));
@@ -161,9 +162,10 @@ public class LevelManager : MonoBehaviour {
     public void ResumeGame()
     {
         //billboard.GetComponent<Animator>().Play("hide");
-        PauseMenu.GetComponent<UIEffects>().fadeOut(3f);
-        //PauseMenu.SetActive(t);
+        //PauseMenu.GetComponent<UIEffects>().fadeOut(3f);
+        PauseMenu.SetActive(false);
         isGamePaused = false;
+        Time.timeScale = 1;
         StartCoroutine(FadeSky(.4f, .8f));
         foreach (EnemyBehavior eb in activeEnemies)
             eb.ResumeEnemy();
