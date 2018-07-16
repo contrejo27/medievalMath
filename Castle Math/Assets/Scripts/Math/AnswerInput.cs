@@ -104,9 +104,17 @@ public class AnswerInput : MonoBehaviour {
 			string boxName = "answer" + i;
 			for (int j = 0; j < ChoiceBoxes.Length; j++){
 				ChoiceBox = ChoiceBoxes [j].GetComponent<Text>();
-
+                
 				if (ChoiceBox.name == boxName) {
-					ChoiceBox.text = AnswerChoices [i - 1].ToString ();
+                    if (AnswerChoices[i - 1].ToString() == "")
+                    {
+                        ChoiceBox.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        ChoiceBox.gameObject.SetActive(true);
+                        ChoiceBox.text = AnswerChoices[i - 1].ToString();
+                    }
 				}
 			}
 
