@@ -27,6 +27,11 @@ public class UpgradeButtonSelect : MonoBehaviour {
     public Text purchasePanelText;
     public Image failPurchasePanel;
 
+    [Header("Load Out")]
+    public bool upgradeUnlocked;
+    public Image loadOutSelectionIndication;
+    public bool selectedForLoadOut;
+
     [Header("Star Info")]
     public int starCost;
     public Text starText;
@@ -49,6 +54,12 @@ public class UpgradeButtonSelect : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ShowLocked();
+        if(dependent != null){ 
+        if (dependent.selectedForLoadOut == true)
+        {
+            loadOutSelectionIndication.gameObject.SetActive(false);
+        }
+        }
 	}
     public void ShowLocked()
     {
@@ -71,17 +82,17 @@ public class UpgradeButtonSelect : MonoBehaviour {
                 }
             }
         }
-        if(dependent != null)
-        {
-            if (SaveData.unlockedUpgrades[dependent.upgradeSelection])
-            {
-                buttonSelected.enabled = false;
-                buttonImage.sprite = lockedGraphic;
-                starPanel.gameObject.SetActive(false);
-                starText.enabled = false;
-                return;
-            }
-        }
+        //if(dependent != null)
+        //{
+        //    if (SaveData.unlockedUpgrades[dependent.upgradeSelection])
+        //    {
+        //        buttonSelected.enabled = false;
+        //        buttonImage.sprite = lockedGraphic;
+        //        starPanel.gameObject.SetActive(false);
+        //        starText.enabled = false;
+        //        return;
+        //    }
+        //}
         
         if(levelDependency > SaveData.levelsCompleted)
         {
@@ -91,18 +102,27 @@ public class UpgradeButtonSelect : MonoBehaviour {
     }
     void ShowPurchased()
     {
+        
         buttonImage.sprite = purchasedGraphic;
-        buttonSelected.enabled = false;
+        upgradeUnlocked = true;
+        //buttonSelected.enabled = false;
 
         if (starText != null)
         {
             starPanel.gameObject.SetActive(false);
             starText.enabled = false;
         }
+        
         Debug.Log("Purchased");
     }
     public void AttemptPurchase()
     {
+        if (upgradeUnlocked && loadOutSelectionIndication != null && selectedForLoadOut == false)
+        {
+            Debug.Log("UpgradeUnlocked = true");
+            SelectForLoadOut();
+            return;
+        }
         Debug.Log("EnteredSetUnlocked");
         if(starCost <= SaveData.numStars)
         {
@@ -145,5 +165,22 @@ public class UpgradeButtonSelect : MonoBehaviour {
 
         yield return new WaitForSeconds(2f);
         failPurchasePanel.gameObject.SetActive(false);
+    }
+
+    void SelectForLoadOut()
+    {
+        
+        
+        if (dependent != null)
+        {
+            if (SaveData.unlockedUpgrades[dependent.upgradeSelection] )
+            {
+                loadOutSelectionIndication.gameObject.SetActive(true);
+                dependent.selectedForLoadOut = false;
+                    selectedForLoadOut = true;
+
+                return;
+            }
+        }
     }
 }
