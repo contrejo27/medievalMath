@@ -61,39 +61,42 @@ public class Potion : BaseInteractableObject {
 
     public override void OnInteract()
     {
-        Debug.Log("Current state: " + currentState);
-        if(currentState == PotionState.shop && UIEnabled)
+        if (!GameStateManager.instance.levelManager.isGamePaused)
         {
-            if (cost <= GameStateManager.instance.playerController.gemsOwned
-            && !GameStateManager.instance.inventory.IsInventoryFull()
-            )
+            if (currentState == PotionState.shop && UIEnabled)
             {
-                currentState = PotionState.menu;
-                purchaseConfirmationMenu.SetActive(true);
-                GameStateManager.instance.potionShop.DisablePotionUI(this);
-                /* Set menu text to show confirm? + relevant info
-                 * Maybe have error messages for not enough money or 
-                 * Inventory full
-                 * Maybe raise potion up a bit?
-                 */
+                if (cost <= GameStateManager.instance.playerController.gemsOwned
+                && !GameStateManager.instance.inventory.IsInventoryFull()
+                )
+                {
+                    currentState = PotionState.menu;
+                    purchaseConfirmationMenu.SetActive(true);
+                    GameStateManager.instance.potionShop.DisablePotionUI(this);
+                    /* Set menu text to show confirm? + relevant info
+                     * Maybe have error messages for not enough money or 
+                     * Inventory full
+                     * Maybe raise potion up a bit?
+                     */
+                }
+                else
+                {
+                    // error tooltip?
+                }
+
             }
-            else
+            else if (currentState == PotionState.inventory)
             {
-                // error tooltip?
+                if (!GameStateManager.instance.player.IsUnderTheInfluence() && GameStateManager.instance.currentState == EnumManager.GameState.Wave)
+                    DoEffect();
+                else if (GameStateManager.instance.currentState != EnumManager.GameState.Wave && UIEnabled)
+                {
+                    currentState = PotionState.menu;
+                    tossConfirmationMenu.SetActive(true);
+                    GameStateManager.instance.inventory.DisablePotionUI(this);
+                }
             }
-            
-        } else if(currentState == PotionState.inventory)
-        {
-            if(!GameStateManager.instance.player.IsUnderTheInfluence() && GameStateManager.instance.currentState == EnumManager.GameState.Wave)
-                DoEffect();
-            else if(GameStateManager.instance.currentState != EnumManager.GameState.Wave && UIEnabled)
-            {
-                currentState = PotionState.menu;
-                tossConfirmationMenu.SetActive(true);
-                GameStateManager.instance.inventory.DisablePotionUI(this);
-            }
+            base.OnInteract();
         }
-        base.OnInteract();
     }
 
     public void Purchase()
@@ -168,7 +171,7 @@ public class Potion : BaseInteractableObject {
     public override void OnPassOver()
     {
         
-        if (!isHighlighted && UIEnabled) {
+        if (!isHighlighted && UIEnabled && !GameStateManager.instance.levelManager.isGamePaused) {
             //c consider colorblindness for the future
             Color c = Color.green;
             if (currentState == PotionState.shop)

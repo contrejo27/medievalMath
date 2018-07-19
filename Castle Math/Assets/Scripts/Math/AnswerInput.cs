@@ -132,24 +132,28 @@ public class AnswerInput : MonoBehaviour {
 	/// </summary>
 	/// <param name="Answer">The given answer</param>
 	public void CheckAnswer(Text Answer) {
-		//int answerAsInt = int.Parse(Answer.text.ToString());
-		//check if we're in tutorial
-		if(!tutorial.tutorialDone){
-			mathCanvas.fadeOut(1.0f);
-			tutorial.Next();
-		}
+        if (!GameStateManager.instance.levelManager.isGamePaused)
+        {
+            //int answerAsInt = int.Parse(Answer.text.ToString());
+            //check if we're in tutorial
+            if (!tutorial.tutorialDone)
+            {
+                mathCanvas.fadeOut(1.0f);
+                tutorial.Next();
+            }
 
-		String answerText = Answer.text.ToString();
+            String answerText = Answer.text.ToString();
 
 
-		//Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
+            //Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 
-			if (answerText == CorrectAnswer) OnCorrect();
-			else OnIncorrect();
+            if (answerText == CorrectAnswer) OnCorrect();
+            else OnIncorrect();
 
-		
 
-		DisplayChoices (AnswerChoices);
+
+            DisplayChoices(AnswerChoices);
+        }
 	}
 
     public void OnCorrect()
