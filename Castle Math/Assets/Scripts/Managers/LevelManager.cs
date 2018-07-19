@@ -60,16 +60,19 @@ public class LevelManager : MonoBehaviour {
 
     public void StartGame()
     {
-        GameStateManager.instance.currentState = EnumManager.GameState.Wave;
-        billboard.GetComponent<Animator>().Play("hide");
-        Debug.Log("Hiding billboard");
-        tutorialImage.SetActive(false);
-        target.SetActive(false);
-        mainMenuEffects.fadeOut(1.5f);
-        notificationEffects.fadeIn(1.5f);
-        music.clip = gameplaySong;
-        music.loop = true;
-        music.Play();
+        if (!isGamePaused)
+        {
+            GameStateManager.instance.currentState = EnumManager.GameState.Wave;
+            billboard.GetComponent<Animator>().Play("hide");
+            Debug.Log("Hiding billboard");
+            tutorialImage.SetActive(false);
+            target.SetActive(false);
+            mainMenuEffects.fadeOut(1.5f);
+            notificationEffects.fadeIn(1.5f);
+            music.clip = gameplaySong;
+            music.loop = true;
+            music.Play();
+        }
     }
 
     public void DoLoseGameEffects()
@@ -151,6 +154,8 @@ public class LevelManager : MonoBehaviour {
         //billboard.SetActive(true);
         //billboard.GetComponent<Animator>().Play("show");
         PauseMenu.SetActive(true);
+        MathScreen.SetActive(false);
+        MathScreen.GetComponent<UIEffects>().fadeOut(1);
         Time.timeScale = 0;
         
         isGamePaused = true;
@@ -164,6 +169,7 @@ public class LevelManager : MonoBehaviour {
         //billboard.GetComponent<Animator>().Play("hide");
         //PauseMenu.GetComponent<UIEffects>().fadeOut(3f);
         PauseMenu.SetActive(false);
+        MathScreen.SetActive(true);
         isGamePaused = false;
         Time.timeScale = 1;
         StartCoroutine(FadeSky(.4f, .8f));

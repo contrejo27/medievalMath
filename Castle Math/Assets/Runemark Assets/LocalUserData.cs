@@ -48,7 +48,7 @@ public static class LocalUserData
                     SubscriptionManager p = new SubscriptionManager(item, intro_json);
                     SubscriptionInfo info = p.getSubscriptionInfo();
 
-                    if (info.isExpired() == Result.False && info.isSubscribed() == Result.True)
+                    if (info.isExpired() == Result.False && info.isSubscribed() == Result.True && info.isCancelled() == Result.False)
                         return true;
                 }
             }

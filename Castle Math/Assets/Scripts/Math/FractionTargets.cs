@@ -109,7 +109,7 @@ public class FractionTargets : MonoBehaviour, Question
 
     }
     /// <summary>
-    /// Displays gem item graphics
+    /// Displays flipper item graphics
     /// </summary>
     void DisplayItems()
     {
@@ -152,7 +152,7 @@ public class FractionTargets : MonoBehaviour, Question
     }
 
     /// <summary>
-    /// Removes gems from scene
+    /// Removes flippers from scene
     /// </summary>
     private void DeleteFlippers()
     {

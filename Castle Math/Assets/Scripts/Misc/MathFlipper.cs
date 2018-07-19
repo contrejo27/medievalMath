@@ -36,6 +36,8 @@ public class MathFlipper : MonoBehaviour {
         coroutine = Flip();
         StartCoroutine(coroutine);
 
+        //Destroy(other.gameObject);
+
     }
 
     IEnumerator Flip(bool b = true)
