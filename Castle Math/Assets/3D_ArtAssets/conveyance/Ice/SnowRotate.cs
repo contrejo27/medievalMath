@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SnowRotate : MonoBehaviour {
 
-	// Update is called once per frame
+	public float spin;
+
 	void Update ()
 	{
-		transform.Rotate (new Vector3 (0, 300, 0) * Time.deltaTime);		
+		transform.Rotate (new Vector3 (0, spin, 0) * Time.deltaTime);		
 	}
 }
 
