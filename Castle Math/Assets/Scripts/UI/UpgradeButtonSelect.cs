@@ -31,6 +31,7 @@ public class UpgradeButtonSelect : MonoBehaviour {
     public bool upgradeUnlocked;
     public Image loadOutSelectionIndication;
     public bool selectedForLoadOut;
+    public bool immuneFromLoadout;
 
     [Header("Star Info")]
     public int starCost;
@@ -39,6 +40,10 @@ public class UpgradeButtonSelect : MonoBehaviour {
     // Use this for initialization
     void Start () {
         buttonSelected = GetComponent<Button>();
+        //if(upgradeUnlocked)
+        //{
+        //    buttonSelected.enabled = false;
+        //}
 
         if (starText != null)
         {
@@ -54,7 +59,11 @@ public class UpgradeButtonSelect : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ShowLocked();
-        if(dependent != null){ 
+        if (upgradeUnlocked && immuneFromLoadout)
+        {
+           // buttonSelected.enabled = false;
+        }
+        if (dependent != null){ 
         if (dependent.selectedForLoadOut == true)
         {
             loadOutSelectionIndication.gameObject.SetActive(false);
@@ -80,6 +89,10 @@ public class UpgradeButtonSelect : MonoBehaviour {
                     starPanel.gameObject.SetActive(true);
                     starText.enabled = true;
                 }
+            }
+            if (dependent == null && upgradeUnlocked == true) 
+            {
+                buttonSelected.enabled = false; 
             }
         }
         //if(dependent != null)
@@ -117,6 +130,10 @@ public class UpgradeButtonSelect : MonoBehaviour {
     }
     public void AttemptPurchase()
     {
+        if(selectedForLoadOut == true)
+        {
+            return;
+        }
         if (upgradeUnlocked && loadOutSelectionIndication != null && selectedForLoadOut == false)
         {
             Debug.Log("UpgradeUnlocked = true");
@@ -126,6 +143,10 @@ public class UpgradeButtonSelect : MonoBehaviour {
         Debug.Log("EnteredSetUnlocked");
         if(starCost <= SaveData.numStars)
         {
+            if (upgradeUnlocked)
+            {
+               // buttonSelected.enabled = false;
+            }
             if (purchasePanel != null && purchasePanelText != null)
             {
                 purchasePanelText.text = "Are you sure you wish to purchase " + upgradeSelection + "?";
@@ -136,6 +157,8 @@ public class UpgradeButtonSelect : MonoBehaviour {
             {
                 dependent.ShowLocked();
             }
+            
+           
             
             //SaveData.SaveDataToJSon();
         }

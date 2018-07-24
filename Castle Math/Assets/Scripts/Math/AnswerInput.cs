@@ -41,11 +41,15 @@ public class AnswerInput : MonoBehaviour {
 	private ManaBar PowerUp;
 
 	public int interwaveQuestions = 0;
+    [HideInInspector]
+    public int interwaveQuestionsForWave = 2;
 
 	// Use this for initialization
     public void Awake()
     {
+        //interwaveQuestionsForWave = 2;
         //QuestionTexts = GameObject.FindGameObjectsWithTag("Question");
+        ChoiceBoxes = GameObject.FindGameObjectsWithTag("ChoiceBox");
 
     }
 
@@ -78,12 +82,13 @@ public class AnswerInput : MonoBehaviour {
 			AnswerChoices = new string [] { "" };
 		}
 
-		ChoiceBoxes = GameObject.FindGameObjectsWithTag ("ChoiceBox");
+		//ChoiceBoxes = GameObject.FindGameObjectsWithTag ("ChoiceBox");
 
-		for (int i = 1; i <= AnswerChoices.Length; i++) {
-			//Iterate through each choice box and set text to empty string
-			ChoiceBox = ChoiceBoxes [i-1].GetComponent<Text>();
-			ChoiceBox.text = "";
+		for (int i = 1; i <= ChoiceBoxes.Length; i++) {
+            //Iterate through each choice box and set text to empty string
+            ChoiceBoxes[i - 1].transform.parent.gameObject.SetActive(true);
+            ChoiceBox = ChoiceBoxes[i - 1].GetComponent<Text>();
+            ChoiceBox.text = "";
 
 
 		}
@@ -95,24 +100,24 @@ public class AnswerInput : MonoBehaviour {
 	/// <param name="AnswerChoices">Answer choices.</param>
 	public void DisplayChoices (String [] AnswerChoices) {
 		this.AnswerChoices = AnswerChoices;
-
-		ChoiceBoxes = GameObject.FindGameObjectsWithTag ("ChoiceBox");
+        
 
 		for (int i = 1; i <= AnswerChoices.Length; i++) {
 			//iterate through choices boxes, assigning each text component
 			//dynamically according to AnswerChoices
 			string boxName = "answer" + i;
 			for (int j = 0; j < ChoiceBoxes.Length; j++){
-				ChoiceBox = ChoiceBoxes [j].GetComponent<Text>();
                 
-				if (ChoiceBox.name == boxName) {
+				if (ChoiceBoxes[j].name == boxName) {
+                    ChoiceBoxes[j].transform.parent.gameObject.SetActive(true);
+                    ChoiceBox = ChoiceBoxes[j].GetComponent<Text>();
                     if (AnswerChoices[i - 1].ToString() == "")
                     {
-                        ChoiceBox.gameObject.SetActive(false);
+                        ChoiceBox.transform.parent.gameObject.SetActive(false);
                     }
                     else
                     {
-                        ChoiceBox.gameObject.SetActive(true);
+                        ChoiceBox.transform.parent.gameObject.SetActive(true);
                         ChoiceBox.text = AnswerChoices[i - 1].ToString();
                     }
 				}
@@ -127,106 +132,136 @@ public class AnswerInput : MonoBehaviour {
 	/// </summary>
 	/// <param name="Answer">The given answer</param>
 	public void CheckAnswer(Text Answer) {
-		//int answerAsInt = int.Parse(Answer.text.ToString());
-		//check if we're in tutorial
-		if(!tutorial.tutorialDone){
-			mathCanvas.fadeOut(1.0f);
-			tutorial.Next();
-		}
+        if (!GameStateManager.instance.levelManager.isGamePaused)
+        {
+            //int answerAsInt = int.Parse(Answer.text.ToString());
+            //check if we're in tutorial
+            if (!tutorial.tutorialDone)
+            {
+                mathCanvas.fadeOut(1.0f);
+                tutorial.Next();
+            }
 
-		String answerText = Answer.text.ToString();
+            String answerText = Answer.text.ToString();
 
 
-		//Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
+            //Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 
-			if (answerText == CorrectAnswer) {
-				if(M_Manager.interwaveMath){
-					interWaveCorrectFeedack();
-					interwaveQuestions++;
-				}
-				else{
-					correctFeedack(FeedbackTexts);
-					//("correct answer generating new problem");
-					M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
+            if (answerText == CorrectAnswer) OnCorrect();
+            else OnIncorrect();
 
-				}
-				Math_Stats.CorrectlyAnswered ();
 
-				//If answered incorrectly more than once, place in incorrect question tracker
-				if (M_Manager.GetIncorrectAnswersPerQuestion () >= 1) {
-					GameStateManager.instance.tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
-				} else {
-					GameStateManager.instance.tracker.AddCorrectQuestion (M_Manager.GetCurrentQuestion (), M_Manager.GetIncorrectAnswersPerQuestion ());
-				}
 
-				PowerUp.CorrectAnswer ();
-
-			} 
-			//got the question wrong
-			else {
-                Math_Stats.IncorrectlyAnswered();
-                M_Manager.IncorrectAnswer ();
-				if(M_Manager.interwaveMath){
-					interWaveIncorrectFeedack();
-					interwaveQuestions++;
-				}
-				else{
-					incorrectFeedack(FeedbackTexts);
-				}
-
-				//ClearAnswer ();
-				ClearChoices ();
-				PowerUp.IncorrectAnswer ();
-			}
-				
-		
-
-		if (M_Manager.GetIncorrectAnswersPerQuestion () == 2) {
-			//TODO: display tip graphic
-
-			//Find random index at which to remove an answer choice
-			int index = Random.Range (0, AnswerChoices.Length);
-
-			//Check that the answer at that index is not the correct one
-			while (AnswerChoices [index] == CorrectAnswer) {
-				index = Random.Range (0, AnswerChoices.Length);
-			}
-
-			//Create new array, one index shorter than AnswerChoices
-			string[] AnswerChoicesCopy = new string[AnswerChoices.Length - 1];
-
-			for (int i = 0, j = 0; i < AnswerChoicesCopy.Length; i++, j++) {
-				//Skip if that is the element to remove
-				if (i == index) {
-					j++;
-				}
-
-				//Assign answer choices to new array, minus element removed
-				AnswerChoicesCopy [i] = AnswerChoices [j];
-			}
-
-			//Resassign answer choices to new array
-			this.AnswerChoices = AnswerChoicesCopy;
-		} else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3) {
-			GameStateManager.instance.tracker.AddIncorrectQuestion (M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
-			Debug.Log ("Current Question: " + M_Manager.GetCurrentQuestion ().GetQuestionString ());
-			GameStateManager.instance.tracker.ShowIncorrectQestions ();
-					print("incorrect answers generating new problem");
-
-			M_Manager.GenerateProblem (M_Manager.GetQuestionTypes());
-		}
-
-		DisplayChoices (AnswerChoices);
+            DisplayChoices(AnswerChoices);
+        }
 	}
 
+    public void OnCorrect()
+    {
+        if (M_Manager.interwaveMath)
+        {
+            interWaveCorrectFeedack();
+            interwaveQuestions++;
+        }
+        else
+        {
+            correctFeedack(FeedbackTexts);
+            //("correct answer generating new problem");
+            M_Manager.GenerateProblem(M_Manager.GetQuestionTypes());
+
+        }
+        Math_Stats.CorrectlyAnswered();
+
+        //If answered incorrectly more than once, place in incorrect question tracker
+        if (M_Manager.GetIncorrectAnswersPerQuestion() >= 1)
+        {
+            GameStateManager.instance.tracker.AddIncorrectQuestion(M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
+        }
+        else
+        {
+            GameStateManager.instance.tracker.AddCorrectQuestion(M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
+        }
+
+        PowerUp.CorrectAnswer();
+
+        CheckNumIncorrect();
+    }
+
+    public void OnIncorrect()
+    {
+        Math_Stats.IncorrectlyAnswered();
+        M_Manager.IncorrectAnswer();
+        if (M_Manager.interwaveMath)
+        {
+            interWaveIncorrectFeedack();
+            interwaveQuestions++;
+        }
+        else
+        {
+            incorrectFeedack(FeedbackTexts);
+        }
+
+        //ClearAnswer ();
+        ClearChoices();
+        PowerUp.IncorrectAnswer();
+
+        CheckNumIncorrect();
+
+    }
+
+    public void CheckNumIncorrect()
+    {
+        if (M_Manager.GetIncorrectAnswersPerQuestion() == 2)
+        {
+            //TODO: display tip graphic
+
+            //Find random index at which to remove an answer choice
+            int index = Random.Range(0, AnswerChoices.Length);
+
+            //Check that the answer at that index is not the correct one
+            while (AnswerChoices[index] == CorrectAnswer)
+            {
+                index = Random.Range(0, AnswerChoices.Length);
+            }
+
+            //Create new array, one index shorter than AnswerChoices
+            string[] AnswerChoicesCopy = new string[AnswerChoices.Length - 1];
+
+            for (int i = 0, j = 0; i < AnswerChoicesCopy.Length; i++, j++)
+            {
+                //Skip if that is the element to remove
+                if (i == index)
+                {
+                    j++;
+                }
+
+                //Assign answer choices to new array, minus element removed
+                AnswerChoicesCopy[i] = AnswerChoices[j];
+            }
+
+            //Resassign answer choices to new array
+            this.AnswerChoices = AnswerChoicesCopy;
+        }
+        else if (M_Manager.GetIncorrectAnswersPerQuestion() == 3)
+        {
+            GameStateManager.instance.tracker.AddIncorrectQuestion(M_Manager.GetCurrentQuestion(), M_Manager.GetIncorrectAnswersPerQuestion());
+            //Debug.Log("Current Question: " + M_Manager.GetCurrentQuestion().GetQuestionString());
+            GameStateManager.instance.tracker.ShowIncorrectQestions();
+            //print("incorrect answers generating new problem");
+
+            M_Manager.GenerateProblem(M_Manager.GetQuestionTypes());
+        }
+    }
+
 	void interWaveCorrectFeedack(){
+        Debug.Log("Interwave questions: " + interwaveQuestions + " Interwave questions for wave: " + interwaveQuestionsForWave);
 		feedbackMarks[interwaveQuestions].SetActive(true);
 		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = checkMark;
 		A_Source.clip = interwaveCorrectSounds[interwaveQuestions];
 		A_Source.Play ();
-		if (interwaveQuestions == 2) {
+		if (interwaveQuestions == interwaveQuestionsForWave) {
 			interwaveQuestions = -1;
-
+            interwaveQuestionsForWave = 2;
 			A_Supply.CreateArrowIntermath (8);
 			StartCoroutine(delayDeactivateMath());
 		}

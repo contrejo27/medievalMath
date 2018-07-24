@@ -127,9 +127,12 @@ public class PotionShop : MonoBehaviour {
 
     public void DeactivateShop()
     {
-        GameStateManager.instance.waveManager.NextWave();
-        GameStateManager.instance.player.SetLookingAtInterface(false);
-        gameObject.SetActive(false);
+        if (!GameStateManager.instance.levelManager.isGamePaused)
+        {
+            GameStateManager.instance.waveManager.NextWave();
+            GameStateManager.instance.player.SetLookingAtInterface(false);
+            gameObject.SetActive(false);
+        }
     }
 
     public void OnPointerEnter()
