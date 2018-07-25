@@ -31,6 +31,7 @@ public class MathManager : MonoBehaviour {
 	Algebra algebraQuestion;
     WordProblem wordProblem;
     FractionTargets fractionTargets;
+    NumberLineQuestion numberLineQuestion;
 
 	public bool [] QuestionTypes;
     public List<int> intermathQTypeOptions;
@@ -72,6 +73,7 @@ public class MathManager : MonoBehaviour {
 		m_Controller = GetComponent<MathController> ();
         wordProblem = GetComponent<WordProblem>();
         fractionTargets = GetComponent<FractionTargets>();
+        numberLineQuestion = GetComponent<NumberLineQuestion>();
 
 		multOrDiv.Start ();
 		addOrSub.Start ();
@@ -122,13 +124,20 @@ public class MathManager : MonoBehaviour {
         switch (intermathQTypeOptions[Random.Range(0, intermathQTypeOptions.Count)])
         {
             case 0:
-                Debug.Log("Generating word problem");
-                GenerateQuestionForInterMath(fractionTargets);
-                //GenerateQuestionForInterMath(wordProblem);
+                float randomFloat = Random.Range(0, 1f);
+                if(randomFloat < .5f)
+                {
+                    GenerateQuestionForInterMath(numberLineQuestion);
+                    //GenerateQuestionForInterMath(wordProblem);
+                }
+                else
+                {
+                    GenerateQuestionForInterMath(numberLineQuestion);
+                }
                 break;
             case 1:
-                //GenerateQuestionForInterMath(fractionTargets);
-                GenerateQuestionForInterMath(multOrDiv);
+                GenerateQuestionForInterMath(fractionTargets);
+                //GenerateQuestionForInterMath(multOrDiv);
                 break;
             default:
                 break;

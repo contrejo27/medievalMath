@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class NumberLineManager : MonoBehaviour {
 
     //public Text[] numbersOnLine;
-    public Transform[] sliderTicks;
-    public Transform[] targetSpots;
-    public Transform slider;
+    public RectTransform[] sliderTicks;
+    public List<Transform> targetSpots;
+    public RectTransform slider;
     public GameObject targetPrefab;
-    public int maxAttempts;
+    public NumberLineQuestion nlq;
+
 
     [HideInInspector]
     public List<NumberLineTarget> targetObjects;
@@ -20,23 +21,20 @@ public class NumberLineManager : MonoBehaviour {
     public int currentValue;
     [HideInInspector]
     public int targetValue;
+    [HideInInspector]
+    public int maxAttempts;
 
     int currentAttempts = 0;
 
-    
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    public void SpawnTargets(int startNumber)
+
+    public void SpawnTargets(int startNumber, int initSliderPos)
     {
-        ShuffleList(targetObjects);
+        ShuffleList(targetSpots);
+        currentValue = startNumber + initSliderPos;
+        currentSliderPos = initSliderPos;
+        StartCoroutine(LerpSlider(initSliderPos));
+       
         for(int i = 0; i< 10; i++)
         {
             GameObject temp = Instantiate(targetPrefab, targetSpots[i]) as GameObject;
@@ -61,11 +59,22 @@ public class NumberLineManager : MonoBehaviour {
 
     public void WriteNumbers(int start)
     {
-        currentValue = start + 5;
-        for(int i = 0; i<=10; i++)
+
+        for(int i = 0; i<sliderTicks.Length; i++)
         {
-            targetObjects[i].SetNumber(start + i);
+            sliderTicks[i].gameObject.GetComponentInChildren<Text>().text = (start+i).ToString();
         }
+
+        targetObjects[0].SetNumber(1);
+        targetObjects[1].SetNumber(-1);
+        targetObjects[2].SetNumber(2);
+        targetObjects[3].SetNumber(-2);
+        targetObjects[4].SetNumber(3);
+        targetObjects[5].SetNumber(-3);
+        targetObjects[6].SetNumber(Random.Range(4, 10));
+        targetObjects[7].SetNumber(Random.Range(-9, -3));
+        targetObjects[8].SetNumber(Random.Range(4, 10));
+        targetObjects[9].SetNumber(Random.Range(-9, -3));
     }
 
     public void ShuffleList<T>(List<T> list)
@@ -82,32 +91,51 @@ public class NumberLineManager : MonoBehaviour {
 
     public void SlideSlider(int amountToSlide)
     {
+        Debug.Log("Sliding: " + amountToSlide);
         currentAttempts++;
-        if (currentSliderPos + amountToSlide > 0 && currentSliderPos + amountToSlide < 11)
+        Debug.Log("Attempt #" + currentAttempts + ", Max attempts: " + maxAttempts);
+        if (currentSliderPos + amountToSlide > 0 && currentSliderPos + amountToSlide < 21)
         {
             currentValue += amountToSlide;
-            
-            StartCoroutine(LerpSlider(currentSliderPos + amountToSlide));
+            currentSliderPos += amountToSlide;
 
-            if(currentValue == targetValue)
-            {
-                //do something
-            }
-        }
-        if(currentAttempts == maxAttempts)
+            Debug.Log("(in manager) CurrentValue: " + currentValue + ", target value: " + targetValue);
+
+            StartCoroutine(LerpSlider(Mathf.Clamp(currentSliderPos, 0, 21)));
+
+           
+        } else
         {
-            // do something;
+            // some kind of feedback that shows this is invalid
         }
+        
+        
+    }
+
+    public void OnDisable()
+    {
+        slider.anchoredPosition3D = new Vector3(0, slider.anchoredPosition3D.y, slider.anchoredPosition3D.z);
+        WipeTargets();
     }
 
     IEnumerator LerpSlider(int slideToPos)
     {
         float timer = 0;
-        float initPos = slider.position.x;
-        while(timer < 1)
+        float speed = .5f;
+        float initPos = slider.anchoredPosition3D.x;
+        while(timer < speed)
         {
-            slider.position = new Vector3(Mathf.SmoothStep(initPos, sliderTicks[slideToPos].position.x, timer),slider.position.y,slider.position.z);
+            timer += Time.deltaTime;
+            slider.anchoredPosition3D = new Vector3(Mathf.SmoothStep(initPos, sliderTicks[slideToPos].anchoredPosition3D.x, timer/speed),slider.anchoredPosition3D.y,slider.anchoredPosition3D.z);
+
             yield return null;
+        }
+        if (currentValue == targetValue)
+        {
+            nlq.CheckAnswer(currentValue, false);
+        }else if (currentAttempts == maxAttempts)
+        {
+            nlq.CheckAnswer(currentValue, true);
         }
     }
 

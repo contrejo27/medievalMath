@@ -51,7 +51,10 @@ public class QuestionTracker {
             q = new WordProblem();
         } else if (Object.ReferenceEquals(question.GetType(), typeof(FractionTargets))){
             q = new FractionTargets();
-        }else {
+        } else if (Object.ReferenceEquals(question.GetType(), typeof(NumberLineQuestion))){
+            q = new NumberLineQuestion();
+        }
+        else {
 			q = null;
 		}
 
@@ -118,6 +121,8 @@ public class QuestionTracker {
             q = new WordProblem();
         } else if (Object.ReferenceEquals(question.GetType(), typeof(FractionTargets))) {
             q = new FractionTargets();
+        } else if (Object.ReferenceEquals(question.GetType(), typeof(NumberLineQuestion))) {
+            q = new NumberLineQuestion();
         } else {
 			q = null;
 		}

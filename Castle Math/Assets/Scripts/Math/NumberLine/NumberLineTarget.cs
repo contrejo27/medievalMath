@@ -28,6 +28,7 @@ public class NumberLineTarget : MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
+        Debug.Log("NLTargetHit!");
         nlm.SlideSlider(value);
 
     }
