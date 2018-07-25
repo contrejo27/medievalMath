@@ -41,10 +41,10 @@ public class ShockArrowScript :ElementalArrow {
             currentUpgradeLevel = ElementalArrowModifier.UpgradeOne;
         }
 
-        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.ShockArrows2A])
+        if (SaveData.currentLoadout[EnumManager.Loadout.ShockArrowsA])
         {
             currentUpgradeLevel = ElementalArrowModifier.UpgradeTwoA;
-        }else if (SaveData.unlockedUpgrades[EnumManager.Upgrades.ShockArrows2B])
+        }else if (SaveData.currentLoadout[EnumManager.Loadout.ShockArrowsB])
         {
             currentUpgradeLevel = ElementalArrowModifier.UpgradeTwoB;
         }

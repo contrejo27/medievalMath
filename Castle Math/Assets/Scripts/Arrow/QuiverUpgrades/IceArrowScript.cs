@@ -44,10 +44,10 @@ public class IceArrowScript : ElementalArrow {
             currentUpgradeLevel = ElementalArrow.ElementalArrowModifier.UpgradeOne;
         }
 
-        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.IceArrows2A])
+        if (SaveData.currentLoadout[EnumManager.Loadout.IceArrowsA])
         {
             currentUpgradeLevel = ElementalArrow.ElementalArrowModifier.UpgradeTwoA;
-        }else if (SaveData.unlockedUpgrades[EnumManager.Upgrades.IceArrows2B])
+        }else if (SaveData.currentLoadout[EnumManager.Loadout.IceArrowsB])
         {
             currentUpgradeLevel = ElementalArrow.ElementalArrowModifier.UpgradeTwoB;
         }

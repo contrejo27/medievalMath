@@ -8,7 +8,8 @@ public class DoorHealth : MonoBehaviour {
     public int baseHealth = 100;
     [HideInInspector]
 	public int currentHealth;
-    int maxHealth;
+    [HideInInspector]
+    public int maxHealth;
 	
 	private GameStateManager GameManager;
 	
@@ -143,4 +144,9 @@ public class DoorHealth : MonoBehaviour {
 		
 		invincible = false;
 	}
+
+    public float GetPercentHealth()
+    {
+        return (float)currentHealth / (float)maxHealth;
+    }
 }

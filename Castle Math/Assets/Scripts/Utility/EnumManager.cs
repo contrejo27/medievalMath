@@ -11,6 +11,8 @@ public static class EnumManager{
         Inventory1, Inventory2
     }
 
+    public enum Loadout { IceArrowsA, IceArrowsB, FireArrowsA, FireArrowsB, ShockArrowsA, ShockArrowsB };
+
     public enum ActiveQuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra}
 
     public enum Controls { keyboard, vr, mouse};
@@ -30,4 +32,15 @@ public static class EnumManager{
         {GemType.Dollar, 1f }
 
     };
+
+    public static Dictionary<Upgrades, Loadout> upgradeToLoadout = new Dictionary<Upgrades, Loadout>()
+    {
+        {Upgrades.IceArrows2A, Loadout.IceArrowsA },
+        {Upgrades.IceArrows2B, Loadout.IceArrowsB },
+        {Upgrades.FireArrows2A, Loadout.FireArrowsA },
+        {Upgrades.FireArrows2B, Loadout.FireArrowsB },
+        {Upgrades.ShockArrows2A, Loadout.ShockArrowsA },
+        {Upgrades.ShockArrows2B, Loadout.ShockArrowsB }
+    };
+
 }

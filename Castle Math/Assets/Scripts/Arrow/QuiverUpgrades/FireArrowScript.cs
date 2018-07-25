@@ -35,10 +35,10 @@ public class FireArrowScript : ElementalArrow {
             currentUpgradeLevel = ElementalArrow.ElementalArrowModifier.UpgradeOne;
         }
 
-        if (SaveData.unlockedUpgrades[EnumManager.Upgrades.FireArrows2A])
+        if (SaveData.currentLoadout[EnumManager.Loadout.FireArrowsA])
         {
             currentUpgradeLevel = ElementalArrow.ElementalArrowModifier.UpgradeTwoA;
-        }else if (SaveData.unlockedUpgrades[EnumManager.Upgrades.FireArrows2B])
+        }else if (SaveData.currentLoadout[EnumManager.Loadout.FireArrowsB])
         {
             currentUpgradeLevel = ElementalArrow.ElementalArrowModifier.UpgradeTwoB;
         }

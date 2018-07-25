@@ -45,6 +45,8 @@ public class UpgradeButtonSelect : MonoBehaviour {
         //    buttonSelected.enabled = false;
         //}
 
+        selectedForLoadOut = SaveData.currentLoadout[EnumManager.upgradeToLoadout[upgradeSelection]];
+
         if (starText != null)
         {
             starText.text = starCost.ToString();
@@ -199,8 +201,8 @@ public class UpgradeButtonSelect : MonoBehaviour {
             if (SaveData.unlockedUpgrades[dependent.upgradeSelection] )
             {
                 loadOutSelectionIndication.gameObject.SetActive(true);
-                dependent.selectedForLoadOut = false;
-                    selectedForLoadOut = true;
+                SaveData.currentLoadout[EnumManager.upgradeToLoadout[dependent.upgradeSelection]] = dependent.selectedForLoadOut = false;
+                SaveData.currentLoadout[EnumManager.upgradeToLoadout[upgradeSelection]] = selectedForLoadOut = true;
 
                 return;
             }

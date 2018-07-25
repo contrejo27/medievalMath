@@ -39,6 +39,9 @@ public class LevelManager : MonoBehaviour {
     public AudioClip gameplaySong;
     public PlayerMathStats playerMathStats;
 
+    [HideInInspector]
+    public WaveManager WaveManager;
+
     //[Header("Game")]
     [HideInInspector]
     public Dictionary<EnumManager.GemType, int> gemsOwned =
@@ -81,6 +84,7 @@ public class LevelManager : MonoBehaviour {
         music.clip = LostTheCastle;
         music.loop = false;
         music.Play();
+        
 
         //set UI
         LoseScreen.SetActive(true);
