@@ -35,8 +35,12 @@ public class ProjectileBehavior : MonoBehaviour {
 				}
 
 				if (otherCollision.transform.tag == "Enemy") {
-					otherCollision.gameObject.GetComponent<EnemyBehavior> ().TakeDamage (ArrowDamge);
-					this.transform.parent = otherCollision.transform;
+                    EnemyBehavior eb = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+                    if(eb)
+                        eb.TakeDamage (ArrowDamge);
+                    else
+                        otherCollision.gameObject.GetComponentInParent<EnemyBehavior>();
+                this.transform.parent = otherCollision.transform;
 				} 
 
 				Destroy (this.gameObject,1f);

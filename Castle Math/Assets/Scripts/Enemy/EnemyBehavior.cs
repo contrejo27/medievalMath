@@ -47,6 +47,10 @@ public class EnemyBehavior : MonoBehaviour {
     void Awake()
     {
         animator = GetComponent<Animator>();
+        if(animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
         navMeshAgent = GetComponent<NavMeshAgent>();
         
         //navMeshAgent.stoppingDistance = attackDistance;
@@ -330,6 +334,7 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
 	public void DamageGate(int damage) {
+        Debug.Log("Damaging gate");
         if (!isTargetDummy)
         {
             currentAudioSource = Random.Range(0, audioSource.Length);
