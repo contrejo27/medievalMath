@@ -41,6 +41,9 @@ public class EnemyBehavior : MonoBehaviour {
     [HideInInspector]
     public bool isTargetDummy;
 
+    public GameObject lightningEffect;
+    public GameObject fireEffect;
+    public GameObject iceEffect;
 
 	private int currentAudioSource;
 	
@@ -53,6 +56,8 @@ public class EnemyBehavior : MonoBehaviour {
         }
         navMeshAgent = GetComponent<NavMeshAgent>();
         
+
+
         //navMeshAgent.stoppingDistance = attackDistance;
         //navMeshAgent.
     }
@@ -318,6 +323,29 @@ public class EnemyBehavior : MonoBehaviour {
 		yield return new WaitForSeconds (2);
 		Destroy (this.gameObject);
 	}
+
+    public void SetOnFire(float time)
+    {
+        
+        StartCoroutine(SetForTime(fireEffect, time));
+    }
+
+    public void SetOnShock(float time)
+    {
+        StartCoroutine(SetForTime(lightningEffect,time));
+    }
+
+    public void SetOnFreeze(float time)
+    {
+        StartCoroutine(SetForTime(iceEffect, time));
+    }
+
+    IEnumerator SetForTime(GameObject obj, float time)
+    {
+        obj.SetActive(true);
+        yield return new WaitForSeconds(time);
+        obj.SetActive(false);
+    }
 
     public void PauseEnemy()
     {
