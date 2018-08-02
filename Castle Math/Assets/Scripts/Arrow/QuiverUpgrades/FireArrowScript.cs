@@ -61,6 +61,7 @@ public class FireArrowScript : ElementalArrow {
     {
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        Debug.Log("Fire arrow hit something");
 
         switch (currentUpgradeLevel)
         {
@@ -73,6 +74,7 @@ public class FireArrowScript : ElementalArrow {
                     A_Source.clip = projectileHit;
                     A_Source.Play();
                     EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+                    EB.SetOnFire(1.5f);
                     EB.TakeDamage(upgradeOneDmg);
                     this.transform.parent = otherCollision.transform;
                 }
@@ -96,7 +98,7 @@ public class FireArrowScript : ElementalArrow {
                     {
                         EnemyBehavior EB = hitColliders[enemiesCollided].gameObject.GetComponent<EnemyBehavior>();
                         EB.TakeDamage(upgradeTwoADmg);
-
+                        EB.SetOnFire(1.5f);
                         if(EB.hitPoints-2 <= 0)
                         {
                             EB.hasBombDeath = true;
@@ -119,6 +121,7 @@ public class FireArrowScript : ElementalArrow {
                     A_Source.Play();
                     EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeTwoBDmg);
+                    EB.SetOnFire(1.5f);
                     this.transform.parent = otherCollision.transform;
                 }
                 break;

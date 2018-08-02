@@ -405,13 +405,13 @@ public class WordProblem : MonoBehaviour, Question {
         TextAsset text = (TextAsset)Resources.Load<TextAsset>("wordproblemtext");
         if (text != null)
         {
-            Debug.Log(text.text);
+            //Debug.Log(text.text);
 
             List<WordProblemText> wpt = JsonHelper.FromJson<WordProblemText>(text.text);
 
             for (int i = 0; i < wpt.Count; i++)
             {
-                Debug.Log(wpt[i].ToString());
+                //Debug.Log(wpt[i].ToString());
                 switch (wpt[i].questionType)
                 {
                     case "Addition":

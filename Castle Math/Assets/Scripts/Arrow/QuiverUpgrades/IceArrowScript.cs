@@ -85,11 +85,12 @@ public class IceArrowScript : ElementalArrow {
 
                 if (otherCollision.transform.tag == "Enemy")
                 {
-                    A_Source.clip = projectileHit;
-                    A_Source.Play();
+                    //A_Source.clip = projectileHit;
+                    //A_Source.Play();
                     EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeOneDmg);
                     EB.SlowsEnemy(upgradeOneSlowAmount, upgradeOneSlowTime);
+                    EB.SetOnFreeze(upgradeOneSlowTime);
                     this.transform.parent = otherCollision.transform;
                 }
                 break;
@@ -101,6 +102,9 @@ public class IceArrowScript : ElementalArrow {
                 */
                 Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, blizzardAreaOfEffect);
                 int enemiesCollided = 0;
+                GameObject temp = Instantiate(Resources.Load("Conveyance/IceAOE1"), transform.position += new Vector3(0, 3, 0), Quaternion.identity) as GameObject;
+                Destroy(temp, 4);
+
                 A_Source.clip = blizzardHit;
                 A_Source.Play();
                 while (enemiesCollided < hitColliders.Length)
@@ -110,6 +114,7 @@ public class IceArrowScript : ElementalArrow {
                         EnemyBehavior EB = hitColliders[enemiesCollided].gameObject.GetComponent<EnemyBehavior>();
                         EB.TakeDamage(upgradeTwoADmg);
                         EB.SlowsEnemy(upgradeTwoASlowAmount, upgradeTwoASlowTime);
+                        EB.SetOnFreeze(upgradeTwoASlowTime);
                     }
                     enemiesCollided++;
                 }
@@ -127,6 +132,7 @@ public class IceArrowScript : ElementalArrow {
                     EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeTwoBDmg);
                     EB.SlowsEnemy(upgradeTwoBSlowAmount, upgradeTwoBSlowTime);
+                    EB.SetOnFreeze(upgradeTwoBSlowTime);
                     this.transform.parent = otherCollision.transform;
                 }
                 break;
