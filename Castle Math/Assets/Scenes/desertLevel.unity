@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 935472010}
-  m_IndirectSpecularColor: {r: 0.7323027, g: 0.79953474, b: 0.8371772, a: 1}
+  m_IndirectSpecularColor: {r: 0.58545905, g: 0.6395227, b: 0.6693342, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3321,6 +3321,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 87e0918da608d1c4a89f2da8643845c1, type: 3}
   IncorrectSound: {fileID: 8300000, guid: ee8297a31d8d61340a0b8fa63d1bb401, type: 3}
   interwaveQuestions: 0
+  interwaveQuestionsForWave: 2
 --- !u!114 &432516423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5366,6 +5367,7 @@ MonoBehaviour:
   music: {fileID: 1340516548}
   gameplaySong: {fileID: 8300000, guid: 8a1fbf68ae1c6a54ca2a75f816765735, type: 3}
   playerMathStats: {fileID: 432516431}
+  WaveManager: {fileID: 0}
 --- !u!4 &759532084
 Transform:
   m_ObjectHideFlags: 0
@@ -8216,6 +8218,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 353581f50b3be8a468e2d6690cd77837, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 19eb5c9f1e734c84581538b51231dfdd, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 353581f50b3be8a468e2d6690cd77837, type: 3}
   m_IsPrefabParent: 0
