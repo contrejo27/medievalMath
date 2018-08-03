@@ -80,6 +80,7 @@ public class ShockArrowScript :ElementalArrow {
                     EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeOneDmg);
                     EB.StunsEnemy(upgradeOneStunTime);
+                    EB.SetOnShock(upgradeOneStunTime);
                     this.transform.parent = otherCollision.transform;
                 }
                 break;
@@ -90,7 +91,9 @@ public class ShockArrowScript :ElementalArrow {
             */
                 Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 6);
                 int enemiesCollided = 0;
-
+                GameObject AoEEffect = Instantiate(Resources.Load("Conveyance/ShockAOE"), transform.position + new Vector3(0, 9, 0), Quaternion.identity) as GameObject;
+                AOEEffectSpawner aoe = AoEEffect.GetComponent<AOEEffectSpawner>();
+                aoe.SetUp(4, .7f, 6, .15f);
                 //A_Source.clip = electricStormHit;
                 //A_Source.Play();
 
@@ -101,6 +104,7 @@ public class ShockArrowScript :ElementalArrow {
                         EnemyBehavior EB = hitColliders[enemiesCollided].gameObject.GetComponent<EnemyBehavior>();
                         EB.TakeDamage(upgradeTwoADmg);
                         EB.StunsEnemy(upgradeTwoAStunTime);
+                        EB.SetOnShock(upgradeTwoAStunTime);
                     }
                     enemiesCollided++;
                 }
@@ -116,6 +120,7 @@ public class ShockArrowScript :ElementalArrow {
                     EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeTwoBDmg);
                     EB.StunsEnemy(upgradeTwoBStunTime);
+                    EB.SetOnShock(upgradeTwoBStunTime);
                 }
                 break;
             default:
