@@ -158,7 +158,7 @@ public class ShopMenu : MonoBehaviour {
 
     public void CheckPurchase()
     {
-        if (finalTotal >= potionPrice)
+        if (Mathf.Round(finalTotal*100) >= Mathf.Round(potionPrice*100))
             DoCompletePurchase();
         else
             DoIncompletePurchase();

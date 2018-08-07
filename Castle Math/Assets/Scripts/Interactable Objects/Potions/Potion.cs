@@ -9,6 +9,7 @@ public class Potion : BaseInteractableObject {
     enum PotionState { shop, potionMenu, selected, checkout, inventory }
     PotionState currentState;
     public Text toolTip;
+    public Text priceText;
     public float cost;
     public float duration;
     
@@ -27,6 +28,7 @@ public class Potion : BaseInteractableObject {
     protected override void Init()
     {
         currentState = PotionState.shop;
+        priceText.text = cost.ToString("0.##");
         
         base.Init();
     }
@@ -57,6 +59,18 @@ public class Potion : BaseInteractableObject {
     public void OnDisable()
     {
         
+    }
+
+    void EnableTooltip()
+    {
+        toolTip.gameObject.SetActive(true);
+        priceText.gameObject.SetActive(true);
+    }
+
+    void DisableTooltip()
+    {
+        toolTip.gameObject.SetActive(false);
+        priceText.gameObject.SetActive(false);
     }
 
     bool CheckPurchaseViability()
@@ -111,7 +125,7 @@ public class Potion : BaseInteractableObject {
 
     public void Purchase()
     {
-        if (currentState == PotionState.potionMenu)
+        if (currentState == PotionState.checkout)
         {
 
             currentState = PotionState.inventory;
@@ -196,7 +210,7 @@ public class Potion : BaseInteractableObject {
 
             SetHighlight(c);
 
-            toolTip.gameObject.SetActive(true);
+            EnableTooltip();
             
             
         }
@@ -209,7 +223,7 @@ public class Potion : BaseInteractableObject {
         if (isHighlighted && currentState != PotionState.selected) {
             RemoveHighlight();
             if(currentState!=PotionState.checkout)
-                toolTip.gameObject.SetActive(false);
+                DisableTooltip();
             
         }
         base.OnEndPassOver();
