@@ -8,11 +8,13 @@ public class ShopMenu : MonoBehaviour {
     string moneyFormat = "0.##";
 
     public Transform potionPoint;
-    List<Potion> potionsInShop;
+    List<Potion> potionsInShopMenu;
+    List<Vector3> originalPotionPositions;
     float potionPrice;
 
     public Text potionPriceText;
     public Text potionName;
+    public Text purchaseFeedback;
     //public Text[] gemValues = new Text[5];
     public Text[] gemTotalsInShop = new Text[5];
     public Text[] gemsInShop = new Text[5];
@@ -79,28 +81,42 @@ public class ShopMenu : MonoBehaviour {
    
     void Awake()
     {
-        /*
-        gemValues[0].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Penny]);
-        gemValues[1].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Nickel]);
-        gemValues[2].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Dime]);
-        gemValues[3].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Quarter]);
-        gemValues[4].text = FormatMoneyString(EnumManager.gemValues[EnumManager.GemType.Dollar]);
-        */
+        
+        
     }
 
 	void OnEnable()
     {
-        if (isAwake)
+        //if (isAwake)
+        //{
+        // so this is kind of messy, but apparently you can't change dictionaries while you're iterating throguh them
+        // (even if you're not adding/removing keys
+        // So we're using the keys from another dictionary since they're the same.
+        // Generally best practise would be to iterate through the enum, but that's more complex, and isn't suuuper
+
+        foreach (EnumManager.GemType type in gemToArray.Keys)
         {
-            foreach(EnumManager.GemType type in dGemsAvailable.Keys)
-                dGemsAvailable[type] = GameStateManager.instance.levelManager.gemsOwned[type];
+            dGemsAvailable[type] = GameStateManager.instance.levelManager.gemsOwned[type];
+            gemsAvailable[gemToArray[type]].text = dGemsAvailable[type].ToString();
         }
-        else isAwake = true;
+        //}
+        //else isAwake = true;
     }
 
     public void LoadPotions(List<Potion> potionsToBuy)
     {
-        potionsInShop = new List<Potion>(potionsToBuy);
+        potionsInShopMenu = new List<Potion>(potionsToBuy);
+        float potionSize = 1;
+        float potionSpacing = .3f;
+        Vector3 PotionStartPoint = new Vector3(potionPoint.position.x - (potionSpacing + potionSize) * (potionsInShopMenu.Count - 1) / 2, potionPoint.position.y, potionPoint.position.z);  
+        for(int i = 0; i< potionsInShopMenu.Count; i++)
+        {
+            potionsInShopMenu[i].transform.position = PotionStartPoint + new Vector3(i*(potionSize+potionSpacing),0,0);
+            potionsInShopMenu[i].OnToShopMenu();
+            potionPrice += potionsInShopMenu[i].cost;
+        }
+
+        potionPriceText.text = "Cost: " + FormatMoneyString(potionPrice);
     }
 
     public void AddGemToShop(EnumManager.GemType type)
@@ -145,11 +161,13 @@ public class ShopMenu : MonoBehaviour {
         if (finalTotal >= potionPrice)
             DoCompletePurchase();
         else
-            DoIncompletePutchase();
+            DoIncompletePurchase();
     }
 
     public void DoCompletePurchase()
     {
+        Debug.Log("Complete purchase");
+
         float priceTemp = potionPrice;
         float remainder = 0;
 
@@ -187,6 +205,14 @@ public class ShopMenu : MonoBehaviour {
                 break;
             }
         }
+
+        foreach(Potion p in potionsInShopMenu)
+        {
+            p.Purchase();
+        }
+
+        WipePotions(false);
+        gameObject.SetActive(false);
         // Then create a spawner that shows the change returning
 
 
@@ -199,8 +225,50 @@ public class ShopMenu : MonoBehaviour {
         */
     }
 
-    public void DoIncompletePutchase()
+    public void OnCancel()
     {
+        WipePotions();
+        gameObject.SetActive(false);
+    }
+
+    void WipePotions(bool returnToShop = true)
+    {
+        while (potionsInShopMenu.Count > 0)
+        {
+            if (returnToShop)
+                potionsInShopMenu[0].transform.localPosition = new Vector3(0, 0, 0);
+
+            potionsInShopMenu.RemoveAt(0);
+        }
+    }
+
+    public void DoIncompletePurchase()
+    {
+        Debug.Log("Incomplete Purchase");
         // a poppup maybe?
+    }
+
+    public void OnOverSubmitButton()
+    {
+        PurchaseHoverFeedback();
+    }
+
+    public void OnExitSubmitButton()
+    {
+        purchaseFeedback.gameObject.SetActive(false);
+    }
+
+    public void PurchaseHoverFeedback()
+    {
+        purchaseFeedback.gameObject.SetActive(true);
+
+        if (finalTotal == potionPrice)
+            purchaseFeedback.text = "Exact change!";
+
+        else if (finalTotal > potionPrice)
+            purchaseFeedback.text = "Your change will be: " + (finalTotal - potionPrice).ToString(moneyFormat);
+
+        else
+            purchaseFeedback.text = "Insufficient funds offered";
     }
 }

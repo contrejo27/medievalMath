@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Potion : BaseInteractableObject {
 
-    enum PotionState { shop, menu, inventory }
+    enum PotionState { shop, potionMenu, selected, checkout, inventory }
     PotionState currentState;
     public Text toolTip;
     public float cost;
@@ -33,7 +33,7 @@ public class Potion : BaseInteractableObject {
 	
 	// Update is called once per frame
 	void Update () {
-		if(currentState == PotionState.menu && GameStateManager.instance.currentState == EnumManager.GameState.Wave)
+		if(currentState == PotionState.potionMenu && GameStateManager.instance.currentState == EnumManager.GameState.Wave)
         {
             CloseTossMenu();
         }
@@ -59,24 +59,27 @@ public class Potion : BaseInteractableObject {
         
     }
 
+    bool CheckPurchaseViability()
+    {
+        return cost + GameStateManager.instance.potionShop.GetSelectedCost()
+                    <= GameStateManager.instance.levelManager.GetTotalMoney()
+                    && GameStateManager.instance.inventory.numPotions
+                    + GameStateManager.instance.potionShop.selectedPotions.Count
+                    < GameStateManager.instance.inventory.inventorySize;
+    }
+
     public override void OnInteract()
     {
         if (!GameStateManager.instance.levelManager.isGamePaused)
         {
             if (currentState == PotionState.shop && UIEnabled)
             {
-                if (cost <= GameStateManager.instance.playerController.gemsOwned
-                && !GameStateManager.instance.inventory.IsInventoryFull()
-                )
+                if ( CheckPurchaseViability() )
                 {
-                    currentState = PotionState.menu;
-                    purchaseConfirmationMenu.SetActive(true);
-                    GameStateManager.instance.potionShop.DisablePotionUI(this);
-                    /* Set menu text to show confirm? + relevant info
-                     * Maybe have error messages for not enough money or 
-                     * Inventory full
-                     * Maybe raise potion up a bit?
-                     */
+                    Debug.Log("Purchase Ceck passed");
+                    currentState = PotionState.selected;
+                    GameStateManager.instance.potionShop.AddSelectedPotion(this);
+                    
                 }
                 else
                 {
@@ -84,13 +87,20 @@ public class Potion : BaseInteractableObject {
                 }
 
             }
+            else if(currentState == PotionState.selected)
+            {
+                currentState = PotionState.shop;
+                GameStateManager.instance.potionShop.RemoveSelectedPotion(this);
+                //purchaseConfirmationMenu.SetActive(false);
+                
+            }
             else if (currentState == PotionState.inventory)
             {
                 if (!GameStateManager.instance.player.IsUnderTheInfluence() && GameStateManager.instance.currentState == EnumManager.GameState.Wave)
                     DoEffect();
                 else if (GameStateManager.instance.currentState != EnumManager.GameState.Wave && UIEnabled)
                 {
-                    currentState = PotionState.menu;
+                    currentState = PotionState.potionMenu;
                     tossConfirmationMenu.SetActive(true);
                     GameStateManager.instance.inventory.DisablePotionUI(this);
                 }
@@ -101,12 +111,12 @@ public class Potion : BaseInteractableObject {
 
     public void Purchase()
     {
-        if (currentState == PotionState.menu)
+        if (currentState == PotionState.potionMenu)
         {
 
             currentState = PotionState.inventory;
 
-            GameStateManager.instance.playerController.BuyItem((int)cost);
+            //GameStateManager.instance.playerController.BuyItem((int)cost);
 
             GameStateManager.instance.inventory.AddPotion(gameObject);
 
@@ -114,7 +124,7 @@ public class Potion : BaseInteractableObject {
 
             GameStateManager.instance.potionShop.EnablePotionUI();
 
-            purchaseConfirmationMenu.SetActive(false);
+            //purchaseConfirmationMenu.SetActive(false);
             OnEndPassOver();
             
         }
@@ -123,7 +133,7 @@ public class Potion : BaseInteractableObject {
 
     public void ClosePurchaseMenu()
     {
-        if (currentState == PotionState.menu)
+        if (currentState == PotionState.potionMenu)
         {
 
             currentState = PotionState.shop;
@@ -146,7 +156,7 @@ public class Potion : BaseInteractableObject {
 
     public void CloseTossMenu()
     {
-        if(currentState  == PotionState.menu)
+        if(currentState  == PotionState.potionMenu)
         {
             currentState = PotionState.inventory;
 
@@ -171,12 +181,12 @@ public class Potion : BaseInteractableObject {
     public override void OnPassOver()
     {
         
-        if (!isHighlighted && UIEnabled && !GameStateManager.instance.levelManager.isGamePaused) {
+        if (!isHighlighted && UIEnabled && currentState != PotionState.checkout && !GameStateManager.instance.levelManager.isGamePaused) {
             //c consider colorblindness for the future
             Color c = Color.green;
             if (currentState == PotionState.shop)
             {
-                c = (GameStateManager.instance.playerController.gemsOwned >= cost ) ? Color.green : Color.red;
+                c = CheckPurchaseViability() ? Color.green : Color.red;
                 if (GameStateManager.instance.inventory.IsInventoryFull()) c = Color.yellow;
             }else if(currentState == PotionState.inventory)
             {
@@ -196,11 +206,18 @@ public class Potion : BaseInteractableObject {
     public override void OnEndPassOver()
     {
         
-        if (isHighlighted && currentState != PotionState.menu) {
+        if (isHighlighted && currentState != PotionState.selected) {
             RemoveHighlight();
-            toolTip.gameObject.SetActive(false);
+            if(currentState!=PotionState.checkout)
+                toolTip.gameObject.SetActive(false);
             
         }
         base.OnEndPassOver();
+    }
+
+    public void OnToShopMenu()
+    {
+        currentState = PotionState.checkout;
+        RemoveHighlight();
     }
 }

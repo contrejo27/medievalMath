@@ -102,11 +102,12 @@ public class IceArrowScript : ElementalArrow {
                 */
                 Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, blizzardAreaOfEffect);
                 int enemiesCollided = 0;
-                GameObject temp = Instantiate(Resources.Load("Conveyance/IceAOE1"), transform.position += new Vector3(0, 3, 0), Quaternion.identity) as GameObject;
-                Destroy(temp, 4);
+                GameObject temp = Instantiate(Resources.Load("Conveyance/IceAOE1"), transform.position += new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                temp.transform.localScale = new Vector3(blizzardAreaOfEffect, blizzardAreaOfEffect, blizzardAreaOfEffect);
+                Destroy(temp, 2);
 
-                A_Source.clip = blizzardHit;
-                A_Source.Play();
+                //A_Source.clip = blizzardHit;
+                //A_Source.Play();
                 while (enemiesCollided < hitColliders.Length)
                 {
                     if(hitColliders[enemiesCollided].gameObject.tag == "Enemy")
