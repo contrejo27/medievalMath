@@ -72,7 +72,7 @@ public static class SaveData {
 
             for (int i = 0; i < 5; i++)
             {
-                Debug.Log("stars per level " + i + ": " + pd.starsPerLevel[i]);
+                //Debug.Log("stars per level " + i + ": " + pd.starsPerLevel[i]);
                 starsPerLevel[i] = pd.starsPerLevel[i];
             }
 

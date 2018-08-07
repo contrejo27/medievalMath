@@ -61,6 +61,18 @@ public class LevelManager : MonoBehaviour {
         RenderSettings.skybox.SetFloat("_Exposure", .8f);
     }
 
+    void Update()
+    {
+        if (Application.isEditor)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                gemsOwned[EnumManager.GemType.Dollar]++;
+                GameStateManager.instance.potionShop.UpdateTotalMoney();
+            }
+        }
+    }
+
     public void StartGame()
     {
         if (!isGamePaused)
@@ -179,6 +191,15 @@ public class LevelManager : MonoBehaviour {
         StartCoroutine(FadeSky(.4f, .8f));
         foreach (EnemyBehavior eb in activeEnemies)
             eb.ResumeEnemy();
+    }
+
+    public float GetTotalMoney()
+    {
+        return gemsOwned[EnumManager.GemType.Penny] * EnumManager.gemValues[EnumManager.GemType.Penny]
+            + gemsOwned[EnumManager.GemType.Nickel] * EnumManager.gemValues[EnumManager.GemType.Nickel]
+            + gemsOwned[EnumManager.GemType.Dime] * EnumManager.gemValues[EnumManager.GemType.Dime]
+            + gemsOwned[EnumManager.GemType.Quarter] * EnumManager.gemValues[EnumManager.GemType.Quarter]
+            + gemsOwned[EnumManager.GemType.Dollar] * EnumManager.gemValues[EnumManager.GemType.Dollar];
     }
 
     IEnumerator FadeSky(float initialValue, float endValue)

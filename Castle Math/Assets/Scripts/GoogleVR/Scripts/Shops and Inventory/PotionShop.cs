@@ -1,12 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PotionShop : MonoBehaviour {
     // To be enabled every 5 waves in waveManager; 
     // This mostly just manages stocking the shop; payment is handled through the
     // potion/playercontroller scripts
+    
+    public ShopMenu shopMenu;
+    public Text totalMoney;
+    public Text totalPrice;
 
+    string totalMoneyString = "Total Money: ";
+    string totalPriceString = "Total Price: ";
+    
     public Transform[] shopSlots;
     public GameObject scatterShotPotion;
     public GameObject burstFirePotion;
@@ -18,6 +26,14 @@ public class PotionShop : MonoBehaviour {
     public GameObject scarecrowPotion;
     [HideInInspector]
     public List<Potion> potionsInShop = new List<Potion>();
+
+    [HideInInspector]
+    public List<Potion> selectedPotions = new List<Potion>();
+
+    [HideInInspector]
+    public int numSelectedPotions;
+
+
 
     UIEffects canvasFade;
     int isAwakeCounter = 0;
@@ -45,6 +61,8 @@ public class PotionShop : MonoBehaviour {
         if (isAwakeCounter > 0)
         {
             canvasFade.fadeOut(1);
+            UpdateTotalMoney();
+            UpdateTotalPrice();
         }
         isAwakeCounter++;
     }
@@ -94,6 +112,7 @@ public class PotionShop : MonoBehaviour {
             Destroy(p.gameObject);
         }
         potionsInShop.Clear();
+        selectedPotions.Clear();
         if (isAwakeCounter > 1)
         {
             canvasFade.fadeIn(1);
@@ -104,6 +123,8 @@ public class PotionShop : MonoBehaviour {
     public void RemoveFromShop(Potion p)
     {
         potionsInShop.Remove(p);
+        if (selectedPotions.Contains(p))
+            RemoveSelectedPotion(p);
     }
 	
     public void DisablePotionUI(Potion potion)
@@ -135,6 +156,39 @@ public class PotionShop : MonoBehaviour {
         }
     }
 
+    public void AddSelectedPotion(Potion p)
+    {
+        selectedPotions.Add(p);
+        numSelectedPotions++;
+        UpdateTotalPrice();
+    }
+
+    public void RemoveSelectedPotion(Potion p)
+    {
+        selectedPotions.Remove(p);
+        numSelectedPotions--;
+        UpdateTotalPrice();
+    }
+
+    public void SendToShopMenu()
+    {
+        if (selectedPotions.Count > 0)
+        {
+            shopMenu.gameObject.SetActive(true);
+            shopMenu.LoadPotions(selectedPotions);
+            selectedPotions.Clear();
+        }
+    }
+
+    public float GetSelectedCost()
+    {
+        float sum = 0;
+        foreach (Potion p in selectedPotions)
+            sum += p.cost;
+
+        return sum;
+    }
+
     public void OnPointerEnter()
     {
         GameStateManager.instance.player.SetLookingAtInterface(true);
@@ -143,5 +197,15 @@ public class PotionShop : MonoBehaviour {
     public void OnPointerExit()
     {
         GameStateManager.instance.player.SetLookingAtInterface(false);
+    }
+
+    public void UpdateTotalMoney()
+    {
+        totalMoney.text = totalMoneyString + GameStateManager.instance.levelManager.GetTotalMoney().ToString("0.##");
+    }
+
+    public void UpdateTotalPrice()
+    {
+        totalPrice.text = totalPriceString + GetSelectedCost().ToString("0.##");
     }
 }
