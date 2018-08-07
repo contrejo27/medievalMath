@@ -1376,9 +1376,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239bbd9bdace467080e80bc5dbfac5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 0
-  moveSpeed: 0
+  hitPoints: 1
+  moveSpeed: 8
+  rewardGemType: 0
+  rewardGemAmount: 0
   navMeshAgent: {fileID: 0}
+  hasBombDeath: 0
   deathSounds:
   - {fileID: 8300000, guid: 5cf3efc307f24485e9bcde4cc8a681f0, type: 3}
   - {fileID: 8300000, guid: 8d6a76aa6d8664b0aa4a5db5bd73db0e, type: 3}
@@ -1392,7 +1395,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d86d26eab51b75945b7aac012d8e4ebe, type: 3}
   footstepSound: {fileID: 8300000, guid: c83c381627b3ce949a476c3261fcf1f9, type: 3}
   attackDistance: 6
-  target: {fileID: 0}
+  currentTarget: {fileID: 0}
+  fenceTarget: {fileID: 0}
+  isTargetDummy: 0
+  lightningEffect: {fileID: 0}
+  fireEffect: {fileID: 0}
+  iceEffect: {fileID: 0}
 --- !u!136 &136564616183004870
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2018,7 +2026,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.008333334
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2026,7 +2034,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.02
+  m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
