@@ -8,6 +8,7 @@ using EasyMobile;
 public class MenuManager : MonoBehaviour
 {
     public Animator mathMenu;
+    public Animator creditsScreen;
     public GameObject mathSelectMenu;
     public GameObject lessonSelectOptions;
     public GameObject detailedViewOptions;
@@ -94,7 +95,15 @@ public class MenuManager : MonoBehaviour
     {
         mathMenu.Play("slideOut");
     }
+    public void OpenCredits()
+    {
+        creditsScreen.Play("slideIn");
+    }
 
+    public void CloseCredits()
+    {
+        creditsScreen.Play("slideOut");
+    }
     public void OpenMathSelectMenu()
     {
         mathSelectMenu.SetActive(true);
