@@ -68,16 +68,17 @@ public class ShockArrowScript :ElementalArrow {
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
+        GameObject root = otherCollision.transform.root.gameObject;
         switch (currentUpgradeLevel) {
             case ElementalArrowModifier.UpgradeOne:
                     /*  
                     Upgrade 1 Effects: Damages for 2 and Stuns for 2 seconds
                     */
-                if (otherCollision.transform.tag == "Enemy")
+                if (root.tag == "Enemy")
                 {
                     //A_Source.clip = projectileHit;
                     //A_Source.Play();
-                    EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+                    EnemyBehavior EB = root.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeOneDmg);
                     EB.StunsEnemy(upgradeOneStunTime);
                     EB.SetOnShock(upgradeOneStunTime);
@@ -97,11 +98,18 @@ public class ShockArrowScript :ElementalArrow {
                 //A_Source.clip = electricStormHit;
                 //A_Source.Play();
 
+                List<EnemyBehavior> affectedEBs = new List<EnemyBehavior>();
                 while (enemiesCollided < hitColliders.Length)
                 {
-                    if (hitColliders[enemiesCollided].gameObject.tag == "Enemy")
+                    if (hitColliders[enemiesCollided].transform.root.tag == "Enemy")
                     {
-                        EnemyBehavior EB = hitColliders[enemiesCollided].gameObject.GetComponent<EnemyBehavior>();
+                        EnemyBehavior EB = hitColliders[enemiesCollided].transform.root.GetComponent<EnemyBehavior>();
+                        if (affectedEBs.Contains(EB))
+                        {
+                            enemiesCollided++;
+                            continue;
+                        }
+                        affectedEBs.Add(EB);
                         EB.TakeDamage(upgradeTwoADmg);
                         EB.StunsEnemy(upgradeTwoAStunTime);
                         EB.SetOnShock(upgradeTwoAStunTime);
@@ -113,11 +121,11 @@ public class ShockArrowScript :ElementalArrow {
                 /*
                 Upgrade 2B Effects: Damages for 5 and Stuns for 5
                 */
-                if (otherCollision.transform.tag == "Enemy")
+                if (root.tag == "Enemy")
                 {
                     //A_Source.clip = projectileHit;
                     //A_Source.Play();
-                    EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+                    EnemyBehavior EB = root.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeTwoBDmg);
                     EB.StunsEnemy(upgradeTwoBStunTime);
                     EB.SetOnShock(upgradeTwoBStunTime);

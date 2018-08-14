@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour {
     public PlayerMathStats playerMathStats;
 
     [HideInInspector]
-    public WaveManager WaveManager;
+    public WaveManager waveManager;
 
     //[Header("Game")]
     [HideInInspector]

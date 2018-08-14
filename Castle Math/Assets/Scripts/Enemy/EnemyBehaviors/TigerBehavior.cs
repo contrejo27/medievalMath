@@ -5,18 +5,40 @@ using UnityEngine;
 public class TigerBehavior : EnemyBehavior{
 
     public GameObject tigerPrefab;
+    bool pausedForHit;
+    bool firstHit = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    protected override void OnStartAttacking()
+    {
+        base.OnStartAttacking();
 
+        if (!isTargetDummy && !firstHit && !isClone) 
+        {
+            firstHit = true;
+            StartCoroutine(RoarAndSpawn());
+        }
+            
+    }
 
+    protected override void OnReceiveDamage()
+    {
+        base.OnReceiveDamage();
+        if (!pausedForHit)
+        {
+            StartCoroutine(PauseMovement());
+        }
+    }
+
+    IEnumerator PauseMovement()
+    {
+        pausedForHit = true;
+        navMeshAgent.speed = 0;
+        navMeshAgent.acceleration = 0;
+        yield return new WaitForSeconds(1.5f);
+        navMeshAgent.speed = moveSpeed;
+        navMeshAgent.acceleration = 8;
+        pausedForHit = false;
+    }
 
     IEnumerator RoarAndSpawn()
     {
@@ -24,12 +46,14 @@ public class TigerBehavior : EnemyBehavior{
         yield return new WaitForSeconds (3);
         if (!GetIsDead())
         {
-            List<int> spawnPoints = new List<int>() { 1, 2, 3 };
+            List<int> spawnPoints = new List<int>() { 0, 1, 2 };
             int i = Random.Range(0, spawnPoints.Count);
-            GameStateManager.instance.levelManager.WaveManager.SpawnEnemy(tigerPrefab, null, spawnPoints[i]);
+
+            //Debug.Log(spawnPoints[i] + " footsteps = " + footstepSound.name);
+            GameStateManager.instance.waveManager.SpawnEnemy(tigerPrefab, footstepSound, spawnPoints[i], true);
             spawnPoints.RemoveAt(i);
             i = Random.Range(0, spawnPoints.Count);
-            GameStateManager.instance.levelManager.WaveManager.SpawnEnemy(tigerPrefab, null, spawnPoints[i]);
+            GameStateManager.instance.waveManager.SpawnEnemy(tigerPrefab, footstepSound, spawnPoints[i], true);
         }
     }
 }

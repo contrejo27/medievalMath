@@ -69,11 +69,11 @@ public class FireArrowScript : ElementalArrow {
                 /*
                  Upgrade 1 Effects: Damages for 3
                  */ 
-                 if(otherCollision.transform.tag == "Enemy")
+                 if(otherCollision.transform.root.tag == "Enemy")
                 {
                     A_Source.clip = projectileHit;
                     A_Source.Play();
-                    EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+                    EnemyBehavior EB = otherCollision.transform.root.GetComponent<EnemyBehavior>();
                     EB.SetOnFire(1.5f);
                     EB.TakeDamage(upgradeOneDmg);
                     this.transform.parent = otherCollision.transform;
@@ -92,20 +92,30 @@ public class FireArrowScript : ElementalArrow {
                 GameObject explosion = Instantiate(fireBombEffect, transform.position, Quaternion.identity);
                 Destroy(explosion, 3);
 
+                List<EnemyBehavior> affectedEBs = new List<EnemyBehavior>();
                 while(enemiesCollided < hitColliders.Length)
                 {
-                    if(hitColliders[enemiesCollided].gameObject.tag == "Enemy")
+                    if(hitColliders[enemiesCollided].transform.root.tag == "Enemy")
                     {
-                        EnemyBehavior EB = hitColliders[enemiesCollided].gameObject.GetComponent<EnemyBehavior>();
+                        GameObject root = hitColliders[enemiesCollided].transform.root.gameObject;
+                        EnemyBehavior EB = root.GetComponent<EnemyBehavior>();
+                        if (affectedEBs.Contains(EB))
+                        {
+                            enemiesCollided++;
+                            continue;
+                        }
+                        else
+                            affectedEBs.Add(EB);
+
                         EB.TakeDamage(upgradeTwoADmg);
                         EB.SetOnFire(1.5f);
                         if(EB.hitPoints-2 <= 0)
                         {
                             EB.hasBombDeath = true;
-                            hitColliders[enemiesCollided].gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                            hitColliders[enemiesCollided].gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                            root.GetComponent<Rigidbody>().isKinematic = false;
+                            root.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                             float explosionForceModifier = 7f;
-                            hitColliders[enemiesCollided].gameObject.GetComponent<Rigidbody>().AddExplosionForce(5000, this.transform.position, 15, explosionForceModifier);
+                            root.GetComponent<Rigidbody>().AddExplosionForce(5000, this.transform.position, 15, explosionForceModifier);
                         }
                     }
                     enemiesCollided++;
@@ -115,11 +125,11 @@ public class FireArrowScript : ElementalArrow {
                 /*
                 Upgrade 2B Effects: Damages for 7 
                 */
-                if(otherCollision.transform.tag == "Enemy")
+                if(otherCollision.transform.root.tag == "Enemy")
                 {
                     A_Source.clip = projectileHit;
                     A_Source.Play();
-                    EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+                    EnemyBehavior EB = otherCollision.transform.root.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeTwoBDmg);
                     EB.SetOnFire(1.5f);
                     this.transform.parent = otherCollision.transform;

@@ -76,6 +76,8 @@ public class IceArrowScript : ElementalArrow {
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
+        GameObject root = otherCollision.transform.root.gameObject;
+
         switch (currentUpgradeLevel)
         {
             case ElementalArrowModifier.UpgradeOne:
@@ -83,11 +85,11 @@ public class IceArrowScript : ElementalArrow {
             Upgrade 1 Effects: Damages for 2, Slows by 3, Lasts for 4 seconds
             */
 
-                if (otherCollision.transform.tag == "Enemy")
+                if (root.tag == "Enemy")
                 {
                     //A_Source.clip = projectileHit;
                     //A_Source.Play();
-                    EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+                    EnemyBehavior EB = root.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeOneDmg);
                     EB.SlowsEnemy(upgradeOneSlowAmount, upgradeOneSlowTime);
                     EB.SetOnFreeze(upgradeOneSlowTime);
@@ -106,13 +108,17 @@ public class IceArrowScript : ElementalArrow {
                 temp.transform.localScale = new Vector3(blizzardAreaOfEffect, blizzardAreaOfEffect, blizzardAreaOfEffect);
                 Destroy(temp, 2);
 
-                //A_Source.clip = blizzardHit;
-                //A_Source.Play();
+                List<EnemyBehavior> affectedEBs = new List<EnemyBehavior>();
                 while (enemiesCollided < hitColliders.Length)
                 {
-                    if(hitColliders[enemiesCollided].gameObject.tag == "Enemy")
+                    if(hitColliders[enemiesCollided].transform.root.tag == "Enemy")
                     {
-                        EnemyBehavior EB = hitColliders[enemiesCollided].gameObject.GetComponent<EnemyBehavior>();
+                        EnemyBehavior EB = hitColliders[enemiesCollided].transform.root.GetComponent<EnemyBehavior>();
+                        if (affectedEBs.Contains(EB))
+                        {
+                            enemiesCollided++;
+                            continue;
+                        }
                         EB.TakeDamage(upgradeTwoADmg);
                         EB.SlowsEnemy(upgradeTwoASlowAmount, upgradeTwoASlowTime);
                         EB.SetOnFreeze(upgradeTwoASlowTime);
@@ -126,11 +132,11 @@ public class IceArrowScript : ElementalArrow {
                 Upgrade 2B Effects: Damages for 3, Slows by 6, Lasts for 8
                 */
 
-                if(otherCollision.transform.tag == "Enemy")
+                if(root.tag == "Enemy")
                 {
                     A_Source.clip = projectileHit;
                     A_Source.Play();
-                    EnemyBehavior EB = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+                    EnemyBehavior EB = root.GetComponent<EnemyBehavior>();
                     EB.TakeDamage(upgradeTwoBDmg);
                     EB.SlowsEnemy(upgradeTwoBSlowAmount, upgradeTwoBSlowTime);
                     EB.SetOnFreeze(upgradeTwoBSlowTime);

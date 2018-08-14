@@ -22,6 +22,8 @@ public class ProjectileBehavior : MonoBehaviour {
 	//this is a built in function that detects when two objects collide
 	void OnCollisionEnter(Collision otherCollision)
 	{
+        GameObject root = otherCollision.transform.root.gameObject;
+        Debug.Log(root.name);
 		if (isGrounded == false) {
 				isGrounded = true;
 
@@ -34,8 +36,8 @@ public class ProjectileBehavior : MonoBehaviour {
 					ArrowModifers [i].ArrowImpact ();
 				}
 
-				if (otherCollision.transform.tag == "Enemy") {
-                    EnemyBehavior eb = otherCollision.gameObject.GetComponent<EnemyBehavior>();
+				if (root.tag == "Enemy") {
+                    EnemyBehavior eb = root.GetComponent<EnemyBehavior>();
                     if(eb)
                         eb.TakeDamage (ArrowDamge);
                     else

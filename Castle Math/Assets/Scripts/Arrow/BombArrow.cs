@@ -36,19 +36,29 @@ public class BombArrow : ArrowClass {
 			Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 13);
 			Destroy(expl, 3);
 			int i = 0;
+            List<EnemyBehavior> hitEBs = new List<EnemyBehavior>();
 			while (i < hitColliders.Length) {
-				if (hitColliders [i].gameObject.tag == "Enemy") {
-                    //hitColliders [i].gameObject.GetComponent<EnemyBehavior> ().bomb = true;
-                    EnemyBehavior eb = hitColliders[i].gameObject.GetComponent<EnemyBehavior>();
+				if (hitColliders [i].transform.root.tag == "Enemy") {
+                    GameObject root = hitColliders[i].transform.root.gameObject;
+                    EnemyBehavior eb = root.GetComponent<EnemyBehavior>();
+                    if(hitEBs.Contains(eb))
+                    {
+                        i += 1;
+                        continue;
+                    }
+                    else
+                    {
+                        hitEBs.Add(eb);
+                    }
 
                     eb.TakeDamage (2);
                     if (eb.hitPoints-2 <=0)
                     {
                         eb.hasBombDeath = true;
-                        hitColliders[i].gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                        hitColliders[i].gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                        root.GetComponent<Rigidbody>().isKinematic = false;
+                        root.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                         float upForceModifier = 7f;
-                        hitColliders[i].gameObject.GetComponent<Rigidbody>().AddExplosionForce(5000, this.transform.position, 15, upForceModifier);
+                        root.GetComponent<Rigidbody>().AddExplosionForce(5000, this.transform.position, 15, upForceModifier);
                     }
 					
 				}

@@ -8,7 +8,8 @@ public class EnemyBehavior : MonoBehaviour {
 
 	[Header("Enemy Info")]
 	public int hitPoints;
-    bool dead = false;
+    protected bool dead = false;
+    protected bool ignoreDamage = false;
 	public float moveSpeed;
     public EnumManager.GemType rewardGemType;
     public int rewardGemAmount;
@@ -19,6 +20,8 @@ public class EnemyBehavior : MonoBehaviour {
     public NavMeshAgent navMeshAgent;
     [HideInInspector]
     public bool hasBombDeath;
+    [HideInInspector]
+    public bool isClone;
 	
 	[Header("Audio")]
 	public AudioClip[] deathSounds;
@@ -95,22 +98,31 @@ public class EnemyBehavior : MonoBehaviour {
 	{
 		//if he's alive have him walk to target
 		if (hitPoints > 0) {
-			//rotate the character correctly in the direction of the heading
-			//Quaternion newRot = Quaternion.LookRotation (target.transform.position - this.transform.position);
-			//transform.rotation = Quaternion.Euler (new Vector3 (0, newRot.eulerAngles.y, 0));
+            //rotate the character correctly in the direction of the heading
+            //Quaternion newRot = Quaternion.LookRotation (target.transform.position - this.transform.position);
+            //transform.rotation = Quaternion.Euler (new Vector3 (0, newRot.eulerAngles.y, 0));
 
-			//if (isMoving == false) StartCoroutine (WalkToTarget());
+            //if (isMoving == false) StartCoroutine (WalkToTarget());
+
+            DoOnUpdate();
 
             if (hitQueue.Count > 0)
             {
                 ReceiveDamage(hitQueue.Dequeue());
             }
+
+            
         }
 		/*
 		if (dH.GetComponent<Renderer> ().enabled == false) {
 
 		}*/
 	}
+
+    public virtual void DoOnUpdate()
+    {
+
+    }
 		
 	public void SetTarget(Transform initialTarget){
 		fenceTarget = currentTarget = initialTarget;
@@ -134,7 +146,8 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	public virtual void TakeDamage(int DMG)
 	{
-        hitQueue.Enqueue(DMG);
+        if(!ignoreDamage)
+            hitQueue.Enqueue(DMG);
         
 	}
 
@@ -205,7 +218,13 @@ public class EnemyBehavior : MonoBehaviour {
         //Anim.SetBool ("isMoving", false);
         //Anim.SetBool ("isHit", true);
 
+        OnReceiveDamage();
         
+    }
+
+    protected virtual void OnReceiveDamage()
+    {
+
     }
 
 	IEnumerator WalkToTarget()
@@ -287,6 +306,8 @@ public class EnemyBehavior : MonoBehaviour {
 
 	}
 
+
+
 	//do this when the player gets killed
 	public void Killed()
 	{
@@ -366,7 +387,7 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
 	public void DamageGate(int damage) {
-        Debug.Log("Damaging gate");
+        //Debug.Log("Damaging gate");
         if (!isTargetDummy)
         {
             currentAudioSource = Random.Range(0, audioSource.Length);

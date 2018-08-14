@@ -340,10 +340,12 @@ public class WaveManager : MonoBehaviour {
 	}
 
 	//spawns enemy at a random spawn point
-	public void SpawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn){
-		//int randomSpawn = Random.Range(0, SpawnPoints.Length);
+	public void SpawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn, bool spawnAsClone = false){
+        //int randomSpawn = Random.Range(0, SpawnPoints.Length);
+        
 		GameObject enemyObject = Instantiate(enemy, SpawnPoints[spawn].position + SpawnPoints[spawn].right* Random.Range(spawnAdjustmentMin, spawnAdjustmentMax), SpawnPoints[0].rotation);
 		enemyObject.GetComponent<EnemyBehavior>().SetTarget(fenceTargets[spawn]); //points enemy at right target. adjusted for UI name
+        enemyObject.GetComponent<EnemyBehavior>().isClone = spawnAsClone;
 		addEnemyToWaveSize();
 		//GameObject enemyObject = Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[randomSpawn].rotation);
 
