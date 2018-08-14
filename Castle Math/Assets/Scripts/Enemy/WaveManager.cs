@@ -239,12 +239,12 @@ public class WaveManager : MonoBehaviour {
 		if(waveType[currentWave][0] == 0)
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
-				spawnEnemy(enemyPrefab, spawnSound,0);
+				SpawnEnemy(enemyPrefab, spawnSound,0);
                 //while(GameStateManager.instance.is)
 				yield return new WaitForSeconds (.1f);
-				spawnEnemy(enemyPrefab, spawnSound,1);
+				SpawnEnemy(enemyPrefab, spawnSound,1);
 				yield return new WaitForSeconds (.1f);
-				spawnEnemy(enemyPrefab, spawnSound,2);
+				SpawnEnemy(enemyPrefab, spawnSound,2);
 				yield return new WaitForSeconds (Random.Range (.1f, .2f));
 			}
 		}
@@ -254,11 +254,11 @@ public class WaveManager : MonoBehaviour {
 		if(waveType[currentWave][0] == 1)
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
-				spawnEnemy(enemyPrefab, spawnSound,0);
+				SpawnEnemy(enemyPrefab, spawnSound,0);
 				yield return new WaitForSeconds (Random.Range (1f, 2f));
-				spawnEnemy(enemyPrefab, spawnSound,1);
+				SpawnEnemy(enemyPrefab, spawnSound,1);
 				yield return new WaitForSeconds (Random.Range (1f, 2f));
-				spawnEnemy(enemyPrefab, spawnSound,2);
+				SpawnEnemy(enemyPrefab, spawnSound,2);
 				yield return new WaitForSeconds (.2f);
 			}
 		}
@@ -267,11 +267,11 @@ public class WaveManager : MonoBehaviour {
 		if(waveType[currentWave][0] == 2)
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
-				spawnEnemy(enemyPrefab, spawnSound,0);
+				SpawnEnemy(enemyPrefab, spawnSound,0);
 				yield return new WaitForSeconds (Random.Range (1.5f, 2.5f));
-				spawnEnemy(enemyPrefab, spawnSound,1);
+				SpawnEnemy(enemyPrefab, spawnSound,1);
 				yield return new WaitForSeconds (Random.Range (1.5f, 2.5f));
-				spawnEnemy(enemyPrefab, spawnSound,2);
+				SpawnEnemy(enemyPrefab, spawnSound,2);
 				yield return new WaitForSeconds (3.5f);
 			}
 		}
@@ -281,7 +281,7 @@ public class WaveManager : MonoBehaviour {
         {
             for (int i = 0; i < waveType[currentWave][1]; i++)
             {
-                spawnEnemy(enemyPrefab, spawnSound, Random.Range(0,3));
+                SpawnEnemy(enemyPrefab, spawnSound, Random.Range(0,3));
                 yield return new WaitForSeconds(Random.Range(2f, 3.5f));
             }
         }
@@ -340,7 +340,7 @@ public class WaveManager : MonoBehaviour {
 	}
 
 	//spawns enemy at a random spawn point
-	void spawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn){
+	public void SpawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn){
 		//int randomSpawn = Random.Range(0, SpawnPoints.Length);
 		GameObject enemyObject = Instantiate(enemy, SpawnPoints[spawn].position + SpawnPoints[spawn].right* Random.Range(spawnAdjustmentMin, spawnAdjustmentMax), SpawnPoints[0].rotation);
 		enemyObject.GetComponent<EnemyBehavior>().SetTarget(fenceTargets[spawn]); //points enemy at right target. adjusted for UI name

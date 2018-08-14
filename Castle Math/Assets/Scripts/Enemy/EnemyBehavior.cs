@@ -27,7 +27,8 @@ public class EnemyBehavior : MonoBehaviour {
 	private AudioSource[] audioSource;
 
 	[Header("Animation")]
-	private Animator animator; 
+    [SerializeField]
+	protected Animator animator; 
 	public float attackDistance;
 	private bool isMoving;
 	public bool AtTarget {get; set;}
@@ -131,7 +132,7 @@ public class EnemyBehavior : MonoBehaviour {
         StartCoroutine (WalkToTarget());
 	}
 	
-	public void TakeDamage(int DMG)
+	public virtual void TakeDamage(int DMG)
 	{
         hitQueue.Enqueue(DMG);
         
@@ -280,6 +281,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 			animator.SetBool ("isAttacking", true);
 			animator.Play("attack");
+            OnStartAttacking();
 		}
 
 
@@ -323,6 +325,8 @@ public class EnemyBehavior : MonoBehaviour {
 		yield return new WaitForSeconds (2);
 		Destroy (this.gameObject);
 	}
+
+    protected virtual void OnStartAttacking() { }
 
     public void SetOnFire(float time)
     {

@@ -212,6 +212,8 @@ public class ShopMenu : MonoBehaviour {
         }
 
         WipePotions(false);
+        GameStateManager.instance.potionShop.UpdateTotalMoney();
+        GameStateManager.instance.potionShop.UpdateTotalPrice();
         gameObject.SetActive(false);
         // Then create a spawner that shows the change returning
 
