@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public static class EnumManager{
@@ -41,6 +42,14 @@ public static class EnumManager{
         {Upgrades.FireArrows2B, Loadout.FireArrowsB },
         {Upgrades.ShockArrows2A, Loadout.ShockArrowsA },
         {Upgrades.ShockArrows2B, Loadout.ShockArrowsB }
+    };
+
+    public static Dictionary<string, int> sceneNameToLevelNumber = new Dictionary<string, int>()
+    {
+        {SceneManager.GetSceneByBuildIndex(2).name, 0},
+        {SceneManager.GetSceneByBuildIndex(3).name, 1},
+        {SceneManager.GetSceneByBuildIndex(4).name, 2},
+        {SceneManager.GetSceneByBuildIndex(5).name, 3}
     };
 
 }

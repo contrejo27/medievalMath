@@ -49,6 +49,10 @@ public class EnemyBehavior : MonoBehaviour {
     public GameObject fireEffect;
     public GameObject iceEffect;
 
+    public bool movementPaused;
+
+    protected bool haltAttackAnimation;
+
 	private int currentAudioSource;
 	
     void Awake()
@@ -222,6 +226,7 @@ public class EnemyBehavior : MonoBehaviour {
         
     }
 
+
     protected virtual void OnReceiveDamage()
     {
 
@@ -290,7 +295,7 @@ public class EnemyBehavior : MonoBehaviour {
             
 			this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			animator.SetBool ("isMoving", false);
-			/*
+            /*
 			 if (Time.time > nextActionTime ) {
 				nextActionTime = Time.time + period; 
 				dH.Health -= 8;
@@ -298,8 +303,11 @@ public class EnemyBehavior : MonoBehaviour {
 			print(dH.Health);
 			*/
 
-			animator.SetBool ("isAttacking", true);
-			animator.Play("attack");
+            animator.SetBool("isAttacking", true);
+
+            if (!haltAttackAnimation)
+			    animator.Play("attack");
+
             OnStartAttacking();
 		}
 
@@ -375,15 +383,26 @@ public class EnemyBehavior : MonoBehaviour {
     public void PauseEnemy()
     {
         prePauseAnimationSpeed = animator.speed;
-        animator.speed = 0;
-        navMeshAgent.speed = 0;
+        animator.speed  = 0;
+        HaltEnemyMovement();
 
+
+    }
+
+    public void HaltEnemyMovement()
+    {
+        navMeshAgent.isStopped = true;
     }
 
     public void ResumeEnemy()
     {
+        ResumeEnemyMovement();
         animator.speed = prePauseAnimationSpeed;
-        navMeshAgent.speed = moveSpeed;
+    }
+
+    public void ResumeEnemyMovement()
+    {
+        navMeshAgent.isStopped = false;
     }
 
 	public void DamageGate(int damage) {

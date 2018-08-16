@@ -32,11 +32,9 @@ public class TigerBehavior : EnemyBehavior{
     IEnumerator PauseMovement()
     {
         pausedForHit = true;
-        navMeshAgent.speed = 0;
-        navMeshAgent.acceleration = 0;
+        PauseEnemy();
         yield return new WaitForSeconds(1.5f);
-        navMeshAgent.speed = moveSpeed;
-        navMeshAgent.acceleration = 8;
+        ResumeEnemy();
         pausedForHit = false;
     }
 

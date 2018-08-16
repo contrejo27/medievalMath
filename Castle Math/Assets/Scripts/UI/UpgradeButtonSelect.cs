@@ -44,8 +44,8 @@ public class UpgradeButtonSelect : MonoBehaviour {
         //{
         //    buttonSelected.enabled = false;
         //}
-
-        selectedForLoadOut = SaveData.currentLoadout[EnumManager.upgradeToLoadout[upgradeSelection]];
+        if(EnumManager.upgradeToLoadout.ContainsKey(upgradeSelection))
+            selectedForLoadOut = SaveData.currentLoadout[EnumManager.upgradeToLoadout[upgradeSelection]];
 
         if (starText != null)
         {

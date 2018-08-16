@@ -20,7 +20,7 @@ public class ManaBar : MonoBehaviour {
     public AudioClip healthPowerUpSound;
     public AudioClip invinciblePowerUpSound;
 
-    private float CurrentNumber;
+    private int CurrentNumber;
 	private LaunchProjectile ProjectileLauncher;
 	
 	private int powerUpCount = 0;
@@ -47,13 +47,15 @@ public class ManaBar : MonoBehaviour {
 
 	public void CorrectAnswer()
 	{
-		CurrentNumber += 1f;
+		CurrentNumber += 1;
 
 		//perk text name should match icon sprite name
 		if (CurrentNumber >= NumberOfQuestions) {
-			CurrentNumber = 0f;
-            ArrowModifier newMod;
+			CurrentNumber = 0;
+            GameStateManager.instance.waveManager.AwardGems(5, EnumManager.GemType.Penny);
+            //ArrowModifier newMod;
 
+            /*
 			if (LocalUserData.IsLoggedIn() == false)
             {
                 newMod = ArrowModifier.Spread;
@@ -117,7 +119,12 @@ public class ManaBar : MonoBehaviour {
                     A_Source.Play();
                 }
             }
+            */
 
+
+            // Review for potion effect
+
+            /*
             mathCanvas.alpha = 0.0f;
 			hud.AddPoweUpIcon(perk.text);
 
@@ -125,20 +132,21 @@ public class ManaBar : MonoBehaviour {
 			StartCoroutine(erasePerkText());
 			/*A_Source.clip = PowerUpSound;
 			A_Source.Play ();*/
+            
 		}
 
 		adjustManaBar();
 	}
 
 	public void IncorrectAnswer(){
-		if(CurrentNumber > 0f){
-			CurrentNumber -= 1f;
+		if(CurrentNumber > 0){
+			CurrentNumber = 0;
 		}
 		adjustManaBar();
 	}
 
 	void adjustManaBar(){
-		float percent = CurrentNumber / NumberOfQuestions;
+		float percent = (float)CurrentNumber / NumberOfQuestions;
 		transform.localScale = Vector3.Lerp (new Vector3 (.05f, .5f, 1f), new Vector3 (.8f, .5f, 1f), percent);
 		//manaBarEnd.transform.position = ;
 

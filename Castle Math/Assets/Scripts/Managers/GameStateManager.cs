@@ -137,6 +137,36 @@ public class GameStateManager : MonoBehaviour {
 		}
 		SaveGame();
 
+        int currentLevel = EnumManager.sceneNameToLevelNumber[SceneManager.GetActiveScene().name];
+
+        if (waveManager.currentWave < 9)
+        {
+
+        }else if(waveManager.currentWave < 14)
+        {
+            if( SaveData.starsPerLevel[currentLevel] < 1)
+            {
+                SaveData.starsPerLevel[currentLevel] = 1;
+                SaveData.numStars++;
+                SaveData.SaveDataToJSon();
+            }
+        }else if(waveManager.currentWave < 20)
+        {
+            if (SaveData.starsPerLevel[currentLevel] < 1)
+            {
+                SaveData.starsPerLevel[currentLevel] = 2;
+                SaveData.numStars+=2;
+                SaveData.SaveDataToJSon();
+            }
+            else if(SaveData.starsPerLevel[currentLevel] < 2)
+            {
+                SaveData.starsPerLevel[currentLevel] = 2;
+                SaveData.numStars++;
+                SaveData.SaveDataToJSon();
+            }
+
+        }
+
 		player.isAlive = false;
         levelManager.DoLoseGameEffects();
 		

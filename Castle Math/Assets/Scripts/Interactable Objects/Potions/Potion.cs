@@ -12,9 +12,13 @@ public class Potion : BaseInteractableObject {
     public Text priceText;
     public float cost;
     public float duration;
+    float raiseAmt = .2f;
+    IEnumerator coroutine;
     
     public GameObject purchaseConfirmationMenu;
     public GameObject tossConfirmationMenu;
+    public Transform potionMesh;
+    Vector3 initPoitionPos;
     
     [HideInInspector]
     public int inventoryPosition;
@@ -23,12 +27,15 @@ public class Potion : BaseInteractableObject {
     [HideInInspector]
     public bool UIEnabled = true;
 
+    bool isSelected;
+
 	// Use this for initialization
 
     protected override void Init()
     {
         currentState = PotionState.shop;
         priceText.text = cost.ToString("0.##");
+        initPoitionPos = potionMesh.localPosition;
         
         base.Init();
     }
@@ -39,6 +46,12 @@ public class Potion : BaseInteractableObject {
         {
             CloseTossMenu();
         }
+
+        if (isHighlighted)
+        {
+            potionMesh.Rotate(new Vector3(0, 1, 0));
+        }
+
 	}
 
     /// <summary>
@@ -208,7 +221,8 @@ public class Potion : BaseInteractableObject {
                 else c = (GameStateManager.instance.player.IsUnderTheInfluence()) ? Color.red : Color.green;
             }
 
-            SetHighlight(c);
+            //SetHighlight(c);
+            StartSelection();
 
             EnableTooltip();
             
@@ -221,7 +235,8 @@ public class Potion : BaseInteractableObject {
     {
         
         if (isHighlighted && currentState != PotionState.selected) {
-            RemoveHighlight();
+            //RemoveHighlight();
+            StopSelection();
             if(currentState!=PotionState.checkout)
                 DisableTooltip();
             
@@ -233,5 +248,59 @@ public class Potion : BaseInteractableObject {
     {
         currentState = PotionState.checkout;
         RemoveHighlight();
+    }
+
+    void StartSelection()
+    {
+        isHighlighted = true;
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        Debug.Log("Should start coroutine from function");
+        coroutine = RaisePotion();
+        StartCoroutine(coroutine);
+    }
+
+    void StopSelection()
+    {
+        isHighlighted = false;
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+
+        coroutine = LowerPotion();
+        StartCoroutine(coroutine);
+    }
+
+    IEnumerator RaisePotion()
+    {
+        Debug.Log("INSIDE the coroutine");
+        float timer = 0;
+        float initHeight = potionMesh.localPosition.y;
+        while (timer < .2f)
+        {
+            timer += Time.deltaTime;
+            potionMesh.localPosition = new Vector3(potionMesh.localPosition.x, Mathf.SmoothStep(initHeight, initPoitionPos.y+raiseAmt, timer / .2f), potionMesh.localPosition.z);
+            yield return null;
+        }
+    }
+    
+    IEnumerator LowerPotion()
+    {
+        float timer = 0;
+        float initHeight = potionMesh.localPosition.y;
+        Quaternion initialRot = potionMesh.rotation;
+        Quaternion targetRotation = Quaternion.identity;
+        while (timer < .2f)
+        {
+            timer += Time.deltaTime;
+            potionMesh.localPosition = new Vector3(potionMesh.localPosition.x, Mathf.SmoothStep(initHeight, initPoitionPos.y, timer / .2f), potionMesh.localPosition.z);
+            Quaternion.Slerp(initialRot, targetRotation, timer / .2f);
+            yield return null;
+        }
+        potionMesh.localPosition = new Vector3(potionMesh.localPosition.x, initPoitionPos.y, potionMesh.localPosition.z);
+        potionMesh.rotation = targetRotation;
     }
 }

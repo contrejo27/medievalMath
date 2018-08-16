@@ -10,4 +10,14 @@ public class EnemyAnimatorFix : MonoBehaviour {
     {
         eb.DamageGate(damage);
     }
+
+    public void HaltNavmeshAgent()
+    {
+        eb.HaltEnemyMovement();
+    }
+
+    public void ResumeNavmeshAgent()
+    {
+        eb.ResumeEnemyMovement();
+    }
 }

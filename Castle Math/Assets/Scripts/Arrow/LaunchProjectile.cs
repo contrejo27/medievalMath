@@ -32,7 +32,8 @@ public class LaunchProjectile : MonoBehaviour {
 	bool firstShot = true;
 	Animator crossbowAnim;
 	bool reloading = false;
-    float reloadTime = .2f;
+    [HideInInspector]
+    public float reloadTime = .2f;
 
 	//Audio
 	AudioSource A_Source;

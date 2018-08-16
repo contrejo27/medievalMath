@@ -376,9 +376,6 @@ public class WaveManager : MonoBehaviour {
                 }
                 else if (((currentWave + 2) % 5 == 0) && currentWave != 19)
                 {
-                    // Temporary
-                    GameStateManager.instance.playerController.gemsOwned += 15;
-
                     GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
                     GameStateManager.instance.ActivatePotionShop();
                     //NextWave();
@@ -393,7 +390,7 @@ public class WaveManager : MonoBehaviour {
 		}
 	}
 
-    void AwardGems(int count, EnumManager.GemType type)
+    public void AwardGems(int count, EnumManager.GemType type)
     {
         GameStateManager.instance.levelManager.RecieveGems(count, type);
         GameObject GemSpawner = Instantiate(Resources.Load("Misc/GemSpawner"), gemSpawnPoint.position, Quaternion.identity) as GameObject;

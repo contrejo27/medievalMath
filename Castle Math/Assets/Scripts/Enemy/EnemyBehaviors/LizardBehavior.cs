@@ -5,7 +5,7 @@ using UnityEngine;
 public class LizardBehavior : EnemyBehavior{
 
     bool isBurrowing;
-    public float burrowingSwitchTime = 8;
+    public float burrowingSwitchTime = 5;
     float burrowTimer = 0;
     public GameObject lizardMesh;
     public GameObject burrowEffect;
@@ -48,10 +48,10 @@ public class LizardBehavior : EnemyBehavior{
     {
         float initHeight = lizardMesh.transform.localPosition.y;
         float timer = 0;
-        while(timer < 2)
+        while(timer < 1)
         {
             timer += Time.deltaTime;
-            lizardMesh.transform.localPosition = new Vector3(lizardMesh.transform.localPosition.x, Mathf.Lerp(initHeight, -4, timer), lizardMesh.transform.localPosition.z);
+            lizardMesh.transform.localPosition = new Vector3(lizardMesh.transform.localPosition.x, Mathf.SmoothStep(initHeight, -4, timer), lizardMesh.transform.localPosition.z);
             yield return null;
         }
         lizardMesh.SetActive(false);
@@ -62,10 +62,10 @@ public class LizardBehavior : EnemyBehavior{
         lizardMesh.SetActive(true);
         float initHeight = lizardMesh.transform.localPosition.y;
         float timer = 0;
-        while (timer < 2)
+        while (timer < 1)
         {
             timer += Time.deltaTime;
-            lizardMesh.transform.localPosition = new Vector3(lizardMesh.transform.localPosition.x, Mathf.Lerp(initHeight, 0, timer), lizardMesh.transform.localPosition.z);
+            lizardMesh.transform.localPosition = new Vector3(lizardMesh.transform.localPosition.x, Mathf.SmoothStep(initHeight, 0, timer), lizardMesh.transform.localPosition.z);
             yield return null;
         }
     }

@@ -4,7 +4,8 @@ using UnityEngine;
 using System;
 
 
-// TODO set up dictionaries for gems
+// Mostly contains functions formerly in the GameStateManager
+// This is specifically for the levels rather than the full game
 
 public class LevelManager : MonoBehaviour {
 

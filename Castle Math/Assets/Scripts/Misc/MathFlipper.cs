@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MathFlipper : MonoBehaviour {
+public class MathFlipper : BaseInteractableObject {
 
     [HideInInspector]
     public bool isOn;
 
     public FractionTargets fractionTargets;
+
+    float clickCooldown = .2f;
+    float clickCooldownTimer = 0;
+    bool shotsFired;
 
     IEnumerator coroutine;
 
@@ -18,9 +22,47 @@ public class MathFlipper : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (shotsFired)
+        {
+            if(clickCooldownTimer < clickCooldown)
+            {
+                clickCooldownTimer += Time.deltaTime;
+            }
+            else
+            {
+                clickCooldownTimer = 0;
+                shotsFired = false;
+            }
+        }		
 	}
 
+    public override void OnPassOver(){}
+
+    public override void OnEndPassOver(){}
+
+    public override void OnInteract()
+    {
+        if (!shotsFired)
+        {
+            base.OnInteract();
+            //Debug.Log("Flipping");
+            StartCoroutine(DelayFlip());
+
+
+        }
+        /*
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+
+        coroutine = Flip();
+        StartCoroutine(coroutine);
+        */
+        //Destroy(other.gameObject);
+    }
+
+    /*
     void OnCollisionEnter(Collision other)
     {
         //Debug.Log("Flipping");
@@ -38,6 +80,30 @@ public class MathFlipper : MonoBehaviour {
 
         //Destroy(other.gameObject);
 
+    }
+    */
+
+    void StartFlip()
+    {
+        isOn = !isOn;
+        if (isOn) fractionTargets.IncrementFlips();
+        else fractionTargets.DecrementFlips();
+
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+
+        coroutine = Flip();
+        StartCoroutine(coroutine);
+    }
+
+    IEnumerator DelayFlip()
+    {
+        yield return new WaitForSeconds(.15f);
+
+        StartFlip();
+        
     }
 
     IEnumerator Flip(bool b = true)

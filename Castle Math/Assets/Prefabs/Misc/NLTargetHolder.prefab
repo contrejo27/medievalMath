@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 4257045389391832}
   - component: {fileID: 114534220539797774}
   - component: {fileID: 54643703538874634}
+  - component: {fileID: 114407249638475084}
   m_Layer: 0
   m_Name: NLTargetHolder
   m_TagString: Untagged
@@ -101,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1523811054527484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2120667, y: -6.58286, z: -0.7752838}
+  m_LocalPosition: {x: -10.95755, y: -5.6, z: -20.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4206900191576924}
@@ -173,7 +174,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 5.43, z: 1}
+  m_Size: {x: 1, y: 2.2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114162138302088536
 MonoBehaviour:
@@ -196,6 +197,36 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1486.48
+--- !u!114 &114407249638475084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1523811054527484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114534220539797774}
+          m_MethodName: OnInteract
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114534220539797774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77eb65f867b6de94ab44d6db064b2fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHighlighted: 0
   numberText: {fileID: 114677814584224292}
   nlm: {fileID: 0}
 --- !u!114 &114677814584224292
