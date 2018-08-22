@@ -32,23 +32,23 @@ public class Login_Canvas : CanvasNavigation
 
         if (DatabaseManager.instance == null) return;
 
-        if(emailInput.text == "" || passwordInput.text == "")
+        if (emailInput.text == "") // || passwordInput.text == "")
         {
-            feedbackText.text = "All fields must be entered!";
+            feedbackText.text = "All fields must be entered.";
             return;
         }
 
         if(DatabaseManager.instance.IsEmailValid(emailInput.text) == false)
         {
-            feedbackText.text = "Email not found!";
+            feedbackText.text = "Email not found.";
             return;
         }
 
-        if(DatabaseManager.instance.IsPasswordValid(emailInput.text, passwordInput.text) == false)
+        /*if(DatabaseManager.instance.IsPasswordValid(emailInput.text, passwordInput.text) == false)
         {
             feedbackText.text = "Incorrect password entered!";
             return;
-        }
+        }*/
 
         Debug.Log("Login Successful!");
 		LocalUserData.SetUserEmail (emailInput.text.ToLower ());

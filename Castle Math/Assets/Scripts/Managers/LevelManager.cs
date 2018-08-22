@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour {
 
     [HideInInspector]
     public WaveManager waveManager;
-
+    public GameObject pauseButton;
     //[Header("Game")]
     [HideInInspector]
     public Dictionary<EnumManager.GemType, int> gemsOwned =
@@ -88,6 +88,7 @@ public class LevelManager : MonoBehaviour {
             music.clip = gameplaySong;
             music.loop = true;
             music.Play();
+            pauseButton.SetActive(true);
         }
     }
 
@@ -172,11 +173,10 @@ public class LevelManager : MonoBehaviour {
         //billboard.GetComponent<Animator>().Play("show");
         PauseMenu.SetActive(true);
         MathScreen.SetActive(false);
-        MathScreen.GetComponent<UIEffects>().fadeOut(1);
         Time.timeScale = 0;
         
         isGamePaused = true;
-        StartCoroutine(FadeSky(.8f, .4f));
+        //StartCoroutine(FadeSky(.8f, .4f));
         foreach (EnemyBehavior eb in activeEnemies)
             eb.PauseEnemy();
     }
@@ -187,9 +187,10 @@ public class LevelManager : MonoBehaviour {
         //PauseMenu.GetComponent<UIEffects>().fadeOut(3f);
         PauseMenu.SetActive(false);
         MathScreen.SetActive(true);
+
         isGamePaused = false;
         Time.timeScale = 1;
-        StartCoroutine(FadeSky(.4f, .8f));
+        //StartCoroutine(FadeSky(.4f, .8f));
         foreach (EnemyBehavior eb in activeEnemies)
             eb.ResumeEnemy();
     }

@@ -77,81 +77,41 @@ public class WaveManager : MonoBehaviour {
         horseknightWaves[0] = new int[] { allAtOnce, 0 };
         trollWaves[0] = new int[] { allAtOnce, 0 };
 
-        footknightWaves[1] = new int[] { waves, 2 };
+        footknightWaves[1] = new int[] { waves, 3 };
         horseknightWaves[1] = new int[] { allAtOnce, 0 };
         trollWaves[1] = new int[] { allAtOnce, 0 };
 
-        footknightWaves[2] = new int[] { waves, 3 };
-        horseknightWaves[2] = new int[] { allAtOnce, 0 };
+		footknightWaves[2] = new int[] { allAtOnce, 3 };
+        horseknightWaves[2] = new int[] { singles, 2 };
         trollWaves[2] = new int[] { allAtOnce, 0 };
 
-        footknightWaves[3] = new int[] { staggered, 3 };
-        horseknightWaves[3] = new int[] { singles, 0 };
+        footknightWaves[3] = new int[] { waves, 3 };
+        horseknightWaves[3] = new int[] { singles, 1 };
         trollWaves[3] = new int[] { allAtOnce, 0 };
 
-        footknightWaves[4] = new int[] { waves, 3 };
-        horseknightWaves[4] = new int[] { singles, 1 };
-        trollWaves[4] = new int[] { allAtOnce, 0 };
+        footknightWaves[4] = new int[] { waves, 3};
+        horseknightWaves[4] = new int[] { staggered, 2 };
+		trollWaves[4] = new int[] { singles, 1 };
 
-        footknightWaves[5] = new int[] { staggered, 5 };
-        horseknightWaves[5] = new int[] { singles, 2 };
+        footknightWaves[5] = new int[] { waves, 2};
+        horseknightWaves[5] = new int[] { singles, 3 };
         trollWaves[5] = new int[] { allAtOnce, 0 };
 
-        footknightWaves[6] = new int[] { waves, 3 };
-        horseknightWaves[6] = new int[] { singles, 1 };
-        trollWaves[6] = new int[] { allAtOnce, 0 };
+        footknightWaves[6] = new int[] { singles, 6};
+        horseknightWaves[6] = new int[] { singles, 5 };
+		trollWaves[6] = new int[] { singles, 1 };
 
         footknightWaves[7] = new int[] { waves, 5};
-        horseknightWaves[7] = new int[] { allAtOnce, 0 };
-        trollWaves[7] = new int[] { allAtOnce, 0 };
+        horseknightWaves[7] = new int[] { singles, 6 };
+        trollWaves[7] = new int[] { singles, 2 };
 
         footknightWaves[8] = new int[] { waves, 3};
-        horseknightWaves[8] = new int[] { staggered, 1 };
-        trollWaves[8] = new int[] { allAtOnce, 0 };
+        horseknightWaves[8] = new int[] { allAtOnce, 3 };
+        trollWaves[8] = new int[] { singles, 2 };
 
-        footknightWaves[9] = new int[] { singles, 20};
-        horseknightWaves[9] = new int[] { singles, 3 };
-        trollWaves[9] = new int[] { allAtOnce, 0 };
-
-        footknightWaves[10] = new int[] { waves, 3};
-        horseknightWaves[10] = new int[] { singles, 2 };
-        trollWaves[10] = new int[] { allAtOnce, 0 };
-
-        footknightWaves[11] = new int[] { staggered, 5};
-        horseknightWaves[11] = new int[] { singles, 1 };
-        trollWaves[11] = new int[] { singles, 1 };
-
-        footknightWaves[12] = new int[] { singles, 9};
-        horseknightWaves[12] = new int[] { singles, 2 };
-        trollWaves[12] = new int[] { allAtOnce, 0 };
-
-        footknightWaves[13] = new int[] { allAtOnce, 3};
-        horseknightWaves[13] = new int[] { singles, 3 };
-        trollWaves[13] = new int[] { singles, 1 };
-
-        footknightWaves[14] = new int[] { waves, 5};
-        horseknightWaves[14] = new int[] { singles, 3 };
-        trollWaves[14] = new int[] { singles, 2 };
-
-        footknightWaves[15] = new int[] { staggered, 5};
-        horseknightWaves[15] = new int[] { singles, 2 };
-        trollWaves[15] = new int[] { singles, 1 };
-
-        footknightWaves[16] = new int[] { waves, 4};
-        horseknightWaves[16] = new int[] { allAtOnce, 1 };
-        trollWaves[16] = new int[] { singles, 2 };
-
-        footknightWaves[17] = new int[] { staggered, 10};
-        horseknightWaves[17] = new int[] { allAtOnce, 0 };
-        trollWaves[17] = new int[] { allAtOnce, 0 };
-
-        footknightWaves[18] = new int[] { staggered, 4};
-        horseknightWaves[18] = new int[] { singles, 3 };
-        trollWaves[18] = new int[] { singles, 1 };
-
-        footknightWaves[19] = new int[] { singles, 25};
-        horseknightWaves[19] = new int[] { waves, 2};
-        trollWaves[19] = new int[] { singles, 4 };
+        footknightWaves[9] = new int[] { singles, 6};
+        horseknightWaves[9] = new int[] { waves, 5};
+        trollWaves[9] = new int[] { singles, 4 };
     }
 
     public void NextWave()
@@ -219,8 +179,8 @@ public class WaveManager : MonoBehaviour {
 	}
 
 	void setWaveText(){
-		WaveTitle.text = "Wave " + (currentWave + 1).ToString () + "/20";
-		mathWaveTitle.text = "Wave: " + (currentWave + 1).ToString () + "/20";
+		WaveTitle.text = "Wave " + (currentWave + 1).ToString () + "/" + finalWave;
+		mathWaveTitle.text = "Wave: " + (currentWave + 1).ToString () + "/" + finalWave;
 		StartCoroutine(FadeOut(waveEffect));
 	}
 	
@@ -255,9 +215,9 @@ public class WaveManager : MonoBehaviour {
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
 				SpawnEnemy(enemyPrefab, spawnSound,0);
-				yield return new WaitForSeconds (Random.Range (1f, 2f));
+				yield return new WaitForSeconds (Random.Range (1f, 1.6f));
 				SpawnEnemy(enemyPrefab, spawnSound,1);
-				yield return new WaitForSeconds (Random.Range (1f, 2f));
+				yield return new WaitForSeconds (Random.Range (1f, 1.6f));
 				SpawnEnemy(enemyPrefab, spawnSound,2);
 				yield return new WaitForSeconds (.2f);
 			}
@@ -268,11 +228,11 @@ public class WaveManager : MonoBehaviour {
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
 				SpawnEnemy(enemyPrefab, spawnSound,0);
-				yield return new WaitForSeconds (Random.Range (1.5f, 2.5f));
+				yield return new WaitForSeconds (Random.Range (1.0f, 1.5f));
 				SpawnEnemy(enemyPrefab, spawnSound,1);
-				yield return new WaitForSeconds (Random.Range (1.5f, 2.5f));
+				yield return new WaitForSeconds (Random.Range (1.3f, 1.8f));
 				SpawnEnemy(enemyPrefab, spawnSound,2);
-				yield return new WaitForSeconds (3.5f);
+				yield return new WaitForSeconds (2.5f);
 			}
 		}
 
@@ -282,7 +242,7 @@ public class WaveManager : MonoBehaviour {
             for (int i = 0; i < waveType[currentWave][1]; i++)
             {
                 SpawnEnemy(enemyPrefab, spawnSound, Random.Range(0,3));
-                yield return new WaitForSeconds(Random.Range(2f, 3.5f));
+                yield return new WaitForSeconds(Random.Range(1.6f, 3.0f));
             }
         }
         /*
@@ -374,16 +334,16 @@ public class WaveManager : MonoBehaviour {
                     GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
                     Mathm.ActivateInterMath();
                 }
-                else if (((currentWave + 2) % 5 == 0) && currentWave != 19)
+                else// if (((currentWave + 2) % 5 == 0) && currentWave != 19)
                 {
                     GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
                     GameStateManager.instance.ActivatePotionShop();
                     //NextWave();
                 }
-                else
+               /* else
                 {
                     NextWave();
-                }
+                }*/
 
 			A_Source.clip = WaveCleared;
 			A_Source.Play ();

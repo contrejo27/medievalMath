@@ -201,7 +201,7 @@ public class PotionShop : MonoBehaviour {
 
     public void UpdateTotalMoney()
     {
-        totalMoney.text = totalMoneyString + GameStateManager.instance.levelManager.GetTotalMoney().ToString("0.##");
+        //totalMoney.text = totalMoneyString + GameStateManager.instance.levelManager.GetTotalMoney().ToString("0.##");
     }
 
     public void UpdateTotalPrice()

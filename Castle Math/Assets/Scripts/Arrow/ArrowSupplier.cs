@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArrowSupplier : MonoBehaviour {
 
 	public int defaultNumberToSpawn;
+	public int initialArrowSpawnNum;
 
 	public AudioClip spawnSound;
 
@@ -21,9 +22,15 @@ public class ArrowSupplier : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		Arrows = new GameObject[0];
-		CreateArrow ();
+		initialArrowSpawn ();
     }
 
+	public void initialArrowSpawn()
+	{
+		uiSound.clip = spawnSound;
+		uiSound.Play ();
+		StartCoroutine (DelaySpawn (0, initialArrowSpawnNum));
+	}
 
     public void CreateArrow()
 	{

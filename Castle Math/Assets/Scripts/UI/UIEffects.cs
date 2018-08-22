@@ -24,8 +24,7 @@ public class UIEffects : MonoBehaviour {
 	//	transform.localScale = new Vector3(0f,0f,0f);
 	}
 	
-	public void fadeIn(float speed)
-	{
+	public void fadeIn(float speed){
         if (disabling) return;
         //	transform.localScale = new Vector3(1f,1f,1f);
         if(coroutine != null) StopCoroutine(coroutine);
@@ -34,25 +33,15 @@ public class UIEffects : MonoBehaviour {
         StartCoroutine(coroutine);
 	}
 	 
-	private IEnumerator FadeInPanelCoroutine(float speed)    {
-		
-		while(GetComponent<CanvasGroup>().alpha < 1){
+	private IEnumerator FadeInPanelCoroutine(float speed){
+			while(GetComponent<CanvasGroup>().alpha < 1){
 			GetComponent<CanvasGroup>().alpha += Time.deltaTime * speed;
 			yield return null;
 		}
 	}
-	void OnDisable()
-    {
+
+	void OnDisable(){
         coroutine = null;
         disabling = true;
     }
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

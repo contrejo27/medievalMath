@@ -88,12 +88,13 @@ public class Potion : BaseInteractableObject {
 
     bool CheckPurchaseViability()
     {
+        return true;/*
         return cost + GameStateManager.instance.potionShop.GetSelectedCost()
                     <= GameStateManager.instance.levelManager.GetTotalMoney()
                     && GameStateManager.instance.inventory.numPotions
                     + GameStateManager.instance.potionShop.selectedPotions.Count
                     < GameStateManager.instance.inventory.inventorySize;
-    }
+    */}
 
     public override void OnInteract()
     {
@@ -101,12 +102,12 @@ public class Potion : BaseInteractableObject {
         {
             if (currentState == PotionState.shop && UIEnabled)
             {
-                if ( CheckPurchaseViability() )
+                if (CheckPurchaseViability())
                 {
-                    Debug.Log("Purchase Ceck passed");
+                    Debug.Log("Purchase Check passed");
                     currentState = PotionState.selected;
                     GameStateManager.instance.potionShop.AddSelectedPotion(this);
-                    
+
                 }
                 else
                 {
@@ -114,12 +115,12 @@ public class Potion : BaseInteractableObject {
                 }
 
             }
-            else if(currentState == PotionState.selected)
+            else if (currentState == PotionState.selected)
             {
                 currentState = PotionState.shop;
                 GameStateManager.instance.potionShop.RemoveSelectedPotion(this);
                 //purchaseConfirmationMenu.SetActive(false);
-                
+
             }
             else if (currentState == PotionState.inventory)
             {
@@ -132,14 +133,15 @@ public class Potion : BaseInteractableObject {
                     GameStateManager.instance.inventory.DisablePotionUI(this);
                 }
             }
-            base.OnInteract();
+            Purchase();
+            //base.OnInteract();
         }
     }
 
     public void Purchase()
     {
-        if (currentState == PotionState.checkout)
-        {
+      //  if (currentState == PotionState.checkout)
+       // {
 
             currentState = PotionState.inventory;
 
@@ -154,7 +156,7 @@ public class Potion : BaseInteractableObject {
             //purchaseConfirmationMenu.SetActive(false);
             OnEndPassOver();
             
-        }
+      //  }
         
     }
 
@@ -259,6 +261,7 @@ public class Potion : BaseInteractableObject {
         }
         Debug.Log("Should start coroutine from function");
         coroutine = RaisePotion();
+        //potionMesh.localScale = new Vector3(2.5f, 2.5f, 2.5f);
         StartCoroutine(coroutine);
     }
 
@@ -269,6 +272,7 @@ public class Potion : BaseInteractableObject {
         {
             StopCoroutine(coroutine);
         }
+        //potionMesh.localScale = new Vector3(1.8f, 1.8f, 1.8f);
 
         coroutine = LowerPotion();
         StartCoroutine(coroutine);
@@ -276,7 +280,7 @@ public class Potion : BaseInteractableObject {
 
     IEnumerator RaisePotion()
     {
-        Debug.Log("INSIDE the coroutine");
+       // Debug.Log("INSIDE the coroutine");
         float timer = 0;
         float initHeight = potionMesh.localPosition.y;
         while (timer < .2f)
