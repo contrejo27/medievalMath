@@ -66,11 +66,12 @@ public class MenuManager : MonoBehaviour
 		GameObject newCanvas = null;
 
 		// TODO check if sub is not active also (if logged in)
-		if ((LocalUserData.IsLoggedIn () == false || LocalUserData.IsSubActive() == false ) && !Application.isEditor && !Debug.isDebugBuild) {
+        //temp took this out so people with login can log in
+		/*if ((LocalUserData.IsLoggedIn () == false || LocalUserData.IsSubActive() == false ) && !Application.isEditor && !Debug.isDebugBuild) {
 			if (freeOrSubMenu)
 				newCanvas = Instantiate (freeOrSubMenu) as GameObject;
 		} 
-		else 
+		else */
 			mController.StartGame ();
 	}
     private void OpenLoginPopup()

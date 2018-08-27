@@ -334,16 +334,16 @@ public class WaveManager : MonoBehaviour {
                     GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
                     Mathm.ActivateInterMath();
                 }
-                else// if (((currentWave + 2) % 5 == 0) && currentWave != 19)
+                else if (((currentWave + 2) % 5 == 0) && currentWave != 19)
                 {
                     GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
                     GameStateManager.instance.ActivatePotionShop();
                     //NextWave();
                 }
-               /* else
+                else
                 {
                     NextWave();
-                }*/
+                }
 
 			A_Source.clip = WaveCleared;
 			A_Source.Play ();
