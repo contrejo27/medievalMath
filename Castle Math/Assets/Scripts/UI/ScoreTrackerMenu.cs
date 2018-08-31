@@ -17,7 +17,7 @@ public class ScoreTrackerMenu : MonoBehaviour {
 
     float lastMouseYPosition;
     float mouseYDelta;
-
+    
 	// Use this for initialization
 	void Start () {
 
