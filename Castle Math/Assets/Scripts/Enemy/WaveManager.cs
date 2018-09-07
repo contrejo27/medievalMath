@@ -146,6 +146,7 @@ public class WaveManager : MonoBehaviour {
             mStats.showWinUI();
             A_Source.clip = winSound;
             A_Source.Play();
+            GameStateManager.instance.UnlockNextLevel();
         }
         else{
             ActivateWave(currentWave);
@@ -154,11 +155,6 @@ public class WaveManager : MonoBehaviour {
 		
 	}
     
-    IEnumerator loadNextLevel(){
-        yield return new WaitForSeconds(8f);
-        //gManager.loadNextLevel();
-    }
-        
     IEnumerator FadingText(Text currentText)
     {
         yield return new WaitForSeconds(1.5f);

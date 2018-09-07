@@ -16,8 +16,6 @@ public class GameStateManager : MonoBehaviour {
     
     // Game statistics
     public QuestionTracker tracker = new QuestionTracker();
-
-	//audio
 	public PlayerMathStats playerMathStats;
 	
 	//Environment
@@ -25,6 +23,8 @@ public class GameStateManager : MonoBehaviour {
 	public LaunchProjectile player;
 	private bool loseState = false;
     public int currentSkillLevel;
+    [HideInInspector]
+    public int levelsUnlocked = 1;
 
     //References
     [HideInInspector]
@@ -120,21 +120,22 @@ public class GameStateManager : MonoBehaviour {
         StartCoroutine(ChangeTimeScale(newTimeScale, duration));
     }
 
-    public bool IsLost()
-    {
+    public bool IsLost(){
         return loseState;
     }
 
-    public void StartGame(){
-		
-
-	}
+    public void UnlockNextLevel(){
+        levelsUnlocked++;
+    }
 
 	public void LoseState(){
                 
 		if(!loseState){
 			loseState = true;
-		}/*
+		}
+        
+        
+        /*
 		SaveGame();
 
         int currentLevel = 1;// EnumManager.sceneNameToLevelNumber[SceneManager.GetActiveScene().name];
@@ -172,6 +173,10 @@ public class GameStateManager : MonoBehaviour {
 		
 	}
 
+    public void LoadScene(int sceneNum)
+    {
+        SceneManager.LoadScene(sceneNum);
+    } 
 	public void Retry()
 	{
 		loseState = false;

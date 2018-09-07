@@ -1690,6 +1690,7 @@ MonoBehaviour:
   playerMathStats: {fileID: 1869398080}
   player: {fileID: 0}
   currentSkillLevel: 0
+  levelsUnlocked: 1
   playerController: {fileID: 0}
   potionShop: {fileID: 0}
   inventory: {fileID: 0}
@@ -6398,6 +6399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6288700aecdc14d8c8ec8d580cda64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelButtons: []
 --- !u!1001 &610394046
 Prefab:
   m_ObjectHideFlags: 0
@@ -10498,7 +10500,7 @@ MonoBehaviour:
   horseRiderPrefab: {fileID: 1372078820083414, guid: 0f5a5b7deccc20241a03bdea3a668b45,
     type: 2}
   currentWave: 0
-  finalWave: 10
+  finalWave: 2
   storyText: {fileID: 585508146}
   billboardCanvas: {fileID: 505358069}
   billboardTutorialImage: {fileID: 206640371}
@@ -19985,13 +19987,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 657052360}
-        m_MethodName: loadUI
-        m_Mode: 5
+      - m_Target: {fileID: 185475385}
+        m_MethodName: LoadScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: levelSelect
           m_BoolArgument: 0
