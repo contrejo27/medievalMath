@@ -134,11 +134,11 @@ public class GameStateManager : MonoBehaviour {
                 
 		if(!loseState){
 			loseState = true;
-		}
+		}/*
 		SaveGame();
 
-        int currentLevel = EnumManager.sceneNameToLevelNumber[SceneManager.GetActiveScene().name];
-
+        int currentLevel = 1;// EnumManager.sceneNameToLevelNumber[SceneManager.GetActiveScene().name];
+        
         if (waveManager.currentWave < 9)
         {
 
@@ -166,7 +166,7 @@ public class GameStateManager : MonoBehaviour {
             }
 
         }
-
+        */
 		player.isAlive = false;
         levelManager.DoLoseGameEffects();
 		
