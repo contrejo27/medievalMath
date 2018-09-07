@@ -85,7 +85,7 @@ public class WaveManager : MonoBehaviour {
         horseknightWaves[2] = new int[] { singles, 2 };
         trollWaves[2] = new int[] { allAtOnce, 0 };
 
-        footknightWaves[3] = new int[] { waves, 3 };
+        footknightWaves[3] = new int[] { waves, 2 };
         horseknightWaves[3] = new int[] { singles, 1 };
         trollWaves[3] = new int[] { allAtOnce, 0 };
 
@@ -101,16 +101,16 @@ public class WaveManager : MonoBehaviour {
         horseknightWaves[6] = new int[] { singles, 5 };
 		trollWaves[6] = new int[] { singles, 1 };
 
-        footknightWaves[7] = new int[] { waves, 5};
+        footknightWaves[7] = new int[] { waves, 2};
         horseknightWaves[7] = new int[] { singles, 6 };
         trollWaves[7] = new int[] { singles, 2 };
 
         footknightWaves[8] = new int[] { waves, 3};
-        horseknightWaves[8] = new int[] { allAtOnce, 3 };
+        horseknightWaves[8] = new int[] { allAtOnce, 2 };
         trollWaves[8] = new int[] { singles, 2 };
 
         footknightWaves[9] = new int[] { singles, 6};
-        horseknightWaves[9] = new int[] { waves, 5};
+        horseknightWaves[9] = new int[] { waves, 2};
         trollWaves[9] = new int[] { singles, 4 };
     }
 

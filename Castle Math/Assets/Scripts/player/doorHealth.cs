@@ -81,7 +81,7 @@ public class DoorHealth : MonoBehaviour {
 				fourthFence = false;
 				//gameObject.GetComponent<Renderer> ().enabled = false;
 				if(!gameLost) {
-					GameManager.LoseState ();
+                    GameManager.LoseState ();
 					gameLost = true;
 				}
 			}
