@@ -75,6 +75,7 @@ public class WaveManager : MonoBehaviour {
 
         footknightWaves[0] = new int[] { allAtOnce, 1 };
         horseknightWaves[0] = new int[] { allAtOnce, 0 };
+		//trollWaves[0] = new int[] { allAtOnce, 1 }; trolls on level 1 for test
         trollWaves[0] = new int[] { allAtOnce, 0 };
 
         footknightWaves[1] = new int[] { waves, 3 };
