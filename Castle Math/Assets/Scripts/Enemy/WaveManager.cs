@@ -73,13 +73,13 @@ public class WaveManager : MonoBehaviour {
         int waves = 2;
         int singles = 3;
 
-        footknightWaves[0] = new int[] { allAtOnce, 1 };
+        footknightWaves[0] = new int[] { waves, 2 };
         horseknightWaves[0] = new int[] { allAtOnce, 0 };
 		//trollWaves[0] = new int[] { allAtOnce, 1 }; trolls on level 1 for test
         trollWaves[0] = new int[] { allAtOnce, 0 };
 
-        footknightWaves[1] = new int[] { waves, 3 };
-        horseknightWaves[1] = new int[] { allAtOnce, 0 };
+        footknightWaves[1] = new int[] { waves, 2 };
+        horseknightWaves[1] = new int[] { singles, 3 };
         trollWaves[1] = new int[] { allAtOnce, 0 };
 
 		footknightWaves[2] = new int[] { allAtOnce, 3 };
@@ -87,24 +87,24 @@ public class WaveManager : MonoBehaviour {
         trollWaves[2] = new int[] { allAtOnce, 0 };
 
         footknightWaves[3] = new int[] { waves, 2 };
-        horseknightWaves[3] = new int[] { singles, 1 };
+        horseknightWaves[3] = new int[] { singles, 2 };
         trollWaves[3] = new int[] { allAtOnce, 0 };
 
         footknightWaves[4] = new int[] { waves, 3};
-        horseknightWaves[4] = new int[] { staggered, 2 };
-		trollWaves[4] = new int[] { singles, 1 };
+        horseknightWaves[4] = new int[] { staggered, 3 };
+		trollWaves[4] = new int[] { singles, 0 };
 
         footknightWaves[5] = new int[] { waves, 2};
-        horseknightWaves[5] = new int[] { singles, 3 };
-        trollWaves[5] = new int[] { allAtOnce, 0 };
+		horseknightWaves[5] = new int[] { singles, 7 };
+        trollWaves[5] = new int[] { singles, 1 };
 
         footknightWaves[6] = new int[] { singles, 6};
         horseknightWaves[6] = new int[] { singles, 5 };
-		trollWaves[6] = new int[] { singles, 1 };
+		trollWaves[6] = new int[] { singles, 0 };
 
         footknightWaves[7] = new int[] { waves, 2};
         horseknightWaves[7] = new int[] { singles, 6 };
-        trollWaves[7] = new int[] { singles, 2 };
+        trollWaves[7] = new int[] { singles, 1 };
 
         footknightWaves[8] = new int[] { waves, 3};
         horseknightWaves[8] = new int[] { allAtOnce, 2 };
@@ -112,7 +112,7 @@ public class WaveManager : MonoBehaviour {
 
         footknightWaves[9] = new int[] { singles, 6};
         horseknightWaves[9] = new int[] { waves, 2};
-        trollWaves[9] = new int[] { singles, 4 };
+        trollWaves[9] = new int[] { singles, 3 };
     }
 
     public void NextWave()
