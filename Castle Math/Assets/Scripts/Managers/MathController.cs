@@ -19,6 +19,9 @@ public class MathController : MonoBehaviour {
 
     Color textColor;
 
+	//Dylan's Code for Level Completion/Saving
+	public List<bool> unlocked;
+
     MathController instance;
     // Use this for initialization
     void Awake()
@@ -105,6 +108,11 @@ public class MathController : MonoBehaviour {
         mathInstructions.color = textColor;
 
     }
+
+	public void Unlock(int level)
+	{
+		unlocked[level] = true;
+	}
 
     public void UpdateSelection()
     {
