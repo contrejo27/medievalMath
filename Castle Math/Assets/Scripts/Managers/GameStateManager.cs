@@ -234,9 +234,12 @@ public class GameStateManager : MonoBehaviour {
 		SceneManager.LoadScene (0);
 	}
 
+	/*
     public void LoadNextLevel(){
         SceneManager.LoadScene("BossLevel", LoadSceneMode.Single);
     }
+    */
+
     //goes through different scripts and saves info
     public void SaveGame(){
 		playerMathStats.SaveState();

@@ -19,8 +19,15 @@ public class MathController : MonoBehaviour {
 
     Color textColor;
 
-	//Dylan's Code for Level Completion/Saving
-	public List<bool> unlocked;
+	//temp bools just to see if level is completed
+	public bool level1_Completed;
+	public bool level2_Completed;
+	public bool level3_Completed;
+	public bool level4_Completed;
+
+	private WaveManager wman;
+
+	//Gets Current Scene and assigns a string to it
 
     MathController instance;
     // Use this for initialization
@@ -39,6 +46,11 @@ public class MathController : MonoBehaviour {
 
     void Start () {
         DontDestroyOnLoad(this.gameObject);
+
+		level1_Completed = false;
+		level2_Completed = false;
+		level3_Completed = false;
+		level4_Completed = false;
 
         if (Debug.isDebugBuild || Application.isEditor)
         {
@@ -109,13 +121,33 @@ public class MathController : MonoBehaviour {
 
     }
 
-	public void Unlock(int level)
-	{
-		unlocked[level] = true;
+	public void Update() {
+		if (SceneManager.GetActiveScene().name == "MathTest") {
+			Debug.Log ("hello!");
+			if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+				level1_Completed = true;
+			}
+		}
+		if (SceneManager.GetActiveScene().name == "frostLevel") {
+			if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+				level2_Completed = true;
+			}
+		}
+		if (SceneManager.GetActiveScene().name == "desertLevel") {
+			if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+				level3_Completed = true;
+			}
+		}
+		if (SceneManager.GetActiveScene().name == "bossLevel") {
+			if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+				level4_Completed = true;
+			}
+		}
 	}
 
     public void UpdateSelection()
     {
+
         add_sub = GameObject.Find("add/sub").GetComponent<Toggle>().isOn;
         print("addsub " + add_sub);
         mult_divide = GameObject.Find("mult/divide").GetComponent<Toggle>().isOn;
