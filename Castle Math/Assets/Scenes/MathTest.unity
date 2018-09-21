@@ -1404,6 +1404,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7e1ce91263e9f4c8215c2a7875c905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 100
+  currentHealth: 0
+  maxHealth: 0
+  fence1: {fileID: 0}
+  fence2: {fileID: 0}
+  fence3: {fileID: 0}
+  fence4: {fileID: 0}
+  post1: {fileID: 0}
+  post2: {fileID: 0}
 --- !u!1001 &154472471
 Prefab:
   m_ObjectHideFlags: 0
@@ -2785,8 +2794,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.006, y: 0.372}
-  m_SizeDelta: {x: 508.7, y: 258}
+  m_AnchoredPosition: {x: 0.006, y: 0.305}
+  m_SizeDelta: {x: 751.4, y: 258}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &308950879
 MonoBehaviour:
@@ -2809,7 +2818,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1bed5258bfb87cd4597b8ca5b84438ca, type: 3}
-    m_FontSize: 55
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -7999,6 +8008,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7e1ce91263e9f4c8215c2a7875c905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 100
+  currentHealth: 0
+  maxHealth: 0
+  fence1: {fileID: 0}
+  fence2: {fileID: 0}
+  fence3: {fileID: 0}
+  fence4: {fileID: 0}
+  post1: {fileID: 0}
+  post2: {fileID: 0}
 --- !u!1001 &713059138
 Prefab:
   m_ObjectHideFlags: 0
@@ -10511,6 +10529,7 @@ MonoBehaviour:
   powerup: {fileID: 1923714032}
   spawnAdjustmentMin: -15
   spawnAdjustmentMax: 10
+  levelComplete: 0
   WaveTitle: {fileID: 1753009933}
   mathWaveTitle: {fileID: 901128302}
   waveEffect: {fileID: 1184378510}
@@ -14721,6 +14740,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7e1ce91263e9f4c8215c2a7875c905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 100
+  currentHealth: 0
+  maxHealth: 0
+  fence1: {fileID: 0}
+  fence2: {fileID: 0}
+  fence3: {fileID: 0}
+  fence4: {fileID: 0}
+  post1: {fileID: 0}
+  post2: {fileID: 0}
 --- !u!1 &1307804667
 GameObject:
   m_ObjectHideFlags: 0
@@ -22610,7 +22638,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4965664818949694, guid: 1c84ebe1cb95a9d45971a8d67dc66c06, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.35
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4965664818949694, guid: 1c84ebe1cb95a9d45971a8d67dc66c06, type: 2}
       propertyPath: m_LocalPosition.z
@@ -22641,6 +22669,10 @@ Prefab:
       propertyPath: nlq
       value: 
       objectReference: {fileID: 1869398089}
+    - target: {fileID: 1511928144463462, guid: 1c84ebe1cb95a9d45971a8d67dc66c06, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c84ebe1cb95a9d45971a8d67dc66c06, type: 2}
   m_IsPrefabParent: 0

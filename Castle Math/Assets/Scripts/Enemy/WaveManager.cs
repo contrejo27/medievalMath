@@ -44,6 +44,7 @@ public class WaveManager : MonoBehaviour {
     public float spawnAdjustmentMin = -15;
     public float spawnAdjustmentMax = 10;
 
+	public bool levelComplete;
 
     //UI
     public Text WaveTitle;
@@ -60,6 +61,7 @@ public class WaveManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		levelComplete = false;
 
         if (!Application.isEditor)
             currentWave = 0;
@@ -148,6 +150,7 @@ public class WaveManager : MonoBehaviour {
             A_Source.clip = winSound;
             A_Source.Play();
             GameStateManager.instance.UnlockNextLevel();
+			levelComplete = true;
         }
         else{
             ActivateWave(currentWave);

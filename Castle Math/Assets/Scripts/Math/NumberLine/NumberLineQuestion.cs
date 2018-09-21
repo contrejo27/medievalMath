@@ -57,7 +57,7 @@ public class NumberLineQuestion : MonoBehaviour, Question {
         }
 
 
-        QuestionText.text = "Move the slider to " + intAnswer + " by shooting targets to add the value!";
+        QuestionText.text = "Move the slider to " +  intAnswer + " by shooting targets to add the value!";
 
         nlm.gameObject.SetActive(true);
         nlm.SpawnTargets(lowerBound, initPos - lowerBound);
