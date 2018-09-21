@@ -39,8 +39,12 @@ public class UIEffects : MonoBehaviour {
 			yield return null;
 		}
 	}
-
-	void OnDisable(){
+    void OnEnable()
+    {
+        coroutine = FadeInPanelCoroutine(.5f);
+        disabling = false;
+    }
+    void OnDisable(){
         coroutine = null;
         disabling = true;
     }

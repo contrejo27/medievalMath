@@ -22,11 +22,11 @@ public class TigerBehavior : EnemyBehavior{
 
     protected override void OnReceiveDamage()
     {
-        base.OnReceiveDamage();
+        base.OnReceiveDamage();/*
         if (!pausedForHit)
         {
             StartCoroutine(PauseMovement());
-        }
+        }*/
     }
 
     IEnumerator PauseMovement()

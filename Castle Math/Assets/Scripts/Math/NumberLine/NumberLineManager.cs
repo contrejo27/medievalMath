@@ -126,14 +126,14 @@ public class NumberLineManager : MonoBehaviour {
         while(timer < speed)
         {
             timer += Time.deltaTime;
-            slider.anchoredPosition3D = new Vector3(Mathf.SmoothStep(initPos, sliderTicks[slideToPos].anchoredPosition3D.x, timer/speed),slider.anchoredPosition3D.y,slider.anchoredPosition3D.z);
+            slider.anchoredPosition3D = new Vector3(Mathf.SmoothStep(initPos, sliderTicks[slideToPos].anchoredPosition3D.x + 0.45f, timer/speed),slider.anchoredPosition3D.y,slider.anchoredPosition3D.z);
 
             yield return null;
         }
         if (currentValue == targetValue)
         {
             nlq.CheckAnswer(currentValue, false);
-        }else if (currentAttempts == maxAttempts)
+        }else if (currentAttempts == maxAttempts+10)
         {
             nlq.CheckAnswer(currentValue, true);
         }
