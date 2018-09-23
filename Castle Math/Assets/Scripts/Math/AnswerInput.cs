@@ -160,6 +160,8 @@ public class AnswerInput : MonoBehaviour {
     {
         if (M_Manager.interwaveMath)
         {
+            GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
+            GameStateManager.instance.ActivatePotionShop();
             interWaveCorrectFeedack();
             interwaveQuestions++;
         }

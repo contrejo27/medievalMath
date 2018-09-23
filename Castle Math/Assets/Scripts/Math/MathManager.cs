@@ -180,7 +180,6 @@ public class MathManager : MonoBehaviour {
 
         GenerateProblem (QuestionTypes);
 		DeactivateBillboard();
-		W_man.NextWave();
 	}
 
 	public void ActivateBillboard(){

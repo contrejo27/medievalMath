@@ -329,23 +329,20 @@ public class WaveManager : MonoBehaviour {
             else if (currentWave == 9) AwardGems(3, EnumManager.GemType.Quarter);
             else if (currentWave == 14) AwardGems(2, EnumManager.GemType.Dollar);
 
+
+
+            
                 if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
                 {
                     GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
                     Mathm.ActivateInterMath();
-                }
-                else if (((currentWave + 2) % 5 == 0) && currentWave != 19)
-                {
-                    GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
-                    GameStateManager.instance.ActivatePotionShop();
-                    //NextWave();
                 }
                 else
                 {
                     NextWave();
                 }
 
-			A_Source.clip = WaveCleared;
+            A_Source.clip = WaveCleared;
 			A_Source.Play ();
 		}
 	}

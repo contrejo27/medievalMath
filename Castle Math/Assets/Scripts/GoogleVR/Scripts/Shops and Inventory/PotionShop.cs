@@ -61,8 +61,8 @@ public class PotionShop : MonoBehaviour {
         if (isAwakeCounter > 0)
         {
             canvasFade.fadeOut(1);
-            UpdateTotalMoney();
-            UpdateTotalPrice();
+            //UpdateTotalMoney();
+            //UpdateTotalPrice();
         }
         isAwakeCounter++;
     }
@@ -146,10 +146,12 @@ public class PotionShop : MonoBehaviour {
         }
     }
 
-    public void DeactivateShop()
+    IEnumerator DeactivateShop()
     {
         if (!GameStateManager.instance.levelManager.isGamePaused)
         {
+            yield return new WaitForSeconds(1f);
+
             GameStateManager.instance.waveManager.NextWave();
             GameStateManager.instance.player.SetLookingAtInterface(false);
             gameObject.SetActive(false);
@@ -160,14 +162,15 @@ public class PotionShop : MonoBehaviour {
     {
         selectedPotions.Add(p);
         numSelectedPotions++;
-        UpdateTotalPrice();
+        StartCoroutine(DeactivateShop());
+        //UpdateTotalPrice();
     }
 
     public void RemoveSelectedPotion(Potion p)
     {
         selectedPotions.Remove(p);
         numSelectedPotions--;
-        UpdateTotalPrice();
+        //UpdateTotalPrice();
     }
 
     public void SendToShopMenu()
