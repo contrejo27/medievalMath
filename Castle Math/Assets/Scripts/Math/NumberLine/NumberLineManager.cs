@@ -94,7 +94,7 @@ public class NumberLineManager : MonoBehaviour {
         Debug.Log("Sliding: " + amountToSlide);
         currentAttempts++;
         Debug.Log("Attempt #" + currentAttempts + ", Max attempts: " + maxAttempts);
-        if (currentSliderPos + amountToSlide > 0 && currentSliderPos + amountToSlide < 21)
+        if (currentSliderPos + amountToSlide >= 0 && currentSliderPos + amountToSlide <= 21)
         {
             currentValue += amountToSlide;
             currentSliderPos += amountToSlide;
@@ -106,6 +106,7 @@ public class NumberLineManager : MonoBehaviour {
            
         } else
         {
+			Debug.Log ("Invalid!");
             // some kind of feedback that shows this is invalid
         }
         

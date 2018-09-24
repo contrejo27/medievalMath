@@ -54,13 +54,115 @@ public class WaveManager : MonoBehaviour {
 	public int CurrentEnemies;
     public PlayerMathStats mStats;
 
+	//2D integer Array to determine parameters of waves for the 3 enemy types
 	int[][] footknightWaves = new int[20][];
 	int[][] horseknightWaves = new int[20][];
 	int[][] trollWaves = new int[20][];
+	//floating text
     public Text floatingText;
+
 
     // Use this for initialization
     void Start () {
+
+		//Does a check to see what level/scene it is and what wave data to fetch from csv
+		//checks if current scene is MathTest (Kells)
+		if (SceneManager.GetActiveScene().name == "MathTest") {
+			//get Wave csv for kells
+			//TextAsset waveDat = Resources.Load<TextAsset>("waves/kells_Wave.csv");
+
+			//Finds text file of the following name in waves folder for the use of the function
+			TextAsset waveDat = Resources.Load("waves/kells_Wave", typeof(TextAsset)) as TextAsset;
+
+			//each row is split with a '\n' a.k.a an enter to a new row
+			string[] data = waveDat.text.Split (new char[] { '\n' });
+
+
+			//declares wave integer as zero for the foreach loop
+			//the foreach loop proceeds to move through the text file found earlier
+			int wave = 0;
+			foreach (string a in data) {
+				//splits invidiual data based on the presence of a comma
+				string[] waveInfo = a.Split(',');
+				/*
+				print("LINE NUMBER: " + wave);
+				print (waveInfo [2]);
+				print (int.Parse(waveInfo[2]));
+				print (waveInfo [1]);
+				print (int.Parse(waveInfo[1]));
+*/
+				//for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
+				footknightWaves [wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
+				horseknightWaves [wave] = new int[] { int.Parse (waveInfo [4]), int.Parse (waveInfo [3]) };
+				trollWaves [wave] = new int[] { int.Parse (waveInfo [6]), int.Parse (waveInfo [5]) };
+				//increments wave, moving to the next row of the grid
+				wave++;
+			}
+		}
+		//checks if current scene is frost
+		if (SceneManager.GetActiveScene().name == "frostLevel") {
+			//get Wave csv for frost
+			//Finds text file of the following name in waves folder for the use of the function
+			TextAsset waveDat = Resources.Load("waves/frost_Wave", typeof(TextAsset)) as TextAsset;
+			//each row is split with a '\n' a.k.a an enter to a new row
+			string[] data = waveDat.text.Split (new char[] { '\n' });
+			//declares wave integer as zero for the foreach loop
+			//the foreach loop proceeds to move through the text file found earlier
+			int wave = 0;
+			foreach (string a in data) {
+				//splits invidiual data based on the presence of a comma
+				string[] waveInfo = a.Split(',');
+				//for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
+				footknightWaves [wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
+				horseknightWaves [wave] = new int[] { int.Parse (waveInfo [4]), int.Parse (waveInfo [3]) };
+				trollWaves [wave] = new int[] { int.Parse (waveInfo [6]), int.Parse (waveInfo [5]) };
+				//increments wave, moving to the next row of the grid
+				wave++;
+			}
+		}
+		//checks if current scene is desert
+		if (SceneManager.GetActiveScene().name == "desertLevel") {
+			//get Wave csv for desert
+			//Finds text file of the following name in waves folder for the use of the function
+			TextAsset waveDat = Resources.Load("waves/desert_Wave", typeof(TextAsset)) as TextAsset;
+			//each row is split with a '\n' a.k.a an enter to a new row
+			string[] data = waveDat.text.Split (new char[] { '\n' });
+			//declares wave integer as zero for the foreach loop
+			//the foreach loop proceeds to move through the text file found earlier
+			int wave = 0;
+			foreach (string a in data) {
+				//splits invidiual data based on the presence of a comma
+				string[] waveInfo = a.Split(',');
+				//for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
+				footknightWaves [wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
+				horseknightWaves [wave] = new int[] { int.Parse (waveInfo [4]), int.Parse (waveInfo [3]) };
+				trollWaves [wave] = new int[] { int.Parse (waveInfo [6]), int.Parse (waveInfo [5]) };
+				//increments wave, moving to the next row of the grid
+				wave++;
+			}
+		}
+		//checks if current scene is boss level
+		if (SceneManager.GetActiveScene().name == "bossLevel") {
+			//get Wave csv for Boss Level
+			//Finds text file of the following name in waves folder for the use of the function
+			TextAsset waveDat = Resources.Load("waves/boss_Wave", typeof(TextAsset)) as TextAsset;
+			//each row is split with a '\n' a.k.a an enter to a new row
+			string[] data = waveDat.text.Split (new char[] { '\n' });
+			//declares wave integer as zero for the foreach loop
+			//the foreach loop proceeds to move through the text file found earlier
+			int wave = 0;
+			foreach (string a in data) {
+				//splits invidiual data based on the presence of a comma
+				string[] waveInfo = a.Split(',');
+				//for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
+				footknightWaves [wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
+				horseknightWaves [wave] = new int[] { int.Parse (waveInfo [4]), int.Parse (waveInfo [3]) };
+				trollWaves [wave] = new int[] { int.Parse (waveInfo [6]), int.Parse (waveInfo [5]) };
+				//increments wave, moving to the next row of the grid
+				wave++;
+			}
+		}
+
 		levelComplete = false;
 
         if (!Application.isEditor)
@@ -75,7 +177,8 @@ public class WaveManager : MonoBehaviour {
         int waves = 2;
         int singles = 3;
 
-        footknightWaves[0] = new int[] { waves, 1 };
+		/*
+		footknightWaves[0] = new int[] { waves, 1 };
         horseknightWaves[0] = new int[] { allAtOnce, 0 };
 		//trollWaves[0] = new int[] { allAtOnce, 1 }; trolls on level 1 for test
         trollWaves[0] = new int[] { allAtOnce, 0 };
@@ -115,6 +218,7 @@ public class WaveManager : MonoBehaviour {
         footknightWaves[9] = new int[] { waves, 3};
         horseknightWaves[9] = new int[] { waves, 2};
         trollWaves[9] = new int[] { singles, 2 };
+        */
     }
 
     public void NextWave()
@@ -196,6 +300,7 @@ public class WaveManager : MonoBehaviour {
 		yield return new WaitForSeconds (3f);
 
 		//if this wave is all at once
+		print(waveType);
 		if(waveType[currentWave][0] == 0)
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
