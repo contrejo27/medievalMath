@@ -65,6 +65,20 @@ public class WaveManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+		levelComplete = false;
+
+        if (!Application.isEditor)
+            currentWave = 0;
+        
+
+		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
+        GameStateManager.instance.waveManager = this;
+        //first integer in array is type of launch (0 all at once/1 staggered/2 waves/3 singles) second is number of enemies per lane
+        int allAtOnce = 0;
+        int staggered = 1;
+        int waves = 2;
+        int singles = 3;
+
 		//Does a check to see what level/scene it is and what wave data to fetch from csv
 		//checks if current scene is MathTest (Kells)
 		if (SceneManager.GetActiveScene().name == "MathTest") {
@@ -90,9 +104,9 @@ public class WaveManager : MonoBehaviour {
 				print (int.Parse(waveInfo[2]));
 				print (waveInfo [1]);
 				print (int.Parse(waveInfo[1]));
-*/
+				*/
 				//for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
-				footknightWaves [wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
+				footknightWaves [wave] = new int[] { int.Parse (waveInfo [2]), int.Parse (waveInfo [1]) };
 				horseknightWaves [wave] = new int[] { int.Parse (waveInfo [4]), int.Parse (waveInfo [3]) };
 				trollWaves [wave] = new int[] { int.Parse (waveInfo [6]), int.Parse (waveInfo [5]) };
 				//increments wave, moving to the next row of the grid
@@ -112,6 +126,13 @@ public class WaveManager : MonoBehaviour {
 			foreach (string a in data) {
 				//splits invidiual data based on the presence of a comma
 				string[] waveInfo = a.Split(',');
+
+				print("LINE NUMBER: " + wave);
+				print (waveInfo [2]);
+				print (int.Parse(waveInfo[2]));
+				print (waveInfo [1]);
+				print (int.Parse(waveInfo[1]));
+
 				//for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
 				footknightWaves [wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
 				horseknightWaves [wave] = new int[] { int.Parse (waveInfo [4]), int.Parse (waveInfo [3]) };
@@ -162,20 +183,6 @@ public class WaveManager : MonoBehaviour {
 				wave++;
 			}
 		}
-
-		levelComplete = false;
-
-        if (!Application.isEditor)
-            currentWave = 0;
-        
-
-		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
-        GameStateManager.instance.waveManager = this;
-        //first integer in array is type of launch (0 all at once/1 staggered/2 waves/3 singles) second is number of enemies per lane
-        int allAtOnce = 0;
-        int staggered = 1;
-        int waves = 2;
-        int singles = 3;
 
 		/*
 		footknightWaves[0] = new int[] { waves, 1 };
@@ -300,7 +307,7 @@ public class WaveManager : MonoBehaviour {
 		yield return new WaitForSeconds (3f);
 
 		//if this wave is all at once
-		print(waveType);
+		print(waveType[currentWave][0]);
 		if(waveType[currentWave][0] == 0)
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
