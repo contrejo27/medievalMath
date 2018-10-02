@@ -16,12 +16,14 @@ public class MenuManager : MonoBehaviour
 
     public AudioSource UIAudio;
     public AudioClip splashScreenSountrack;
+    public AudioClip btnClick;
 
-	public MathController mController;
+    public MathController mController;
 
 	public GameObject freeOrSubMenu;
+    public GameObject loadingSign;
 
-	[Header("Login References")]
+    [Header("Login References")]
 	public GameObject loginPopup;
     public Button loginButton;
 	public Button logOutButton;
@@ -65,15 +67,20 @@ public class MenuManager : MonoBehaviour
 	{
 		GameObject newCanvas = null;
 
-		// TODO check if sub is not active also (if logged in)
+        UIAudio.clip = btnClick;
+        UIAudio.loop = false;
+        UIAudio.Play();
+        loadingSign.SetActive(true);
+        mController.StartGame();
+        
+        // TODO check if sub is not active also (if logged in)
         //temp took this out so people with login can log in
-		/*if ((LocalUserData.IsLoggedIn () == false || LocalUserData.IsSubActive() == false ) && !Application.isEditor && !Debug.isDebugBuild) {
+        /*if ((LocalUserData.IsLoggedIn () == false || LocalUserData.IsSubActive() == false ) && !Application.isEditor && !Debug.isDebugBuild) {
 			if (freeOrSubMenu)
 				newCanvas = Instantiate (freeOrSubMenu) as GameObject;
 		} 
 		else */
-			mController.StartGame ();
-	}
+    }
     private void OpenLoginPopup()
     {
         if (loginPopup)
@@ -89,6 +96,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenMathMenu()
     {
+        UIAudio.Play();
         mathMenu.Play("slideIn");
     }
 
@@ -98,6 +106,7 @@ public class MenuManager : MonoBehaviour
     }
     public void OpenCredits()
     {
+        UIAudio.Play();
         creditsScreen.Play("slideIn");
     }
 

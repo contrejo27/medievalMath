@@ -31,6 +31,8 @@ public class WaveManager : MonoBehaviour {
     public AudioClip AnotherWave;
 	private AudioSource A_Source;
 	public AudioSource enemySounds;
+    private AudioSource music;
+
     public AudioClip trollsUnleashed;
     public AudioClip winSound;
     public AudioClip horseRiderSpawnSound;
@@ -69,9 +71,10 @@ public class WaveManager : MonoBehaviour {
 
         if (!Application.isEditor)
             currentWave = 0;
-        
 
-		A_Source = GameObject.Find ("CastleAudio").GetComponent<AudioSource> ();
+        A_Source = GameObject.Find("CastleAudio").GetComponent<AudioSource>();
+
+        music = GameObject.Find ("Music").GetComponent<AudioSource> ();
         GameStateManager.instance.waveManager = this;
         //first integer in array is type of launch (0 all at once/1 staggered/2 waves/3 singles) second is number of enemies per lane
         int allAtOnce = 0;
@@ -258,8 +261,9 @@ public class WaveManager : MonoBehaviour {
         currentWave += 1;
 		if(currentWave == finalWave){
             mStats.showWinUI();
-            A_Source.clip = winSound;
-            A_Source.Play();
+            music.clip = winSound;
+            music.loop = false;
+            music.Play();
             GameStateManager.instance.UnlockNextLevel();
 			levelComplete = true;
         }
@@ -444,18 +448,20 @@ public class WaveManager : MonoBehaviour {
 
 
             
-                if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
-                {
-                    GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
-                    Mathm.ActivateInterMath();
-                }
-                else
-                {
-                    NextWave();
-                }
-
-            A_Source.clip = WaveCleared;
-			A_Source.Play ();
+            if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
+            {
+                GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
+                Mathm.ActivateInterMath();
+            }
+            else
+            {
+                NextWave();
+            }
+            if (currentWave != finalWave)
+            {
+                A_Source.clip = WaveCleared;
+                A_Source.Play();
+            }
 		}
 	}
 
