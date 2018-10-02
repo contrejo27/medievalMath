@@ -337,7 +337,10 @@ public class EnemyBehavior : MonoBehaviour {
 		
         if(!hasBombDeath)
 		this.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;		
-		
+
+		//Resets enemy speed for death if speed is altered at all (to follow normal physics)
+		animator.speed = 1;
+
 		animator.SetBool ("isAttacking", false);
 		animator.SetBool ("isMoving", false);
 

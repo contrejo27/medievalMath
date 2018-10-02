@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 95561780966693768}
   - component: {fileID: 54456124723365928}
   - component: {fileID: 195269533507517866}
+  - component: {fileID: 23120414740385524}
   - component: {fileID: 114675614224482874}
   m_Layer: 0
   m_Name: YetiEnemy
@@ -2383,6 +2384,38 @@ Transform:
   m_Father: {fileID: 4501605951146218}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -2.9820198e-23, y: 0.0000002435004, z: -180}
+--- !u!23 &23120414740385524
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1131959514272500}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23275720841064102
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2877,8 +2910,7 @@ MonoBehaviour:
   hasBombDeath: 0
   isClone: 0
   deathSounds:
-  - {fileID: 8300000, guid: 104e699fef22c4c96893ac79fab45964, type: 3}
-  - {fileID: 8300000, guid: ee189028db6e745b4a26aaca14278ffc, type: 3}
+  - {fileID: 8300000, guid: 18f39aa887b2e43d7b4acb24bbf1c517, type: 3}
   attackSounds:
   - {fileID: 8300000, guid: 104e699fef22c4c96893ac79fab45964, type: 3}
   footstepSound: {fileID: 8300000, guid: c83c381627b3ce949a476c3261fcf1f9, type: 3}
@@ -2891,7 +2923,6 @@ MonoBehaviour:
   fireEffect: {fileID: 1682578471826206}
   iceEffect: {fileID: 1225466900422456}
   movementPaused: 0
-  postHitSpeed: 14
 --- !u!114 &114873601793708358
 MonoBehaviour:
   m_ObjectHideFlags: 1
