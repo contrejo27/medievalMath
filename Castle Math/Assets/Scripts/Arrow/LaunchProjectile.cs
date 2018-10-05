@@ -23,7 +23,7 @@ public class LaunchProjectile : MonoBehaviour {
 	GameObject arrowToLaunch;
 	bool burst;
     bool rapidFire;
-    float rapidFireMod = 1 / 3;
+    float rapidFireMod = .8f;
     float quickShotMod = 1 / 1.75f;
     bool quickShot;
 	bool ArrowLoaded;

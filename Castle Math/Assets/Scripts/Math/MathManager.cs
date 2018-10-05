@@ -70,7 +70,7 @@ public class MathManager : MonoBehaviour {
 	//	True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
 		fractions = GetComponent<Fractions> ();
 		algebraQuestion = GetComponent<Algebra> ();
-		m_Controller = GetComponent<MathController> ();
+		m_Controller = GameObject.Find("mathController").GetComponent<MathController> ();
         wordProblem = GetComponent<WordProblem>();
         fractionTargets = GetComponent<FractionTargets>();
         numberLineQuestion = GetComponent<NumberLineQuestion>();

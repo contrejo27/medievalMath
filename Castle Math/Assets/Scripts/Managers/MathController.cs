@@ -52,7 +52,7 @@ public class MathController : MonoBehaviour {
 		level3_Completed = false;
 		level4_Completed = false;
 
-        if (Debug.isDebugBuild || Application.isEditor)
+      /*  if (Debug.isDebugBuild || Application.isEditor)
         {
             Debug.Log("IN EDITOR/DEBUG");
             GameObject.Find("add/sub").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract];
@@ -84,11 +84,11 @@ public class MathController : MonoBehaviour {
             textColor = mathInstructions.color;
             mathInstructions.color = new Color(.62f,.2f,.27f);
         }
-        else{
-            GameObject multGO = GameObject.Find("mult/divide");
-            multGO.GetComponent<Toggle>().isOn = true;
-            mult_divide = multGO.GetComponent<Toggle>().interactable = true;
-        }
+        else{*/
+            GameObject addSubGO = GameObject.Find("add/sub");
+            addSubGO.GetComponent<Toggle>().isOn = true;
+            add_sub = addSubGO.GetComponent<Toggle>().interactable = true;
+       // }
 
         hasStarted = true;
     }
