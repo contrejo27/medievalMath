@@ -101,13 +101,13 @@ public class WaveManager : MonoBehaviour {
 			foreach (string a in data) {
 				//splits invidiual data based on the presence of a comma
 				string[] waveInfo = a.Split(',');
-				/*
+				
 				print("LINE NUMBER: " + wave);
 				print (waveInfo [2]);
 				print (int.Parse(waveInfo[2]));
 				print (waveInfo [1]);
 				print (int.Parse(waveInfo[1]));
-				*/
+				
 				//for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
 				footknightWaves [wave] = new int[] { int.Parse (waveInfo [2]), int.Parse (waveInfo [1]) };
 				horseknightWaves [wave] = new int[] { int.Parse (waveInfo [4]), int.Parse (waveInfo [3]) };
