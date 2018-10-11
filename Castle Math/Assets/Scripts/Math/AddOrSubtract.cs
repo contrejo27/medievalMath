@@ -79,7 +79,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 
             //Set textbox display to formatted question string
             //QuestionText.text = QuestionString;
-            Debug.Log("Setting question to: " + questionString);
+            //Debug.Log("Setting question to: " + questionString);
             aInput.SetQuestion(questionString);
 
 

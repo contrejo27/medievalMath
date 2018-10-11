@@ -172,6 +172,7 @@ public class PlayerMathStats : MonoBehaviour {
 	}
 
     public void showWinUI(){
+        print("You win!");
         winUI.SetActive(true);
         Anim.Play("scaleUp");
 
@@ -187,6 +188,7 @@ public class PlayerMathStats : MonoBehaviour {
         StartCoroutine(loadNextScreen());
     }
 
+    //loads stars and then loads stat screen
     IEnumerator loadNextScreen(){
         yield return new WaitForSeconds(1f);
         stars[0].SetActive(true);

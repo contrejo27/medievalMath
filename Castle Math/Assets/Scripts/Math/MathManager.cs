@@ -247,9 +247,9 @@ public class MathManager : MonoBehaviour {
 	/// <param name="QuestionTypes">Question types.</param>
 	public void GenerateProblem(bool [] QuestionTypes){
         print("questionTypesActivated:");
-        foreach(bool questionT in QuestionTypes){
+       /* foreach(bool questionT in QuestionTypes){
             print(questionT);
-        }
+        }*/
 		A_Input.ClearChoices ();
 		IncorrectAnswersPerQuestion = 0;
 
