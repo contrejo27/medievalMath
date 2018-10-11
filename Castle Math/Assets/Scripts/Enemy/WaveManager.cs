@@ -63,11 +63,12 @@ public class WaveManager : MonoBehaviour {
 	//floating text
     public Text floatingText;
 
+    
 
     // Use this for initialization
     void Start () {
 
-		levelComplete = false;
+        levelComplete = false;
 
         if (!Application.isEditor)
             currentWave = 0;
@@ -77,10 +78,7 @@ public class WaveManager : MonoBehaviour {
         music = GameObject.Find ("Music").GetComponent<AudioSource> ();
         GameStateManager.instance.waveManager = this;
         //first integer in array is type of launch (0 all at once/1 staggered/2 waves/3 singles) second is number of enemies per lane
-        int allAtOnce = 0;
-        int staggered = 1;
-        int waves = 2;
-        int singles = 3;
+
 
 		//Does a check to see what level/scene it is and what wave data to fetch from csv
 		//checks if current scene is MathTest (Kells)
@@ -89,11 +87,10 @@ public class WaveManager : MonoBehaviour {
 			//TextAsset waveDat = Resources.Load<TextAsset>("waves/kells_Wave.csv");
 
 			//Finds text file of the following name in waves folder for the use of the function
-			TextAsset waveDat = Resources.Load("waves/kells_Wave", typeof(TextAsset)) as TextAsset;
+			TextAsset waveDat = Resources.Load("waves/kells_Wave" + GameStateManager.instance.currentDifficulty.ToString(), typeof(TextAsset)) as TextAsset;
 
 			//each row is split with a '\n' a.k.a an enter to a new row
 			string[] data = waveDat.text.Split (new char[] { '\n' });
-
 
 			//declares wave integer as zero for the foreach loop
 			//the foreach loop proceeds to move through the text file found earlier

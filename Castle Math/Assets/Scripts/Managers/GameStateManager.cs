@@ -10,9 +10,10 @@ using UnityEngine.VR;
 public class GameStateManager : MonoBehaviour {
 
     public EnumManager.GameState currentState;
+    public EnumManager.GameplayMode currentDifficulty;
 
-	//UI
-	private string playerName = "JGC";
+    //UI
+    private string playerName = "JGC";
     
     // Game statistics
     public QuestionTracker tracker = new QuestionTracker();
@@ -88,6 +89,7 @@ public class GameStateManager : MonoBehaviour {
             PlayerPrefs.Save();
             PlayerPrefs.SetInt("Skill Level", 1);
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+            currentDifficulty = EnumManager.GameplayMode.Easy;
         }
         else
         {
