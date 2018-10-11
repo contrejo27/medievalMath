@@ -4018,7 +4018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &322469321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25261,6 +25261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1772503266}
   - component: {fileID: 1772503267}
+  - component: {fileID: 1772503268}
   m_Layer: 0
   m_Name: potionRays
   m_TagString: Untagged
@@ -25281,7 +25282,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1673446986}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -2.026, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.026, y: 0, z: 260.06583}
 --- !u!212 &1772503267
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -25325,6 +25326,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!111 &1772503268
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1772503265}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 48074de9cdcf073408cc0bbfece1f42f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 48074de9cdcf073408cc0bbfece1f42f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &1772680962 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114573067772999792, guid: 1fbd5b1903afe6e4199b8c202bba70ba,

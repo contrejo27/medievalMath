@@ -252,7 +252,7 @@ public class WaveManager : MonoBehaviour {
             A_Source.Play();
         }
 
-        if (currentWave == 11)
+        if (currentWave == 9)
         {
             A_Source.clip = trollsUnleashed;
             A_Source.Play();
