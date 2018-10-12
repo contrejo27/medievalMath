@@ -30,7 +30,6 @@ public class GameStateManager : MonoBehaviour {
     //References
     [HideInInspector]
     public PlayerController playerController;
-    [HideInInspector]
     public PotionShop potionShop;
     [HideInInspector]
     public Inventory inventory;
