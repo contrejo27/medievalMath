@@ -12,13 +12,13 @@ using Amazon.Runtime;
 using Amazon.SecurityToken;
 using Amazon.DynamoDBv2.Model;
 
-public class GameMetrics : MonoBehaviour
-{
+
+public class GameMetrics : MonoBehaviour {
     public static GameMetrics m_instance;
 
     [DynamoDBTable("GameMetricsData")]
-    public class GameMetricsData
-    {
+    public class GameMetricsData {
+        // TODO: Add User
         [DynamoDBHashKey]
         public string Metric { get; set; }
         [DynamoDBProperty]
@@ -33,10 +33,8 @@ public class GameMetrics : MonoBehaviour
     public const string METRIC_ARROWSLEFT = "ArrowsLeft";
     #endregion
 
-    private DynamoDBContext Context
-    {
-        get
-        {
+    private DynamoDBContext Context {
+        get {
             if (m_context == null)
                 m_context = new DynamoDBContext(m_client);
             return m_context;
@@ -46,43 +44,40 @@ public class GameMetrics : MonoBehaviour
     private CognitoAWSCredentials m_credentials;
     private IAmazonDynamoDB m_client;
     private DynamoDBContext m_context;
-
     private List<GameMetricsData> m_gameMetrics = new List<GameMetricsData>();
 
-    private void Awake()
-    {
-        if(Debug.isDebugBuild || Application.isEditor)
-        {
+    private void Awake() {
+        Debug.Log("Metrics logger awake");
+        if(Debug.isDebugBuild || Application.isEditor) {
             Destroy(this);
         }
 
         m_instance = this;
 
         UnityInitializer.AttachToGameObject(this.gameObject);
+        // gameObject.AddComponent<GameMetrics>();
         Amazon.AWSConfigs.HttpClient = Amazon.AWSConfigs.HttpClientOption.UnityWebRequest;
     }
 
-    private void Start()
-    {
+    private void Start() {
+        Debug.Log("Metrics logger start");
+
         m_credentials = new CognitoAWSCredentials("us-east-1:30e8de39-1567-46d7-a033-02870c1d2102", RegionEndpoint.USEast1);
-        m_credentials.GetIdentityIdAsync(delegate (AmazonCognitoIdentityResult<string> result)
-        {
-            if (result.Exception != null)
+        m_credentials.GetIdentityIdAsync(delegate (AmazonCognitoIdentityResult<string> result) {
+            if (result.Exception != null) {
                 Debug.Log("Exception hit: " + result.Exception.Message);
+            }
 
             var ddbClient = new AmazonDynamoDBClient(m_credentials, RegionEndpoint.USEast1);
 
-            Debug.Log("Retrieveing Table information");
+            Debug.Log("Retrieving Table information");
 
-            var request = new DescribeTableRequest
-            {
+            var request = new DescribeTableRequest {
                 TableName = @"GameMetricsData"
             };
 
-            ddbClient.DescribeTableAsync(request, (ddbresult) =>
-            {
-                if (result.Exception != null)
-                {
+            ddbClient.DescribeTableAsync(request, (ddbresult) => {
+                if (result.Exception != null) {
                     Debug.Log(result.Exception.Message);
                     return;
                 }
@@ -100,56 +95,43 @@ public class GameMetrics : MonoBehaviour
         });
     }
 
-	private void Update()
-	{
-		if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.Alpha1)) {
             UpdateMetric(METRIC_ARROWSLEFT, Random.Range(1,5));
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
             UpdateMetric(METRIC_TIMEINVR, Random.Range(1, 5));
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
             UpdateMetric(METRIC_WAVELOST, Random.Range(1, 5));
         }
-	}
+    }
 
-
-	private void RetreiveMetricData()
-    {
+    private void RetreiveMetricData() {
         Debug.Log("Retrieving All User Datas");
-        Table.LoadTableAsync(m_client, "GameMetricsData", (result) =>
-        {
-            if (result.Exception != null)
-            {
+        Table.LoadTableAsync(m_client, "GameMetricsData", (result) => {
+            if (result.Exception != null) {
                 Debug.Log("Failed to load user data table");
             }
-            else
-            {
+            else {
                 Debug.Log("Result succesful");
-                try
-                {
+                try {
                     Debug.Log("Trying to scan");
                     var context = Context;
                     var search = context.ScanAsync<GameMetricsData>(new ScanCondition("Metric", ScanOperator.NotContains, "null"));
 
-                    search.GetRemainingAsync(scanResult =>
-                    {
+                    search.GetRemainingAsync(scanResult => {
                         Debug.Log("Searching");
-                        if (scanResult.Exception == null)
-                        {
+                        if (scanResult.Exception == null) {
                             Debug.Log("Scan Result complete");
                             m_gameMetrics = scanResult.Result;
                             Debug.Log(m_gameMetrics.Count);
                         }
                         else
-                            Debug.Log("Failed to get async table scane results: " + scanResult.Exception.Message);
+                            Debug.Log("Failed to get async table scan results: " + scanResult.Exception.Message);
                     }, null);
                 }
-                catch (AmazonDynamoDBException exception)
-                {
+                catch (AmazonDynamoDBException exception) {
                     Debug.Log(string.Concat("Exception fetching characters from table: {0}", exception.Message));
                     Debug.Log(string.Concat("Error code: {0}, error type: {1}", exception.ErrorCode, exception.ErrorType));
                 }
@@ -159,34 +141,26 @@ public class GameMetrics : MonoBehaviour
         Debug.Log("Finished Reterieving Game Metrics");
     }
 
-    public void UpdateMetric(string metric, float modifier)
-    {
-        foreach (GameMetricsData data in m_gameMetrics)
-        {
-            if (data.Metric == metric)
-            {
+    public void UpdateMetric(string metric, float modifier) {
+        foreach (GameMetricsData data in m_gameMetrics) {
+            if (data.Metric == metric) {
                 float newAverage;
-                if (data.NumberEntries == 0)
-                {
+                if (data.NumberEntries == 0) {
                     newAverage = modifier;
                 }
-                else
-                {
+                else {
                     float currentAverage = data.Value * data.NumberEntries;
                     newAverage = (currentAverage + modifier) / (data.NumberEntries + 1);
                 }
 
-                GameMetricsData newMetric = new GameMetricsData
-                {
+                GameMetricsData newMetric = new GameMetricsData {
                     Metric = metric,
                     NumberEntries = data.NumberEntries + 1,
                     Value = newAverage,
                 };
 
-                Context.SaveAsync(newMetric, (result) =>
-                {
-                    if (result.Exception == null)
-                    {
+                Context.SaveAsync(newMetric, (result) => {
+                    if (result.Exception == null) {
                         Debug.Log("Metric updated!");
                         m_gameMetrics.Clear();
                         RetreiveMetricData();
