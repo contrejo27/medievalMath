@@ -14,11 +14,11 @@ public class GameStateManager : MonoBehaviour {
 
     // UI
     private string playerName = "JGC";
-    
+
     // Game statistics
     public QuestionTracker tracker = new QuestionTracker();
     public PlayerMathStats playerMathStats;
-	
+
     // Environment
     [HideInInspector]
     public LaunchProjectile player;
@@ -64,6 +64,26 @@ public class GameStateManager : MonoBehaviour {
         Debug.Log("Loading JSON");
     }
 
+    void loadPlayerPrefs() {
+      if (!PlayerPrefs.HasKey("isFirstTime")) {
+          PlayerPrefs.SetInt("tutorialDone", 0);
+
+          // Set and save all your PlayerPrefs here.
+          // Now set the value of isFirstTime to be false in the PlayerPrefs.
+          PlayerPrefs.SetInt("isFirstTime", 1);
+          PlayerPrefs.SetString("globalHS1", "JGC,3,8");
+          PlayerPrefs.SetString("globalHS2", "HBK,2,5");
+          PlayerPrefs.SetString("globalHS3", "JGC,2,3");
+          // TODO: Why save before skill level?
+          PlayerPrefs.Save();
+          PlayerPrefs.SetInt("Skill Level", 1);
+          currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+      }
+      else {
+          currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+      }
+    }
+
     // Use this for initialization
     void Start () {
         PlayerPrefs.SetInt("tutorialDone", 0); // temp to force tutorial
@@ -73,26 +93,7 @@ public class GameStateManager : MonoBehaviour {
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        // TODO: Can this be extracted to a separate function called firstTimePrefs()? For readability.
-        // TODO: Is there a time when PlayerPrefs do not have a key "isFirstTime"?
-        // First time game is opened sets up initial playerPref values
-        if (!PlayerPrefs.HasKey("isFirstTime")) {
-            PlayerPrefs.SetInt("tutorialDone", 0);
-
-            // Set and save all your PlayerPrefs here.
-            // Now set the value of isFirstTime to be false in the PlayerPrefs.
-            PlayerPrefs.SetInt("isFirstTime", 1);
-            PlayerPrefs.SetString("globalHS1", "JGC,3,8");
-            PlayerPrefs.SetString("globalHS2", "HBK,2,5");
-            PlayerPrefs.SetString("globalHS3", "JGC,2,3");
-            // TODO: Why save before skill level?
-            PlayerPrefs.Save();
-            PlayerPrefs.SetInt("Skill Level", 1);
-            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
-        }
-        else {
-            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
-        }
+        loadPlayerPrefs();
 
         numStars = SaveData.numStars;
     }
@@ -103,7 +104,7 @@ public class GameStateManager : MonoBehaviour {
 
             // If this block is commented, uncomment it
             m_Controller = GameObject.FindObjectOfType<MathController>();
-            
+
             // TODO: Why change exposure?
             RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
             player = GameObject.FindObjectOfType<LaunchProjectile>();
@@ -133,12 +134,12 @@ public class GameStateManager : MonoBehaviour {
         if (!loseState) {
             loseState = true;
         }
-        
+
         /*
         SaveGame();
 
         int currentLevel = 1;   // EnumManager.sceneNameToLevelNumber[SceneManager.GetActiveScene().name];
-        
+
         if (waveManager.currentWave < 9) {
 
         }
@@ -168,7 +169,7 @@ public class GameStateManager : MonoBehaviour {
 
     public void LoadScene(int sceneNum) {
         SceneManager.LoadScene(sceneNum);
-    } 
+    }
 
     public void Retry() {
         loseState = false;
@@ -245,7 +246,7 @@ public class GameStateManager : MonoBehaviour {
     }
 
     public int GetStars() {
-        return numStars; 
+        return numStars;
     }
 
     public void AddStars(int n) {
