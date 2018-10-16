@@ -22,7 +22,9 @@ public class PlayerMathStats : MonoBehaviour {
 	
 	//in-game UI
 	public Text correctText;
-	public Text wave;
+    public Text incorrectText;
+
+    public Text wave;
 	public Text hsName;
 	public Text hsWave;
 	public Text hsAnswers;
@@ -30,7 +32,6 @@ public class PlayerMathStats : MonoBehaviour {
     public Text towerWave;
     public GameObject tower;
     public GameObject winUI;
-    public GameObject[] stars;
     public GameObject statScreen;
     public Animator Anim;
 
@@ -111,7 +112,9 @@ public class PlayerMathStats : MonoBehaviour {
         tower.transform.localPosition = new Vector3(tower.transform.localPosition.x + towerStep, tower.transform.localPosition.y, tower.transform.localPosition.z);
         towerWave.text = (wManager.currentWave + 1).ToString();
         wave.text = "Wave: " + (wManager.currentWave +1).ToString();
-		correctText.text = "Correct: " + correctAnswers.ToString ();
+		correctText.text = correctAnswers.ToString ();
+        incorrectText.text = incorrectAnswers.ToString();
+
         gradeNumber = (int)correctAnswers * 100 / (correctAnswers + incorrectAnswers);
 
         if(gradeNumber > 94){
@@ -178,37 +181,15 @@ public class PlayerMathStats : MonoBehaviour {
 
         SaveState();
 
-        if (aSupplier.NumberOfArrows > 50){
-            stars[1].SetActive(true);
-            if (gradeNumber > 89){
-                stars[2].SetActive(true);
-            }
-        }
 
         StartCoroutine(loadNextScreen());
     }
 
-    //loads stars and then loads stat screen
+    //loads stat screen
     IEnumerator loadNextScreen(){
-        yield return new WaitForSeconds(1f);
-        stars[0].SetActive(true);
-        yield return new WaitForSeconds(1f);
 
-        if (aSupplier.NumberOfArrows > 50)
-        {
-            stars[1].SetActive(true);
-            if (gradeNumber > 89)
-            {
-                yield return new WaitForSeconds(1f);
-                stars[2].SetActive(true);
-            }
-        }
-
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         winUI.SetActive(false);
-        stars[0].SetActive(false);
-        stars[1].SetActive(false);
-        stars[2].SetActive(false);
         statScreen.SetActive(true);
     }
 }
