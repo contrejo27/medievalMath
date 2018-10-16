@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 
 // Mostly contains functions formerly in the GameStateManager
@@ -17,6 +18,10 @@ public class LevelManager : MonoBehaviour {
     public GameObject tutorialImage;
     public GameObject target;
     public GameObject PauseMenu;
+    public Button medium;
+    public Button nextLevel;
+    public GemUIEffect mediumGemEffect;
+    public GemUIEffect nLevelGemEffect;
 
     [Header("Enemy Behavior")]
     public GameObject InsidePoint;
@@ -133,6 +138,19 @@ public class LevelManager : MonoBehaviour {
         StartCoroutine(FadeLight(true));
     }
 
+    public void unlockNextGameMode()
+    {
+        if (GameStateManager.instance.currentDifficulty == EnumManager.GameplayMode.Easy)
+        {
+            medium.interactable = true;
+            mediumGemEffect.unlockGem();
+        }
+        if (GameStateManager.instance.currentDifficulty == EnumManager.GameplayMode.Medium)
+        {
+            nextLevel.interactable = true;
+            nLevelGemEffect.unlockGem();
+        }
+    }
     void SetupDictionaries()
     {
         /*

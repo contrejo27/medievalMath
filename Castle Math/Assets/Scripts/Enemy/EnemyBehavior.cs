@@ -11,8 +11,8 @@ public class EnemyBehavior : MonoBehaviour {
     protected bool dead = false;
     protected bool ignoreDamage = false;
 	public float moveSpeed;
-    public EnumManager.GemType rewardGemType;
-    public int rewardGemAmount;
+    //public EnumManager.GemType rewardGemType;
+    //public int rewardGemAmount;
 	bool attacking = false;
     bool alternateRoute;
     [HideInInspector]
@@ -328,10 +328,10 @@ public class EnemyBehavior : MonoBehaviour {
 		audioSource[currentAudioSource].clip = deathSounds[Random.Range(0, deathSounds.Length)];
 		audioSource[currentAudioSource].Play ();
 
-        GameObject GemSpawner = Instantiate(Resources.Load("Misc/GemSpawner"),transform.position, Quaternion.identity) as GameObject;
+        /*GameObject GemSpawner = Instantiate(Resources.Load("Misc/GemSpawner"),transform.position, Quaternion.identity) as GameObject;
         GemSpawner.GetComponent<GemSpawner>().SetGemAndStartSpawn(rewardGemType, transform.parent, rewardGemAmount);
         GameStateManager.instance.levelManager.RecieveGems(rewardGemAmount, rewardGemType);
-
+        */
 		Collider enemyHitbox = this.GetComponent<Collider>();
 		//Destroy(enemyHitbox);
 		

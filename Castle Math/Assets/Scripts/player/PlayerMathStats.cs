@@ -6,9 +6,10 @@ using System.Collections;
 //Controls player and global stats and displays them on scoreboard. 
 public class PlayerMathStats : MonoBehaviour {
 	public WaveManager wManager;
-	
-	//stats
-	int correctAnswers;
+    public LevelManager LvlManager;
+
+    //stats
+    int correctAnswers;
     int incorrectAnswers;
     int gradeNumber;
     int personalHighScore;
@@ -175,7 +176,6 @@ public class PlayerMathStats : MonoBehaviour {
 	}
 
     public void showWinUI(){
-        print("You win!");
         winUI.SetActive(true);
         Anim.Play("scaleUp");
 
@@ -187,9 +187,11 @@ public class PlayerMathStats : MonoBehaviour {
 
     //loads stat screen
     IEnumerator loadNextScreen(){
-
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         winUI.SetActive(false);
         statScreen.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        LvlManager.unlockNextGameMode();
+
     }
 }

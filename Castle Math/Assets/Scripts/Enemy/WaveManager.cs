@@ -26,8 +26,7 @@ public class WaveManager : MonoBehaviour {
     public GameStateManager gManager;
     public MathManager mManager;
     public Transform gemSpawnPoint;
-    public Button medium;
-    public Button nextLevel;
+
 
     //Audio
     public AudioClip AnotherWave;
@@ -205,11 +204,9 @@ public class WaveManager : MonoBehaviour {
         currentWave += 1;
 		if(currentWave == finalWave){
             mStats.showWinUI();
-            UnlockNextGameMode();
             music.clip = winSound;
             music.loop = false;
             music.Play();
-            GameStateManager.instance.UnlockNextLevel();
 			levelComplete = true;
         }
         else{
@@ -219,17 +216,7 @@ public class WaveManager : MonoBehaviour {
 		
 	}
     
-    void UnlockNextGameMode()
-    {
-        if(GameStateManager.instance.currentDifficulty == EnumManager.GameplayMode.Easy)
-        {
-            medium.interactable = true;
-        }
-        if (GameStateManager.instance.currentDifficulty == EnumManager.GameplayMode.Medium)
-        {
-            nextLevel.interactable = true;
-        }
-    }
+
     IEnumerator FadingText(Text currentText)
     {
         yield return new WaitForSeconds(1.5f);
@@ -403,7 +390,6 @@ public class WaveManager : MonoBehaviour {
 
     */
 
-            
             if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
             {
                 GameStateManager.instance.currentState = EnumManager.GameState.Intermath;

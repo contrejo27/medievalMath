@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.VR;
-
+using UnityEngine.UI;
 
 
 //This script should contain anything that activates or deactivates things between state changes like lose or next wave
@@ -125,10 +125,15 @@ public class GameStateManager : MonoBehaviour {
         return loseState;
     }
 
-    public void UnlockNextLevel(){
-        levelsUnlocked++;
-    }
+    public void UnlockNextLevel()
+    {
 
+        if (currentDifficulty == EnumManager.GameplayMode.Medium)
+        {
+            levelsUnlocked++;
+        }
+
+    }
 	public void LoseState(){
                 
 		if(!loseState){
