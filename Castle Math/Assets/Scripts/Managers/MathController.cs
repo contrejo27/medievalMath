@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class MathController : MonoBehaviour {
 
-	public bool add_sub;
-	public bool mult_divide;
-	public bool fractions;
-	public bool preAlgebra;
-	//public bool wordProblems;
+    public bool add_sub;
+    public bool mult_divide;
+    public bool fractions;
+    public bool preAlgebra;
+    //public bool wordProblems;
     public Text mathInstructions;
     public float startTime;
 
@@ -19,41 +19,39 @@ public class MathController : MonoBehaviour {
 
     Color textColor;
 
-	//temp bools just to see if level is completed
-	public bool level1_Completed;
-	public bool level2_Completed;
-	public bool level3_Completed;
-	public bool level4_Completed;
+    //temp bools just to see if level is completed
+    public bool level1_Completed;
+    public bool level2_Completed;
+    public bool level3_Completed;
+    public bool level4_Completed;
 
-	private WaveManager wman;
+    private WaveManager wman;
+    public TelemetryManager telemetryManager;
 
-	//Gets Current Scene and assigns a string to it
+    //Gets Current Scene and assigns a string to it
 
     MathController instance;
     // Use this for initialization
-    void Awake()
-    {
-        if(instance == null)
-        {
+    void Awake() {
+        if(instance == null) {
             instance = this;
         }
-        else
-        {
+        else {
             Destroy(gameObject);
         }
         //SaveData.LoadDataFromJSon();
     }
 
     void Start () {
+        telemetryManager = GetComponent<TelemetryManager>();
         DontDestroyOnLoad(this.gameObject);
 
-		level1_Completed = false;
-		level2_Completed = false;
-		level3_Completed = false;
-		level4_Completed = false;
+        level1_Completed = false;
+        level2_Completed = false;
+        level3_Completed = false;
+        level4_Completed = false;
 
-        if (Debug.isDebugBuild || Application.isEditor)
-        {
+        if (Debug.isDebugBuild || Application.isEditor) {
             Debug.Log("IN EDITOR/DEBUG");
             GameObject.Find("add/sub").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract];
 
@@ -61,7 +59,7 @@ public class MathController : MonoBehaviour {
 
             GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra];
         }
-		else if (LocalUserData.IsLoggedIn() == false) {
+        else if (LocalUserData.IsLoggedIn() == false) {
             GameObject.Find("add/sub").GetComponent<Toggle>().isOn = true;
 
             GameObject multGO = GameObject.Find("mult/divide");
@@ -72,7 +70,7 @@ public class MathController : MonoBehaviour {
             fractions = fractionGO.GetComponent<Toggle>().interactable = false;
             fractionGO.transform.Find("Text").GetComponent<Text>().color = Color.grey;
 
-           // GameObject wordGO = GameObject.Find("Word Problems");
+            // GameObject wordGO = GameObject.Find("Word Problems");
             //wordProblems = wordGO.GetComponent<Toggle>().interactable = false;
             //wordGO.transform.Find("Text").GetComponent<Text>().color = Color.grey;
 
@@ -93,7 +91,7 @@ public class MathController : MonoBehaviour {
         hasStarted = true;
     }
 
-	public void unlockMath(){
+    public void unlockMath(){
         print("unlockingMath");
         Color mathOrange = new Color(0.91F, 0.58F, 0.264F, 1.0F);
         GameObject addGO = GameObject.Find("add/sub");
@@ -108,9 +106,9 @@ public class MathController : MonoBehaviour {
         fractions = fractionGO.GetComponent<Toggle>().interactable = true;
         fractionGO.transform.Find("Text").GetComponent<Text>().color = mathOrange;
 
-       // GameObject wordGO = GameObject.Find("Word Problems");
-       // wordProblems = wordGO.GetComponent<Toggle>().interactable = true;
-       // wordGO.transform.Find("Text").GetComponent<Text>().color = mathOrange;
+        // GameObject wordGO = GameObject.Find("Word Problems");
+        // wordProblems = wordGO.GetComponent<Toggle>().interactable = true;
+        // wordGO.transform.Find("Text").GetComponent<Text>().color = mathOrange;
 
         GameObject PreAlgGO = GameObject.Find("Pre-Algebra");
         preAlgebra = PreAlgGO.GetComponent<Toggle>().interactable = true;
@@ -121,32 +119,35 @@ public class MathController : MonoBehaviour {
 
     }
 
-	public void Update() {
-		if (SceneManager.GetActiveScene().name == "MathTest") {
-			Debug.Log ("hello!");
-			if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
-				level1_Completed = true;
-			}
-		}
-		if (SceneManager.GetActiveScene().name == "frostLevel") {
-			if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
-				level2_Completed = true;
-			}
-		}
-		if (SceneManager.GetActiveScene().name == "desertLevel") {
-			if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
-				level3_Completed = true;
-			}
-		}
-		if (SceneManager.GetActiveScene().name == "bossLevel") {
-			if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
-				level4_Completed = true;
-			}
-		}
-	}
+    public void Update() {
+        if (SceneManager.GetActiveScene().name == "MathTest") {
+            Debug.Log ("hello!");
+            if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+                level1_Completed = true;
+                telemetryManager.Write("level1Completed", true);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "frostLevel") {
+            if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+                level2_Completed = true;
+                telemetryManager.Write("level2Completed", true);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "desertLevel") {
+            if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+                level3_Completed = true;
+                telemetryManager.Write("level3Completed", true);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "bossLevel") {
+            if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+                level4_Completed = true;
+                telemetryManager.Write("level4Completed", true);
+            }
+        }
+    }
 
-    public void UpdateSelection()
-    {
+    public void UpdateSelection() {
 
         add_sub = GameObject.Find("add/sub").GetComponent<Toggle>().isOn;
         print("addsub " + add_sub);
@@ -157,8 +158,7 @@ public class MathController : MonoBehaviour {
         preAlgebra = GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn;
         print("preAlgebra " + preAlgebra);
 
-        if (hasStarted)
-        {
+        if (hasStarted) {
             SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract] = add_sub;
             SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.MultiplyOrDivide] = mult_divide;
             SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra] = preAlgebra;
@@ -168,8 +168,7 @@ public class MathController : MonoBehaviour {
         //wordProblems = GameObject.Find("Word Problems").GetComponent<Toggle>().isOn;
     }
 
-    public IEnumerator ActivatorVR(string vrToggle)
-    {
+    public IEnumerator ActivatorVR(string vrToggle) {
         SceneManager.LoadScene(1);
         yield return new WaitForSeconds(.5f);
         UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
@@ -177,9 +176,8 @@ public class MathController : MonoBehaviour {
         UnityEngine.VR.VRSettings.enabled = true;
     }
 
-    public void StartGame()
-    {
-		Debug.Log ("Starting game");
+    public void StartGame() {
+        Debug.Log ("Starting game");
         StartCoroutine(ActivatorVR("Cardboard"));
         startTime = Time.time;
     }    
