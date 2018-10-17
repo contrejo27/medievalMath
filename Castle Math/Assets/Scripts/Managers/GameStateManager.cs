@@ -11,6 +11,9 @@ using UnityEngine.VR;
 public class GameStateManager : MonoBehaviour {
 
     public EnumManager.GameState currentState;
+    // Analytics
+    public MathController m_Controller;
+    public TelemetryManager telemetryManager;
 
     // UI
     private string playerName = "JGC";
@@ -41,12 +44,10 @@ public class GameStateManager : MonoBehaviour {
     [HideInInspector]
     public LevelManager levelManager;
 
+
     // User stats
     private int numStars;
 
-    // Analytics
-    GameMetrics gMetrics;
-    MathController m_Controller;
 
     // Singleton
     public static GameStateManager instance;
@@ -58,6 +59,7 @@ public class GameStateManager : MonoBehaviour {
         else if (instance != this) {
             Destroy(gameObject);
         }
+
         // TODO: What does tracker do?
         tracker.ReadCSV();
         SaveData.LoadDataFromJSon();
@@ -88,12 +90,11 @@ public class GameStateManager : MonoBehaviour {
     void Start () {
         PlayerPrefs.SetInt("tutorialDone", 0); // temp to force tutorial
 
-        // TODO: Where is this component loaded?
-        gMetrics = GetComponent<GameMetrics>();
-
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         loadPlayerPrefs();
+        telemetryManager = GetComponent<TelemetryManager>();
+        m_Controller = GetComponent<MathController>();
 
         numStars = SaveData.numStars;
     }
@@ -180,30 +181,33 @@ public class GameStateManager : MonoBehaviour {
 
     public void recordTimeinVR() {
         /* Sends play time information to database */
-        float timeInVR;
-        if (gMetrics != null) {
-            if (m_Controller != null) {
-                timeInVR = Time.time - m_Controller.startTime;
-            }
-            else {
-                timeInVR = 0f;
-            Debug.Log("m_Controller is null");
-            }
-            gMetrics.UpdateMetric("TimeInVR", timeInVR);
-        }
-        else {
-            Debug.Log("gMetrics is null");
-        }
+        /* float timeInVR; */
+        /* if (gMetrics != null) { */
+        /*     if (m_Controller != null) { */
+        /*         timeInVR = Time.time - m_Controller.startTime; */
+        /*     } */
+        /*     else { */
+        /*         timeInVR = 0f; */
+        /*         Debug.Log("m_Controller is null"); */
+        /*     } */
+        /*     gMetrics.UpdateMetric("TimeInVR", timeInVR); */
+        /* } */
+        /* else { */
+        /*     Debug.Log("gMetrics is null"); */
+        /* } */
     }
 
     public void recordMetrics() {
-        // TODO: Add PlayerPrefs to database
-        Debug.Log(PlayerPrefs.GetString("PlayerName"));
-        Debug.Log(PlayerPrefs.GetInt("Skill Level"));
-        Debug.Log(PlayerPrefs.GetString("globalHS1"));
-        Debug.Log(PlayerPrefs.GetString("globalHS2"));
-        Debug.Log(PlayerPrefs.GetString("globalHS3"));
-        gMetrics.UpdateMetric("TimeInVR", Random.Range(1,100));
+        Debug.Log("Record Metrics");
+        /* telemetryManager.Write("startTime", m_Controller.startTime); */
+        telemetryManager.Write("stopTime", Time.time);
+        // TODO: use player Name as user
+        telemetryManager.Write("levelsUnlocked", levelsUnlocked);
+        telemetryManager.Write("playerName", PlayerPrefs.GetString("PlayerName"));
+        telemetryManager.Write("skillLevel", PlayerPrefs.GetInt("Skill Level"));
+        telemetryManager.Write("highscore1", PlayerPrefs.GetString("globalHS1"));
+        telemetryManager.Write("highscore2", PlayerPrefs.GetString("globalHS2"));
+        telemetryManager.Write("highscore3", PlayerPrefs.GetString("globalHS3"));
         recordTimeinVR();
     }
 

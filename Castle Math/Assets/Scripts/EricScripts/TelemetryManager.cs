@@ -6,11 +6,11 @@ using System.IO;
 public class TelemetryManager : MonoBehaviour {
     public static TelemetryManager instance;
 
-    private SQLDBModule DB;
+    private static SQLDBModule DB;
 
     // TODO: Add values for user and deviceType from the program
-    public string user;
-    public string deviceType;
+    public static string user;
+    public static string deviceType;
     // TODO: Keep database details private and outside git
     public string DB_URL;
     public string DB_DATABASE;
@@ -29,7 +29,7 @@ public class TelemetryManager : MonoBehaviour {
         // TODO: Add values for user and deviceType from the program
         user = "user";
         deviceType = "Unity Editor";
-        SaveTable(DB.Select());
+        /* SaveTable(DB.Select()); */
     }
 
     private void Update() {
