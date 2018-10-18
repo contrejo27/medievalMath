@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 54847401351017928}
   - component: {fileID: 195218982647791960}
   - component: {fileID: 114277000228872080}
+  - component: {fileID: 65852773902629962}
   m_Layer: 20
   m_Name: IceTigerEnemy
   m_TagString: Enemy
@@ -1728,7 +1729,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1119646247281886}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.876526, y: -6.7265244, z: 35.963776}
+  m_LocalPosition: {x: -74.905914, y: -8.547629, z: 105.246216}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4832216548014330}
@@ -2050,6 +2051,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65852773902629962
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1119646247281886}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.61, y: 1.67, z: 1}
+  m_Center: {x: 0, y: 0.76, z: 4.51}
 --- !u!95 &95004760542836690
 Animator:
   serializedVersion: 3
@@ -2424,15 +2437,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 2
   moveSpeed: 1
-  rewardGemType: 1
-  rewardGemAmount: 1
+  attacking: 0
   navMeshAgent: {fileID: 195218982647791960}
   hasBombDeath: 0
   isClone: 0
   deathSounds:
-  - {fileID: 8300000, guid: ec2bd4347cdfa08459e037f0b45d5e10, type: 3}
+  - {fileID: 0}
   attackSounds:
-  - {fileID: 8300000, guid: c9502ad2f2717f448be5a3e58232c9dc, type: 3}
+  - {fileID: 0}
   footstepSound: {fileID: 8300000, guid: c83c381627b3ce949a476c3261fcf1f9, type: 3}
   animator: {fileID: 95484618816864078}
   attackDistance: 5

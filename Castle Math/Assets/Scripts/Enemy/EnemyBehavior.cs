@@ -13,7 +13,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public float moveSpeed;
     //public EnumManager.GemType rewardGemType;
     //public int rewardGemAmount;
-	bool attacking = false;
+	public bool attacking = false;
     bool alternateRoute;
     [HideInInspector]
     Queue<int> hitQueue = new Queue<int>();

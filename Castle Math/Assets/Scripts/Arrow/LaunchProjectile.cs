@@ -50,6 +50,11 @@ public class LaunchProjectile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		//Raycasting for future use
+		/*
+		camera = gameObject.GetComponent<Camera> ();
+
 		RaycastHit hit;
 		Ray ray = camera.ScreenPointToRay (Input.mousePosition);
 
@@ -58,6 +63,7 @@ public class LaunchProjectile : MonoBehaviour {
 
 			Debug.Log (objectHit);
 		}
+		*/
 
         GameStateManager.instance.player = this;
         PowerUpDisplay = FindObjectOfType<ManaBar> ();
