@@ -1467,6 +1467,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7e1ce91263e9f4c8215c2a7875c905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 100
+  currentHealth: 0
+  maxHealth: 0
+  fence1: {fileID: 0}
+  fence2: {fileID: 0}
+  fence3: {fileID: 0}
+  fence4: {fileID: 0}
+  post1: {fileID: 0}
+  post2: {fileID: 0}
 --- !u!1001 &154472471
 Prefab:
   m_ObjectHideFlags: 0
@@ -6077,6 +6086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690f538a09f59964b8d413bb1dd1f09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  greenGem: {fileID: 21300000, guid: b62417e808744084c823cb4005511556, type: 3}
 --- !u!4 &640128701 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4296929895643056, guid: 6191d242d97347540a6f4263049bdfed,
@@ -6359,7 +6369,7 @@ Transform:
   m_Children:
   - {fileID: 542802108}
   - {fileID: 2098842481}
-  - {fileID: 1174155504}
+  - {fileID: 691928459}
   - {fileID: 1863854039}
   m_Father: {fileID: 0}
   m_RootOrder: 18
@@ -6759,54 +6769,16 @@ SpriteMask:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 0ad316a708af649b3857340083d5fd7b, type: 3}
   m_PrefabInternal: {fileID: 445837390}
---- !u!1 &691928458
+--- !u!1 &691928458 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 1309001526835180, guid: e953832c72ba67f4dafd07413f731a26,
     type: 2}
   m_PrefabInternal: {fileID: 1238998341}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 691928460}
-  m_Layer: 0
-  m_Name: Missing Prefab (Dummy)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &691928459
+--- !u!224 &691928459 stripped
 RectTransform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 224481558428248728, guid: e953832c72ba67f4dafd07413f731a26,
     type: 2}
   m_PrefabInternal: {fileID: 1238998341}
-  m_GameObject: {fileID: 2140757902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1174155504}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &691928460
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1238998341}
-  m_GameObject: {fileID: 691928458}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1174155504}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &693799663
 GameObject:
   m_ObjectHideFlags: 0
@@ -7189,6 +7161,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7e1ce91263e9f4c8215c2a7875c905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 100
+  currentHealth: 0
+  maxHealth: 0
+  fence1: {fileID: 0}
+  fence2: {fileID: 0}
+  fence3: {fileID: 0}
+  fence4: {fileID: 0}
+  post1: {fileID: 0}
+  post2: {fileID: 0}
 --- !u!1001 &713059138
 Prefab:
   m_ObjectHideFlags: 0
@@ -8458,7 +8439,7 @@ SpriteRenderer:
   m_Size: {x: 21, y: 15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!1 &892281781
 GameObject:
@@ -8924,7 +8905,7 @@ MonoBehaviour:
   horseRiderPrefab: {fileID: 1372078820083414, guid: 0f5a5b7deccc20241a03bdea3a668b45,
     type: 2}
   currentWave: 0
-  finalWave: 1
+  finalWave: 3
   storyText: {fileID: 585508146}
   billboardCanvas: {fileID: 505358069}
   billboardTutorialImage: {fileID: 206640371}
@@ -11786,36 +11767,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1166189018}
---- !u!1 &1174155503
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1238998341}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1174155504}
-  m_Layer: 0
-  m_Name: Missing Prefab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1174155504
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1238998341}
-  m_GameObject: {fileID: 1174155503}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 691928460}
-  - {fileID: 691928459}
-  m_Father: {fileID: 657052359}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1174493833 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: ac61fa61ce9094951bc9f7a4f3d3855c, type: 3}
@@ -13088,6 +13039,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7e1ce91263e9f4c8215c2a7875c905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 100
+  currentHealth: 0
+  maxHealth: 0
+  fence1: {fileID: 0}
+  fence2: {fileID: 0}
+  fence3: {fileID: 0}
+  fence4: {fileID: 0}
+  post1: {fileID: 0}
+  post2: {fileID: 0}
 --- !u!1 &1307804667
 GameObject:
   m_ObjectHideFlags: 0
@@ -14518,7 +14478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1442412356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16295,6 +16255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690f538a09f59964b8d413bb1dd1f09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  greenGem: {fileID: 21300000, guid: b62417e808744084c823cb4005511556, type: 3}
 --- !u!1 &1599458559
 GameObject:
   m_ObjectHideFlags: 0
@@ -18382,7 +18343,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &1786159952
 Transform:
@@ -19787,7 +19748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1904141216
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22021,21 +21982,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4046070576589902, guid: 201c78675408b09469905e225d5cac6a,
     type: 2}
   m_PrefabInternal: {fileID: 2131199191}
---- !u!1 &2140757902
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1238998341}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 691928459}
-  m_Layer: 0
-  m_Name: Missing Prefab (Dummy)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &2142880564
 GameObject:
   m_ObjectHideFlags: 0

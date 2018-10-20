@@ -33,7 +33,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	}
 
 	public void GenerateOperands(int maxDifficulty) {
-        print("DIFFICULTY = " + maxDifficulty);
+        //print("DIFFICULTY = " + maxDifficulty);
 		isSubtract = Random.Range (0, 2);
 
 		if (maxDifficulty != -1) {

@@ -246,7 +246,7 @@ public class MathManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="QuestionTypes">Question types.</param>
 	public void GenerateProblem(bool [] QuestionTypes){
-        print("questionTypesActivated:");
+        //print("questionTypesActivated:");
        /* foreach(bool questionT in QuestionTypes){
             print(questionT);
         }*/
