@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -179,36 +179,9 @@ public class GameStateManager : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-    public void recordTimeinVR() {
-        /* Sends play time information to database */
-        /* float timeInVR; */
-        /* if (gMetrics != null) { */
-        /*     if (m_Controller != null) { */
-        /*         timeInVR = Time.time - m_Controller.startTime; */
-        /*     } */
-        /*     else { */
-        /*         timeInVR = 0f; */
-        /*         Debug.Log("m_Controller is null"); */
-        /*     } */
-        /*     gMetrics.UpdateMetric("TimeInVR", timeInVR); */
-        /* } */
-        /* else { */
-        /*     Debug.Log("gMetrics is null"); */
-        /* } */
-    }
-
     public void recordMetrics() {
-        Debug.Log("Record Metrics");
-        /* telemetryManager.Write("startTime", m_Controller.startTime); */
-        telemetryManager.Write("stopTime", Time.time);
-        // TODO: use player Name as user
-        telemetryManager.Write("levelsUnlocked", levelsUnlocked);
-        telemetryManager.Write("playerName", PlayerPrefs.GetString("PlayerName"));
-        telemetryManager.Write("skillLevel", PlayerPrefs.GetInt("Skill Level"));
-        telemetryManager.Write("highscore1", PlayerPrefs.GetString("globalHS1"));
-        telemetryManager.Write("highscore2", PlayerPrefs.GetString("globalHS2"));
-        telemetryManager.Write("highscore3", PlayerPrefs.GetString("globalHS3"));
-        recordTimeinVR();
+        // Debug.Log("Record Metrics");
+        telemetryManager.LogSession();
     }
 
     public void Quit() {
