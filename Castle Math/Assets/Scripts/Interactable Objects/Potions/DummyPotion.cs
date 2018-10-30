@@ -9,6 +9,7 @@ public class DummyPotion : Potion {
 	protected override void Init()
     {
         toolTip.text = doesExplode ? "Double Agent Potion" : "Scarecrow Potion";
+        toolTipShadow.text = toolTip.text;
         base.Init();
     }
 	
