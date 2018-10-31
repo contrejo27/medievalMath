@@ -166,6 +166,7 @@ public class GameStateManager : MonoBehaviour {
         */
         player.isAlive = false;
         levelManager.DoLoseGameEffects();
+        telemetryManager.LogRound("ended", true);
     }
 
     public void LoadScene(int sceneNum) {
@@ -179,22 +180,15 @@ public class GameStateManager : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-    public void recordMetrics() {
-        // Debug.Log("Record Metrics");
-        telemetryManager.LogSession();
-    }
-
     public void Quit() {
-        // TODO: Verify if the correct location for recordMetrics() is on Quit() or OnApplicationQuit()
-        recordMetrics();
+        telemetryManager.LogSession();
 
         SaveData.SaveDataToJSon();
         StartCoroutine(ActivatorVR("None"));
     }
 
     void OnApplicationQuit() {
-        // TODO: Verify if the correct location for recordMetrics() is on Quit() or OnApplicationQuit()
-        recordMetrics();
+        telemetryManager.LogSession();
     }
 
     public IEnumerator ActivatorVR(string vrToggle) {

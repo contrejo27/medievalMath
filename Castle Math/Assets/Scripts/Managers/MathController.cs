@@ -119,30 +119,31 @@ public class MathController : MonoBehaviour {
 
     }
 
+    // TODO: Remove telemetry from this file, just call wavemanager and mathcontroller from telemetry file
     public void Update() {
         if (SceneManager.GetActiveScene().name == "MathTest") {
             Debug.Log ("hello!");
             if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
                 level1_Completed = true;
-                telemetryManager.Write("level1Completed", true);
+                telemetryManager.LogRound("level1Completed", true);
             }
         }
         if (SceneManager.GetActiveScene().name == "frostLevel") {
             if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
                 level2_Completed = true;
-                telemetryManager.Write("level2Completed", true);
+                telemetryManager.LogRound("level2Completed", true);
             }
         }
         if (SceneManager.GetActiveScene().name == "desertLevel") {
             if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
                 level3_Completed = true;
-                telemetryManager.Write("level3Completed", true);
+                telemetryManager.LogRound("level3Completed", true);
             }
         }
         if (SceneManager.GetActiveScene().name == "bossLevel") {
             if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
                 level4_Completed = true;
-                telemetryManager.Write("level4Completed", true);
+                telemetryManager.LogRound("level4Completed", true);
             }
         }
     }
