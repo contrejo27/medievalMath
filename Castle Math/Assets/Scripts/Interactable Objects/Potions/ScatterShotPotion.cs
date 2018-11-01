@@ -7,6 +7,7 @@ public class ScatterShotPotion : Potion {
     protected override void Init()
     {
         toolTip.text = "Scatter Shot Potion";
+        toolTipShadow.text = toolTip.text;
         base.Init();
     }
 

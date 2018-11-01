@@ -7,6 +7,7 @@ public class SlowTimePotion : Potion {
     protected override void Init()
     {
         toolTip.text = "Slow Time Potion";
+        toolTipShadow.text = toolTip.text;
         base.Init();
     }
 

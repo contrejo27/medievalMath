@@ -9,7 +9,8 @@ public class Potion : BaseInteractableObject {
     enum PotionState { shop, potionMenu, selected, checkout, inventory }
     PotionState currentState;
     public Text toolTip;
-    public Text priceText;
+    public Text toolTipShadow;
+    public GameObject toolTipBG;
     public float cost;
     public float duration;
     float raiseAmt = .2f;
@@ -34,7 +35,7 @@ public class Potion : BaseInteractableObject {
     protected override void Init()
     {
         currentState = PotionState.shop;
-        priceText.text = cost.ToString("0.##");
+        //priceText.text = cost.ToString("0.##");
         initPoitionPos = potionMesh.localPosition;
         
         base.Init();
@@ -77,13 +78,15 @@ public class Potion : BaseInteractableObject {
     void EnableTooltip()
     {
         toolTip.gameObject.SetActive(true);
-        priceText.gameObject.SetActive(true);
+        toolTipShadow.gameObject.SetActive(true);
+        toolTipBG.SetActive(true);
     }
 
     void DisableTooltip()
     {
         toolTip.gameObject.SetActive(false);
-        priceText.gameObject.SetActive(false);
+        toolTipShadow.gameObject.SetActive(false);
+        toolTipBG.SetActive(false);
     }
 
     bool CheckPurchaseViability()

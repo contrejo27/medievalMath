@@ -7,6 +7,7 @@ public class RapidFirePotion : Potion {
     protected override void Init()
     {
         toolTip.text = "Rapidfire Potion";
+        toolTipShadow.text = toolTip.text;
         base.Init();
     }
 

@@ -23,7 +23,7 @@ public class LaunchProjectile : MonoBehaviour {
 	GameObject arrowToLaunch;
 	bool burst;
     bool rapidFire;
-    float rapidFireMod = 1 / 3;
+    float rapidFireMod = .8f;
     float quickShotMod = 1 / 1.75f;
     bool quickShot;
 	bool ArrowLoaded;
@@ -41,6 +41,8 @@ public class LaunchProjectile : MonoBehaviour {
 	public AudioClip LaunchSound;
 	public AudioClip ReloadSound;
 
+	public Camera camera;
+
     void Awake()
     {
        // GameStateManager.instance.player = this;
@@ -48,6 +50,21 @@ public class LaunchProjectile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		//Raycasting for future use
+		/*
+		camera = gameObject.GetComponent<Camera> ();
+
+		RaycastHit hit;
+		Ray ray = camera.ScreenPointToRay (Input.mousePosition);
+
+		if (Physics.Raycast (ray, out hit)) {
+			Transform objectHit = hit.transform;
+
+			Debug.Log (objectHit);
+		}
+		*/
+
         GameStateManager.instance.player = this;
         PowerUpDisplay = FindObjectOfType<ManaBar> ();
 		ModiferEffectCounter = new int[System.Enum.GetValues (typeof(ArrowModifier)).Length];

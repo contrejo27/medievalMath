@@ -70,7 +70,14 @@ public class MathManager : MonoBehaviour {
 	//	True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
 		fractions = GetComponent<Fractions> ();
 		algebraQuestion = GetComponent<Algebra> ();
-		m_Controller = GetComponent<MathController> ();
+
+        GameObject m_ControllerGO = GameObject.Find("mathController");
+
+        if (m_ControllerGO)
+        {
+            m_Controller = m_ControllerGO.GetComponent<MathController>();
+        }
+
         wordProblem = GetComponent<WordProblem>();
         fractionTargets = GetComponent<FractionTargets>();
         numberLineQuestion = GetComponent<NumberLineQuestion>();
@@ -239,10 +246,10 @@ public class MathManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="QuestionTypes">Question types.</param>
 	public void GenerateProblem(bool [] QuestionTypes){
-        print("questionTypesActivated:");
-        foreach(bool questionT in QuestionTypes){
+        //print("questionTypesActivated:");
+       /* foreach(bool questionT in QuestionTypes){
             print(questionT);
-        }
+        }*/
 		A_Input.ClearChoices ();
 		IncorrectAnswersPerQuestion = 0;
 

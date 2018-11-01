@@ -52,7 +52,7 @@ public class ManaBar : MonoBehaviour {
 		//perk text name should match icon sprite name
 		if (CurrentNumber >= NumberOfQuestions) {
 			CurrentNumber = 0;
-            GameStateManager.instance.waveManager.AwardGems(5, EnumManager.GemType.Penny);
+            //GameStateManager.instance.waveManager.AwardGems(5, EnumManager.GemType.Penny);
             //ArrowModifier newMod;
 
             /*

@@ -7,6 +7,7 @@ public class BurstFirePotion : Potion
     protected override void Init()
     {
         toolTip.text = "Burst Fire Potion";
+        toolTipShadow.text = toolTip.text;
         base.Init();
     }
     public override void DoEffect()

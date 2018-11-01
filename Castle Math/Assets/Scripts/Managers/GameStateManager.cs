@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.VR;
-
+using UnityEngine.UI;
 
 
 // This script should contain anything that activates or deactivates things
@@ -11,6 +11,7 @@ using UnityEngine.VR;
 public class GameStateManager : MonoBehaviour {
 
     public EnumManager.GameState currentState;
+    public EnumManager.GameplayMode currentDifficulty;
     // Analytics
     public MathController m_Controller;
     public TelemetryManager telemetryManager;
@@ -33,7 +34,6 @@ public class GameStateManager : MonoBehaviour {
     // References
     [HideInInspector]
     public PlayerController playerController;
-    [HideInInspector]
     public PotionShop potionShop;
     [HideInInspector]
     public Inventory inventory;
@@ -115,27 +115,24 @@ public class GameStateManager : MonoBehaviour {
         }
     }
 
-    // TODO: Unity function?
     public void SetTimeScale(float newTimeScale, float duration) {
         StartCoroutine(ChangeTimeScale(newTimeScale, duration));
     }
 
-    // TODO: Unity function?
     public bool IsLost() {
         return loseState;
     }
 
-    // TODO: Unity function?
     public void UnlockNextLevel() {
-        levelsUnlocked++;
+        if (currentDifficulty == EnumManager.GameplayMode.Medium) {
+            levelsUnlocked++;
+        }
     }
 
-    // TODO: Unity function?
     public void LoseState() {
-        if (!loseState) {
-            loseState = true;
+        if(!loseState) {
+                loseState = true;
         }
-
         /*
         SaveGame();
 

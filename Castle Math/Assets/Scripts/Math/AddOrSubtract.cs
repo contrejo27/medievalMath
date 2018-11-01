@@ -33,7 +33,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 	}
 
 	public void GenerateOperands(int maxDifficulty) {
-        print("DIFFICULTY = " + maxDifficulty);
+        //print("DIFFICULTY = " + maxDifficulty);
 		isSubtract = Random.Range (0, 2);
 
 		if (maxDifficulty != -1) {
@@ -79,7 +79,7 @@ public class AddOrSubtract : MonoBehaviour, Question {
 
             //Set textbox display to formatted question string
             //QuestionText.text = QuestionString;
-            Debug.Log("Setting question to: " + questionString);
+            //Debug.Log("Setting question to: " + questionString);
             aInput.SetQuestion(questionString);
 
 

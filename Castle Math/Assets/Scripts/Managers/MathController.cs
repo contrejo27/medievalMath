@@ -82,17 +82,16 @@ public class MathController : MonoBehaviour {
             textColor = mathInstructions.color;
             mathInstructions.color = new Color(.62f,.2f,.27f);
         }
-        else{
-            GameObject multGO = GameObject.Find("mult/divide");
-            multGO.GetComponent<Toggle>().isOn = true;
-            mult_divide = multGO.GetComponent<Toggle>().interactable = true;
-        }
+        else {
+            GameObject addSubGO = GameObject.Find("add/sub");
+            addSubGO.GetComponent<Toggle>().isOn = true;
+            add_sub = addSubGO.GetComponent<Toggle>().interactable = true;
+       }
 
         hasStarted = true;
     }
 
-    public void unlockMath(){
-        print("unlockingMath");
+    public void unlockMath() {
         Color mathOrange = new Color(0.91F, 0.58F, 0.264F, 1.0F);
         GameObject addGO = GameObject.Find("add/sub");
         add_sub = addGO.GetComponent<Toggle>().interactable = true;

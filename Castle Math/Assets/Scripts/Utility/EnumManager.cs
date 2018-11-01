@@ -20,6 +20,8 @@ public static class EnumManager{
 
     public enum GameState { MainMenu, LevelSelect, Wave, PotionShop, Intermath}
 
+    public enum GameplayMode { Easy, Medium, Hard}
+
     public enum PotionState { shop, menu, inventory }
 
     public enum GemType { Penny, Nickel, Dime, Quarter, Dollar}

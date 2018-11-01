@@ -6,6 +6,7 @@ public class QuickShotPotion : Potion {
 
 	protected override void Init () {
         toolTip.text = "Quickshot Potion";
+        toolTipShadow.text = toolTip.text;
         base.Init();
 	}
 
