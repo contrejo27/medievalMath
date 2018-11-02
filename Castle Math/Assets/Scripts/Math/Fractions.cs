@@ -6,20 +6,25 @@ using UnityEngine.UI;
 
 public class Fractions : MonoBehaviour, Question {
 	private AnswerInput A_Input;
+    int maxInt = 10;
 
-	public Text QuestionText;
+    public Text QuestionText;
 	public Text QuestionText_hud;
 	public GameObject fractionItem;
-
 	private int Numerator;
 	private int Denominator;
-	private double DecimalAnswer;
+    int reducedNumerator;
+    int reducedDenominator;
+    private double DecimalAnswer;
 	private string StringAnswer;
 	private int incorrectAnswers; 
 	private int reduce;
 	private List<GameObject> gems = new List<GameObject>();
+    int fractionMultiplier;
+    string questionString;
+    string[] answerChoices;
 
-	public Fractions () {
+    public Fractions () {
 	}
 
 	// Use this for initialization
@@ -32,7 +37,7 @@ public class Fractions : MonoBehaviour, Question {
 	/// Generates the question.
 	/// </summary>
 	/// <param name="maxDifficulty">maximum end of range</param>
-	public void GenerateQuestion (int maxDifficulty) { //int maxDifficulty => temp fix
+	public void GenerateIntermathQuestion (int maxDifficulty) { //int maxDifficulty => temp fix
 		Numerator = Random.Range (1, 13);
 		Denominator = Random.Range (2, 13);
 
@@ -56,13 +61,13 @@ public class Fractions : MonoBehaviour, Question {
 
 		DecimalAnswer = (double)Numerator / (double)Denominator;
 		StringAnswer = Numerator.ToString() + "/" + Denominator.ToString();
-		GenerateChoices ();
+        GenerateIntermathChoices();
 		DisplayItems();
 	}
 	/// <summary>
 	/// Method to generate choices for corresponding fraction classes
 	/// </summary>
-	public void GenerateChoices() {
+	public void GenerateIntermathChoices() {
 		string [] AnswerChoices = new string [4];
 		int NumeratorChoice;
 		int DenominatorChoice;
@@ -103,10 +108,84 @@ public class Fractions : MonoBehaviour, Question {
 		A_Input.DisplayChoices (AnswerChoices);
 
 	}
-	/// <summary>
-	/// Displays gem item graphics
-	/// </summary>
-	void DisplayItems(){
+
+    public void GenerateOperands(int maxDifficulty)
+    {
+        if (maxDifficulty != -1)
+        {
+            maxInt = maxDifficulty;
+        }
+
+        fractionMultiplier = Random.Range(2, 4);
+        reducedNumerator = Random.Range(1, maxInt);
+        reducedDenominator = Random.Range(1, maxInt);
+        StringAnswer = reducedNumerator + "/" + reducedDenominator;
+
+        Numerator = reducedNumerator * fractionMultiplier;
+        Denominator = reducedDenominator * fractionMultiplier;
+    }
+
+    public void GenerateQuestion(int maxDifficulty)
+    {
+        GenerateOperands(maxDifficulty);
+
+        questionString = "Reduce: " + Numerator.ToString() + "/" + Denominator.ToString();
+
+        //Set textbox display to formatted question string
+        //QuestionText.text = QuestionString;
+        Debug.Log("Setting question to: " + questionString);
+        A_Input.SetQuestion(questionString);
+
+
+        //Generate choices for possible answers
+        GenerateChoices();
+    }
+
+
+    /// <summary>
+    /// Generate choices based on question and calculated correct answer created in GenerateQuestion
+    /// </summary>
+    public void GenerateChoices()
+    {
+
+        string Choice1;
+        string Choice2;
+        string Choice3;
+
+
+        int fakeNum = Numerator - Random.Range(0, Numerator-2);
+        int fakeDenom = Denominator - Random.Range(0, Denominator-2);
+        Choice1 = (fakeNum + "/" + fakeDenom).ToString();
+
+        fakeDenom = Denominator - Random.Range(0, Denominator-2);
+        Choice2 = (reducedNumerator + "/" + fakeDenom).ToString();
+
+        fakeNum = Numerator - Random.Range(0, Numerator-2);
+        Choice3 = (fakeNum + "/" + reducedDenominator).ToString();
+
+
+        string[] IntegerChoices = new string[] { Choice1, Choice2, Choice3, StringAnswer };
+
+        //Shuffle array randomly
+        for (int i = 0; i < IntegerChoices.Length; i++)
+        {
+            string temp = IntegerChoices[i];
+            int r = Random.Range(i, IntegerChoices.Length);
+            IntegerChoices[i] = IntegerChoices[r];
+            IntegerChoices[r] = temp;
+
+        }
+        //Populate choice array with generated answer choices, converted to strings for later use
+        answerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(),
+            IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
+
+        A_Input.DisplayChoices(answerChoices);
+    }
+
+    /// <summary>
+    /// Displays gem item graphics
+    /// </summary>
+    void DisplayItems(){
 		if (gems.Count > 0) {
 			this.DeleteGems ();
 		}
