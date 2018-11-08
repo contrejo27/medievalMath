@@ -13,8 +13,7 @@ public class GameStateManager : MonoBehaviour {
     public EnumManager.GameState currentState;
     public EnumManager.GameplayMode currentDifficulty;
     // Analytics
-    public MathController m_Controller;
-    public TelemetryManager telemetryManager;
+    public TelemetryManager m_telemetry;
 
     // UI
     private string playerName = "JGC";
@@ -93,8 +92,7 @@ public class GameStateManager : MonoBehaviour {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         loadPlayerPrefs();
-        telemetryManager = GetComponent<TelemetryManager>();
-        m_Controller = GetComponent<MathController>();
+        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
 
         numStars = SaveData.numStars;
     }
@@ -102,9 +100,6 @@ public class GameStateManager : MonoBehaviour {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (scene.buildIndex > 0) {
             //RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
-
-            // If this block is commented, uncomment it
-            m_Controller = GameObject.FindObjectOfType<MathController>();
 
             // TODO: Why change exposure?
             RenderSettings.skybox.SetFloat("_Exposure", 1.0f); //reset exposure
@@ -163,7 +158,7 @@ public class GameStateManager : MonoBehaviour {
         */
         player.isAlive = false;
         levelManager.DoLoseGameEffects();
-        telemetryManager.LogRound("ended", true);
+        m_telemetry.LogRound("ended", true);
     }
 
     public void LoadScene(int sceneNum) {
@@ -178,14 +173,14 @@ public class GameStateManager : MonoBehaviour {
     }
 
     public void Quit() {
-        telemetryManager.LogSession();
+        m_telemetry.LogSession();
 
         SaveData.SaveDataToJSon();
         StartCoroutine(ActivatorVR("None"));
     }
 
     void OnApplicationQuit() {
-        telemetryManager.LogSession();
+        m_telemetry.LogSession();
     }
 
     public IEnumerator ActivatorVR(string vrToggle) {
