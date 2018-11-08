@@ -42,6 +42,7 @@ public class PlayerMathStats : MonoBehaviour {
     public Animator Anim;
 
     public void Start() {
+        globalHighScores = new List<string>();
         getHighScores();
         Anim = winUI.GetComponent<Animator>();
     }
