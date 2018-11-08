@@ -201,7 +201,6 @@ public class GameStateManager : MonoBehaviour {
     public void SaveGame() {
         playerMathStats.SaveState();
         SaveData.SaveDataToJSon();
-        PlayerPrefs.SetString("PlayerName", playerName);
     }
 
     public void ActivatePotionShop() {

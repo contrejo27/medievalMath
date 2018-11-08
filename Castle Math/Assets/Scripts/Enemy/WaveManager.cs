@@ -57,7 +57,7 @@ public class WaveManager : MonoBehaviour {
 	public int CurrentEnemies;
     public PlayerMathStats mStats;
     public GameObject statCanvas;
-    private TelemetryManager m_telemetry;
+    public TelemetryManager m_telemetry;
     
 
 	//2D integer Array to determine parameters of waves for the 3 enemy types

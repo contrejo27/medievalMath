@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -17,18 +17,19 @@ public class TelemetryManager : MonoBehaviour {
     private MathController m_mathcontroller;
     private WaveMathManager m_wavemathmanager;
     private WaveManager m_wavemanager;
-    private PlayerMathStats m_playermathstats;
+    public PlayerMathStats m_playermathstats;
 
     private void Awake() {
         instance = this;
         DontDestroyOnLoad(this);
         // TODO: Understand why GameMetrics was attaching to UnityInitializer
-        // UnityInitializer.AttachToGameObject(this.gameObject);
+        // Amazon.UnityInitializer.AttachToGameObject(this.gameObject);
     }
 
     private void Start() {
         if (instance.API_URL == "") {
             instance.API_URL = "lucerna-api.herokuapp.com/api/";
+            API_URL = "lucerna-api.herokuapp.com/api/";
         }
     
         m_mathmanager = GameObject.FindObjectOfType<MathManager>();
@@ -117,7 +118,7 @@ public class TelemetryManager : MonoBehaviour {
     public string SessionPayload() {
         GameStateManager m_gameState = GetComponent<GameStateManager>();
 
-        string playerName = PlayerPrefs.GetString("PlayerName");
+        string playerName = PlayerPrefs.GetString("playerName");
         string tutorialDone = PlayerPrefs.GetString("tutorialDone");
         string skillLevel = PlayerPrefs.GetInt("Skill Level").ToString();
         string stopTime = Time.time.ToString();
