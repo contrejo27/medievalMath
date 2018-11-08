@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 935472010}
-  m_IndirectSpecularColor: {r: 0.58531976, g: 0.63952124, b: 0.66934234, a: 1}
+  m_IndirectSpecularColor: {r: 0.58545905, g: 0.6395227, b: 0.6693342, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5355,6 +5355,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wManager: {fileID: 1645243247}
   LvlManager: {fileID: 0}
+  correctAnswers: 0
+  incorrectAnswers: 0
+  gradeNumber: 0
+  personalHighScore: 0
+  globalHighScores: []
+  AddOrSubtractScore: 0
+  MultiOrDivideScore: 0
+  CompareScore: 0
+  TrueOrFalseScore: 0
+  FractionScore: 0
+  aSupplier: {fileID: 1117494601}
   correctText: {fileID: 1518201671}
   incorrectText: {fileID: 0}
   wave: {fileID: 715580574}
@@ -5367,7 +5378,6 @@ MonoBehaviour:
   winUI: {fileID: 1614618774}
   statScreen: {fileID: 731966628}
   Anim: {fileID: 1614618776}
-  aSupplier: {fileID: 1117494601}
 --- !u!114 &432516432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5385,10 +5395,12 @@ MonoBehaviour:
   W_man: {fileID: 1645243247}
   CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
   IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
+  totalQuestionsAnswered: 0
   interwaveMath: 0
   QuestionTypes: 
   intermathQTypeOptions: 
   IncorrectAnswersPerQuestion: 0
+  QuestionType: 0
   mathCanvas: {fileID: 362110158}
   m_Controller: {fileID: 0}
   interMathCanvas: {fileID: 1751796086}
@@ -15836,6 +15848,7 @@ GameObject:
   - component: {fileID: 1625887764}
   - component: {fileID: 1625887763}
   - component: {fileID: 1625887762}
+  - component: {fileID: 1625887767}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -15889,8 +15902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   currentDifficulty: 0
-  m_Controller: {fileID: 0}
-  telemetryManager: {fileID: 0}
+  m_telemetry: {fileID: 0}
   playerMathStats: {fileID: 0}
   player: {fileID: 0}
   currentSkillLevel: 0
@@ -15914,6 +15926,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1625887767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1625887761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279daa3d9d0929f44aa6feac70844ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  API_URL: 
 --- !u!1001 &1635554596
 Prefab:
   m_ObjectHideFlags: 0
