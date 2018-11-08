@@ -16,7 +16,7 @@ public class PlayerMathStats : MonoBehaviour {
     int incorrectAnswers;
     int gradeNumber;
     int personalHighScore;
-    List<string> globalHighScores = new List<string>();
+    List<string> globalHighScores;
 
     private int AddOrSubtractScore = 0;
     private int MultiOrDivideScore = 0;
@@ -44,6 +44,7 @@ public class PlayerMathStats : MonoBehaviour {
     public ArrowSupplier aSupplier;
     
     public void Start() {
+        globalHighScores = new List<string>();
         getHighScores();
         gMetrics = GameObject.FindObjectOfType<GameMetrics>();
         Anim = winUI.GetComponent<Animator>();

@@ -332,7 +332,7 @@ public class EnemyBehavior : MonoBehaviour {
         GemSpawner.GetComponent<GemSpawner>().SetGemAndStartSpawn(rewardGemType, transform.parent, rewardGemAmount);
         GameStateManager.instance.levelManager.RecieveGems(rewardGemAmount, rewardGemType);
         */
-		Collider enemyHitbox = this.GetComponent<Collider>();
+		//Collider enemyHitbox = this.GetComponent<Collider>();
 		//Destroy(enemyHitbox);
 		
         if(!hasBombDeath)
