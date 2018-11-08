@@ -18,6 +18,7 @@ public class TelemetryManager : MonoBehaviour {
     private WaveMathManager m_wavemathmanager;
     private WaveManager m_wavemanager;
     public PlayerMathStats m_playermathstats;
+    public DoorHealth[] m_barriers;
 
     private void Awake() {
         instance = this;
@@ -37,6 +38,7 @@ public class TelemetryManager : MonoBehaviour {
         m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
         m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
         m_playermathstats = GameObject.FindObjectOfType<PlayerMathStats>();
+        m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
     }
 
     private void Update() {
@@ -170,6 +172,10 @@ public class TelemetryManager : MonoBehaviour {
 
         // TODO: Implement Current Telemetry
         payload = addJson(payload, "wave", m_wavemanager.currentWave.ToString());
+        payload = addJson(payload, "question", m_mathmanager.currentQuestion.GetQuestionString());
+        payload = addJson(payload, "barrier1Health", m_barriers[0].currentHealth.ToString());
+        payload = addJson(payload, "barrier2Health", m_barriers[1].currentHealth.ToString());
+        payload = addJson(payload, "barrier3Health", m_barriers[2].currentHealth.ToString());
         // IncorrectAnswersPerCurrentQuestion
         // Debug.Log("incorrectAnswersPerCurrentQuestion" + m_mathmanager.IncorrectAnswersPerQuestion.ToString());
         // Debug.Log("currentQuestion:" + Question m_mathmanager.currentQuestion.ToString());
