@@ -152,6 +152,9 @@ public class WaveManager : MonoBehaviour {
     public void readLevel(string level)
     {
         //get Wave csv
+        if (GameStateManager.instance.currentDifficulty.ToString() == "Easy") finalWave = 10;
+        if (GameStateManager.instance.currentDifficulty.ToString() == "Hard") finalWave = 15;
+
         //Finds text file of the following name in waves folder for the use of the function
         string waveFileName = "waves/" + level.Replace("Level", "") + "_Wave" + GameStateManager.instance.currentDifficulty.ToString();
         TextAsset waveDat = Resources.Load(waveFileName, typeof(TextAsset)) as TextAsset;
@@ -191,7 +194,7 @@ public class WaveManager : MonoBehaviour {
 			Mathm.SetDifficulty ();
 		}
 
-        if (currentWave == 4)
+        if (currentWave == finalWave/2)
         {
             A_Source.clip = halfwayThrough;
             A_Source.Play();
