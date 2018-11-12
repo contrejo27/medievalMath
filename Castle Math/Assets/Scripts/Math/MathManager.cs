@@ -20,7 +20,7 @@ public class MathManager : MonoBehaviour {
     public int totalQuestionsAnswered= 0;
     private int maxDifficultyIncrease = 3;
     public bool interwaveMath;
-  
+
     AnswerInput A_Input;
 
     MultiplyOrDivide multOrDiv;
@@ -46,6 +46,7 @@ public class MathManager : MonoBehaviour {
     public MathController m_Controller;
     public UIEffects interMathCanvas;
     public UIEffects interMathButtons;
+    public TelemetryManager m_telemetry;
 
     public static MathManager instance;
 
@@ -60,6 +61,7 @@ public class MathManager : MonoBehaviour {
 
     void Start () {
         GameStateManager.instance.mathManager = this;
+        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
 
         A_Input = GetComponent<AnswerInput> ();
         multOrDiv = GetComponent<MultiplyOrDivide> ();
@@ -106,7 +108,7 @@ public class MathManager : MonoBehaviour {
             QuestionTypes [2] = false;
             QuestionTypes [3] = false;
         }
-        
+
         GenerateProblem (QuestionTypes);
     }
 
@@ -140,7 +142,7 @@ public class MathManager : MonoBehaviour {
             default:
                 break;
         }
-        
+
 
     }
 
@@ -148,7 +150,7 @@ public class MathManager : MonoBehaviour {
         /// <summary>
         /// Generates a fraction question for the interwave math question
         /// </summary>
-        
+
         // TODO: Remove hotfix
         q.GenerateQuestion(-1); //-1 => temp fix
         A_Input.SetCorrectAnswer(q.GetCorrectAnswer());
@@ -192,7 +194,7 @@ public class MathManager : MonoBehaviour {
         interMathCanvas.fadeIn(1);
         interMathButtons.fadeIn(1);
     }
-    
+
     public void DeactivateBillboard() {
         billboard.GetComponent<Animator> ().Play("hide");
         interMathCanvas.fadeOut(1);
@@ -202,10 +204,10 @@ public class MathManager : MonoBehaviour {
 
     public void SetDifficulty() {
         /// <summary>
-        /// Sets the math difficulty based on previous performance. Adds correct and incorrect 
+        /// Sets the math difficulty based on previous performance. Adds correct and incorrect
         /// answers to generate aggregate score to be used in order to increase difficulty
         /// </summary>
-        
+
         int aggregateScoreAorS = A_Input.GetIncorrectOfType(typeof(AddOrSubtract)) + A_Input.GetCorrectOfType(typeof(AddOrSubtract));
         int aggregateScoreMorD = A_Input.GetIncorrectOfType(typeof(MultiplyOrDivide)) + A_Input.GetCorrectOfType(typeof(MultiplyOrDivide));
 
@@ -249,7 +251,7 @@ public class MathManager : MonoBehaviour {
         /// Generates the corresponding problem based on selected question options and a random variable.
         /// </summary>
         /// <param name="QuestionTypes">Question types.</param>
-        
+
         //print("questionTypesActivated:");
         /* foreach(bool questionT in QuestionTypes) {
             print(questionT);
@@ -302,6 +304,7 @@ public class MathManager : MonoBehaviour {
         }
 
         totalQuestionsAnswered++;
+        m_telemetry.LogRound("ended", true);
     }
 
     /*

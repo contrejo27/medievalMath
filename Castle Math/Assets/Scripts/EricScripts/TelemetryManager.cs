@@ -25,20 +25,21 @@ public class TelemetryManager : MonoBehaviour {
         DontDestroyOnLoad(this);
         // TODO: Understand why GameMetrics was attaching to UnityInitializer
         // Amazon.UnityInitializer.AttachToGameObject(this.gameObject);
+		if (instance.API_URL == "") {
+			instance.API_URL = "lucerna-api.herokuapp.com/api/";
+			API_URL = "lucerna-api.herokuapp.com/api/";
+		}
+
+		m_mathmanager = GameObject.FindObjectOfType<MathManager>();
+		m_mathcontroller = GameObject.FindObjectOfType<MathController>();
+		m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
+		m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
+		m_playermathstats = GameObject.FindObjectOfType<PlayerMathStats>();
+		m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
     }
 
     private void Start() {
-        if (instance.API_URL == "") {
-            instance.API_URL = "lucerna-api.herokuapp.com/api/";
-            API_URL = "lucerna-api.herokuapp.com/api/";
-        }
-    
-        m_mathmanager = GameObject.FindObjectOfType<MathManager>();
-        m_mathcontroller = GameObject.FindObjectOfType<MathController>();
-        m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
-        m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
-        m_playermathstats = GameObject.FindObjectOfType<PlayerMathStats>();
-        m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
+        
     }
 
     private void Update() {
