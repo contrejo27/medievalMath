@@ -23,7 +23,7 @@ public class CreateProfile2Canvas : CanvasNavigation
 
     void SignUpPressed()
     {
-        errorText.text = "";
+        /*errorText.text = "";
 
         if (!IsProfileValid())
             return;
@@ -41,14 +41,14 @@ public class CreateProfile2Canvas : CanvasNavigation
             };
 
             DatabaseManager.instance.CreateNewProfile(userData);
-			LocalUserData.SetUserEmail (email.InputField.text.ToLower ());
+			LocalUserData.SetUserEmail (email.InputField.text.ToLower ());*/
 			GoToNextCanvas ();
-        }
+       //}
     }
 
     bool IsProfileValid()
     {
-        if  (displayName.InputField.text == "" ||
+       /* if  (displayName.InputField.text == "" ||
             email.InputField.text == "" ||
             password.InputField.text == "" ||
             confirmPassword.InputField.text == "")
@@ -66,7 +66,7 @@ public class CreateProfile2Canvas : CanvasNavigation
             DisplayErrorMessage("Passwords must match.");
             return false;
         }
-
+*/
         return true;
     }
 
