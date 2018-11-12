@@ -13,7 +13,7 @@ public class Login_Canvas : CanvasNavigation
     [SerializeField] private InputField emailInput;
     [SerializeField] private InputField passwordInput;
     [SerializeField] private Text feedbackText;
-
+	public GameObject bgTemp;
     MathController mController;
 
 	private void Start()
@@ -56,6 +56,7 @@ public class Login_Canvas : CanvasNavigation
 		if (FindObjectOfType<SubscriptionCanvas> ())
 			FindObjectOfType<SubscriptionCanvas> ().Refresh ();
 		Destroy (this.gameObject);
+		Destroy (bgTemp);
     }
 
     void SignUpPressed()

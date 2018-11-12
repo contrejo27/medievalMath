@@ -66,6 +66,7 @@ public class GameStateManager : MonoBehaviour {
     }
 
     void loadPlayerPrefs() {
+      Debug.Log("PlayerName:" + PlayerPrefs.GetString("playerName"));
       if (!PlayerPrefs.HasKey("isFirstTime")) {
           PlayerPrefs.SetInt("tutorialDone", 0);
 
