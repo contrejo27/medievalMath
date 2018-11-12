@@ -5,15 +5,10 @@ using UnityEngine.UI;
 using EasyMobile;
 using System.Security.Cryptography;
 
-public class CreateProfileCanvas : CanvasNavigation
+public class CreateProfile2Canvas : CanvasNavigation
 {
     [Header("Profile Entry References")]
 #pragma warning disable
-    [SerializeField] ProfileEntry displayName = null;
-    [SerializeField] ProfileEntry email = null;
-    [SerializeField] ProfileEntry password = null;
-    [SerializeField] ProfileEntry confirmPassword = null;
-
     [Header("UI References")]
     [SerializeField] Button signUpButton;
     [SerializeField] Text errorText;
@@ -32,13 +27,23 @@ public class CreateProfileCanvas : CanvasNavigation
 
         if (!IsProfileValid())
             return;
+       
+		string hashPass = PasswordEncryption.Md5Sum (password.InputField.text);
 
-        UserNameTemp = displayName.InputField.text;
-        UserEmailTemp = email.InputField.text;
-        UserPasswordTemp = password.InputField.text;
-        DaysLeftTemp = 0;
+        if (DatabaseManager.instance)
+        {
+            DatabaseManager.UserData userData = new DatabaseManager.UserData
+            {
+                UserName = displayName.InputField.text,
+                UserEmail = email.InputField.text,
+				UserPassword = hashPass,
+                DaysLeft = 0
+            };
 
-        GoToNextCanvas();
+            DatabaseManager.instance.CreateNewProfile(userData);
+			LocalUserData.SetUserEmail (email.InputField.text.ToLower ());
+			GoToNextCanvas ();
+        }
     }
 
     bool IsProfileValid()

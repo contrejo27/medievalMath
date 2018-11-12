@@ -92,7 +92,7 @@ public class GameStateManager : MonoBehaviour {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         loadPlayerPrefs();
-        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
+        //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
 
         numStars = SaveData.numStars;
     }
