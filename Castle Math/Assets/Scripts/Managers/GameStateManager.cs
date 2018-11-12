@@ -25,7 +25,7 @@ public class GameStateManager : MonoBehaviour {
     // Environment
     [HideInInspector]
     public LaunchProjectile player;
-    private bool loseState = false;
+    private static bool loseState = false;
     public int currentSkillLevel;
     [HideInInspector]
     public int levelsUnlocked = 1;
@@ -169,24 +169,24 @@ public class GameStateManager : MonoBehaviour {
         loseState = false;
         // TODO: Why change exposure?
         RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
-        SceneManager.LoadScene(1);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Quit() {
-        m_telemetry.LogSession();
+        //m_telemetry.LogSession();
 
-        SaveData.SaveDataToJSon();
+        //SaveData.SaveDataToJSon();
         StartCoroutine(ActivatorVR("None"));
     }
 
     void OnApplicationQuit() {
-        m_telemetry.LogSession();
+       // m_telemetry.LogSession();
     }
 
     public IEnumerator ActivatorVR(string vrToggle) {
         // TODO: Please explain yield
         UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
-        yield return null;
+       // yield return null;
         UnityEngine.VR.VRSettings.enabled = false;
         yield return new WaitForSeconds(.1f);
         SceneManager.LoadScene (0);

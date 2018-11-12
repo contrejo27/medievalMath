@@ -138,9 +138,11 @@ public class WaveManager : MonoBehaviour {
     {
         switch (newDifficulty) {
             case "Skirmish":
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 GameStateManager.instance.currentDifficulty = EnumManager.GameplayMode.Easy;
                 break;
             case "Battle":
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 GameStateManager.instance.currentDifficulty = EnumManager.GameplayMode.Medium;
                 break;
         }
