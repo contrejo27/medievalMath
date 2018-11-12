@@ -59,6 +59,7 @@ public class WaveManager : MonoBehaviour {
 	public int CurrentEnemies;
     public PlayerMathStats mStats;
     public GameObject statCanvas;
+    public TelemetryManager m_telemetry;
     
 
 	//2D integer Array to determine parameters of waves for the 3 enemy types
@@ -82,6 +83,7 @@ public class WaveManager : MonoBehaviour {
 
         music = GameObject.Find ("Music").GetComponent<AudioSource> ();
         GameStateManager.instance.waveManager = this;
+        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
         //first integer in array is type of launch (0 all at once/1 staggered/2 waves/3 singles) second is number of enemies per lane
 
 
@@ -152,6 +154,9 @@ public class WaveManager : MonoBehaviour {
     public void readLevel(string level)
     {
         //get Wave csv
+        if (GameStateManager.instance.currentDifficulty.ToString() == "Easy") finalWave = 10;
+        if (GameStateManager.instance.currentDifficulty.ToString() == "Hard") finalWave = 15;
+
         //Finds text file of the following name in waves folder for the use of the function
         string waveFileName = "waves/" + level.Replace("Level", "") + "_Wave" + GameStateManager.instance.currentDifficulty.ToString();
         TextAsset waveDat = Resources.Load(waveFileName, typeof(TextAsset)) as TextAsset;
@@ -191,7 +196,7 @@ public class WaveManager : MonoBehaviour {
 			Mathm.SetDifficulty ();
 		}
 
-        if (currentWave == 4)
+        if (currentWave == finalWave/2)
         {
             A_Source.clip = halfwayThrough;
             A_Source.Play();
@@ -215,7 +220,7 @@ public class WaveManager : MonoBehaviour {
             ActivateWave(currentWave);
         }
         GameStateManager.instance.currentState = EnumManager.GameState.Wave;
-		
+        m_telemetry.LogRound("ended", true);
 	}
     
 

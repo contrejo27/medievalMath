@@ -32,23 +32,13 @@ public class CreateProfileCanvas : CanvasNavigation
 
         if (!IsProfileValid())
             return;
-       
-		string hashPass = PasswordEncryption.Md5Sum (password.InputField.text);
 
-        if (DatabaseManager.instance)
-        {
-            DatabaseManager.UserData userData = new DatabaseManager.UserData
-            {
-                UserName = displayName.InputField.text,
-                UserEmail = email.InputField.text,
-				UserPassword = hashPass,
-                DaysLeft = 0
-            };
+        UserNameTemp = displayName.InputField.text;
+        UserEmailTemp = email.InputField.text;
+        UserPasswordTemp = password.InputField.text;
+        DaysLeftTemp = 0;
 
-            DatabaseManager.instance.CreateNewProfile(userData);
-			LocalUserData.SetUserEmail (email.InputField.text.ToLower ());
-			GoToNextCanvas ();
-        }
+        GoToNextCanvas();
     }
 
     bool IsProfileValid()
@@ -58,17 +48,17 @@ public class CreateProfileCanvas : CanvasNavigation
             password.InputField.text == "" ||
             confirmPassword.InputField.text == "")
         {
-            DisplayErrorMessage("All fields must be filled in!");
+            DisplayErrorMessage("All fields must be filled in.");
             return false;
         }
         else if (DatabaseManager.instance && DatabaseManager.instance.IsEmailValid(email.InputField.text))
         {
-            DisplayErrorMessage("Email already exists!");
+            DisplayErrorMessage("Email already exists.");
             return false;
         }
         else if (password.InputField.text != confirmPassword.InputField.text)
         {
-            DisplayErrorMessage("Passwords must match!");
+            DisplayErrorMessage("Passwords must match.");
             return false;
         }
 

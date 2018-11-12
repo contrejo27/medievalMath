@@ -17,7 +17,7 @@ public class MathManager : MonoBehaviour {
     private int mathDifficultyAorS = 6;
     private int mathDifficultyMorD = 5;
     // private string CorrectAnswer;
-    private int totalQuestionsAnswered= 0;
+    public int totalQuestionsAnswered= 0;
     private int maxDifficultyIncrease = 3;
     public bool interwaveMath;
   
@@ -35,9 +35,11 @@ public class MathManager : MonoBehaviour {
 
     public bool [] QuestionTypes;
     public List<int> intermathQTypeOptions;
+    // TODO: New variable: TotalIncorrectAnswers
+    // TODO: Better name: IncorrenctAnswersInCurrentQuestion
     public int IncorrectAnswersPerQuestion;
-    private int QuestionType;
-    private Question currentQuestion;
+    public int QuestionType;
+    public Question currentQuestion;
 
 
     public GameObject mathCanvas;
@@ -143,7 +145,10 @@ public class MathManager : MonoBehaviour {
     }
 
     private void GenerateQuestionForInterMath(Question q) {
-        //Generates a fraction question for the interwave math question
+        /// <summary>
+        /// Generates a fraction question for the interwave math question
+        /// </summary>
+        
         // TODO: Remove hotfix
         q.GenerateQuestion(-1); //-1 => temp fix
         A_Input.SetCorrectAnswer(q.GetCorrectAnswer());
@@ -171,6 +176,7 @@ public class MathManager : MonoBehaviour {
             QuestionTypes [2] = false;
             QuestionTypes [3] = false;
         }
+
         currentQuestion.OnEndQuestion();
         // Debug.Log("AS Difficulty: " + mathDifficultyAorS);
         // Debug.Log("MD Difficulty: " + mathDifficultyMorD);
@@ -243,10 +249,12 @@ public class MathManager : MonoBehaviour {
         /// Generates the corresponding problem based on selected question options and a random variable.
         /// </summary>
         /// <param name="QuestionTypes">Question types.</param>
+        
         //print("questionTypesActivated:");
         /* foreach(bool questionT in QuestionTypes) {
             print(questionT);
         }*/
+
         A_Input.ClearChoices ();
         IncorrectAnswersPerQuestion = 0;
 
@@ -294,7 +302,6 @@ public class MathManager : MonoBehaviour {
         }
 
         totalQuestionsAnswered++;
-
     }
 
     /*

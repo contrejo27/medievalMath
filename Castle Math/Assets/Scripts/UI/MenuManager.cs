@@ -65,8 +65,6 @@ public class MenuManager : MonoBehaviour
 
 	public void StartGameButtonPressed()
 	{
-		GameObject newCanvas = null;
-
         UIAudio.clip = btnClick;
         UIAudio.loop = false;
         UIAudio.Play();

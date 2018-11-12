@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -9,21 +9,36 @@ using UnityEngine;
 public class TelemetryManager : MonoBehaviour {
     public static TelemetryManager instance;
 
-
-    // TODO: Keep API login info private and outside git
+    // NOTE: DO NOT HARD CODE API login. Keep info private and outside git
     public string API_URL;
+
+    // Data hooks
+    private MathManager m_mathmanager;
+    private MathController m_mathcontroller;
+    private WaveMathManager m_wavemathmanager;
+    private WaveManager m_wavemanager;
+    public PlayerMathStats m_playermathstats;
+    public DoorHealth[] m_barriers;
 
     private void Awake() {
         instance = this;
         DontDestroyOnLoad(this);
         // TODO: Understand why GameMetrics was attaching to UnityInitializer
-        /* UnityInitializer.AttachToGameObject(this.gameObject); */
+        // Amazon.UnityInitializer.AttachToGameObject(this.gameObject);
     }
 
     private void Start() {
         if (instance.API_URL == "") {
             instance.API_URL = "lucerna-api.herokuapp.com/api/";
+            API_URL = "lucerna-api.herokuapp.com/api/";
         }
+    
+        m_mathmanager = GameObject.FindObjectOfType<MathManager>();
+        m_mathcontroller = GameObject.FindObjectOfType<MathController>();
+        m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
+        m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
+        m_playermathstats = GameObject.FindObjectOfType<PlayerMathStats>();
+        m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
     }
 
     private void Update() {
@@ -69,12 +84,11 @@ public class TelemetryManager : MonoBehaviour {
     }
 
     public static void APIPost(string key, string jsonPayload) {
-        string url = "http://" + instance.API_URL + key;
+        string url = "http://" + instance.API_URL + "log/" + key;
         Debug.Log(url);
         var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
         httpWebRequest.ContentType = "application/json";
         httpWebRequest.Method = "POST";
-
 
         using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
             streamWriter.Write(jsonPayload);
@@ -89,9 +103,9 @@ public class TelemetryManager : MonoBehaviour {
         }
     }
 
-    public List<string> APIRead(string propertyName, string dataRange) {
+    public static List<string> APIRead(string propertyName, string dataRange) {
         //TODO: Implement Read()
-        Debug.Log("TelemetryManager.Read() is not implemented yet...\nSorry o_o");
+        Debug.Log("TelemetryManager.APIRead() is not implemented yet...\nSorry o_o");
         return new List<string>();
     }
 
@@ -106,26 +120,23 @@ public class TelemetryManager : MonoBehaviour {
     public string SessionPayload() {
         GameStateManager m_gameState = GetComponent<GameStateManager>();
 
-        string playerName = PlayerPrefs.GetString("PlayerName");
+        string playerName = PlayerPrefs.GetString("playerName");
         string tutorialDone = PlayerPrefs.GetString("tutorialDone");
         string skillLevel = PlayerPrefs.GetInt("Skill Level").ToString();
         string stopTime = Time.time.ToString();
         string score = PlayerPrefs.GetInt("score").ToString();
         string levelsUnlocked = m_gameState.levelsUnlocked.ToString();
 
-        // TODO: Remove fake
-        playerName = "eu";
-        skillLevel = "9001";
-        string fake_waves = Random.Range(1, 10).ToString();
-        string fake_arrows = Random.Range(10, 50).ToString();
-
         string payload = "";
+        // Player Telemetry
         payload = addJson(payload, "playerName", playerName);
         payload = addJson(payload, "score", score);
         payload = addJson(payload, "skillLevel", skillLevel);
         payload = addJson(payload, "tutorialDone", tutorialDone);
         payload = addJson(payload, "stopTime", stopTime);
         payload = addJson(payload, "levelsUnlocked", levelsUnlocked);
+
+        // System Telemetry
         payload = addJson(payload, "deviceUniqueIdentifier", SystemInfo.deviceUniqueIdentifier);
         payload = addJson(payload, "deviceModel", SystemInfo.deviceModel);
         payload = addJson(payload, "operatingSystem", SystemInfo.operatingSystem);
@@ -147,62 +158,55 @@ public class TelemetryManager : MonoBehaviour {
         payload = addJson(payload, "supportsComputeShaders", SystemInfo.supportsComputeShaders);
         payload = addJson(payload, "supportsInstancing", SystemInfo.supportsInstancing);
 
-        // TODO: Add math telemetry
-        // TODO: Remove telemetry from MathController
-        MathController m_mathcontroller = GetComponent<MathController>();
+        // Math Telemetry
+        payload = addJson(payload, "correct", m_playermathstats.correctAnswers.ToString());
+        payload = addJson(payload, "incorrect", m_playermathstats.incorrectAnswers.ToString());
+        payload = addJson(payload, "totalAnswers ", m_mathmanager.totalQuestionsAnswered.ToString());
+        payload = addJson(payload, "gradeNumber", m_playermathstats.gradeNumber.ToString());
+        payload = addJson(payload, "personalHighScore", m_playermathstats.personalHighScore.ToString());
+        payload = addJson(payload, "addOrSubtractScore", m_playermathstats.AddOrSubtractScore.ToString());
+        payload = addJson(payload, "multiOrDivideScore", m_playermathstats.MultiOrDivideScore.ToString());
+        payload = addJson(payload, "compareScore", m_playermathstats.CompareScore.ToString());
+        payload = addJson(payload, "trueOrFalseScore", m_playermathstats.TrueOrFalseScore.ToString());
+        payload = addJson(payload, "fractionScore", m_playermathstats.FractionScore.ToString());
+
+        // TODO: Implement Current Telemetry
+        payload = addJson(payload, "wave", m_wavemanager.currentWave.ToString());
+        payload = addJson(payload, "question", m_mathmanager.currentQuestion.GetQuestionString());
+        payload = addJson(payload, "barrier1Health", m_barriers[0].currentHealth.ToString());
+        payload = addJson(payload, "barrier2Health", m_barriers[1].currentHealth.ToString());
+        payload = addJson(payload, "barrier3Health", m_barriers[2].currentHealth.ToString());
+        // IncorrectAnswersPerCurrentQuestion
+        // Debug.Log("incorrectAnswersPerCurrentQuestion" + m_mathmanager.IncorrectAnswersPerQuestion.ToString());
+        // Debug.Log("currentQuestion:" + Question m_mathmanager.currentQuestion.ToString());
+        // Debug.Log("questionType:" + m_mathmanager.questionType.ToString());
+
+        // Debug.Log("m_wavemanager.currentWave:" + m_wavemanager.currentWave.ToString());
+        // Debug.Log("m_wavemathmanager.totalQuestionsAnswered:" + m_wavemathmanager.totalQuestionsAnswered.ToString());
+        // Debug.Log("m_wavemathmanager.mathDifficulty:" + m_wavemathmanager.mathDifficulty.ToString());
+        // Debug.Log("m_wavemathmanager.totalQuestionsAnswered:" + m_wavemathmanager.totalQuestionsAnswered.ToString());
+        // Debug.Log("m_wavemathmanager.mathDifficulty:" + m_wavemathmanager.mathDifficulty.ToString());
+        // Debug.Log("m_wavemathmanager.ProblemType:" + m_wavemathmanager.ProblemType.ToString());
+        // Debug.Log("m_wavemathmanager.currentQuestion:" + m_wavemathmanager.currentQuestion.ToString());
+    
+        // Debug.Log("aSupplier.NumberOfArrows:" + aSupplier.NumberOfArrows.ToString());
+        // Debug.Log("Utility.SaveData PlayerData.questionTypesActive:" + Utility.SaveData PlayerData.questionTypesActive.ToString());
+        // Debug.Log("player.PlayerMathStats:" + player.PlayerMathStats.ToString());
+    
         // Debug.Log("Level 1 Completed: " + m_mathcontroller.level1_Completed.ToString());
         // Debug.Log("Level 2 Completed: " + m_mathcontroller.level2_Completed.ToString());
         // Debug.Log("Level 3 Completed: " + m_mathcontroller.level3_Completed.ToString());
         // Debug.Log("Level 4 Completed: " + m_mathcontroller.level4_Completed.ToString());
-        WaveManager m_wavemanager = GetComponent<WaveManager>();
-        // Debug.Log(m_wavemanager.currentWave);
-        WaveMathManager m_wavemathmanager = GetComponent<WaveMathManager>();
-        // Debug.Log(m_wavemathmanager.totalQuestionsAnswered);
-        // Debug.Log(m_wavemathmanager.mathDifficulty);
-        // m_wavemathmanager.totalQuestionsAnswered
-        // int m_wavemathmanager.mathDifficulty
-        // int m_wavemathmanager.ProblemType
-        // Question m_wavemathmanager.currentQuestion
-        MathManager m_mathmanager = GetComponent<MathManager>();
-        // Question m_mathmanager.currentQuestion
-        // int m_mathmanager.questionType
-        // m_mathmanager.totalQuestionsAnswered
-        // Debug.Log(m_mathmanager.IncorrectAnswersPerQuestion);
-        // Utility.SaveData PlayerData.questionTypesActive
-        // player.PlayerMathStats
-        PlayerMathStats m_playermathstats = GetComponent<PlayerMathStats>();
-        // Debug.Log(m_playermathstats.grade);
-        // Debug.Log(m_playermathstats.hsWave);
-        // Debug.Log(m_playermathstats.hsName);
-        // Debug.Log(m_playermathstats.correctAnswers);
-        // Debug.Log(m_playermathstats.gradeNumber);
-        // Debug.Log(m_playermathstats.personalHighScore);
-        // Debug.Log(m_playermathstats.AddOrSubtractScore);
-        // Debug.Log(m_playermathstats.MultiOrDivideScore);
-        // Debug.Log(m_playermathstats.CompareScore);
-        // Debug.Log(m_playermathstats.TrueOrFalseScore);
-        // Debug.Log(m_playermathstats.FractionScore);
-        // mathstats.grade
-        // mathstats.towerWave
-        // mathstats.hsWave
-        // mathstats.hsName
-        // mathstats.correctAnswers
-        // mathstats.gradeNumber
-        // mathstats.incorrectAnswers
-        // mathstats.gradeNumber
-        // mathstats.personalHighScore
-        // mathstats.AddOrSubtractScore
-        // mathstats.MultiOrDivideScore
-        // mathstats.CompareScore
-        // mathstats.TrueOrFalseScore
-        // mathstats.FractionScore
-        // mathstats. aSupplier.NumberOfArrows
-        // mathstats. wManager.currentWave
+    
+        // TODO: See if I can extract any useful information from these Unity Text Objects
+        // Debug.Log("m_playermathstats.grade:" + m_playermathstats.grade.ToString());
+        // Debug.Log("m_playermathstats.towerWave:" + m_playermathstats.towerWave.ToString());
+        // Debug.Log("m_playermathstats.hsWave:" + m_playermathstats.hsWave.ToString());
+        // Debug.Log("m_playermathstats.hsName:" + m_playermathstats.hsName.ToString());
 
         string jsonPayload = "{" + payload + "}";
 
-        Debug.Log("Made JSON payload");
-        Debug.Log(jsonPayload);
+        Debug.Log("Assemblem JSON payload...\n" + jsonPayload);
 
         return jsonPayload;
     }

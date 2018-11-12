@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 935472010}
-  m_IndirectSpecularColor: {r: 0.35148954, g: 0.5802327, b: 0.79598, a: 1}
+  m_IndirectSpecularColor: {r: 0.35148975, g: 0.58071417, b: 0.79520303, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1175,7 +1175,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &139290122
 Prefab:
@@ -5906,7 +5906,7 @@ Transform:
   - {fileID: 1082918499}
   - {fileID: 1716083904}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &291008271 stripped
 Transform:
@@ -8063,7 +8063,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &622495731
 GameObject:
@@ -9564,7 +9564,7 @@ Transform:
   - {fileID: 696767055}
   - {fileID: 572414734}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &754883768
 GameObject:
@@ -10362,7 +10362,7 @@ Transform:
   m_Children:
   - {fileID: 1762258155}
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &834551090
 GameObject:
@@ -13735,7 +13735,7 @@ Transform:
   - {fileID: 1007597070}
   - {fileID: 1437175222}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &837828401
 Prefab:
@@ -13879,7 +13879,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &851518018
 Prefab:
@@ -14040,7 +14040,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &860700630
 GameObject:
@@ -14453,7 +14453,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &937262475
 GameObject:
@@ -15208,7 +15208,7 @@ Transform:
   - {fileID: 902280024}
   - {fileID: 1769334302}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1039301822
 Prefab:
@@ -16321,6 +16321,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wManager: {fileID: 1037841987}
   LvlManager: {fileID: 0}
+  correctAnswers: 0
+  incorrectAnswers: 0
+  gradeNumber: 0
+  personalHighScore: 0
+  globalHighScores: []
+  AddOrSubtractScore: 0
+  MultiOrDivideScore: 0
+  CompareScore: 0
+  TrueOrFalseScore: 0
+  FractionScore: 0
+  aSupplier: {fileID: 1109761807}
   correctText: {fileID: 995440987}
   incorrectText: {fileID: 0}
   wave: {fileID: 1856252301}
@@ -16333,7 +16344,6 @@ MonoBehaviour:
   winUI: {fileID: 1069909157}
   statScreen: {fileID: 696767058}
   Anim: {fileID: 1069909159}
-  aSupplier: {fileID: 1109761807}
 --- !u!114 &1102821707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16351,10 +16361,12 @@ MonoBehaviour:
   W_man: {fileID: 1037841987}
   CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
   IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
+  totalQuestionsAnswered: 0
   interwaveMath: 0
   QuestionTypes: 
   intermathQTypeOptions: 
   IncorrectAnswersPerQuestion: 0
+  QuestionType: 0
   mathCanvas: {fileID: 95783385}
   m_Controller: {fileID: 0}
   interMathCanvas: {fileID: 1840536679}
@@ -16559,7 +16571,7 @@ Transform:
   - {fileID: 1840536677}
   - {fileID: 670153862}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1118659233
 MonoBehaviour:
@@ -16797,7 +16809,7 @@ Transform:
   m_Children:
   - {fileID: 1172976448}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1134907703
 GameObject:
@@ -18521,7 +18533,7 @@ Transform:
   - {fileID: 1680080577}
   - {fileID: 1242633489}
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1295980536
 GameObject:
@@ -24050,7 +24062,7 @@ Transform:
   - {fileID: 2033171497}
   - {fileID: 1618841359}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1617684485
 Prefab:
@@ -24330,7 +24342,7 @@ Transform:
   - {fileID: 754883769}
   - {fileID: 1584344082}
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1672589633
 GameObject:
@@ -24540,7 +24552,7 @@ Transform:
   m_LocalScale: {x: 11.563411, y: 11.563404, z: 11.563404}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: -231.469, z: 0}
 --- !u!1 &1678447882
 GameObject:
@@ -24857,7 +24869,7 @@ Transform:
   - {fileID: 1081375912}
   - {fileID: 756341043}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1703014076
 GameObject:
@@ -25423,7 +25435,7 @@ Transform:
   m_LocalScale: {x: 0.61757, y: 0.61757, z: 0.61757}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1761848728
 Prefab:
@@ -25527,6 +25539,7 @@ GameObject:
   - component: {fileID: 1774416477}
   - component: {fileID: 1774416476}
   - component: {fileID: 1774416475}
+  - component: {fileID: 1774416474}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -25534,6 +25547,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1774416474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1774416473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279daa3d9d0929f44aa6feac70844ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  API_URL: 
 --- !u!114 &1774416475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25569,8 +25594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   currentDifficulty: 0
-  m_Controller: {fileID: 0}
-  telemetryManager: {fileID: 0}
+  m_telemetry: {fileID: 0}
   playerMathStats: {fileID: 1102821706}
   player: {fileID: 0}
   currentSkillLevel: 0
@@ -25592,7 +25616,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1776495060
 GameObject:
@@ -25874,7 +25898,7 @@ Transform:
   - {fileID: 995942484}
   - {fileID: 1678447883}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1840536676
 GameObject:
@@ -26759,7 +26783,7 @@ RectTransform:
   - {fileID: 817419648}
   - {fileID: 1897483436}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 177.647, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -27441,7 +27465,7 @@ Transform:
   - {fileID: 492334123}
   - {fileID: 1573887245}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1945995456
 GameObject:
@@ -27712,7 +27736,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1963921876 stripped
 MonoBehaviour:
@@ -27824,7 +27848,7 @@ Transform:
   - {fileID: 690223202}
   - {fileID: 1110596524}
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2007402824
 Prefab:

@@ -13,6 +13,11 @@ public abstract class CanvasNavigation : MonoBehaviour
 
 #pragma warning restore
 
+    public string UserNameTemp = "";
+    public string UserEmailTemp = "";
+    public string UserPasswordTemp = "";
+    public int DaysLeftTemp = 0;
+
     protected virtual void Awake()
     {
         if (backButton) backButton.onClick.AddListener(BackPressed);

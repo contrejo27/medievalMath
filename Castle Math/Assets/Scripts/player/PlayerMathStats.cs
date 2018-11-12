@@ -12,17 +12,19 @@ public class PlayerMathStats : MonoBehaviour {
     public LevelManager LvlManager;
 
     // stats
-    int correctAnswers;
-    int incorrectAnswers;
-    int gradeNumber;
-    int personalHighScore;
-    List<string> globalHighScores = new List<string>();
+    public int correctAnswers;
+    public int incorrectAnswers;
+    public int gradeNumber;
+    public int personalHighScore;
+    public List<string> globalHighScores = new List<string>();
 
-    private int AddOrSubtractScore = 0;
-    private int MultiOrDivideScore = 0;
-    private int CompareScore = 0;
-    private int TrueOrFalseScore = 0;
-    private int FractionScore = 0;
+    public int AddOrSubtractScore = 0;
+    public int MultiOrDivideScore = 0;
+    public int CompareScore = 0;
+    public int TrueOrFalseScore = 0;
+    public int FractionScore = 0;
+
+    public ArrowSupplier aSupplier;
     
     // in-game UI
     public Text correctText;
@@ -39,13 +41,9 @@ public class PlayerMathStats : MonoBehaviour {
     public GameObject statScreen;
     public Animator Anim;
 
-    // analytics
-    GameMetrics gMetrics;
-    public ArrowSupplier aSupplier;
-    
     public void Start() {
+        globalHighScores = new List<string>();
         getHighScores();
-        gMetrics = GameObject.FindObjectOfType<GameMetrics>();
         Anim = winUI.GetComponent<Animator>();
     }
 
@@ -71,12 +69,6 @@ public class PlayerMathStats : MonoBehaviour {
 	
         if(correctAnswers > personalHighScore) {
             personalHighScore = correctAnswers;
-        }
-
-        if (GameMetrics.m_instance) {
-            gMetrics.UpdateMetric("WaveLost", wManager.currentWave + 1);
-
-            gMetrics.UpdateMetric("ArrowsLeft", aSupplier.NumberOfArrows);
         }
 
         UpdateHighScores();

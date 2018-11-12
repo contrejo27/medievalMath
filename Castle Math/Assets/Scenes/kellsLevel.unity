@@ -1662,6 +1662,7 @@ GameObject:
   - component: {fileID: 185475387}
   - component: {fileID: 185475388}
   - component: {fileID: 185475389}
+  - component: {fileID: 185475390}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1682,6 +1683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   currentDifficulty: 0
+  m_telemetry: {fileID: 0}
   playerMathStats: {fileID: 1869398080}
   player: {fileID: 0}
   currentSkillLevel: 0
@@ -1738,6 +1740,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554a7ec0da5914e48b28763d8a70f8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &185475390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 185475384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279daa3d9d0929f44aa6feac70844ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  API_URL: 
+  m_playermathstats: {fileID: 1869398080}
+  m_barriers: []
 --- !u!4 &204570808 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4552243802719944, guid: 06feddaacfebcc845a71837d24b4ed20,
@@ -9006,6 +9022,7 @@ MonoBehaviour:
   CurrentEnemies: 0
   mStats: {fileID: 1869398080}
   statCanvas: {fileID: 1307804667}
+  m_telemetry: {fileID: 0}
   floatingText: {fileID: 1753009933}
 --- !u!4 &941941990
 Transform:
@@ -19225,10 +19242,12 @@ MonoBehaviour:
   W_man: {fileID: 941941989}
   CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
   IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
+  totalQuestionsAnswered: 0
   interwaveMath: 0
   QuestionTypes: 
   intermathQTypeOptions: 
   IncorrectAnswersPerQuestion: 0
+  QuestionType: 0
   mathCanvas: {fileID: 542802104}
   m_Controller: {fileID: 0}
   interMathCanvas: {fileID: 1662219269}
@@ -19293,6 +19312,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wManager: {fileID: 941941989}
   LvlManager: {fileID: 2142880565}
+  correctAnswers: 0
+  incorrectAnswers: 0
+  gradeNumber: 0
+  personalHighScore: 0
+  globalHighScores: []
+  AddOrSubtractScore: 0
+  MultiOrDivideScore: 0
+  CompareScore: 0
+  TrueOrFalseScore: 0
+  FractionScore: 0
+  aSupplier: {fileID: 108418313}
   correctText: {fileID: 1124957283}
   incorrectText: {fileID: 463679417}
   wave: {fileID: 1539418482}
@@ -19305,7 +19335,6 @@ MonoBehaviour:
   winUI: {fileID: 1904141215}
   statScreen: {fileID: 1307804667}
   Anim: {fileID: 1904141220}
-  aSupplier: {fileID: 108418313}
 --- !u!114 &1869398081
 MonoBehaviour:
   m_ObjectHideFlags: 0
