@@ -88,6 +88,7 @@ public class EnemyBehavior : MonoBehaviour {
 		//Target = Targets [RanNum];
 		StartCoroutine(WaitToPlay(2f));
 
+		print ("************** LevelManager " + GameStateManager.instance.levelManager);
         GameStateManager.instance.levelManager.activeEnemies.Add(this);
 	}
 	

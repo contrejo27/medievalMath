@@ -36,11 +36,11 @@ public class GameStateManager : MonoBehaviour {
     public PotionShop potionShop;
     [HideInInspector]
     public Inventory inventory;
-    [HideInInspector]
+    //[HideInInspector]
     public WaveManager waveManager;
-    [HideInInspector]
+    //[HideInInspector]
     public MathManager mathManager;
-    [HideInInspector]
+    //[HideInInspector]
     public LevelManager levelManager;
 
 

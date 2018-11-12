@@ -10,6 +10,7 @@ public class WaveManager : MonoBehaviour {
 	public GameObject KnightPrefab;
 	public GameObject trollPrefab;
 	public GameObject horseRiderPrefab;
+	public GameObject bonusEnemy;
     public int currentWave;
     public int finalWave;
 	public GameObject storyText;
@@ -20,6 +21,7 @@ public class WaveManager : MonoBehaviour {
 
     //Environment 
     public Transform[] SpawnPoints;
+	public Transform[] BonusSpawnPoints;
     public Transform[] fenceTargets;
 	public MathManager Mathm;
     public GameObject billboard;
@@ -309,6 +311,19 @@ public class WaveManager : MonoBehaviour {
                 yield return new WaitForSeconds(Random.Range(1.6f, 3.0f));
             }
         }
+
+		if (currentWave >= 3) 
+		{
+			for (int i = 0; i < waveType [currentWave] [1]; i++) 
+			{
+				SpawnBonusEnemy (bonusEnemy, spawnSound, Random.Range(0, 3));
+				yield return new WaitForSeconds (Random.Range (3f, 6f));
+				SpawnBonusEnemy (bonusEnemy, spawnSound, Random.Range (0, 3));
+				yield return new WaitForSeconds (Random.Range (3f, 6f));
+				SpawnBonusEnemy (bonusEnemy, spawnSound, Random.Range (0, 3));
+				yield return null;
+			}
+		}
         /*
     SetNumberOfEnemies (WaveSize);
     for (int i = 0; i <  WaveSize; i++) {
@@ -372,6 +387,15 @@ public class WaveManager : MonoBehaviour {
         enemyObject.GetComponent<EnemyBehavior>().isClone = spawnAsClone;
 		addEnemyToWaveSize();
 		//GameObject enemyObject = Instantiate(enemy, SpawnPoints[randomSpawn].position+ new Vector3(Random.Range(-15, 10), 0,0), SpawnPoints[randomSpawn].rotation);
+
+		if(spawnSound != null){
+			enemySounds.clip = spawnSound;
+			enemySounds.Play ();
+		}
+	}
+
+	public void SpawnBonusEnemy(GameObject enemy, AudioClip spawnSound, int spawn, bool spawnAsClone = false) {
+		GameObject enemyObject = Instantiate (enemy, BonusSpawnPoints [spawn].position, BonusSpawnPoints [0].rotation);
 
 		if(spawnSound != null){
 			enemySounds.clip = spawnSound;
