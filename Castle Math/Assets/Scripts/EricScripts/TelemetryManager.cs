@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 
 using UnityEngine;
-
+using UnityEngine.Networking;
 
 public class TelemetryManager : MonoBehaviour {
     public static TelemetryManager instance;
@@ -34,9 +34,8 @@ public class TelemetryManager : MonoBehaviour {
         // TODO: Understand why GameMetrics was attaching to UnityInitializer
         // Amazon.UnityInitializer.AttachToGameObject(this.gameObject);
         if (instance.API_URL == "") {
-			instance.API_URL = "lucerna-api.herokuapp.com/api/";
-			API_URL = "lucerna-api.herokuapp.com/api/";
-		}
+            instance.API_URL = "lucerna-api.herokuapp.com/api/";
+        }
 
         Init();
    }
@@ -48,6 +47,10 @@ public class TelemetryManager : MonoBehaviour {
         m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
         m_playermathstats = m_mathmanager.GetComponent<PlayerMathStats>();
         m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
+    }
+
+    private void Start() {
+        
     }
 
     private void Update() {
@@ -63,6 +66,8 @@ public class TelemetryManager : MonoBehaviour {
     /////////
     // API //
     /////////
+
+
     
     // TODO: Move API functions to separte file
 
@@ -73,7 +78,7 @@ public class TelemetryManager : MonoBehaviour {
 
         // Number row above QWERTY
         if(Input.GetKeyDown(KeyCode.Alpha0)) {
-            LogSession();
+            LogRound();
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1)) {
@@ -89,6 +94,27 @@ public class TelemetryManager : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Alpha3)) {
             PlayerPrefs.SetInt("score", Random.Range(2000,3000));
             Debug.Log("Score set to: " + PlayerPrefs.GetInt("score").ToString());
+        }
+    }
+
+    IEnumerator NewAPIPost(string key, string jsonPayload) {
+        string url = "http://" + instance.API_URL + "log/" + key;
+        Debug.Log("Server: " + url);
+
+        var www = new UnityWebRequest(url, "POST");
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        www.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
+        www.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+
+        yield return www.Send();
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            Debug.Log(www.downloadHandler.text);
+            // byte[] results = www.downloadHandler.data;
         }
     }
 
@@ -124,6 +150,11 @@ public class TelemetryManager : MonoBehaviour {
         }
 
         return string.Format("{0},\"{1}\":\"{2}\"", old, key, val.ToString());
+    }
+
+    public string RoundPayload() {
+        // TODO: Specialize RoundPayLoad()
+        return SessionPayload();
     }
 
     public string SessionPayload() {
@@ -177,10 +208,10 @@ public class TelemetryManager : MonoBehaviour {
         payload = addJson(payload, "compareScore", m_playermathstats.CompareScore.ToString());
         payload = addJson(payload, "trueOrFalseScore", m_playermathstats.TrueOrFalseScore.ToString());
         payload = addJson(payload, "fractionScore", m_playermathstats.FractionScore.ToString());
-
-        // TODO: Implement Current Telemetry
-        payload = addJson(payload, "wave", m_wavemanager.currentWave.ToString());
         payload = addJson(payload, "question", m_mathmanager.currentQuestion.GetQuestionString());
+
+        // Current Telemetry
+        payload = addJson(payload, "wave", m_wavemanager.currentWave.ToString());
         payload = addJson(payload, "barrier1Health", m_barriers[0].currentHealth.ToString());
         payload = addJson(payload, "barrier2Health", m_barriers[1].currentHealth.ToString());
         payload = addJson(payload, "barrier3Health", m_barriers[2].currentHealth.ToString());
@@ -189,13 +220,8 @@ public class TelemetryManager : MonoBehaviour {
         // Debug.Log("currentQuestion:" + Question m_mathmanager.currentQuestion.ToString());
         // Debug.Log("questionType:" + m_mathmanager.questionType.ToString());
 
-        // Debug.Log("m_wavemanager.currentWave:" + m_wavemanager.currentWave.ToString());
-        // Debug.Log("m_wavemathmanager.totalQuestionsAnswered:" + m_wavemathmanager.totalQuestionsAnswered.ToString());
-        // Debug.Log("m_wavemathmanager.mathDifficulty:" + m_wavemathmanager.mathDifficulty.ToString());
-        // Debug.Log("m_wavemathmanager.totalQuestionsAnswered:" + m_wavemathmanager.totalQuestionsAnswered.ToString());
         // Debug.Log("m_wavemathmanager.mathDifficulty:" + m_wavemathmanager.mathDifficulty.ToString());
         // Debug.Log("m_wavemathmanager.ProblemType:" + m_wavemathmanager.ProblemType.ToString());
-        // Debug.Log("m_wavemathmanager.currentQuestion:" + m_wavemathmanager.currentQuestion.ToString());
     
         // Debug.Log("aSupplier.NumberOfArrows:" + aSupplier.NumberOfArrows.ToString());
         // Debug.Log("Utility.SaveData PlayerData.questionTypesActive:" + Utility.SaveData PlayerData.questionTypesActive.ToString());
@@ -219,16 +245,13 @@ public class TelemetryManager : MonoBehaviour {
         return jsonPayload;
     }
 
-    public string RoundPayload() {
-        // TODO: make RoundPayLoad()
-        return SessionPayload();
-    }
-
-    public void LogRound(string level, bool b) {
-        APIPost("round", RoundPayload());
+    public void LogRound() {
+        StartCoroutine(NewAPIPost("round", RoundPayload()));
+        // APIPost("round", RoundPayload());
     }
 
     public void LogSession() {
-        APIPost("session", SessionPayload());
+        StartCoroutine(NewAPIPost("session", SessionPayload()));
+        // APIPost("session", SessionPayload());
     }
 }

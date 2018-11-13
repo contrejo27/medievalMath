@@ -224,7 +224,7 @@ public class WaveManager : MonoBehaviour {
             ActivateWave(currentWave);
         }
         GameStateManager.instance.currentState = EnumManager.GameState.Wave;
-        m_telemetry.LogRound("ended", true);
+        m_telemetry.LogRound();
 	}
     
 
