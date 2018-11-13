@@ -154,7 +154,7 @@ Prefab:
     - target: {fileID: 224481558428248728, guid: 8cb9958fccd53a8479d9a904b130ce13,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224481558428248728, guid: 8cb9958fccd53a8479d9a904b130ce13,
         type: 2}
@@ -1761,7 +1761,6 @@ GameObject:
   - component: {fileID: 185475385}
   - component: {fileID: 185475387}
   - component: {fileID: 185475388}
-  - component: {fileID: 185475389}
   - component: {fileID: 185475390}
   m_Layer: 0
   m_Name: GameManager
@@ -1783,7 +1782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   currentDifficulty: 0
-  m_telemetry: {fileID: 0}
+  m_telemetry: {fileID: 185475390}
   playerMathStats: {fileID: 1869398080}
   player: {fileID: 0}
   currentSkillLevel: 0
@@ -1819,17 +1818,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &185475388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 185475384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 554a7ec0da5914e48b28763d8a70f8cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &185475389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -11305,7 +11293,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 185475385}
-        m_MethodName: 
+        m_MethodName: Retry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17227,7 +17215,7 @@ Prefab:
     - target: {fileID: 224321399385174536, guid: ad5a5ee49a7ec4349816ee3be4a0ae94,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224321399385174536, guid: ad5a5ee49a7ec4349816ee3be4a0ae94,
         type: 2}
@@ -19190,6 +19178,7 @@ MonoBehaviour:
   m_Controller: {fileID: 0}
   interMathCanvas: {fileID: 1662219269}
   interMathButtons: {fileID: 277194582}
+  m_telemetry: {fileID: 0}
 --- !u!4 &1869398078
 Transform:
   m_ObjectHideFlags: 0

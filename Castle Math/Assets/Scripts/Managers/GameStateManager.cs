@@ -47,7 +47,6 @@ public class GameStateManager : MonoBehaviour {
     // User stats
     private int numStars;
 
-
     // Singleton
     public static GameStateManager instance;
 
@@ -62,7 +61,6 @@ public class GameStateManager : MonoBehaviour {
         // TODO: What does tracker do?
         tracker.ReadCSV();
         SaveData.LoadDataFromJSon();
-        Debug.Log("Loading JSON");
     }
 
     void loadPlayerPrefs() {
@@ -88,9 +86,20 @@ public class GameStateManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Init();
+
+    }
+
+    void Init()
+    {
         PlayerPrefs.SetInt("tutorialDone", 0); // temp to force tutorial
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        waveManager = GameObject.FindObjectOfType<WaveManager>();
+        mathManager = GameObject.FindObjectOfType<MathManager>();
+        levelManager = GameObject.FindObjectOfType<LevelManager>();
+        playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
 
         loadPlayerPrefs();
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
@@ -168,9 +177,11 @@ public class GameStateManager : MonoBehaviour {
 
     public void Retry() {
         loseState = false;
-        // TODO: Why change exposure?
+        //Changing lighting back to normal
         RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Init();
+        m_telemetry.Init();
     }
 
     public void Quit() {

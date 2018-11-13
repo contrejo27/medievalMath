@@ -138,15 +138,17 @@ public class WaveManager : MonoBehaviour {
     {
         switch (newDifficulty) {
             case "Skirmish":
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 GameStateManager.instance.currentDifficulty = EnumManager.GameplayMode.Easy;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 break;
             case "Battle":
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 GameStateManager.instance.currentDifficulty = EnumManager.GameplayMode.Medium;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 break;
         }
         //set at -1 because in NextWave it adds +1. 
+        GameStateManager.instance.Retry();
+        return;
         currentWave = -1;
         readLevel(SceneManager.GetActiveScene().name);
         statCanvas.SetActive(false);
@@ -263,7 +265,6 @@ public class WaveManager : MonoBehaviour {
 		yield return new WaitForSeconds (3f);
 
 		//if this wave is all at once
-		print(waveType[currentWave][0]);
 		if(waveType[currentWave][0] == 0)
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {

@@ -11,44 +11,40 @@ public class CreateProfile2Canvas : CanvasNavigation
 #pragma warning disable
     [Header("UI References")]
     [SerializeField] Button signUpButton;
-    [SerializeField] Text errorText;
 
 #pragma warning restore
 
     private void Start()
     {
         if (signUpButton) signUpButton.onClick.AddListener(SignUpPressed);
-        if (errorText) errorText.text = "";
     }
 
     void SignUpPressed()
     {
-        /*errorText.text = "";
-
-        if (!IsProfileValid())
-            return;
+       /* if (!IsProfileValid())
+            return;*/
        
-		string hashPass = PasswordEncryption.Md5Sum (password.InputField.text);
+		string hashPass = PasswordEncryption.Md5Sum (UserPasswordTemp);
 
         if (DatabaseManager.instance)
         {
             DatabaseManager.UserData userData = new DatabaseManager.UserData
             {
-                UserName = displayName.InputField.text,
-                UserEmail = email.InputField.text,
-				UserPassword = hashPass,
-                DaysLeft = 0
+                UserName = UserNameTemp,
+                UserEmail = UserEmailTemp,
+                UserPassword = hashPass,
+                DaysLeft = DaysLeftTemp
             };
 
             DatabaseManager.instance.CreateNewProfile(userData);
-			LocalUserData.SetUserEmail (email.InputField.text.ToLower ());*/
+			LocalUserData.SetUserEmail (UserEmailTemp.ToLower ());
 			GoToNextCanvas ();
-       //}
+        }
     }
-
+    /*
     bool IsProfileValid()
     {
-       /* if  (displayName.InputField.text == "" ||
+        if  (displayName.InputField.text == "" ||
             email.InputField.text == "" ||
             password.InputField.text == "" ||
             confirmPassword.InputField.text == "")
@@ -66,13 +62,9 @@ public class CreateProfile2Canvas : CanvasNavigation
             DisplayErrorMessage("Passwords must match.");
             return false;
         }
-*/
-        return true;
-    }
 
-    void DisplayErrorMessage(string message)
-    {
-        if (errorText == null) return;
-        errorText.text = message;
-    }
+        return true;
+    }*/
+
+
 }

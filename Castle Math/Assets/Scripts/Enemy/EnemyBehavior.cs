@@ -54,6 +54,8 @@ public class EnemyBehavior : MonoBehaviour {
     protected bool haltAttackAnimation;
 
 	private int currentAudioSource;
+
+    public TelemetryManager m_telemetry;
 	
     void Awake()
     {
@@ -76,9 +78,10 @@ public class EnemyBehavior : MonoBehaviour {
         //navMeshAgent;
 		isMoving = false;
 		wManager = GameObject.FindObjectOfType<WaveManager> ();
+        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
 
-		//get 3 different audio sources so they don't overlap all the time
-		audioSource = new AudioSource[] {GameObject.Find ("EnemyAudio").GetComponent<AudioSource>(),
+        //get 3 different audio sources so they don't overlap all the time
+        audioSource = new AudioSource[] {GameObject.Find ("EnemyAudio").GetComponent<AudioSource>(),
 					GameObject.Find ("EnemyAudio2").GetComponent<AudioSource>(),
 					GameObject.Find ("EnemyAudio3").GetComponent<AudioSource>()};
 
@@ -88,7 +91,6 @@ public class EnemyBehavior : MonoBehaviour {
 		//Target = Targets [RanNum];
 		StartCoroutine(WaitToPlay(2f));
 
-		print ("************** LevelManager " + GameStateManager.instance.levelManager);
         GameStateManager.instance.levelManager.activeEnemies.Add(this);
 	}
 	
@@ -321,6 +323,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public void Killed()
 	{
         GameStateManager.instance.levelManager.activeEnemies.Remove(this);
+        m_telemetry.LogRound("", false);
         navMeshAgent.speed = 0;
         navMeshAgent.enabled = false;
 
@@ -333,8 +336,8 @@ public class EnemyBehavior : MonoBehaviour {
         GemSpawner.GetComponent<GemSpawner>().SetGemAndStartSpawn(rewardGemType, transform.parent, rewardGemAmount);
         GameStateManager.instance.levelManager.RecieveGems(rewardGemAmount, rewardGemType);
         */
-		//Collider enemyHitbox = this.GetComponent<Collider>();
-		//Destroy(enemyHitbox);
+		Collider enemyHitbox = this.GetComponent<Collider>();
+		Destroy(enemyHitbox);
 		
         if(!hasBombDeath)
 		this.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;		

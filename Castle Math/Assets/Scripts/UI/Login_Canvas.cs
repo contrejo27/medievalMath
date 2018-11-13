@@ -10,6 +10,8 @@ public class Login_Canvas : CanvasNavigation
     [Header("UI References")]
     [SerializeField] private Button loginButton;
     [SerializeField] private Button signUpButton;
+    [SerializeField] private Button freeTrialButton;
+
     [SerializeField] private InputField emailInput;
     [SerializeField] private InputField passwordInput;
     [SerializeField] private Text feedbackText;
@@ -20,6 +22,8 @@ public class Login_Canvas : CanvasNavigation
 	{
         if (loginButton) loginButton.onClick.AddListener(LoginPressed);
         if (signUpButton) signUpButton.onClick.AddListener(SignUpPressed);
+        if (freeTrialButton) freeTrialButton.onClick.AddListener(FreeTrialPressed);
+
 
         //mController = GameObject.Find("mathController").GetComponent<MathController>();
 
@@ -57,6 +61,12 @@ public class Login_Canvas : CanvasNavigation
 			FindObjectOfType<SubscriptionCanvas> ().Refresh ();
 		Destroy (this.gameObject);
 		Destroy (bgTemp);
+    }
+
+    void FreeTrialPressed()
+    {
+        Destroy(this.gameObject);
+        Destroy(bgTemp);
     }
 
     void SignUpPressed()

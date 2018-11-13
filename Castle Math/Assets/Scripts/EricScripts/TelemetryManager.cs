@@ -30,16 +30,16 @@ public class TelemetryManager : MonoBehaviour {
 			API_URL = "lucerna-api.herokuapp.com/api/";
 		}
 
-		m_mathmanager = GameObject.FindObjectOfType<MathManager>();
-		m_mathcontroller = GameObject.FindObjectOfType<MathController>();
-		m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
-		m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
-		m_playermathstats = GameObject.FindObjectOfType<PlayerMathStats>();
-		m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
-    }
+        Init();
+   }
 
-    private void Start() {
-        
+   public void Init() {
+        m_mathmanager = GameObject.FindObjectOfType<MathManager>();
+        m_mathcontroller = GameObject.FindObjectOfType<MathController>();
+        m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
+        m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
+        m_playermathstats = GameObject.FindObjectOfType<PlayerMathStats>();
+        m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
     }
 
     private void Update() {
