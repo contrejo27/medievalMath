@@ -34,9 +34,8 @@ public class TelemetryManager : MonoBehaviour {
         // TODO: Understand why GameMetrics was attaching to UnityInitializer
         // Amazon.UnityInitializer.AttachToGameObject(this.gameObject);
         if (instance.API_URL == "") {
-			instance.API_URL = "lucerna-api.herokuapp.com/api/";
-			API_URL = "lucerna-api.herokuapp.com/api/";
-		}
+            instance.API_URL = "lucerna-api.herokuapp.com/api/";
+        }
 
         Init();
    }
@@ -79,7 +78,7 @@ public class TelemetryManager : MonoBehaviour {
 
         // Number row above QWERTY
         if(Input.GetKeyDown(KeyCode.Alpha0)) {
-            StartCoroutine(LogRound());
+            LogRound();
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1)) {
@@ -98,12 +97,17 @@ public class TelemetryManager : MonoBehaviour {
         }
     }
 
-    IEnumerator NewAPIPost(key, jsonPayload) {
-        string url = "http://" + API_URL + "log/" + key;
-        UnityWebRequest www = UnityWebRequest.Post(url, jsonPayload);
+    IEnumerator NewAPIPost(string key, string jsonPayload) {
+        string url = "http://" + instance.API_URL + "log/" + key;
+        Debug.Log("Server: " + url);
+
+        var www = new UnityWebRequest(url, "POST");
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        www.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
+        www.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
+
         yield return www.Send();
-        // yield return www.SendWebRequest();
 
         if(www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error);
@@ -115,7 +119,7 @@ public class TelemetryManager : MonoBehaviour {
     }
 
     public static void APIPost(string key, string jsonPayload) {
-        string url = "http://" + API_URL + "log/" + key;
+        string url = "http://" + instance.API_URL + "log/" + key;
         Debug.Log(url);
         var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
         httpWebRequest.ContentType = "application/json";
@@ -242,12 +246,12 @@ public class TelemetryManager : MonoBehaviour {
     }
 
     public void LogRound() {
-        NewAPIPost("round", RoundPayload());
+        StartCoroutine(NewAPIPost("round", RoundPayload()));
         // APIPost("round", RoundPayload());
     }
 
     public void LogSession() {
-        NewAPIPost("session", SessionPayload());
+        StartCoroutine(NewAPIPost("session", SessionPayload()));
         // APIPost("session", SessionPayload());
     }
 }
