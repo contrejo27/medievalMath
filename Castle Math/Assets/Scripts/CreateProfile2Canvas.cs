@@ -5,52 +5,43 @@ using UnityEngine.UI;
 using EasyMobile;
 using System.Security.Cryptography;
 
-public class CreateProfileCanvas : CanvasNavigation
+public class CreateProfile2Canvas : CanvasNavigation
 {
     [Header("Profile Entry References")]
 #pragma warning disable
-    [SerializeField] ProfileEntry displayName = null;
-    [SerializeField] ProfileEntry email = null;
-    [SerializeField] ProfileEntry password = null;
-    [SerializeField] ProfileEntry confirmPassword = null;
-
     [Header("UI References")]
     [SerializeField] Button signUpButton;
-    [SerializeField] Text errorText;
 
 #pragma warning restore
 
     private void Start()
     {
         if (signUpButton) signUpButton.onClick.AddListener(SignUpPressed);
-        if (errorText) errorText.text = "";
     }
 
     void SignUpPressed()
     {
-        errorText.text = "";
-
-        if (!IsProfileValid())
-            return;
+       /* if (!IsProfileValid())
+            return;*/
        
-		string hashPass = PasswordEncryption.Md5Sum (password.InputField.text);
+		string hashPass = PasswordEncryption.Md5Sum (UserPasswordTemp);
 
         if (DatabaseManager.instance)
         {
             DatabaseManager.UserData userData = new DatabaseManager.UserData
             {
-                UserName = displayName.InputField.text,
-                UserEmail = email.InputField.text,
-				UserPassword = hashPass,
-                DaysLeft = 0
+                UserName = UserNameTemp,
+                UserEmail = UserEmailTemp,
+                UserPassword = hashPass,
+                DaysLeft = DaysLeftTemp
             };
 
             DatabaseManager.instance.CreateNewProfile(userData);
-			LocalUserData.SetUserEmail (email.InputField.text.ToLower ());
+			LocalUserData.SetUserEmail (UserEmailTemp.ToLower ());
 			GoToNextCanvas ();
         }
     }
-
+    /*
     bool IsProfileValid()
     {
         if  (displayName.InputField.text == "" ||
@@ -58,26 +49,22 @@ public class CreateProfileCanvas : CanvasNavigation
             password.InputField.text == "" ||
             confirmPassword.InputField.text == "")
         {
-            DisplayErrorMessage("All fields must be filled in!");
+            DisplayErrorMessage("All fields must be filled in.");
             return false;
         }
         else if (DatabaseManager.instance && DatabaseManager.instance.IsEmailValid(email.InputField.text))
         {
-            DisplayErrorMessage("Email already exists!");
+            DisplayErrorMessage("Email already exists.");
             return false;
         }
         else if (password.InputField.text != confirmPassword.InputField.text)
         {
-            DisplayErrorMessage("Passwords must match!");
+            DisplayErrorMessage("Passwords must match.");
             return false;
         }
 
         return true;
-    }
+    }*/
 
-    void DisplayErrorMessage(string message)
-    {
-        if (errorText == null) return;
-        errorText.text = message;
-    }
+
 }

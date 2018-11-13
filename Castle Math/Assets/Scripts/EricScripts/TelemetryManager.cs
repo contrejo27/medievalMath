@@ -21,20 +21,32 @@ public class TelemetryManager : MonoBehaviour {
     public DoorHealth[] m_barriers;
 
     private void Awake() {
-        instance = this;
-        DontDestroyOnLoad(this);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        //DontDestroyOnLoad(this);
         // TODO: Understand why GameMetrics was attaching to UnityInitializer
         // Amazon.UnityInitializer.AttachToGameObject(this.gameObject);
         if (instance.API_URL == "") {
-            instance.API_URL = "lucerna-api.herokuapp.com/api/";
-            API_URL = "lucerna-api.herokuapp.com/api/";
-        }
+			instance.API_URL = "lucerna-api.herokuapp.com/api/";
+			API_URL = "lucerna-api.herokuapp.com/api/";
+		}
 
+        Init();
+   }
+
+   public void Init() {
         m_mathmanager = GameObject.FindObjectOfType<MathManager>();
         m_mathcontroller = GameObject.FindObjectOfType<MathController>();
         m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
         m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
-        m_playermathstats = GameObject.FindObjectOfType<PlayerMathStats>();
+        m_playermathstats = m_mathmanager.GetComponent<PlayerMathStats>();
         m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
     }
 
@@ -142,14 +154,13 @@ public class TelemetryManager : MonoBehaviour {
     }
 
     public string SessionPayload() {
-        GameStateManager m_gameState = GetComponent<GameStateManager>();
 
         string playerName = PlayerPrefs.GetString("playerName");
         string tutorialDone = PlayerPrefs.GetString("tutorialDone");
         string skillLevel = PlayerPrefs.GetInt("Skill Level").ToString();
         string stopTime = Time.time.ToString();
         string score = PlayerPrefs.GetInt("score").ToString();
-        string levelsUnlocked = m_gameState.levelsUnlocked.ToString();
+        string levelsUnlocked = GameStateManager.instance.levelsUnlocked.ToString();
 
         string payload = "";
         // Player Telemetry

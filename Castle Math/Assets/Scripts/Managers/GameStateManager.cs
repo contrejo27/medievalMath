@@ -12,11 +12,7 @@ public class GameStateManager : MonoBehaviour {
 
     public EnumManager.GameState currentState;
     public EnumManager.GameplayMode currentDifficulty;
-    // Analytics
-    public TelemetryManager m_telemetry;
 
-    // UI
-    private string playerName = "JGC";
 
     // Game statistics
     public QuestionTracker tracker = new QuestionTracker();
@@ -25,7 +21,7 @@ public class GameStateManager : MonoBehaviour {
     // Environment
     [HideInInspector]
     public LaunchProjectile player;
-    private bool loseState = false;
+    private static bool loseState = false;
     public int currentSkillLevel;
     [HideInInspector]
     public int levelsUnlocked = 1;
@@ -36,17 +32,16 @@ public class GameStateManager : MonoBehaviour {
     public PotionShop potionShop;
     [HideInInspector]
     public Inventory inventory;
-    [HideInInspector]
+    //[HideInInspector]
     public WaveManager waveManager;
-    [HideInInspector]
+    //[HideInInspector]
     public MathManager mathManager;
-    [HideInInspector]
+    //[HideInInspector]
     public LevelManager levelManager;
 
 
     // User stats
     private int numStars;
-
 
     // Singleton
     public static GameStateManager instance;
@@ -62,10 +57,10 @@ public class GameStateManager : MonoBehaviour {
         // TODO: What does tracker do?
         tracker.ReadCSV();
         SaveData.LoadDataFromJSon();
-        Debug.Log("Loading JSON");
     }
 
     void loadPlayerPrefs() {
+      Debug.Log("PlayerName:" + PlayerPrefs.GetString("playerName"));
       if (!PlayerPrefs.HasKey("isFirstTime")) {
           PlayerPrefs.SetInt("tutorialDone", 0);
 
@@ -87,12 +82,23 @@ public class GameStateManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Init();
+
+    }
+
+    void Init()
+    {
         PlayerPrefs.SetInt("tutorialDone", 0); // temp to force tutorial
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        waveManager = GameObject.FindObjectOfType<WaveManager>();
+        mathManager = GameObject.FindObjectOfType<MathManager>();
+        levelManager = GameObject.FindObjectOfType<LevelManager>();
+        playerMathStats = mathManager.GetComponent<PlayerMathStats>();
+
         loadPlayerPrefs();
-        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
+        //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
 
         numStars = SaveData.numStars;
     }
@@ -158,7 +164,7 @@ public class GameStateManager : MonoBehaviour {
         */
         player.isAlive = false;
         levelManager.DoLoseGameEffects();
-        m_telemetry.LogRound("ended", true);
+        TelemetryManager.instance.LogRound("ended", true);
     }
 
     public void LoadScene(int sceneNum) {
@@ -167,26 +173,26 @@ public class GameStateManager : MonoBehaviour {
 
     public void Retry() {
         loseState = false;
-        // TODO: Why change exposure?
+        //Changing lighting back to normal
         RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
-        SceneManager.LoadScene(1);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Quit() {
-        m_telemetry.LogSession();
+        //m_telemetry.LogSession();
 
-        SaveData.SaveDataToJSon();
+        //SaveData.SaveDataToJSon();
         StartCoroutine(ActivatorVR("None"));
     }
 
     void OnApplicationQuit() {
-        m_telemetry.LogSession();
+       // m_telemetry.LogSession();
     }
 
     public IEnumerator ActivatorVR(string vrToggle) {
         // TODO: Please explain yield
         UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
-        yield return null;
+       // yield return null;
         UnityEngine.VR.VRSettings.enabled = false;
         yield return new WaitForSeconds(.1f);
         SceneManager.LoadScene (0);

@@ -12,8 +12,8 @@ public class SubscriptionCanvas : CanvasNavigation
     [Header("References")]
     [SerializeField] private IAPProductDisplay productPrefab;
     [SerializeField] private Transform subscriptionDisplay;
-    [SerializeField] private Button loginButton;
-	[SerializeField] private Text activeSubText;
+    //[SerializeField] private Button loginButton;
+	//[SerializeField] private Text activeSubText;
 
     private IAPProduct[] _products;
 
@@ -25,13 +25,13 @@ public class SubscriptionCanvas : CanvasNavigation
 
 	public void Refresh()
 	{
-		if (loginButton)
+        /*if (loginButton)
 		{
 			loginButton.gameObject.SetActive (LocalUserData.IsLoggedIn () == false);
 			loginButton.onClick.RemoveAllListeners ();
 			loginButton.onClick.AddListener (LogInPressed);
 		}
-
+        
 		if (activeSubText)
 		{
 			activeSubText.text = "";
@@ -43,10 +43,10 @@ public class SubscriptionCanvas : CanvasNavigation
 				activeSubText.text = "You already have an active subscription!\n";
 				activeSubText.text += "Days Left:" + LocalUserData.GetDaysLeftOfSub ().ToString();
 			}
-		}
-	}
-
-	void OnDisable()
+		}*/
+    }
+/*
+    void OnDisable()
 	{
 		StopAllCoroutines ();
 		if (loginButton)
@@ -58,7 +58,7 @@ public class SubscriptionCanvas : CanvasNavigation
 		if (loginButton)
 			loginButton.onClick.RemoveAllListeners ();
 
-	}
+	}*/
 	void InitializeProducts()
     {
         bool isInitialized = InAppPurchasing.IsInitialized();
