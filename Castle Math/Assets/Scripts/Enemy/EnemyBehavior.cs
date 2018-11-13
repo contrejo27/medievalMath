@@ -323,7 +323,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public void Killed()
 	{
         GameStateManager.instance.levelManager.activeEnemies.Remove(this);
-        m_telemetry.LogRound("", false);
+        m_telemetry.LogRound();
         navMeshAgent.speed = 0;
         navMeshAgent.enabled = false;
 
