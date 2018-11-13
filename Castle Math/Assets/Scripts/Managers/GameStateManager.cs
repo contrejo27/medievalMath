@@ -12,11 +12,7 @@ public class GameStateManager : MonoBehaviour {
 
     public EnumManager.GameState currentState;
     public EnumManager.GameplayMode currentDifficulty;
-    // Analytics
-    public TelemetryManager m_telemetry;
 
-    // UI
-    private string playerName = "JGC";
 
     // Game statistics
     public QuestionTracker tracker = new QuestionTracker();
@@ -99,7 +95,7 @@ public class GameStateManager : MonoBehaviour {
         waveManager = GameObject.FindObjectOfType<WaveManager>();
         mathManager = GameObject.FindObjectOfType<MathManager>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
-        playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
+        playerMathStats = mathManager.GetComponent<PlayerMathStats>();
 
         loadPlayerPrefs();
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
@@ -168,7 +164,7 @@ public class GameStateManager : MonoBehaviour {
         */
         player.isAlive = false;
         levelManager.DoLoseGameEffects();
-        m_telemetry.LogRound("ended", true);
+        TelemetryManager.instance.LogRound("ended", true);
     }
 
     public void LoadScene(int sceneNum) {
@@ -180,8 +176,6 @@ public class GameStateManager : MonoBehaviour {
         //Changing lighting back to normal
         RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Init();
-        m_telemetry.Init();
     }
 
     public void Quit() {
