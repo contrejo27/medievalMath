@@ -95,7 +95,7 @@ public class GameStateManager : MonoBehaviour {
         waveManager = GameObject.FindObjectOfType<WaveManager>();
         mathManager = GameObject.FindObjectOfType<MathManager>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
-        playerMathStats = mathManager.GetComponent<PlayerMathStats>();
+        playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
 
         loadPlayerPrefs();
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
