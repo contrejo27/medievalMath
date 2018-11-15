@@ -261,13 +261,13 @@ public class AnswerInput : MonoBehaviour {
 		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = checkMark;
 		A_Source.clip = interwaveCorrectSounds[interwaveQuestions];
 		A_Source.Play ();
-		if (interwaveQuestions == interwaveQuestionsForWave) {
+		//if (interwaveQuestions == interwaveQuestionsForWave) {
 			interwaveQuestions = -1;
             interwaveQuestionsForWave = 2;
 			A_Supply.CreateArrowIntermath (8);
 			StartCoroutine(delayDeactivateMath());
-		}
-		else M_Manager.GenerateInterMathQuestion();
+		//}
+		//else M_Manager.GenerateInterMathQuestion();
 
 
 	}
@@ -277,7 +277,7 @@ public class AnswerInput : MonoBehaviour {
 		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
 		A_Source.clip = IncorrectSound;
 		A_Source.Play ();
-        switch (interwaveQuestions)
+        /*switch (interwaveQuestions)
         {
             case 0:
                 A_Supply.CreateArrowIntermath(2);
@@ -287,7 +287,7 @@ public class AnswerInput : MonoBehaviour {
                 break;
             default:
                 break;
-        }
+        }*/
 		interwaveQuestions = -1;
 		StartCoroutine(delayDeactivateMath());
 		
