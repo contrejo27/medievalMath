@@ -273,8 +273,8 @@ public class AnswerInput : MonoBehaviour {
 	}
 
 	void interWaveIncorrectFeedack(){
-		feedbackMarks[interwaveQuestions].SetActive(true);
-		feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
+		//feedbackMarks[interwaveQuestions].SetActive(true);
+		//feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
 		A_Source.clip = IncorrectSound;
 		A_Source.Play ();
         /*switch (interwaveQuestions)

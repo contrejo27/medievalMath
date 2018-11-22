@@ -14,7 +14,7 @@ public class PotionShop : MonoBehaviour {
 
     string totalMoneyString = "Total Money: ";
     string totalPriceString = "Total Price: ";
-    
+    public Animator potionRays_anim; 
     public Transform[] shopSlots;
     public GameObject scatterShotPotion;
     public GameObject burstFirePotion;
@@ -49,9 +49,7 @@ public class PotionShop : MonoBehaviour {
     void Start()
     {
         GameStateManager.instance.potionShop = this;
-        canvasFade = MathManager.instance.mathCanvas.GetComponent<UIEffects>();
-        gameObject.SetActive(false);
-        
+        canvasFade = MathManager.instance.mathCanvas.GetComponent<UIEffects>();        
     }
 
     // May casue issue in the future; see if this happens before Awake()/Start()
@@ -63,7 +61,7 @@ public class PotionShop : MonoBehaviour {
             canvasFade.fadeOut(1);
             //UpdateTotalMoney();
             //UpdateTotalPrice();
-        }
+        } 
         isAwakeCounter++;
     }
 
