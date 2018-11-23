@@ -148,14 +148,21 @@ public class PotionShop : MonoBehaviour {
     {
         if (!GameStateManager.instance.levelManager.isGamePaused)
         {
-            yield return new WaitForSeconds(1f);
+            GameStateManager.instance.player.SetLookingAtInterface(false);
 
             GameStateManager.instance.waveManager.NextWave();
-            GameStateManager.instance.player.SetLookingAtInterface(false);
+            potionRays_anim.Play("potionRaysShrink");
+
+            //get clip length so we can deactivate right after.
+            yield return new WaitForEndOfFrame();
+            float animationLength = potionRays_anim.GetCurrentAnimatorStateInfo(0).length;
+            yield return new WaitForSeconds(animationLength);
+
             gameObject.SetActive(false);
         }
     }
 
+   
     public void AddSelectedPotion(Potion p)
     {
         selectedPotions.Add(p);

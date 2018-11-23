@@ -843,7 +843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1392029535255918
 GameObject:
   m_ObjectHideFlags: 1
@@ -1346,7 +1346,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4371783396834216}
   - component: {fileID: 212370102871002950}
-  - component: {fileID: 111481566051173712}
+  - component: {fileID: 95510395325242768}
+  - component: {fileID: 114243792503564798}
   m_Layer: 0
   m_Name: potionRays
   m_TagString: Untagged
@@ -3383,6 +3384,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95510395325242768
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715119296940112}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 80e970d9d146a494b98c55e744130004, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95932523051324392
 Animator:
   serializedVersion: 3
@@ -3451,21 +3469,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!111 &111481566051173712
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1715119296940112}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 373d018f722edaa458566d92fdc66f70, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 373d018f722edaa458566d92fdc66f70, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &114001864532028088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3730,6 +3733,7 @@ MonoBehaviour:
   shopMenu: {fileID: 114249374665580538}
   totalMoney: {fileID: 0}
   totalPrice: {fileID: 0}
+  potionRays_anim: {fileID: 95510395325242768}
   shopSlots:
   - {fileID: 4769245493833682}
   - {fileID: 4622998556056596}
@@ -4084,6 +4088,18 @@ MonoBehaviour:
   blockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114243792503564798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715119296940112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efafb9a8655354648abaf81d19bd1c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationType: 0
 --- !u!114 &114247644496559876
 MonoBehaviour:
   m_ObjectHideFlags: 1

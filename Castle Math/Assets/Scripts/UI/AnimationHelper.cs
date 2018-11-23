@@ -24,7 +24,6 @@ public class AnimationHelper : MonoBehaviour {
 
     IEnumerator animateObject(AnimationType type)
     {
-        print("rotatingactivated!");
         while (loopAnim) { 
             if(animationType == AnimationType.Rotate)
             {
