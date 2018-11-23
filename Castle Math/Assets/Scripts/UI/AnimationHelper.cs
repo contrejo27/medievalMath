@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationHelper : MonoBehaviour {
     
-    public enum AnimationType { Rotate };
+    public enum AnimationType { Rotate, SetLookAtCam };
     bool loopAnim = true;
     public AnimationType animationType;
     float x;
@@ -15,7 +15,6 @@ public class AnimationHelper : MonoBehaviour {
         x = 0.0f;
 
         StartCoroutine(animateObject(animationType));
-
     }
     private void OnDisable()
     {
@@ -28,7 +27,12 @@ public class AnimationHelper : MonoBehaviour {
             if(animationType == AnimationType.Rotate)
             {
                 x += Time.deltaTime*80f;
-                gameObject.transform.localRotation = Quaternion.Euler(gameObject.transform.localRotation.x, gameObject.transform.localRotation.y, x);
+                transform.localRotation = Quaternion.Euler(gameObject.transform.localRotation.x, gameObject.transform.localRotation.y, x);
+            }
+            if (animationType == AnimationType.SetLookAtCam)
+            {
+                transform.LookAt(Camera.main.transform.position, transform.up);
+                loopAnim = false;
             }
             yield return new WaitForSeconds(.06f);
         }
