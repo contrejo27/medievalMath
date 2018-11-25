@@ -148,11 +148,10 @@ public class WaveManager : MonoBehaviour {
         }
         //set at -1 because in NextWave it adds +1. 
         GameStateManager.instance.Retry();
-        return;
-        currentWave = -1;
+       /* currentWave = -1;
         readLevel(SceneManager.GetActiveScene().name);
         statCanvas.SetActive(false);
-        NextWave();
+        NextWave();*/
     }
 
     public void readLevel(string level)
@@ -163,26 +162,34 @@ public class WaveManager : MonoBehaviour {
 
         //Finds text file of the following name in waves folder for the use of the function
         string waveFileName = "waves/" + level.Replace("Level", "") + "_Wave" + GameStateManager.instance.currentDifficulty.ToString();
-        print("****reading: " + waveFileName);
         TextAsset waveDat = Resources.Load(waveFileName, typeof(TextAsset)) as TextAsset;
         print(waveFileName);
         //each row is split with a '\n' a.k.a an enter to a new row
         string[] data = waveDat.text.Split(new char[] { '\n' });
+        
+        //skip first line reading
+        bool first = true;
+
         //declares wave integer as zero for the foreach loop
-        //the foreach loop proceeds to move through the text file found earlier
         int wave = 0;
+
+        //the foreach loop proceeds to move through the text file found earlier'
         foreach (string a in data)
         {
             //splits invidiual data based on the presence of a comma
             string[] waveInfo = a.Split(',');
-            if (waveInfo.Length > 1)
+            if (first) first = false;
+            else if (waveInfo.Length > 1)
             {
-                //for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
-                footknightWaves[wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
-                horseknightWaves[wave] = new int[] { int.Parse(waveInfo[4]), int.Parse(waveInfo[3]) };
-                trollWaves[wave] = new int[] { int.Parse(waveInfo[6]), int.Parse(waveInfo[5]) };
-                //increments wave, moving to the next row of the grid
-                wave++;
+                if (!waveInfo[0].StartsWith("*")) {
+                    print("**** reading: " + a);
+                    //for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
+                    footknightWaves[wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
+                    horseknightWaves[wave] = new int[] { int.Parse(waveInfo[4]), int.Parse(waveInfo[3]) };
+                    trollWaves[wave] = new int[] { int.Parse(waveInfo[6]), int.Parse(waveInfo[5]) };
+                    //increments wave, moving to the next row of the grid
+                    wave++;
+                }
             }
         }
     }
