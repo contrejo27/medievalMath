@@ -2333,12 +2333,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239bbd9bdace467080e80bc5dbfac5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 1
+  hitPoints: 2
   moveSpeed: 8
-  rewardGemType: 0
-  rewardGemAmount: 0
+  attacking: 0
   navMeshAgent: {fileID: 0}
   hasBombDeath: 0
+  isClone: 0
   deathSounds:
   - {fileID: 8300000, guid: 5cf3efc307f24485e9bcde4cc8a681f0, type: 3}
   - {fileID: 8300000, guid: 8d6a76aa6d8664b0aa4a5db5bd73db0e, type: 3}
@@ -2359,6 +2359,8 @@ MonoBehaviour:
   lightningEffect: {fileID: 1679474712518714}
   fireEffect: {fileID: 1573524786064930}
   iceEffect: {fileID: 1744533726642400}
+  movementPaused: 0
+  m_telemetry: {fileID: 0}
 --- !u!114 &114974788342746582
 MonoBehaviour:
   m_ObjectHideFlags: 1
