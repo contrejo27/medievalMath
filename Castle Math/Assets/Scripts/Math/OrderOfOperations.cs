@@ -5,243 +5,207 @@ using UnityEngine.UI;
 
 
 public class OrderofOperations : MonoBehaviour, Question {
-
     public Text questionText;
     public Text questionTextHUD;
 
-    private int firstNum;
-    private int secondNum;
-    private int correctAnswer;
-    public int isDivide;
-    private int incorrectAnswers = 0;
-    private string [] answerChoices;
-    private string questionString;
-    private int maxInt = 10;
     private AnswerInput answerInput;
+    private string questionString;
 
-    public MultiplyOrDivide() {
+    private int[] operands;
+    private string[] operators;
+    private int correctAnswer;
+    private string[] answerChoices;
 
-    }
+    private int incorrectAnswers = 0;
+    private int maxInt = 10;
 
-    // Use this for initialization
     public void Start () {
-        answerInput = GameObject.FindObjectOfType<AnswerInput> ();
-        questionText = GameObject.Find ("question").GetComponent<Text>();
+        answerInput = GameObject.FindObjectOfType<AnswerInput>();
+        questionText = GameObject.Find("question").GetComponent<Text>();
     }
 
-    public void GenerateOperands(int maxDifficulty) {
-        //Generate random 0 or 1 to determine whether question is to be multiplication or divison
-        //isDivide == 0 -> Division problem
-        isDivide = Random.Range (0, 2);
+    private T RandomChoice<T> (IEnumerable<T> source) {
+        Random rnd = new Random();
+        T result = default(T);
 
+        int cnt = 0;
+        foreach (T item in source) {
+          cnt++;
+          if (rnd.Next(cnt) == 0) {
+            result = item;
+          }
+        }
+
+        return result;
+    }
+
+    private string[] GenerateOperators (int maxDifficulty, int numOfOperands) {
+        int numOfOperators = numOfOperands - 1;
+        string[] possibleOperators = { "+", "-", "*", "/" };
+
+        string[] operators;
+        foreach (int _operator in operators) {
+            _operator = RandomChoice(possibleOperators);
+        }
+
+        return operators;
+    }
+
+    private int[] GenerateOperands (int maxDifficulty, int numOfOperands) {
         int maxIntMulti;
+        int[] operands;
+
+        maxInt = maxDifficulty;
 
         if (maxDifficulty > 20) {
-            maxIntMulti = maxDifficulty / 2;
-            maxInt = maxDifficulty;
+            maxInteger = maxDifficulty / 2;
         }
         else {
-            maxInt = maxDifficulty;
-            maxIntMulti = maxDifficulty;
+            maxInteger = maxDifficulty;
         }
 
-        //check for division
-        if (isDivide == 0) {
-            firstNum = Random.Range (0, maxInt + (maxInt / 2));
-            secondNum = Random.Range (1, maxInt);
+        foreach (int operand in operands) {
+            operand = Random.Range(0, maxInteger);
+        }
 
-            //Ensure that division is even, with no remainders
-            while (firstNum % secondNum != 0) {
-                firstNum = Random.Range (0, maxInt + (maxInt / 2));
+        return operands;
+    }
+
+    private string[] GenerateQuestionString (int[] operands, string[] operators) {
+        List<string> parts = new List<string>();
+
+        for (int i = 0; i < operands.Length; i++) {
+            if (i == operands.Length - 1) {
+                parts[i] = string.Format("{0}", operands[i].ToString());
             }
-
-            //Calculate correct answer
-            correctAnswer = firstNum / secondNum;
-        } 
-        else {
-            firstNum = Random.Range (0, maxIntMulti);
-            secondNum = Random.Range (1, maxIntMulti);
-
-            correctAnswer = firstNum * secondNum;
+            parts[i] = string.Format("{0} {1}", operands[i].ToString(), operators[i].ToString());
         }
+
+        return string.Join("", parts);
     }
 
     public void GenerateQuestion (int maxDifficulty) {
         /// <summary>
-        /// Generates either mulitplication or division question by random selection
+        /// Generates order of operations question
         /// </summary>
         /// <param name="maxDifficulty">The range of numbers from which to generate the question.</param>
-        GenerateOperands (maxDifficulty);
-
-        print("MAX DIFFICULTY  = " + maxDifficulty);
-        //check for division
-        if (isDivide == 0) {
-            //Generate formatted question string and set text box text
-            char divSign = '\u00F7';
-
-            questionString = firstNum.ToString () + " " + divSign.ToString() + " " + secondNum.ToString () + " =";
-            //QuestionText.text = QuestionString;
-            answerInput.SetQuestion(questionString);
-
-            //Generate other possible answer choices
-            GenerateChoices ();
-        } 
-        else {
-            if (maxDifficulty > 20) {
-                int ThirdNum = 1;
-                int NewSecondNum = secondNum;
-
-                for (int i = 5; i > 0; i++) {
-                    if ( i % secondNum == 0) {
-                        NewSecondNum = secondNum / i;
-                        ThirdNum = i;
-                        break;
-                    }
-                }
-                NewSecondNum = 2;
-                questionString = firstNum.ToString () + " " + " x " + " " + NewSecondNum.ToString () + " " + " x " + " " + ThirdNum.ToString () + " =";
-            } else {
-                //Generate formatted question string and set text box text
-                questionString = firstNum.ToString () + " x " + secondNum.ToString () + " =";
-
-            }
-            //QuestionText.text = QuestionString;
-            answerInput.SetQuestion(questionString);
-
-            //Generate other possible answer choices
-            GenerateChoices ();
+        
+        // TODO: Increase number of operands by difficulty
+        int numOfOperands = 0;
+        if (maxDifficulty < 13) {
+            numOfOperands = 3;
         }
+        else if (maxDifficulty < 19) {
+            numOfOperands = 4;
+        }
+        else {
+            numOfOperands = 5;
+        }
+        
+        int[] operands = GenerateOperands(maxDifficulty, numOfOperands);
+        string[] operators = GenerateOperators(maxDifficulty, numOfOperands);
+        string question = GenerateQuestionString(operands, operators);
+
+        answerChoices = GenerateChoices(question);
+
+        // Display to Unity
+        answerInput.SetQuestion(question);
+        answerInput.DisplayChoices(answerChoices);
     }
 
-    public void GenerateChoices() {
+    public string[] GenerateChoices (string question) {
         /// <summary>
         /// Generates the choices.
         /// </summary>
-        int Choice1;
-        int Choice2;
-        int Choice3;
 
-        //Assign other choices depending on various factors
-        if (isDivide == 0) {
-            Choice1 = firstNum * secondNum;
+        correctAnswer = GenerateAnswer(question);
+        int[] incorrectAnswers = GenerateFakeAnswers(question, 3);
 
-            int PlusOrMinus = Random.Range (0, 2);
-            if (PlusOrMinus == 0) {
-                if (secondNum - 1 == 0){
-                    Choice2 = firstNum / secondNum;
-                }
-                else {
-                    Choice2 = firstNum / (secondNum - 1);
-                }
-                Choice3 = correctAnswer + Random.Range (1, 5);
-            }
-            else {
-                Choice2 = firstNum / (secondNum + 1);
-                Choice3 = correctAnswer - Random.Range (1, 5);
-            }
-        } 
-        else {
-            Choice1 = firstNum / secondNum;
+        int[] integerChoices = new int[4];
+        integerChoices[0] = incorrectAnswers[0];
+        integerChoices[1] = incorrectAnswers[1];
+        integerChoices[2] = incorrectAnswers[2];
+        integerChoices[4] = correctAnswer;
 
-            int PlusOrMinus = Random.Range (0, 2);
+        string[] choices = ChoicesToStringArray(ShuffleChoices(integerChoices));
 
-            if (PlusOrMinus == 0) {
-                Choice2 = firstNum * (secondNum - 1);
-                Choice3 = correctAnswer + Random.Range (1, 5);
-            }
-            else {
-                Choice2 = firstNum * (secondNum + 1);
-                Choice3 = correctAnswer - Random.Range (1, 5);
-            }
-        }
-
-        //Array of all possible choices
-        int[] integerChoices = new int[] { Choice1, Choice2, Choice3, correctAnswer };
-        answerChoices = ChoicesToStringArray (integerChoices);
-        answerInput.DisplayChoices (answerChoices);
+        return choices;
     }
 
-    public string[] ChoicesToStringArray(int [] integerChoices) {
+    private int GenerateAnswer (string question) {
+        // TODO: Fill with code
+    }
+
+    private int GenerateFakeAnswers (string question, int num) {
+        // TODO: Fill with code
+    }
+
+    private int[] ShuffleChoices (int[] choices) {
         /// <summary>
-        /// Converts the generated Choices integer array to array of strings for later use.
-        /// Checks for duplicate values and shuffles array before returning
+        /// Checks for duplicate values and shuffles array before returning.
         /// </summary>
-        /// <returns>The string array.</returns>
-        /// <param name="integerChoices">Integer array of choices.</param>
+
         HashSet<int> choiceSet = new HashSet<int> ();
-        int size = integerChoices.Length;
+        int size = choices.Length;
 
-        //Check for duplicate values in array. If found, add a number in a random range
+        // Check for duplicate values in array. If found, add a number in a random range
         for (int i = 0; i < size; i++) {
-            if (choiceSet.Contains(integerChoices[i])) {
-                integerChoices [i] += Random.Range(1, 4);
+            if (choiceSet.Contains(choices[i])) {
+                choices[i] += Random.Range(1, 4);
             }
-            choiceSet.Add(integerChoices[i]);
+            choiceSet.Add(choices[i]);
         }
 
-        //Shuffle array randomly
-        for (int i = 0; i < integerChoices.Length; i++ ) {
-            int temp = integerChoices[i];
-            int r = Random.Range(i, integerChoices.Length);
-            integerChoices[i] = integerChoices[r];
-            integerChoices[r] = temp;
-
+        // Shuffle array randomly
+        for (int i = 0; i < choices.Length; i++ ) {
+            int temp = choices[i];
+            int r = Random.Range(i, choices.Length);
+            choices[i] = choices[r];
+            choices[r] = temp;
         }
 
-        //Populate choice array with generated answer choices, converted to strings for later use
-        answerChoices = new string[] {integerChoices[0].ToString(), integerChoices[1].ToString(), 
-        integerChoices[2].ToString(), integerChoices[3].ToString()};
-
-        return answerChoices;
+        return choices;
     }
 
-    /**Return formatted question string
-    */
-    public string GetQuestionString() {
+    private string[] ChoicesToStringArray(int[] integerChoices) {
+        string[] choices = new string[] { integerChoices[0].ToString(), integerChoices[1].ToString(), integerChoices[2].ToString(), integerChoices[3].ToString() };
+
+        return choices;
+    }
+
+    public string GetQuestionString () {
         return questionString;
     }
 
-    /**Return formatted answer string
-    */
-    public string GetCorrectAnswer() {
+    public string GetCorrectAnswer () {
         return correctAnswer.ToString();
     }
 
-    public void SetCorrectAnswer(string answer) {
-        this.correctAnswer =  System.Int32.Parse (answer);;
+    public void SetCorrectAnswer (string answer) {
+        this.correctAnswer = System.Int32.Parse(answer);
     }
 
-    public void SetQuestionString(string question) {
+    public void SetQuestionString (string question) {
         this.questionString = question;
     }
 
-    public void SetIncorrectAnswers(int incorrect) {
+    public void SetIncorrectAnswers (int incorrect) {
+        // TODO: Where is this called from?
         incorrectAnswers = incorrect;
     }
 
-    public int GetIncorrectAnswers() {
+    public int GetIncorrectAnswers () {
+        // TODO: Where is this called from?
         return this.incorrectAnswers;
     }
 
-    public int GetFirstNum() {
-        return firstNum;
+    public string GetQuestionCategory () {
+        return "OrderOfOperations";
     }
 
-    public int GetSecondNum() {
-        return secondNum;
-    }
-
-    public string GetQuestionCategory() {
-        if (isDivide == 0) {
-            return "Division";
-        }
-        else {
-            return "Multiplication";
-        }
-    }
-
-    public string GetQuestionSubCategory() {
-        int gtrValue = Mathf.Max(firstNum, secondNum);
+    public string GetQuestionSubCategory () {
+        // TODO: Set difficulty level from largest number in the string
+        int gtrValue = Mathf.Max(operands);
         if(gtrValue < 7) {
             return "1-6";
         }
@@ -256,19 +220,9 @@ public class OrderofOperations : MonoBehaviour, Question {
         }
     }
 
-    public bool GetAnsweredCorrectly() {
+    public bool GetAnsweredCorrectly () {
         return incorrectAnswers == 0;
     }
-
-    /*
-       public string GetQuestionRange()
-       {
-       if (isDivide == 0)
-       return "0 - " + maxInt.ToString();
-       else
-       return "0 - " + (maxInt / 2).ToString();
-       }
-       */
 
     public void OnEndQuestion() {
 
