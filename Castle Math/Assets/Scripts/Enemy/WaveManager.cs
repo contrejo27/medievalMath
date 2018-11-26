@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class WaveManager : MonoBehaviour {
 		
@@ -69,10 +70,25 @@ public class WaveManager : MonoBehaviour {
 	//floating text
     public Text floatingText;
 
-    
+	private List<int> pendingSpawnPoints = new List<int>();
+
+	private void CreateSpawnList(int avoidedStartIndex) {
+		List<int> tempList = new List<int> ();
+		for (int i = 0; i < BonusSpawnPoints.Length; i++)
+			tempList.Add (i);
+		pendingSpawnPoints.Clear ();
+		for (int i = 0; i < BonusSpawnPoints.Length; i++) {
+			int idx = UnityEngine.Random.Range (0, tempList.Count);
+			if (tempList [idx] == avoidedStartIndex)
+				idx = (idx + 1) % tempList.Count;
+			pendingSpawnPoints.Add (tempList [idx]);
+			tempList.RemoveAt (idx);
+		}
+	}
 
     // Use this for initialization
     void Start () {
+		CreateSpawnList (-1);
 
         levelComplete = false;
 
@@ -274,7 +290,7 @@ public class WaveManager : MonoBehaviour {
 				SpawnEnemy(enemyPrefab, spawnSound,1);
 				yield return new WaitForSeconds (.1f);
 				SpawnEnemy(enemyPrefab, spawnSound,2);
-				yield return new WaitForSeconds (Random.Range (.1f, .2f));
+				yield return new WaitForSeconds (UnityEngine.Random.Range (.1f, .2f));
 			}
 		}
 
@@ -284,9 +300,9 @@ public class WaveManager : MonoBehaviour {
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
 				SpawnEnemy(enemyPrefab, spawnSound,0);
-				yield return new WaitForSeconds (Random.Range (1f, 1.6f));
+				yield return new WaitForSeconds (UnityEngine.Random.Range (1f, 1.6f));
 				SpawnEnemy(enemyPrefab, spawnSound,1);
-				yield return new WaitForSeconds (Random.Range (1f, 1.6f));
+				yield return new WaitForSeconds (UnityEngine.Random.Range (1f, 1.6f));
 				SpawnEnemy(enemyPrefab, spawnSound,2);
 				yield return new WaitForSeconds (.2f);
 			}
@@ -297,9 +313,9 @@ public class WaveManager : MonoBehaviour {
 		{
 			for (int i = 0; i <  waveType[currentWave][1]; i++) {
 				SpawnEnemy(enemyPrefab, spawnSound,0);
-				yield return new WaitForSeconds (Random.Range (1.0f, 1.5f));
+				yield return new WaitForSeconds (UnityEngine.Random.Range (1.0f, 1.5f));
 				SpawnEnemy(enemyPrefab, spawnSound,1);
-				yield return new WaitForSeconds (Random.Range (1.3f, 1.8f));
+				yield return new WaitForSeconds (UnityEngine.Random.Range (1.3f, 1.8f));
 				SpawnEnemy(enemyPrefab, spawnSound,2);
 				yield return new WaitForSeconds (2.5f);
 			}
@@ -310,8 +326,8 @@ public class WaveManager : MonoBehaviour {
         {
             for (int i = 0; i < waveType[currentWave][1]; i++)
             {
-                SpawnEnemy(enemyPrefab, spawnSound, Random.Range(0,3));
-                yield return new WaitForSeconds(Random.Range(1.6f, 3.0f));
+				SpawnEnemy(enemyPrefab, spawnSound, UnityEngine.Random.Range(0,3));
+				yield return new WaitForSeconds(UnityEngine.Random.Range(1.6f, 3.0f));
             }
         }
 
@@ -319,14 +335,15 @@ public class WaveManager : MonoBehaviour {
 		{
 			for (int i = 0; i < waveType [currentWave] [1]; i++) 
 			{
-				SpawnBonusEnemy (bonusEnemy, spawnSound, Random.Range(0, 3));
-				yield return new WaitForSeconds (Random.Range (3f, 6f));
-				SpawnBonusEnemy (bonusEnemy, spawnSound, Random.Range (0, 3));
-				yield return new WaitForSeconds (Random.Range (3f, 6f));
-				SpawnBonusEnemy (bonusEnemy, spawnSound, Random.Range (0, 3));
-				yield return null;
+				SpawnBonusEnemy (bonusEnemy, spawnSound, UnityEngine.Random.Range(0, 3));
+				yield return new WaitForSeconds (UnityEngine.Random.Range (3f, 6f));
+
+				if (i >= 3) {
+					break;
+				}
 			}
 		}
+			
         /*
     SetNumberOfEnemies (WaveSize);
     for (int i = 0; i <  WaveSize; i++) {
@@ -370,6 +387,16 @@ public class WaveManager : MonoBehaviour {
 		//waveEffect.alpha = 1f;
 	}
 
+	public static void RemoveAt<T>(ref T[] arr, int index) 
+	{
+		for (int a = index; a < arr.Length - 1; a++) 
+		{
+			arr [a] = arr [a + 1];
+		}
+
+		Array.Resize(ref arr, arr.Length - 1);
+	}
+
 	public void ResetWave()
 	{
 		currentWave = 0;
@@ -385,7 +412,7 @@ public class WaveManager : MonoBehaviour {
 	public void SpawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn, bool spawnAsClone = false){
         //int randomSpawn = Random.Range(0, SpawnPoints.Length);
         
-		GameObject enemyObject = Instantiate(enemy, SpawnPoints[spawn].position + SpawnPoints[spawn].right* Random.Range(spawnAdjustmentMin, spawnAdjustmentMax), SpawnPoints[0].rotation);
+		GameObject enemyObject = Instantiate(enemy, SpawnPoints[spawn].position + SpawnPoints[spawn].right* UnityEngine.Random.Range(spawnAdjustmentMin, spawnAdjustmentMax), SpawnPoints[0].rotation);
 		enemyObject.GetComponent<EnemyBehavior>().SetTarget(fenceTargets[spawn]); //points enemy at right target. adjusted for UI name
         enemyObject.GetComponent<EnemyBehavior>().isClone = spawnAsClone;
 		addEnemyToWaveSize();
@@ -398,7 +425,18 @@ public class WaveManager : MonoBehaviour {
 	}
 
 	public void SpawnBonusEnemy(GameObject enemy, AudioClip spawnSound, int spawn, bool spawnAsClone = false) {
-		GameObject enemyObject = Instantiate (enemy, BonusSpawnPoints [spawn].position, BonusSpawnPoints [0].rotation);
+
+		int spawnPointIndex = pendingSpawnPoints [0];
+		pendingSpawnPoints.RemoveAt (0);
+
+		if (pendingSpawnPoints.Count == 0)
+			CreateSpawnList (spawnPointIndex);
+
+		GameObject enemyObject = Instantiate (enemy, BonusSpawnPoints [spawnPointIndex].position, BonusSpawnPoints[spawnPointIndex].rotation);
+		enemyObject.GetComponent<SarcophagusScript>().SetTarget(fenceTargets[spawnPointIndex]);
+		addEnemyToWaveSize();
+
+		//RemoveAt (ref BonusSpawnPoints, spawn);
 
 		if(spawnSound != null){
 			enemySounds.clip = spawnSound;

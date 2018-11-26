@@ -67,6 +67,8 @@ public class LevelManager : MonoBehaviour {
         RenderSettings.skybox.SetFloat("_Exposure", .8f);
     }
 
+	private GameObject Effect;
+
     void Update()
     {
         if (Application.isEditor)
@@ -278,6 +280,10 @@ public class LevelManager : MonoBehaviour {
         {
             eb.UpdateTarget(eb.fenceTarget);
         }
+
+		Effect = GameObject.Find ("EffectImage");
+
+		Effect.GetComponent<SpriteRenderer> ().sprite = null;
 
         // do extra stuff if it explodes
         dummy.GetComponent<DummyScript>().DoOnDestroy();

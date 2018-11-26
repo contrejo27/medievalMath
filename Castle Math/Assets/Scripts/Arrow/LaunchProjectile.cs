@@ -43,6 +43,8 @@ public class LaunchProjectile : MonoBehaviour {
 
 	public Camera camera;
 
+	private GameObject Effect;
+
     void Awake()
     {
        // GameStateManager.instance.player = this;
@@ -169,6 +171,12 @@ public class LaunchProjectile : MonoBehaviour {
 	{
 		yield return new WaitForSeconds (15);
 
+		/*
+		Effect = GameObject.Find ("EffectImage");
+
+		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+		*/
+
 		RemoveModifier (removeModification);
 		PowerUpDisplay.ClearPowerUp (PowerUpIndex);
 	}
@@ -186,6 +194,10 @@ public class LaunchProjectile : MonoBehaviour {
 	public void RemoveModifier(ArrowModifier removeModification){
 		//reduce count by 1
 		//ModiferEffectCounter[(int)(removeModification)] -= 1;
+
+		Effect = GameObject.Find ("EffectImage");
+
+		Effect.GetComponent<SpriteRenderer> ().sprite = null;
 
 		//if the count reaches zero, remove this modifier
 		//if (ModiferEffectCounter [(int)(removeModification)] <= 0) {
@@ -305,6 +317,11 @@ public class LaunchProjectile : MonoBehaviour {
     {
         quickShot = true;
         yield return new WaitForSeconds(duration);
+
+		Effect = GameObject.Find ("EffectImage");
+
+		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+
         quickShot = false;
     }
 
@@ -317,6 +334,11 @@ public class LaunchProjectile : MonoBehaviour {
     {
         rapidFire = true;
         yield return new WaitForSeconds(duration);
+
+		Effect = GameObject.Find ("EffectImage");
+
+		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+
         rapidFire = false;
     }
 

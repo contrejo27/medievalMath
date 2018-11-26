@@ -37,12 +37,16 @@ public class ProjectileBehavior : MonoBehaviour {
 				}
 
 				if (root.tag == "Enemy") {
+					Debug.Log ("Oof");
                     EnemyBehavior eb = root.GetComponent<EnemyBehavior>();
-                    if(eb)
-                        eb.TakeDamage (ArrowDamge);
+					SarcophagusScript sS = root.GetComponent<SarcophagusScript> ();
+					if (eb)
+						eb.TakeDamage (ArrowDamge);
+					else if (sS)
+						sS.TakeDamage (ArrowDamge);
                     else
                         otherCollision.gameObject.GetComponentInParent<EnemyBehavior>();
-                this.transform.parent = otherCollision.transform;
+               		this.transform.parent = otherCollision.transform;
 				} 
 
 				Destroy (this.gameObject,1f);
