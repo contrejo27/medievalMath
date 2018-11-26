@@ -94,6 +94,7 @@ public class LevelManager : MonoBehaviour {
             music.loop = true;
             music.Play();
             pauseButton.SetActive(true);
+			//FadeWorldIn ();
         }
     }
 

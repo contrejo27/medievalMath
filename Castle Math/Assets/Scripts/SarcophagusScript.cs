@@ -20,6 +20,9 @@ public class SarcophagusScript : EnemyBehavior {
 	private Vector3 start;
 	private Vector3 end;
 
+	public int target;
+	public Transform[] fenceTargets;
+
 	private void OnEnable() {
 		start = transform.position;
 		end = new Vector3 (start.x, start.y + 10f, start.z);
@@ -40,6 +43,17 @@ public class SarcophagusScript : EnemyBehavior {
 		}
 	}
 
+	public void SpawnMummies() {
+
+		//Random target purely for testing purposes, will change once spawn points are set
+		target = 1;
+
+		GameObject enemyObject = Instantiate(MummyPrefab, transform.position, transform.rotation);
+		enemyObject.GetComponent<EnemyBehavior> ().SetTarget (fenceTargets[target]);
+
+		Debug.Log ("Mummy Time!");
+	}
+
 	IEnumerator Intro () {
 		float timeToStart = Time.time;
 		while (Vector3.Distance (transform.position, end) > 0.05f) {
@@ -48,12 +62,8 @@ public class SarcophagusScript : EnemyBehavior {
 			yield return null;
 		}
 
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (.1f);
+
+		InvokeRepeating ("SpawnMummies", 4.0f, 4.0f);
 	}
-
-	IEnumerator SpawnMummies () {
-		yield return new WaitForSeconds (69f);
-	}
-
-
 }
