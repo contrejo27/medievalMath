@@ -28,6 +28,7 @@ public class MathManager : MonoBehaviour {
     // Compare Comparision;
     // TrueOrFalse True_False;
     Fractions fractions;
+    OrderOfOperations orderOfOperations;
     Algebra algebraQuestion;
     WordProblem wordProblem;
     FractionTargets fractionTargets;
@@ -70,6 +71,7 @@ public class MathManager : MonoBehaviour {
         // True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
         fractions = GetComponent<Fractions> ();
         algebraQuestion = GetComponent<Algebra> ();
+        orderOfOperations = GetComponent<OrderOfOperations> ();
 
         GameObject m_ControllerGO = GameObject.Find("mathController");
 
