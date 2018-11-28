@@ -304,7 +304,7 @@ public class MathManager : MonoBehaviour {
         }
 
         totalQuestionsAnswered++;
-        m_telemetry.LogRound("ended", true);
+        m_telemetry.LogRound();
     }
 
     /*

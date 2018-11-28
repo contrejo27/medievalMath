@@ -164,7 +164,7 @@ public class GameStateManager : MonoBehaviour {
         */
         player.isAlive = false;
         levelManager.DoLoseGameEffects();
-        TelemetryManager.instance.LogRound("ended", true);
+        TelemetryManager.instance.LogRound();
     }
 
     public void LoadScene(int sceneNum) {
