@@ -10,11 +10,10 @@ public class OrderofOperations : MonoBehaviour, Question {
 
     private AnswerInput answerInput;
     private string questionString;
-
-    private int[] operands;
-    private string[] operators;
     private int correctAnswer;
     private string[] answerChoices;
+    // private int[] operands;
+    // private string[] operators;
 
     private int incorrectAnswers = 0;
     private int maxInt = 10;
@@ -24,73 +23,12 @@ public class OrderofOperations : MonoBehaviour, Question {
         questionText = GameObject.Find("question").GetComponent<Text>();
     }
 
-    private T RandomChoice<T> (IEnumerable<T> source) {
-        Random rnd = new Random();
-        T result = default(T);
-
-        int cnt = 0;
-        foreach (T item in source) {
-          cnt++;
-          if (rnd.Next(cnt) == 0) {
-            result = item;
-          }
-        }
-
-        return result;
-    }
-
-    private string[] GenerateOperators (int maxDifficulty, int numOfOperands) {
-        int numOfOperators = numOfOperands - 1;
-        string[] possibleOperators = { "+", "-", "*", "/" };
-
-        string[] operators;
-        foreach (int _operator in operators) {
-            _operator = RandomChoice(possibleOperators);
-        }
-
-        return operators;
-    }
-
-    private int[] GenerateOperands (int maxDifficulty, int numOfOperands) {
-        int maxIntMulti;
-        int[] operands;
-
-        maxInt = maxDifficulty;
-
-        if (maxDifficulty > 20) {
-            maxInteger = maxDifficulty / 2;
-        }
-        else {
-            maxInteger = maxDifficulty;
-        }
-
-        foreach (int operand in operands) {
-            operand = Random.Range(0, maxInteger);
-        }
-
-        return operands;
-    }
-
-    private string[] GenerateQuestionString (int[] operands, string[] operators) {
-        List<string> parts = new List<string>();
-
-        for (int i = 0; i < operands.Length; i++) {
-            if (i == operands.Length - 1) {
-                parts[i] = string.Format("{0}", operands[i].ToString());
-            }
-            parts[i] = string.Format("{0} {1}", operands[i].ToString(), operators[i].ToString());
-        }
-
-        return string.Join("", parts);
-    }
-
     public void GenerateQuestion (int maxDifficulty) {
         /// <summary>
         /// Generates order of operations question
         /// </summary>
-        /// <param name="maxDifficulty">The range of numbers from which to generate the question.</param>
         
-        // TODO: Increase number of operands by difficulty
+        // Increase number of operands based on difficulty
         int numOfOperands = 0;
         if (maxDifficulty < 13) {
             numOfOperands = 3;
@@ -106,7 +44,7 @@ public class OrderofOperations : MonoBehaviour, Question {
         string[] operators = GenerateOperators(maxDifficulty, numOfOperands);
         string question = GenerateQuestionString(operands, operators);
 
-        answerChoices = GenerateChoices(question);
+        this.answerChoices = GenerateChoices(question);
 
         // Display to Unity
         answerInput.SetQuestion(question);
@@ -132,13 +70,61 @@ public class OrderofOperations : MonoBehaviour, Question {
         return choices;
     }
 
-    private int GenerateAnswer (string question) {
-        // TODO: Fill with code
+    private int GenerateAnswer (int[] operands, string[] operators) {
+        // TODO: Implements Function
     }
 
-    private int GenerateFakeAnswers (string question, int num) {
-        // TODO: Fill with code
+    private int GenerateFakeAnswers (int[] operands, string[] operators, int num) {
+        // TODO: Implements Function
     }
+
+    private string[] GenerateOperators (int maxDifficulty, int numOfOperands) {
+        int numOfOperators = numOfOperands - 1;
+
+        string[] possibleOperators = { "+", "-", "*", "/" };
+
+        string[] operators = new string[numOfOperators];
+        foreach (int _operator in operators) {
+            _operator = RandomChoice(possibleOperators);
+        }
+
+        return operators;
+    }
+
+    private int[] GenerateOperands (int maxDifficulty, int numOfOperands) {
+        int maxIntMulti;
+        int[] operands;
+
+        maxInteger = maxDifficulty;
+
+        if (maxDifficulty > 20) {
+            maxInteger = maxDifficulty / 2;
+        }
+        else {
+            maxInteger = maxDifficulty;
+        }
+
+        foreach (int operand in operands) {
+            operand = Random.Range(0, maxInteger);
+        }
+
+        return operands;
+    }
+
+
+    private string[] GenerateQuestionString (int[] operands, string[] operators) {
+        List<string> parts = new List<string>();
+
+        for (int i = 0; i < operands.Length; i++) {
+            if (i == operands.Length - 1) {
+                parts[i] = string.Format("{0}", operands[i].ToString());
+            }
+            parts[i] = string.Format("{0} {1}", operands[i].ToString(), operators[i].ToString());
+        }
+
+        return string.Join("", parts);
+    }
+
 
     private int[] ShuffleChoices (int[] choices) {
         /// <summary>
@@ -165,6 +151,21 @@ public class OrderofOperations : MonoBehaviour, Question {
         }
 
         return choices;
+    }
+
+    private T RandomChoice<T> (IEnumerable<T> source) {
+        Random rnd = new Random();
+        T result = default(T);
+
+        int cnt = 0;
+        foreach (T item in source) {
+          cnt++;
+          if (rnd.Next(cnt) == 0) {
+            result = item;
+          }
+        }
+
+        return result;
     }
 
     private string[] ChoicesToStringArray(int[] integerChoices) {
