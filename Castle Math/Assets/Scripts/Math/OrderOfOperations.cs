@@ -70,12 +70,130 @@ public class OrderofOperations : MonoBehaviour, Question {
         return choices;
     }
 
-    private int GenerateAnswer (int[] operands, string[] operators) {
-        // TODO: Implements Function
+    private int GenerateAnswer (int[] operandArray, string[] operatorArray) {
+        /// <summary>
+        /// Operates on operands in the correct order. Currently supports */+-
+        /// </summary>
+
+        List<int> operands = new List<int>(operandArray);
+        List<string> operators = new List<string>(operatorArray);
+
+        // Multiplication and Division
+        for (int i = 0; i < operators.Count; i++) {
+            if (operators[i] == "*" || operators[i] == "/") {
+                int result = ExecuteOperation(operators[i], operands[i], operands[i+1]);
+                // Debug.Log(string.Format("i={0}, result={1}", i, result));
+                operands[i] = result;
+                operators.RemoveAt(i);
+                operands.RemoveAt(i+1);
+            }
+        }
+
+        // Addition and Subtraction
+        for (int i = 0; i < operators.Count; i++) {
+            if (operators[i] == "+" || operators[i] == "-") {
+                int result = ExecuteOperation(operators[i], operands[i], operands[i+1]);
+                // Debug.Log(string.Format("i={0}, result={1}", i, result));
+                operands[i] = result;
+                operators.RemoveAt(i);
+                operands.RemoveAt(i+1);
+            }
+        }
+
+        // Return last element remaining in the operand list
+        return operands[0];
     }
 
-    private int GenerateFakeAnswers (int[] operands, string[] operators, int num) {
-        // TODO: Implements Function
+    private int[] GenerateFakeAnswers (int[] operands, string[] operators, int num) {
+        /// <summary>
+        /// Generates vaguely plausible answers.
+        /// </summary>
+        
+        int[] fakeAnswers = new int[num];
+
+        for (int i = 0; i < fakeAnswers.Length; i++) {
+            fakeAnswers[i] = GenerateAnswer(ShuffleArray(operands), ShuffleArray(operators));
+        }
+
+        return fakeAnswers;
+    }
+
+    private int ExecuteOperation(string _operator, int a, int b) {
+        /// <summary>
+        /// Returns the mathematical result of "a operator b".
+        /// </summary>
+
+        switch (_operator) {
+            case "+":
+                return a + b;
+            case "-":
+                return a - b;
+            case "*":
+                return a * b;
+            case "/":
+                return a / b;
+            default:
+                Debug.Log(_operator);
+                throw new ArgumentException("_operator");
+        }
+    }
+
+    private class Problem {
+        public int[] operands { get; set; }
+        public string[] operators { get; set; }
+        public int answer { get; set; }
+
+        public Problem (int[] operands, string[] operators, int answer) {
+            this.operands = operands;
+            this.operators = operators;
+            this.answer = answer;
+        }
+
+        public string ToString () {
+            string problem = "";
+            for (int i = 0; i < operands.Length; i++) {
+                problem += operands[i].ToString();
+                if (i == operands.Length - 1) {
+                    break;
+                }
+                problem += operators[i].ToString();
+            }
+            return problem;
+        }
+    }
+
+    private bool TestOrderOfOperations() {
+        // testProblems = {"12+3*3", "3*2+4"};
+        List<Problem> testProblems = new List<Problem>();
+        testProblems.Add(new Problem(new int[] {12,3,3}, new string[] {"+", "*"}, 21));
+        testProblems.Add(new Problem(new int[] {3,2,4}, new string[] {"*", "+"}, 10));
+
+        int errors = 0;
+
+        foreach (Problem problem in testProblems) {
+            foreach (int operand in problem.operands) {
+                // Debug.Log(operand);
+            }
+
+            foreach (string _operator in problem.operators) {
+                // Debug.Log(_operator);
+            }
+
+            int answer = GenerateAnswer(problem.operands, problem.operators);
+
+            if (answer != problem.answer) {
+                Debug.Log("WARNING: Test Failed: Order of Operations");
+                Debug.Log(string.Format("{0} = {1}, but returned {2}", problem.ToString(), problem.answer, answer));
+                errors++;
+            }
+        }
+
+        if (errors == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     private string[] GenerateOperators (int maxDifficulty, int numOfOperands) {
@@ -125,6 +243,21 @@ public class OrderofOperations : MonoBehaviour, Question {
         return string.Join("", parts);
     }
 
+    private T ShuffleArray<T> (T arr) {
+        /// <summary>
+        /// Shuffles array randomly
+        /// </summary>
+        
+        for (int i = 0; i < arr.Length; i++ ) {
+            int temp = arr[i];
+            int r = Random.Range(i, arr.Length);
+            arr[i] = arr[r];
+            arr[r] = temp;
+        }
+
+        return arr;
+    }
+
 
     private int[] ShuffleChoices (int[] choices) {
         /// <summary>
@@ -142,15 +275,7 @@ public class OrderofOperations : MonoBehaviour, Question {
             choiceSet.Add(choices[i]);
         }
 
-        // Shuffle array randomly
-        for (int i = 0; i < choices.Length; i++ ) {
-            int temp = choices[i];
-            int r = Random.Range(i, choices.Length);
-            choices[i] = choices[r];
-            choices[r] = temp;
-        }
-
-        return choices;
+        return ShuffleArray(choices);
     }
 
     private T RandomChoice<T> (IEnumerable<T> source) {
