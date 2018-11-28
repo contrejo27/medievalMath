@@ -122,7 +122,6 @@ public class MathManager : MonoBehaviour {
         interwaveMath = true;
         GenerateInterMathQuestion();
         ActivateBillboard();
-        //Check to see if all three questions have been asked
     }
 
     public void GenerateInterMathQuestion() {

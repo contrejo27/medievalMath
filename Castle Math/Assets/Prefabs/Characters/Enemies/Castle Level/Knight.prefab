@@ -1127,7 +1127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372078820083414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.242401, y: -9.5, z: -14.989304}
+  m_LocalPosition: {x: 22.930145, y: -8.464986, z: -3.148758}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4131355874280764}
@@ -1817,11 +1817,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 2
-  moveSpeed: 10
-  rewardGemType: 1
-  rewardGemAmount: 1
+  moveSpeed: 11
+  attacking: 0
   navMeshAgent: {fileID: 0}
   hasBombDeath: 0
+  isClone: 0
   deathSounds:
   - {fileID: 8300000, guid: 080ab6497835d42acad33c22a4a4d170, type: 3}
   attackSounds:
@@ -1835,6 +1835,8 @@ MonoBehaviour:
   lightningEffect: {fileID: 1302614885067902}
   fireEffect: {fileID: 1981027085115344}
   iceEffect: {fileID: 1034105302243222}
+  movementPaused: 0
+  m_telemetry: {fileID: 0}
 --- !u!114 &114848021236159264
 MonoBehaviour:
   m_ObjectHideFlags: 1

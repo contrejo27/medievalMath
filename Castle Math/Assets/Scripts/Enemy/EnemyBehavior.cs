@@ -56,6 +56,8 @@ public class EnemyBehavior : MonoBehaviour {
 	private int currentAudioSource;
 
     public TelemetryManager m_telemetry;
+
+	private GameObject Effect;
 	
     void Awake()
     {
@@ -76,6 +78,7 @@ public class EnemyBehavior : MonoBehaviour {
 	void Start () {
 		
         //navMeshAgent;
+		//navMeshAgent.Warp(transform.position);
 		isMoving = false;
 		wManager = GameObject.FindObjectOfType<WaveManager> ();
         m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
@@ -201,6 +204,10 @@ public class EnemyBehavior : MonoBehaviour {
         navMeshAgent.speed = moveSpeed - slowAmount;
         animator.speed = animator.speed - slowAmount;
         yield return new WaitForSeconds(slowTimeSpan);
+
+		Effect = GameObject.Find ("EffectImage");
+
+		Effect.GetComponent<SpriteRenderer> ().sprite = null;
 
         //Return speeds to normal
         navMeshAgent.speed = normalNavMeshAgentSpeed;

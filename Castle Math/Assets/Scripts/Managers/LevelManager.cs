@@ -11,7 +11,6 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour {
 
     [Header("UI")]
-    public UIEffects mainMenuEffects;
     public UIEffects notificationEffects;
     public GameObject LoseScreen;
     public GameObject MathScreen;
@@ -67,6 +66,8 @@ public class LevelManager : MonoBehaviour {
         RenderSettings.skybox.SetFloat("_Exposure", .8f);
     }
 
+	private GameObject Effect;
+
     void Update()
     {
         if (Application.isEditor)
@@ -88,7 +89,6 @@ public class LevelManager : MonoBehaviour {
             Debug.Log("Hiding billboard");
             tutorialImage.SetActive(false);
             target.SetActive(false);
-            mainMenuEffects.fadeOut(1.5f);
             notificationEffects.fadeIn(1.5f);
             music.clip = gameplaySong;
             music.loop = true;
@@ -278,6 +278,10 @@ public class LevelManager : MonoBehaviour {
         {
             eb.UpdateTarget(eb.fenceTarget);
         }
+
+		Effect = GameObject.Find ("EffectImage");
+
+		Effect.GetComponent<SpriteRenderer> ().sprite = null;
 
         // do extra stuff if it explodes
         dummy.GetComponent<DummyScript>().DoOnDestroy();

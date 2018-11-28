@@ -15,6 +15,8 @@ public class Potion : BaseInteractableObject {
     public float duration;
     float raiseAmt = .2f;
     IEnumerator coroutine;
+
+	public Sprite PotionEffect;
     
     public GameObject purchaseConfirmationMenu;
     public GameObject tossConfirmationMenu;
@@ -29,6 +31,8 @@ public class Potion : BaseInteractableObject {
     public bool UIEnabled = true;
 
     bool isSelected;
+
+	private GameObject Effect;
 
 	// Use this for initialization
 
@@ -60,6 +64,11 @@ public class Potion : BaseInteractableObject {
 	/// </summary>
     public virtual void DoEffect()
     {
+		Effect = GameObject.Find ("EffectImage");
+
+		print ("Effect: " + Effect);
+
+		Effect.GetComponent<SpriteRenderer> ().sprite = PotionEffect;
 
         //Debug.Log("Doing effect!");
         DestroyPotionFromInventory();
@@ -262,7 +271,6 @@ public class Potion : BaseInteractableObject {
         {
             StopCoroutine(coroutine);
         }
-        Debug.Log("Should start coroutine from function");
         coroutine = RaisePotion();
         //potionMesh.localScale = new Vector3(2.5f, 2.5f, 2.5f);
         StartCoroutine(coroutine);

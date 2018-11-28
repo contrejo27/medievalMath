@@ -6,14 +6,14 @@ public class FreezeTimePotion : Potion {
 
     protected override void Init()
     {
-        toolTip.text = "Freeze Time Potion";
+        toolTip.text = "Snail Time Potion";
         toolTipShadow.text = toolTip.text;
         base.Init();
     }
 
     public override void DoEffect()
     {
-        GameStateManager.instance.levelManager.SlowAllEnemeies(0,duration);
+        GameStateManager.instance.levelManager.SlowAllEnemeies(.93f,duration*3);
         base.DoEffect();
     }
 }
