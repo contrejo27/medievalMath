@@ -5,9 +5,7 @@ using UnityEngine.UI;
 using System;
 using Random=UnityEngine.Random;
 
-// TODO: Convert from OrderOfOperations to FractionAddSubtract
-
-public class FractionAddSubtract : MonoBehaviour, Question {
+public class FractionMultiplyDivide : MonoBehaviour, Question {
     public Text questionText;
     public Text questionTextHUD;
 
@@ -64,7 +62,7 @@ public class FractionAddSubtract : MonoBehaviour, Question {
     private string[] GenerateOperators (int maxDifficulty, int numOfOperands) {
         int numOfOperators = numOfOperands - 1;
 
-        string[] possibleOperators = { "+", "-" };
+        string[] possibleOperators = { "*", "/" };
 
         string[] operators = new string[numOfOperators];
         for (int i = 0; i < operators.Length; i++) {
@@ -138,9 +136,9 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         List<Rational> operands = new List<Rational>(operandArray);
         List<string> operators = new List<string>(operatorArray);
 
-        // Addition & Subtraction
+        // Multiplication & Division
         for (int i = 0; i < operators.Count; i++) {
-            if (operators[i] == "-" || operators[i] == "+") {
+            if (operators[i] == "*" || operators[i] == "/") {
                 int result = ExecuteOperation(operators[i], operands[i], operands[i+1]);
                 operands[i] = result;
                 operators.RemoveAt(i);
