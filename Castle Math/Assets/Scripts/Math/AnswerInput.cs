@@ -55,8 +55,8 @@ public class AnswerInput : MonoBehaviour {
         feedbackTexts = GameObject.FindGameObjectsWithTag ("Feedback");
     }
 
-    public void SetcorrectAnswer (string Answer) {
-        this.correctAnswer = Answer;
+    public void SetCorrectAnswer (string answer) {
+        this.correctAnswer = answer;
     }
 
     public void ClearAnswer () {
@@ -142,40 +142,40 @@ public class AnswerInput : MonoBehaviour {
         if (m_math.interwaveMath) {
             GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
             GameStateManager.instance.ActivatePotionShop();
-            interWaveCorrectFeedack();
+            InterWaveCorrectFeedback();
             interwaveQuestions++;
         }
         else {
-            correctFeedack(feedbackTexts);
+            CorrectFeedback(feedbackTexts);
             // ("correct answer generating new problem");
             m_math.GenerateProblem(m_math.GetQuestionTypes());
 
         }
 
-        mathStats.CorrectlyAnswered();
+        mathStats.CorrectlyAnswered ();
 
         // If answered incorrectly more than once, place in incorrect question tracker
-        if (m_math.GetincorrectAnswersPerQuestion() >= 1) {
-            GameStateManager.instance.tracker.AddIncorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetincorrectAnswersPerQuestion());
+        if (m_math.GetIncorrectAnswersPerQuestion() >= 1) {
+            GameStateManager.instance.tracker.AddIncorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetIncorrectAnswersPerQuestion());
         }
         else {
-            GameStateManager.instance.tracker.AddCorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetincorrectAnswersPerQuestion());
+            GameStateManager.instance.tracker.AddCorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetIncorrectAnswersPerQuestion());
         }
 
-        manaBar.correctAnswer();
+        manaBar.CorrectAnswer();
 
         CheckNumIncorrect();
     }
 
-    public void OnIncorrect() {
+    public void OnIncorrect () {
         mathStats.IncorrectlyAnswered();
         m_math.IncorrectAnswer();
         if (m_math.interwaveMath) {
-            interWaveIncorrectFeedack();
+            InterWaveIncorrectFeedback();
             interwaveQuestions++;
         }
         else {
-            incorrectFeedack(feedbackTexts);
+            IncorrectFeedback(feedbackTexts);
         }
 
         ClearChoices();
@@ -185,8 +185,8 @@ public class AnswerInput : MonoBehaviour {
 
     }
 
-    public void CheckNumIncorrect() {
-        if (m_math.GetincorrectAnswersPerQuestion() == 2) {
+    public void CheckNumIncorrect () {
+        if (m_math.GetIncorrectAnswersPerQuestion() == 2) {
             // TODO: display tip graphic
 
             // Find random index at which to remove an answer choice
@@ -213,8 +213,8 @@ public class AnswerInput : MonoBehaviour {
             //Resassign answer choices to new array
             this.answerChoices = answerChoicesCopy;
         }
-        else if (m_math.GetincorrectAnswersPerQuestion() == 3) {
-            GameStateManager.instance.tracker.AddIncorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetincorrectAnswersPerQuestion());
+        else if (m_math.GetIncorrectAnswersPerQuestion() == 3) {
+            GameStateManager.instance.tracker.AddIncorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetIncorrectAnswersPerQuestion());
             //Debug.Log("Current Question: " + m_math.GetCurrentQuestion().GetQuestionString());
             GameStateManager.instance.tracker.ShowIncorrectQestions();
             //print("incorrect answers generating new problem");
@@ -223,7 +223,7 @@ public class AnswerInput : MonoBehaviour {
         }
     }
 
-    void interWaveCorrectFeedack() {
+    void InterWaveCorrectFeedback() {
         Debug.Log("Interwave questions: " + interwaveQuestions + " Interwave questions for wave: " + interwaveQuestionsForWave);
         feedbackMarks[interwaveQuestions].SetActive(true);
         feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = checkMark;
@@ -240,7 +240,7 @@ public class AnswerInput : MonoBehaviour {
 
     }
 
-    void interWaveIncorrectFeedack() {
+    void InterWaveIncorrectFeedback() {
         //feedbackMarks[interwaveQuestions].SetActive(true);
         //feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
         audioSource.clip = incorrectSound;
@@ -261,7 +261,7 @@ public class AnswerInput : MonoBehaviour {
 
     }
 
-    void correctFeedack(GameObject[] Feedback) {
+    void CorrectFeedback(GameObject[] Feedback) {
         for (int i = 0; i < feedbackTexts.Length; i++) {
             Text FeedbackText = feedbackTexts [i].GetComponent<Text>();
             FeedbackText.text = "Correct";
@@ -275,7 +275,7 @@ public class AnswerInput : MonoBehaviour {
         audioSource.Play ();
     }
 
-    void incorrectFeedack(GameObject[] Feedback) {
+    void IncorrectFeedback(GameObject[] Feedback) {
         for (int i = 0; i < feedbackTexts.Length; i++) {
             Text FeedbackText = feedbackTexts [i].GetComponent<Text>();
             Debug.Log ("Incorrect");
