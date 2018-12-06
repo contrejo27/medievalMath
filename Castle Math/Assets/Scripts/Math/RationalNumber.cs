@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-// using UnityEngine;
-// using UnityEngine.UI;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace Hello {
 public class Rational {
     public int num { get; set; }
     public int den { get; set; }
@@ -231,5 +230,3 @@ class Tester {
     }
 
 } // Tester Class
-
-} // namespace

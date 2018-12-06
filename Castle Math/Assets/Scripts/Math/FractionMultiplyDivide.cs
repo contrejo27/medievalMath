@@ -11,16 +11,16 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
 
     private AnswerInput answerInput;
     private string questionString;
-    private int correctAnswer;
+    private Rational correctAnswer;
     private string[] answerChoices;
     private int difficulty;
-    private int[] operands;
+    private Rational[] operands;
     private string[] operators;
 
     private int incorrectAnswers = 0;
     private int maxInt = 10;
 
-    public FractionAddSubtract() {
+    public FractionMultiplyDivide() {
         
     }
 
@@ -51,11 +51,11 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
         Rational[] operands = GenerateOperands(maxDifficulty, numOfOperands);
         string[] operators = GenerateOperators(maxDifficulty, numOfOperands);
 
-        this.problem = new Problem(operands, operators);
-        this.answerChoices = problem.choices;
+        this.questionString = GenerateQuestionString(operands, operators);
+        this.answerChoices = GenerateChoices(operands, operators);
 
         // Display to Unity
-        answerInput.SetQuestion(problem.ToString());
+        answerInput.SetQuestion(this.questionString);
         answerInput.DisplayChoices(this.answerChoices);
     }
 
@@ -84,8 +84,8 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
 
         Rational[] operands = new Rational[numOfOperands];
         for (int i = 0; i < operands.Length; i++) {
-            num = Random.Range(0, maxInteger);
-            den = Random.Range(0, maxInteger);
+            int num = Random.Range(0, maxInteger);
+            int den = Random.Range(0, maxInteger);
             operands[i] = new Rational(num, den);
         }
 
@@ -115,7 +115,7 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
         /// </summary>
 
         this.correctAnswer = GenerateAnswer(operands, operators);
-        Rational[] fakeAnswers = GenerateFakeAnswers(operands, operators);
+        Rational[] fakeAnswers = GenerateFakeAnswers(operands, operators, 3);
 
         Rational[] choices = new Rational[fakeAnswers.Length + 1];
         for (int i = 0; i < fakeAnswers.Length; i++) {
@@ -123,7 +123,7 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
         }
         choices[choices.Length-1] = correctAnswer;
 
-        string[] stringChoices = ArrayToStringArray(ShuffleChoices(Choices));
+        string[] stringChoices = ArrayToStringArray(ShuffleChoices(choices));
 
         return stringChoices;
     }
@@ -139,7 +139,7 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
         // Multiplication & Division
         for (int i = 0; i < operators.Count; i++) {
             if (operators[i] == "*" || operators[i] == "/") {
-                int result = ExecuteOperation(operators[i], operands[i], operands[i+1]);
+                Rational result = ExecuteOperation(operators[i], operands[i], operands[i+1]);
                 operands[i] = result;
                 operators.RemoveAt(i);
                 operands.RemoveAt(i+1);
@@ -147,17 +147,15 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
         }
 
         // Return last element remaining in the operand list
-        this.answer = operands[0];
-        return this.answer;
-
+        return operands[0];
     }
 
-    private int[] GenerateFakeAnswers (int[] operands, string[] operators, int num) {
+    private Rational[] GenerateFakeAnswers (Rational[] operands, string[] operators, int num) {
         /// <summary>
         /// Generates vaguely plausible answers.
         /// </summary>
         
-        int[] fakeAnswers = new int[num];
+        Rational[] fakeAnswers = new Rational[num];
 
         for (int i = 0; i < fakeAnswers.Length; i++) {
             fakeAnswers[i] = GenerateAnswer(ShuffleArray(operands), ShuffleArray(operators));
@@ -207,7 +205,7 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
         /// Checks for duplicate values and shuffles array before returning.
         /// </summary>
         
-        HashSet<int> choiceSet = new HashSet<int> ();
+        HashSet<Rational> choiceSet = new HashSet<Rational> ();
         int size = choices.Length;
 
         // Check for duplicate values in array. If found, add a number in a random range
@@ -228,7 +226,7 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
     }
 
     private string[] ArrayToStringArray<T> (T[] arr) {
-        string output = new string[arr.Length];
+        string[] output = new string[arr.Length];
 
         for (int i = 0; i < output.Length; i++ ) {
             output[i] = arr[i].ToString();
@@ -246,7 +244,7 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
     }
 
     public void SetCorrectAnswer (string answer) {
-        this.correctAnswer = System.Int32.Parse(answer);
+        // this.correctAnswer = System.Int32.Parse(answer);
     }
 
     public void SetQuestionString (string question) {
