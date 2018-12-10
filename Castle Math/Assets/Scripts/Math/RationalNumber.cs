@@ -3,39 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Rational {
     public int num { get; set; }
     public int den { get; set; }
 
+    
+
     public Rational () {
     }
 
     public Rational (int num, int den) {
-        // TODO: Numerator is the only one that can be negative
         this.num = num;
 
-        // TODO: Denominator cannot be zero
-        this.den = den;
+        if(den == 0)
+        {
+            this.den = 1;
+            Debug.LogError("Rational Number denominator is 0. Can't divide by 0.");
+        } else if(den < 0)
+        {
+            this.den = den * -1;
+            this.num = num * -1;
+
+        } else
+        {
+            this.den = den;
+        }
     }
 
     public void Simplify () {
         int factor = GCD(this.num, this.den);
         this.num = (int) this.num / factor;
         this.den = (int) this.den / factor;
-    }
-
-    public bool IsSimplifiable () {
-        // TODO: Implement the correct IsSimplifiable()
-        if ( (this.num % this.den) == 0 ) {
-            return true;
-        }
-        else if ( (this.den % this.num) == 0 ) {
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 
     public double Decimal {
@@ -54,8 +54,12 @@ public class Rational {
     }
 
     public static Rational operator - (Rational a, Rational b) {
-        // TODO: Implement using operator +
-        return new Rational();
+        int new_den = LCM(a.den, b.den);
+        int new_num = a.num * new_den / a.den + -1 * (b.num * new_den / b.den);
+
+        Rational result = new Rational(new_num, new_den);
+        result.Simplify();
+        return result;
     }
 
     public static Rational operator * (Rational a, Rational b) {
@@ -66,43 +70,75 @@ public class Rational {
     }
 
     public static Rational operator / (Rational a, Rational b) {
-        // TODO: Implement using operator *
-        return new Rational();
+        Rational zeroCase;
+        if (b.num == 0 || a.num == 0)
+        {
+            zeroCase = new Rational(0, 1);
+            return zeroCase;
+        }
+        Rational result = new Rational(a.num * b.den, a.den * b.num);
+        result.Simplify();
+
+        return result;
     }
 
     public static bool operator < (Rational a, Rational b) {
-        // TODO: Implement 
         bool status = false;
+        float num1 = a.num / (float)a.den;
+        float num2 = b.num / (float)b.den;
+        if (num1 < num2)
+            status = true;
+        
         return status;
     }
 
     public static bool operator <= (Rational a, Rational b) {
-        // TODO: Implement 
         bool status = false;
+        float num1 = a.num / (float)a.den;
+        float num2 = b.num / (float)b.den;
+        if (num1 <= num2)
+            status = true;
+
         return status;
     }
 
     public static bool operator > (Rational a, Rational b) {
-        // TODO: Implement 
         bool status = false;
+        float num1 = a.num / (float)a.den;
+        float num2 = b.num / (float)b.den;
+        if (num1 > num2)
+            status = true;
+
         return status;
     }
 
     public static bool operator >= (Rational a, Rational b) {
-        // TODO: Implement 
         bool status = false;
+        float num1 = a.num / (float)a.den;
+        float num2 = b.num / (float)b.den;
+        if (num1 >= num2)
+            status = true;
+
         return status;
     }
 
     public static bool operator == (Rational a, Rational b) {
-        // TODO: Implement 
         bool status = false;
+        float num1 = a.num / (float)a.den;
+        float num2 = b.num / (float)b.den;
+        if (num1 == num2)
+            status = true;
+
         return status;
     }
 
     public static bool operator != (Rational a, Rational b) {
-        // TODO: Implement 
         bool status = false;
+        float num1 = a.num / (float)a.den;
+        float num2 = b.num / (float)b.den;
+        if (num1 != num2)
+            status = true;
+
         return status;
     }
 
@@ -161,13 +197,33 @@ public class Rational {
         ///     a, b = b, a%b
         /// return a
         /// </summary>
-
-        while (b != 0) { 
-            a = b;
-            b = a%b;
+        if(b == 0)
+        {
+            return 1;
         }
 
-        return a;
+        int rem = 1;
+
+        if (a < b) {
+            int temp = b;
+            b = a;
+            a = temp;
+        }
+        
+        while (rem != 0) {
+            rem = a % b;
+            a = b;
+            if (rem == 0)
+            {
+                break;
+            }
+            b = rem;
+        }
+        if(b == 0)
+        {
+            return 1;
+        }
+        return b;
     }
 
     public static int LCM (int a, int b) {
@@ -180,53 +236,76 @@ public class Rational {
 
 }
 
-class Tester {
-    static Rational a = new Rational(2, 3);
-    static Rational b = new Rational(6, 3);
-    static Rational c = new Rational(12, 6);
-    static Rational d = new Rational(-7, 3);
+public class Tester {
+    public static Rational a = new Rational(Random.Range(0, 10), Random.Range(0, 10));
+    public static Rational b = new Rational(Random.Range(10, 100), Random.Range(10, 100));
+    public static Rational c = new Rational(Random.Range(-10, 10), Random.Range(-10, 10));
+    public static Rational d = new Rational(Random.Range(0, 10), Random.Range(0, 10));
 
     static void Main(string[] args) {
 
-        TestStringConversion();
-        TestSimplification();
+        //TestStringConversion();
+        //TestSimplification();
         // TODO: Test Decimal
-        // TODO: Test Addition
-        // TODO: Test Subtraction
-        // TODO: Test Multiplication
-        // TODO: Test Division
-        // TODO: Test ==
-        // TODO: Test <
-        // TODO: Test <=
-        // TODO: Test >
-        // TODO: Test >=
-        // TODO: Test !=
 
     }
 
-    static void TestStringConversion () {
-        if ( a.ToString() != "2/3" ) {
+    static void TestStringConversion() {
+        if (a.ToString() != "2/3") {
             Console.WriteLine("Failed Test: String Conversion (1)");
         }
-        if ( d.ToString() != "-7/3" ) {
+        if (d.ToString() != "-7/3") {
             Console.WriteLine("Failed Test: String Conversion (2)");
         }
     }
-
-    static void TestSimplification () {
-        if ( a.IsSimplifiable() != false ) {
+    /*
+    static void TestSimplification() {
+        if (a.IsSimplifiable() != false) {
             Console.WriteLine("Failed Test: Simplificationn (1)");
         }
 
-        if ( b.IsSimplifiable() != true ) {
+        if (b.IsSimplifiable() != true) {
             Console.WriteLine("Failed Test: Simplificationn (2)");
         }
     }
-
+    
     static void TestDecimal () {
         if ( b.IsSimplifiable() != true ) {
             Console.WriteLine("Failed Test: Simplificationn (2)");
         }
     }
+    
+    static void TestDecimal()
+    {
+        if (b.IsSimplifiable() != true)
+        {
+            Console.WriteLine("Failed Test: Simplificationn (2)");
+        }
+    }
+    */
 
-} // Tester Class
+    public static void RandomizeTestVar()
+    {
+        Rational testvar1 = new Rational(Random.Range(-10, 10), Random.Range(-10, 10));
+        Rational testvar2 = new Rational(Random.Range(-10, 10), Random.Range(-10, 10));
+        //Rational testvar1 = new Rational(5, 6);
+        //Rational testvar2 = new Rational(5, 6);
+        bool result;
+        if (testvar1.den == 0)
+        {
+            testvar1 = new Rational(Random.Range(-10, 10), Random.Range(-10, 10));
+        }
+        if (testvar2.den == 0)
+        {
+            testvar2 = new Rational(Random.Range(-10, 10), Random.Range(-10, 10));
+        }
+
+        Debug.Log("Before: (" + testvar1 + ") <= (" + testvar2 + ")");
+        result = testvar1 <= testvar2;
+        Debug.Log("After: = " + result);
+        
+    }
+
+}
+
+ // Tester Class

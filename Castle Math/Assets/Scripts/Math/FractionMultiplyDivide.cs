@@ -115,6 +115,7 @@ public class FractionMultiplyDivide : MonoBehaviour, Question {
         /// </summary>
 
         this.correctAnswer = GenerateAnswer(operands, operators);
+
         Rational[] fakeAnswers = GenerateFakeAnswers(operands, operators, 3);
 
         Rational[] choices = new Rational[fakeAnswers.Length + 1];
