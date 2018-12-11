@@ -40,9 +40,10 @@ public class AnswerInput : MonoBehaviour {
     private int incorrectAnswersPerQuestion;
 
     public void Awake() {
+		Debug.Log ("answer input script: " + gameObject.name);
         // interwaveQuestionsForWave = 2;
-        // questionTexts = GameObject.FindGameObjectsWithTag("Question");
-        choiceBoxes = GameObject.FindGameObjectsWithTag("choiceBox");
+        questionTexts = GameObject.FindGameObjectsWithTag("Question");
+        choiceBoxes = GameObject.FindGameObjectsWithTag("ChoiceBox");
 
     }
 
@@ -298,7 +299,7 @@ public class AnswerInput : MonoBehaviour {
         //Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + questionTexts.Length);
 
         Text QuestionText = questionTexts [index].GetComponent<Text>();
-        //Debug.Log("(AInput) Setting Question to: " + question + " in " + QuestionText.name );
+        Debug.Log("(AInput) Setting Question to: " + question + " in " + QuestionText.name );
         QuestionText.text = question;
     }
 

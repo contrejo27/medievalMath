@@ -73,8 +73,8 @@ public class MathManager : MonoBehaviour {
         algebraQuestion = GetComponent<Algebra> ();
         orderOfOperations = GetComponent<OrderOfOperations> ();
 
-        GameObject m_ControllerGO = GameObject.Find("mathController");
-
+        GameObject m_ControllerGO = GameObject.Find("MathController");
+		Debug.Log ("Math cont: " + m_ControllerGO.name);
         if (m_ControllerGO) {
             m_Controller = m_ControllerGO.GetComponent<MathController>();
         }
@@ -101,7 +101,9 @@ public class MathManager : MonoBehaviour {
             // QuestionTypes [2] = m_Controller.wordProblems;
             // QuestionTypes [3] = m_Controller.wordProblems;
             QuestionTypes [2] = m_Controller.fractions;
+			if (m_Controller.fractions) intermathQTypeOptions.Add(2);
             QuestionTypes [3] = m_Controller.preAlgebra;
+			if (m_Controller.preAlgebra) intermathQTypeOptions.Add(3);
         }
         else {
             QuestionTypes [0] = true;
@@ -268,9 +270,11 @@ public class MathManager : MonoBehaviour {
         foreach(bool question in QuestionTypes) {
             if(question) {
                 currentQuestionTypes.Add(i);
+				Debug.Log ("Added: " + question);
             }
             i++;
         }
+		Debug.Log("curr q type: "  + currentQuestionTypes.Count);
         int selectedMath = currentQuestionTypes[Random.Range (0, currentQuestionTypes.Count)];
         if (selectedMath == 0) {
             addOrSub.GenerateQuestion (mathDifficultyAorS);
