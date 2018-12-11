@@ -11,10 +11,8 @@ public class Fractions : MonoBehaviour, Question {
     public Text QuestionText;
 	public Text QuestionText_hud;
 	public GameObject fractionItem;
-	private int Numerator;
-	private int Denominator;
-    int reducedNumerator;
-    int reducedDenominator;
+	private Rational fraction;
+    Rational reducedFraction;
     private double DecimalAnswer;
 	private string StringAnswer;
 	private int incorrectAnswers; 
@@ -38,20 +36,19 @@ public class Fractions : MonoBehaviour, Question {
 	/// </summary>
 	/// <param name="maxDifficulty">maximum end of range</param>
 	public void GenerateIntermathQuestion (int maxDifficulty) { //int maxDifficulty => temp fix
-		Numerator = Random.Range (1, 13);
-		Denominator = Random.Range (2, 13);
+		fraction = new Rational (Random.Range (1, 13), Random.Range (2, 13));
 
-		while (Numerator >= Denominator) {
-			Numerator = Random.Range (1, 13);
+		while (fraction.num >= fraction.den) {
+			fraction.num = Random.Range (1, 13);
 		}
 
 		this.reduce = Random.Range(0, 2);
 
 		//If fraction can be reduced by half
-		for (int i = 2; i <= Denominator; i++) {
-			if (Numerator % i == 0 && Denominator % i == 0 && reduce == 1) {
-				Numerator /= i;
-				Denominator /= i;
+		for (int i = 2; i <= fraction.den; i++) {
+			if (fraction.num % i == 0 && fraction.den % i == 0 && reduce == 1) {
+				fraction.num /= i;
+				fraction.den /= i;
 			} else {
 				reduce = 0;
 			}
@@ -59,8 +56,8 @@ public class Fractions : MonoBehaviour, Question {
 
 		QuestionText.text = "What fraction do the red gems represent?";
 
-		DecimalAnswer = (double)Numerator / (double)Denominator;
-		StringAnswer = Numerator.ToString() + "/" + Denominator.ToString();
+		DecimalAnswer = (double)fraction.num / (double)fraction.den;
+		StringAnswer = fraction.num.ToString() + "/" + fraction.den.ToString();
         GenerateIntermathChoices();
 		DisplayItems();
 	}
@@ -69,26 +66,26 @@ public class Fractions : MonoBehaviour, Question {
 	/// </summary>
 	public void GenerateIntermathChoices() {
 		string [] AnswerChoices = new string [4];
-		int NumeratorChoice;
-		int DenominatorChoice;
+		int NumChoice;
+		int DenChoice;
 		double DecimalChoice;
 
 		//generate random choices
 		for (int i = 0; i < 3; i++) {
-			NumeratorChoice = Random.Range (1, 12);
-			DenominatorChoice = Random.Range (NumeratorChoice, 13);
+			NumChoice = Random.Range (1, 12);
+			DenChoice = Random.Range (NumChoice, 13);
 
-			if (NumeratorChoice == DenominatorChoice) {
-				DenominatorChoice++;
+			if (NumChoice == DenChoice) {
+				DenChoice++;
 			}
 
-			DecimalChoice = (double)NumeratorChoice / (double)DenominatorChoice;
+			DecimalChoice = (double)NumChoice / (double)DenChoice;
 
-			while (NumeratorChoice == Numerator && DenominatorChoice == Denominator) {
-				DenominatorChoice = Random.Range (NumeratorChoice, 13);
+			while (NumChoice == fraction.num && DenChoice == fraction.den) {
+				DenChoice = Random.Range (NumChoice, 13);
 			}
 
-			AnswerChoices [i] = NumeratorChoice.ToString () + "/" + DenominatorChoice.ToString ();
+			AnswerChoices [i] = NumChoice.ToString () + "/" + DenChoice.ToString ();
 		}
 
 		AnswerChoices [3] = this.GetCorrectAnswer ();
@@ -109,78 +106,75 @@ public class Fractions : MonoBehaviour, Question {
 
 	}
 
-    public void GenerateOperands(int maxDifficulty)
-    {
-        if (maxDifficulty != -1)
-        {
-            maxInt = maxDifficulty;
-        }
+	public void GenerateOperands(int maxDifficulty)
+	{
+		if (maxDifficulty != -1)
+		{
+			maxInt = maxDifficulty;
+		}
 
-        fractionMultiplier = Random.Range(2, 4);
-        reducedNumerator = Random.Range(1, maxInt);
-        reducedDenominator = Random.Range(1, maxInt);
-        StringAnswer = reducedNumerator + "/" + reducedDenominator;
+		fractionMultiplier = Random.Range(2, 4);
+		reducedFraction = new Rational (Random.Range (1, maxInt), Random.Range (1, maxInt));
+		StringAnswer = reducedFraction.num + "/" + reducedFraction.den;
 
-        Numerator = reducedNumerator * fractionMultiplier;
-        Denominator = reducedDenominator * fractionMultiplier;
-    }
+		fraction.num = reducedFraction.num * fractionMultiplier;
+		fraction.den = reducedFraction.den * fractionMultiplier;
+	}
 
-    public void GenerateQuestion(int maxDifficulty)
-    {
-        GenerateOperands(maxDifficulty);
+	public void GenerateQuestion(int maxDifficulty)
+	{
+		GenerateOperands(maxDifficulty);
 
-        questionString = "Reduce: " + Numerator.ToString() + "/" + Denominator.ToString();
+		questionString = "Reduce: " + fraction.num.ToString() + "/" + fraction.den.ToString();
 
-        //Set textbox display to formatted question string
-        //QuestionText.text = QuestionString;
-        Debug.Log("Setting question to: " + questionString);
-        A_Input.SetQuestion(questionString);
-
-
-        //Generate choices for possible answers
-        GenerateChoices();
-    }
+		//Set textbox display to formatted question string
+		//QuestionText.text = QuestionString;
+		Debug.Log("Setting question to: " + questionString);
+		A_Input.SetQuestion(questionString);
 
 
-    /// <summary>
-    /// Generate choices based on question and calculated correct answer created in GenerateQuestion
-    /// </summary>
-    public void GenerateChoices()
-    {
-
-        string Choice1;
-        string Choice2;
-        string Choice3;
+		//Generate choices for possible answers
+		GenerateChoices();
+	}
 
 
-        int fakeNum = Numerator - Random.Range(0, Numerator-2);
-        int fakeDenom = Denominator - Random.Range(0, Denominator-2);
-        Choice1 = (fakeNum + "/" + fakeDenom).ToString();
+	/// <summary>
+	/// Generate choices based on question and calculated correct answer created in GenerateQuestion
+	/// </summary>
+	public void GenerateChoices()
+	{
 
-        fakeDenom = Denominator - Random.Range(0, Denominator-2);
-        Choice2 = (reducedNumerator + "/" + fakeDenom).ToString();
+		string Choice1;
+		string Choice2;
+		string Choice3;
 
-        fakeNum = Numerator - Random.Range(0, Numerator-2);
-        Choice3 = (fakeNum + "/" + reducedDenominator).ToString();
+		Rational fakeFraction = new Rational (fraction.num - Random.Range (0, fraction.num - 2), fraction.den - Random.Range (0, fraction.den - 2));
+		Choice1 = (fakeFraction.num + "/" + fakeFraction.den).ToString();
+
+		fakeFraction.den = fraction.den - Random.Range(0, fraction.den-2);
+		Choice2 = (reducedFraction.num + "/" + fakeFraction.den).ToString();
+
+		fakeFraction.num = fraction.num - Random.Range(0, fraction.num-2);
+		Choice3 = (fakeFraction.num + "/" + reducedFraction.den).ToString();
 
 
-        string[] IntegerChoices = new string[] { Choice1, Choice2, Choice3, StringAnswer };
+		string[] IntegerChoices = new string[] { Choice1, Choice2, Choice3, StringAnswer };
 
-        //Shuffle array randomly
-        for (int i = 0; i < IntegerChoices.Length; i++)
-        {
-            string temp = IntegerChoices[i];
-            int r = Random.Range(i, IntegerChoices.Length);
-            IntegerChoices[i] = IntegerChoices[r];
-            IntegerChoices[r] = temp;
+		//Shuffle array randomly
+		for (int i = 0; i < IntegerChoices.Length; i++)
+		{
+			string temp = IntegerChoices[i];
+			int r = Random.Range(i, IntegerChoices.Length);
+			IntegerChoices[i] = IntegerChoices[r];
+			IntegerChoices[r] = temp;
 
-        }
-        //Populate choice array with generated answer choices, converted to strings for later use
-        answerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(),
-            IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
+		}
+		//Populate choice array with generated answer choices, converted to strings for later use
+		answerChoices = new string[] {IntegerChoices[0].ToString(), IntegerChoices[1].ToString(),
+			IntegerChoices[2].ToString(), IntegerChoices[3].ToString()};
 
-        A_Input.DisplayChoices(answerChoices);
-    }
+		A_Input.DisplayChoices(answerChoices);
+	}
 
     /// <summary>
     /// Displays gem item graphics
@@ -194,17 +188,17 @@ public class Fractions : MonoBehaviour, Question {
 		int denominatorGems;
 		int increaseFractionAmt = Random.Range (1, 3);
 		Debug.Log ("reduce:" + reduce);
-		Debug.Log ("Num :" + Numerator);
-		Debug.Log ("Denom :" + Denominator);
+		Debug.Log ("Num :" + fraction.num);
+		Debug.Log ("Denom :" + fraction.den);
 
 		//Account for if they are required to reduce the fraction
 		if (reduce == 1) {
-			numeratorGems = Numerator * increaseFractionAmt;
-			denominatorGems = Denominator * increaseFractionAmt;
+			numeratorGems = fraction.num * increaseFractionAmt;
+			denominatorGems = fraction.den * increaseFractionAmt;
 		}
 		else {
-			numeratorGems = Numerator;
-			denominatorGems = Denominator;
+			numeratorGems = fraction.num;
+			denominatorGems = fraction.den;
 		}
 
 		//Find the InterMath billboard in the scene
@@ -302,14 +296,16 @@ public class Fractions : MonoBehaviour, Question {
 	/// Gets the numerator.
 	/// </summary>
 	/// <returns>The numerator.</returns>
-	private int  GetNumerator() {
-		return this.Numerator;
+	/*
+	 * Removed blocks below because RationalNumbers.cs already contains get/set for n/d
+	private int  Getfraction.num() {
+		return this.fraction.num;
 	}
 
-	private int GetDenominator() {
-		return this.Denominator;
+	private int Getfraction.den() {
+		return this.fraction.den;
 	}
-
+	*/
 	public void SetIncorrectAnswers(int incorrect) {
 		incorrectAnswers = incorrect;
 	}

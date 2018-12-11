@@ -40,7 +40,6 @@ public class AnswerInput : MonoBehaviour {
     private int incorrectAnswersPerQuestion;
 
     public void Awake() {
-		Debug.Log ("answer input script: " + gameObject.name);
         // interwaveQuestionsForWave = 2;
         questionTexts = GameObject.FindGameObjectsWithTag("Question");
         choiceBoxes = GameObject.FindGameObjectsWithTag("ChoiceBox");
@@ -58,7 +57,12 @@ public class AnswerInput : MonoBehaviour {
 
     public void SetCorrectAnswer (string answer) {
         this.correctAnswer = answer;
+		Debug.Log ("Answer is changed to: " + this.correctAnswer);
     }
+
+	public string GetCorrectAnswer () {
+		return this.correctAnswer;
+	}
 
     public void ClearAnswer () {
         // answerText.text = "";
@@ -100,7 +104,7 @@ public class AnswerInput : MonoBehaviour {
                 if (choiceBoxes[j].name == boxName) {
                     choiceBoxes[j].transform.parent.gameObject.SetActive(true);
                     choiceBox = choiceBoxes[j].GetComponent<Text>();
-                    if (answerChoices[i - 1].ToString() == "") {
+					if (answerChoices[i - 1].ToString() == "") {
                         choiceBox.transform.parent.gameObject.SetActive(false);
                     }
                     else {
@@ -129,7 +133,8 @@ public class AnswerInput : MonoBehaviour {
             }
 
             string answerText = answer.text.ToString();
-
+			Debug.Log ("You have selected: " + answer.text.ToString());
+			Debug.Log ("Really real correct 'answer': " + correctAnswer);
             // Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 
             if (answerText == correctAnswer) OnCorrect();

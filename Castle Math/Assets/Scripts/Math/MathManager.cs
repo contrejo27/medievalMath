@@ -27,7 +27,7 @@ public class MathManager : MonoBehaviour {
     AddOrSubtract addOrSub;
     // Compare Comparision;
     // TrueOrFalse True_False;
-    Fractions fractions;
+    FractionAddSubtract fractions;
     OrderOfOperations orderOfOperations;
     Algebra algebraQuestion;
     WordProblem wordProblem;
@@ -69,12 +69,11 @@ public class MathManager : MonoBehaviour {
         // Comparision = GameObject.FindObjectOfType<Compare> ();
         addOrSub = GetComponent<AddOrSubtract> ();
         // True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
-        fractions = GetComponent<Fractions> ();
+        fractions = GetComponent<FractionAddSubtract> ();
         algebraQuestion = GetComponent<Algebra> ();
         orderOfOperations = GetComponent<OrderOfOperations> ();
 
         GameObject m_ControllerGO = GameObject.Find("MathController");
-		Debug.Log ("Math cont: " + m_ControllerGO.name);
         if (m_ControllerGO) {
             m_Controller = m_ControllerGO.GetComponent<MathController>();
         }
@@ -270,11 +269,10 @@ public class MathManager : MonoBehaviour {
         foreach(bool question in QuestionTypes) {
             if(question) {
                 currentQuestionTypes.Add(i);
-				Debug.Log ("Added: " + question);
             }
             i++;
         }
-		Debug.Log("curr q type: "  + currentQuestionTypes.Count);
+
         int selectedMath = currentQuestionTypes[Random.Range (0, currentQuestionTypes.Count)];
         if (selectedMath == 0) {
             addOrSub.GenerateQuestion (mathDifficultyAorS);
