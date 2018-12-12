@@ -263,7 +263,7 @@ Transform:
   m_LocalScale: {x: 4.5597143, y: 4.5597124, z: 4.5597124}
   m_Children: []
   m_Father: {fileID: 1153442758}
-  m_RootOrder: 3
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -180.03699, z: 0}
 --- !u!114 &29380990
 MonoBehaviour:
@@ -1107,7 +1107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4618680038859016, guid: 1fbd5b1903afe6e4199b8c202bba70ba, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 325.13
+      value: 324.28
       objectReference: {fileID: 0}
     - target: {fileID: 4618680038859016, guid: 1fbd5b1903afe6e4199b8c202bba70ba, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3645,7 +3645,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 362110158}
   m_LocalRotation: {x: 0.007862067, y: -0.872589, z: 0.48826116, w: -0.011303058}
-  m_LocalPosition: {x: 0, y: 0, z: 10.2}
+  m_LocalPosition: {x: 0, y: 0, z: 10.78}
   m_LocalScale: {x: 0.0059536304, y: 0.0059536262, z: 0.0059536276}
   m_Children:
   - {fileID: 432516433}
@@ -3661,7 +3661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 58.422, y: -182.99998, z: -2.71}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.05, y: -3.84}
+  m_AnchoredPosition: {x: 1.8, y: -4.34}
   m_SizeDelta: {x: 956, y: 631}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &362110160
@@ -7257,7 +7257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9dedd92fe743f4ba4220e87fb8b50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuEffects: {fileID: 1876260935}
   notificationEffects: {fileID: 165294076}
   LoseScreen: {fileID: 731966628}
   MathScreen: {fileID: 362110158}
@@ -9575,13 +9574,14 @@ Transform:
   - {fileID: 790858953}
   - {fileID: 1411264474}
   - {fileID: 1093281562}
-  - {fileID: 29380989}
+  - {fileID: 1423080979}
   - {fileID: 1075936267}
   - {fileID: 4433237}
   - {fileID: 1524702841}
   - {fileID: 1177824333}
   - {fileID: 352691257}
   - {fileID: 235668526}
+  - {fileID: 29380989}
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10240,7 +10240,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4225213386236766, guid: 92401773b1a82624685b796e14f569a0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.44561937
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 4225213386236766, guid: 92401773b1a82624685b796e14f569a0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -10248,7 +10248,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4225213386236766, guid: 92401773b1a82624685b796e14f569a0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.020122811
+      value: 1.67
       objectReference: {fileID: 0}
     - target: {fileID: 4225213386236766, guid: 92401773b1a82624685b796e14f569a0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -10498,6 +10498,18 @@ Prefab:
     - target: {fileID: 4661271641206310, guid: ff8a2a68e9ba5044fb08ba35b2f35191, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131645312964746, guid: ff8a2a68e9ba5044fb08ba35b2f35191, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324976360707298, guid: ff8a2a68e9ba5044fb08ba35b2f35191, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706190544975668, guid: ff8a2a68e9ba5044fb08ba35b2f35191, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff8a2a68e9ba5044fb08ba35b2f35191, type: 2}
@@ -12708,7 +12720,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1379566432004224, guid: 30d5f93892e02554dbe0760d1bd01799, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 30d5f93892e02554dbe0760d1bd01799, type: 2}
@@ -14123,7 +14135,7 @@ MonoBehaviour:
   horseRiderPrefab: {fileID: 1591233469638852, guid: 31fcc3023ac7f334db49537883b33f01,
     type: 2}
   bonusEnemy: {fileID: 1467585237758904, guid: d061ad9217b7222438301beca080b193, type: 2}
-  currentWave: 3
+  currentWave: 0
   finalWave: 10
   storyText: {fileID: 1436739979}
   billboardCanvas: {fileID: 1708226052}
