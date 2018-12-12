@@ -37,21 +37,25 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         /// Generates order of operations question
         /// </summary>
 
-        this.difficulty = maxDifficulty;
-        
+        //this.difficulty = maxDifficulty;
+		this.difficulty = 2;
         int numOfOperands = 0;
-        if (maxDifficulty < 15) {
-            numOfOperands = 2;
-        }
-        else if (maxDifficulty < 19) {
-            numOfOperands = 3;
-        }
+
+		if (maxDifficulty < 15) {
+			numOfOperands = 2;
+		} else if (maxDifficulty < 19) {
+			numOfOperands = 3;
+		} else if (maxDifficulty <= 0) {
+			difficulty = 1;
+		}
         else {
             numOfOperands = 4;
         }
-        
-        Rational[] operands = GenerateOperands(maxDifficulty, numOfOperands);
-        string[] operators = GenerateOperators(maxDifficulty, numOfOperands);
+
+		Rational[] operands = GenerateOperands(difficulty, numOfOperands);
+		//Debug.Log ("Rational operands: " + operands[0]);
+		string[] operators = GenerateOperators(difficulty, numOfOperands - 1);
+		//Debug.Log ("string  operator: " + operators[0]);
 
         this.questionString = GenerateQuestionString(operands, operators);
         this.answerChoices = GenerateChoices(operands, operators);
@@ -59,14 +63,14 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         // Display to Unity
         answerInput.SetQuestion(this.questionString);
         answerInput.DisplayChoices(this.answerChoices);
+		//Debug.Log("Corrected Answer: " + answerInput.GetCorrectAnswer ());
     }
 
     private string[] GenerateOperators (int maxDifficulty, int numOfOperands) {
-        int numOfOperators = numOfOperands - 1;
 
         string[] possibleOperators = { "+", "-" };
 
-        string[] operators = new string[numOfOperators];
+		string[] operators = new string[numOfOperands];
         for (int i = 0; i < operators.Length; i++) {
             operators[i] = possibleOperators[Random.Range(0, possibleOperators.Length)];
         }
@@ -75,19 +79,23 @@ public class FractionAddSubtract : MonoBehaviour, Question {
     }
 
     private Rational[] GenerateOperands (int maxDifficulty, int numOfOperands) {
-        int maxInteger = maxDifficulty;
+		int maxInteger = difficulty;
 
         if (maxDifficulty > 20) {
-            maxInteger = maxDifficulty / 2;
+			maxInteger = maxDifficulty / 2;
         }
         else {
-            maxInteger = maxDifficulty;
+			maxInteger = maxDifficulty;
         }
 
         Rational[] operands = new Rational[numOfOperands];
         for (int i = 0; i < operands.Length; i++) {
-            int num = Random.Range(0, maxInteger);
-            int den = Random.Range(0, maxInteger);
+			int num = Random.Range(0, 5);
+			int den = Random.Range(0, 5);
+			while (den == 0) {
+				den = Random.Range(0, 5);
+			}
+            
             operands[i] = new Rational(num, den);
         }
 
@@ -98,8 +106,9 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         string[] parts = new string[operands.Length];
 
         for (int i = 0; i < parts.Length; i++) {
-            if (i == parts.Length - 1) {
+            if (i == parts.Length-1) {
                 parts[i] = string.Format("{0}", operands[i].ToString());
+				break;
             }
             parts[i] = string.Format("{0} {1}", operands[i].ToString(), operators[i].ToString());
         }
@@ -116,7 +125,8 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         /// Generates the choices.
         /// </summary>
 
-        this.correctAnswer = GenerateAnswer(operands, operators);
+        correctAnswer = GenerateAnswer(operands, operators);
+
         Rational[] fakeAnswers = GenerateFakeAnswers(operands, operators, 3);
 
         Rational[] choices = new Rational[fakeAnswers.Length + 1];
@@ -134,22 +144,19 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         /// <summary>
         /// Operates on operands in the correct order. Currently supports */+-
         /// </summary>
-       
+		Rational result = new Rational (0, 1);
         List<Rational> operands = new List<Rational>(operandArray);
         List<string> operators = new List<string>(operatorArray);
 
         // Addition & Subtraction
-        for (int i = 0; i < operators.Count; i++) {
-            if (operators[i] == "-" || operators[i] == "+") {
-                Rational result = ExecuteOperation(operators[i], operands[i], operands[i+1]);
-                operands[i] = result;
-                operators.RemoveAt(i);
-                operands.RemoveAt(i+1);
-            }
+		for (int i = 0; i < operators.Count; i++) {
+			if (operators [i] == "-" || operators [i] == "+") {
+				result = ExecuteOperation (operators [i], operands [i], operands [i + 1]);
+			}
         }
 
         // Return last element remaining in the operand list
-        return operands[0];
+        return result;
 
     }
 
@@ -243,11 +250,13 @@ public class FractionAddSubtract : MonoBehaviour, Question {
     }
 
     public string GetCorrectAnswer () {
+		Debug.Log ("Correct Answer: " + correctAnswer.ToString ());
         return correctAnswer.ToString();
     }
 
     public void SetCorrectAnswer (string answer) {
         // this.correctAnswer = System.Int32.Parse(answer);
+		//this.correctAnswer = answer;
     }
 
     public void SetQuestionString (string question) {

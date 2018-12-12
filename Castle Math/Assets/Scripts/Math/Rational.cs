@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class Rational {
+public class Rational : MonoBehaviour {
     public int num { get; set; }
     public int den { get; set; }
 
@@ -300,8 +300,8 @@ public class Tester {
             testvar2 = new Rational(Random.Range(-10, 10), Random.Range(-10, 10));
         }
 
-        Debug.Log("Before: (" + testvar1 + ") <= (" + testvar2 + ")");
-        result = testvar1 <= testvar2;
+        Debug.Log("Before: (" + testvar1 + ") + (" + testvar2 + ")");
+        result = testvar1 + testvar2;
         Debug.Log("After: = " + result);
         
     }

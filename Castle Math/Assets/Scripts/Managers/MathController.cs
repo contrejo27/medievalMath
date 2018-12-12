@@ -36,6 +36,7 @@ public class MathController : MonoBehaviour {
         else {
             Destroy(gameObject);
         }
+		Debug.Log ("m cont: " + gameObject.name);
         // SaveData.LoadDataFromJSon();
     }
 
@@ -49,9 +50,9 @@ public class MathController : MonoBehaviour {
 
         if (Debug.isDebugBuild || Application.isEditor) {
             Debug.Log("IN EDITOR/DEBUG");
-            GameObject.Find("add/sub").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract];
-            GameObject.Find("mult/divide").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.MultiplyOrDivide];
-            GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra];
+          //  GameObject.Find("add/sub").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract];
+        //    GameObject.Find("mult/divide").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.MultiplyOrDivide];
+         //   GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra];
         }
         else if (LocalUserData.IsLoggedIn() == false) {
             GameObject.Find("add/sub").GetComponent<Toggle>().isOn = true;
