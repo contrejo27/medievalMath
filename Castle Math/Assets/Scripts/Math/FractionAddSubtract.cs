@@ -126,6 +126,7 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         /// </summary>
 
         correctAnswer = GenerateAnswer(operands, operators);
+		correctAnswer.ans = true;
 
         Rational[] fakeAnswers = GenerateFakeAnswers(operands, operators, 3);
 
@@ -220,16 +221,30 @@ public class FractionAddSubtract : MonoBehaviour, Question {
 
         // Check for duplicate values in array. If found, add a number in a random range
         for (int i = 0; i < size; i++) {
-            if (choiceSet.Contains(choices[i])) {
-                // TODO: Change this function to a <T> generic function, with objects that shuffle themselves
-                if (i % 2 == 0) {
-                    choices[i].num = choices[i].num + Random.Range(1, 4);
-                }
-                else {
-                    choices[i].den = choices[i].den + Random.Range(1, 4);
-                }
-            }
-            choiceSet.Add(choices[i]);
+            // TODO: Change this function to a <T> generic function, with objects that shuffle themselves
+			if (!choices [i].ans) {
+				bool isDupe = true;
+				while (isDupe) {
+					
+					for (int j = 0; j < choices.Length; j++) {
+						if (choices [i] == choices [j] && i != j) {
+							isDupe = true;
+							break;
+						} else {
+							isDupe = false;
+						}
+					}
+					if (i % 2 == 0) {
+						choices [i].num = choices [i].num + Random.Range (1, 4);
+					} else {
+						choices [i].num = correctAnswer.num + Random.Range (1, 4);
+						choices [i].den = correctAnswer.den + Random.Range (1, 4);
+						if (choices [i].den == 0) {
+							choices [i].den = correctAnswer.den + Random.Range (1, 4);
+						}
+					}
+				}
+			}
         }
 
         return ShuffleArray(choices);

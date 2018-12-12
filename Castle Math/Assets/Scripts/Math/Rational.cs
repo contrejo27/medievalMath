@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class Rational : MonoBehaviour {
     public int num { get; set; }
     public int den { get; set; }
-
+	public bool ans { get; set; }
     
 
     public Rational () {
@@ -25,7 +25,6 @@ public class Rational : MonoBehaviour {
         {
             this.den = den * -1;
             this.num = num * -1;
-
         } else
         {
             this.den = den;
@@ -36,6 +35,11 @@ public class Rational : MonoBehaviour {
         int factor = GCD(this.num, this.den);
         this.num = (int) this.num / factor;
         this.den = (int) this.den / factor;
+		if(den < 0)
+		{
+			this.den = this.den * -1;
+			this.num = this.num * -1;
+		}
     }
 
     public double Decimal {
