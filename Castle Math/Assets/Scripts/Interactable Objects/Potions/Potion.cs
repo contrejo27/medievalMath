@@ -64,11 +64,15 @@ public class Potion : BaseInteractableObject {
 	/// </summary>
     public virtual void DoEffect()
     {
-		Effect = GameObject.Find ("EffectImage");
 
-		print ("Effect: " + Effect);
+    //Effect commented out until traced null reference
+    ///////////////////////////////////
+	//	Effect = GameObject.Find ("EffectImage");
 
-		Effect.GetComponent<SpriteRenderer> ().sprite = PotionEffect;
+	//	print ("Effect: " + Effect);
+
+	//	Effect.GetComponent<SpriteRenderer> ().sprite = PotionEffect;
+    ///////////////////////////////////
 
         //Debug.Log("Doing effect!");
         DestroyPotionFromInventory();

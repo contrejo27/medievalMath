@@ -279,9 +279,13 @@ public class LevelManager : MonoBehaviour {
             eb.UpdateTarget(eb.fenceTarget);
         }
 
-		Effect = GameObject.Find ("EffectImage");
+        //Effect commented out until Effect refrence is found
+        //////////////////////////
+		//Effect = GameObject.Find ("EffectImage");
 
-		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+		//Effect.GetComponent<SpriteRenderer> ().sprite = null;
+        //////////////////////////
+
 
         // do extra stuff if it explodes
         dummy.GetComponent<DummyScript>().DoOnDestroy();
