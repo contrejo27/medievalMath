@@ -201,7 +201,7 @@ public class Rational : MonoBehaviour {
         ///     a, b = b, a%b
         /// return a
         /// </summary>
-        if(b == 0)
+		if(b == 0 || a == 0)
         {
             return 1;
         }
