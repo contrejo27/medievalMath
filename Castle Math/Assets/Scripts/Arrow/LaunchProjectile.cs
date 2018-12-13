@@ -195,10 +195,9 @@ public class LaunchProjectile : MonoBehaviour {
 		//reduce count by 1
 		//ModiferEffectCounter[(int)(removeModification)] -= 1;
 
-        //commented out until effect reference is found
-		//Effect = GameObject.Find ("EffectImage");
+		Effect = GameObject.Find ("EffectImage");
 
-		//Effect.GetComponent<SpriteRenderer> ().sprite = null;
+		Effect.GetComponent<SpriteRenderer> ().sprite = null;
 
 		//if the count reaches zero, remove this modifier
 		//if (ModiferEffectCounter [(int)(removeModification)] <= 0) {
