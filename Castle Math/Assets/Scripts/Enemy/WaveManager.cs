@@ -239,7 +239,7 @@ public class WaveManager : MonoBehaviour {
         }
 
         currentWave += 1;
-        if(currentWave == finalWave){
+        if(currentWave >= finalWave){
             mStats.showWinUI();
             music.clip = winSound;
             music.loop = false;
@@ -455,12 +455,13 @@ public void SpawnBonusEnemy(GameObject enemy, AudioClip spawnSound, int spawn, b
 
 
 	if (!enemy) {
-		Debug.LogError ("Enemy Doesn't exist");
+		Debug.LogError ("Enemy Doesn't exist. Will spawn from default position");
+		enemyObject = Instantiate (enemy, BonusSpawnPoints [0].position, BonusSpawnPoints [0].rotation);
 	} else {
 		enemyObject = Instantiate (enemy, BonusSpawnPoints [spawnPointIndex].position, BonusSpawnPoints [spawnPointIndex].rotation);
+		enemyObject.GetComponent<SarcophagusScript> ().SetTarget (fenceTargets [spawnPointIndex]);
 	}
-    
-    enemyObject.GetComponent<SarcophagusScript>().SetTarget(fenceTargets[spawnPointIndex]);
+	
     addEnemyToWaveSize();
 
     //RemoveAt (ref BonusSpawnPoints, spawn);

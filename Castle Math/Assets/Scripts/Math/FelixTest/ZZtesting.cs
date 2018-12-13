@@ -22,7 +22,7 @@ public class ZZtesting : MonoBehaviour {
 		{
 			foreach(GameObject enemies in GameObject.FindGameObjectsWithTag("Enemy"))
 			{
-				Debug.Log ("DiE");
+				//Debug.Log ("DiE");
 				enemies.GetComponent<EnemyBehavior> ().TakeDamage(5);	
 				//enemies.GetComponent<EnemyBehavior> ().hitPoints = -1;
 			}
