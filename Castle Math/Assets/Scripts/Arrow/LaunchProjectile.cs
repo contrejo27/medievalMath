@@ -195,9 +195,9 @@ public class LaunchProjectile : MonoBehaviour {
 		//reduce count by 1
 		//ModiferEffectCounter[(int)(removeModification)] -= 1;
 
-		Effect = GameObject.Find ("EffectImage");
+		//Effect = GameObject.Find ("EffectImage");
 
-		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+		//Effect.GetComponent<SpriteRenderer> ().sprite = null;
 
 		//if the count reaches zero, remove this modifier
 		//if (ModiferEffectCounter [(int)(removeModification)] <= 0) {
@@ -318,9 +318,9 @@ public class LaunchProjectile : MonoBehaviour {
         quickShot = true;
         yield return new WaitForSeconds(duration);
 
-		Effect = GameObject.Find ("EffectImage");
+		//Effect = GameObject.Find ("EffectImage");
 
-		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+		//Effect.GetComponent<SpriteRenderer> ().sprite = null;
 
         quickShot = false;
     }
@@ -335,9 +335,9 @@ public class LaunchProjectile : MonoBehaviour {
         rapidFire = true;
         yield return new WaitForSeconds(duration);
 
-		Effect = GameObject.Find ("EffectImage");
+		//Effect = GameObject.Find ("EffectImage");
 
-		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+		//Effect.GetComponent<SpriteRenderer> ().sprite = null;
 
         rapidFire = false;
     }
