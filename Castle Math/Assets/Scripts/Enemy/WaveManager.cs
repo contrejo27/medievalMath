@@ -74,8 +74,10 @@ public class WaveManager : MonoBehaviour {
 
     private void CreateSpawnList(int avoidedStartIndex) {
         List<int> tempList = new List<int> ();
-        for (int i = 0; i < BonusSpawnPoints.Length; i++)
-            tempList.Add (i);
+		for (int i = 0; i < BonusSpawnPoints.Length; i++) {
+			tempList.Add (i);
+			Debug.Log ("ADDED TEMP LIST");
+		}
         pendingSpawnPoints.Clear ();
         for (int i = 0; i < BonusSpawnPoints.Length; i++) {
             int idx = UnityEngine.Random.Range (0, tempList.Count);
@@ -243,6 +245,7 @@ public class WaveManager : MonoBehaviour {
             music.loop = false;
             music.Play();
             levelComplete = true;
+			Debug.Log ("WINNN");
         }
         else{
             ActivateWave(currentWave);
@@ -433,14 +436,30 @@ public void SpawnEnemy(GameObject enemy, AudioClip spawnSound,int spawn, bool sp
 }
 
 public void SpawnBonusEnemy(GameObject enemy, AudioClip spawnSound, int spawn, bool spawnAsClone = false) {
+	int spawnPointIndex;
+	GameObject enemyObject;
+	if (pendingSpawnPoints.Count != 0) {
+		spawnPointIndex = pendingSpawnPoints [0];
+	} else {
+		spawnPointIndex = 0;
+	}
 
-    int spawnPointIndex = pendingSpawnPoints [0];
-    pendingSpawnPoints.RemoveAt (0);
+	if (pendingSpawnPoints.Count == 0) {
+		
+		CreateSpawnList (spawnPointIndex);
+	} else {
+		pendingSpawnPoints.RemoveAt (0);
+	}
 
-    if (pendingSpawnPoints.Count == 0)
-        CreateSpawnList (spawnPointIndex);
 
-    GameObject enemyObject = Instantiate (enemy, BonusSpawnPoints [spawnPointIndex].position, BonusSpawnPoints[spawnPointIndex].rotation);
+
+
+	if (!enemy) {
+		Debug.LogError ("Enemy Doesn't exist");
+	} else {
+		enemyObject = Instantiate (enemy, BonusSpawnPoints [spawnPointIndex].position, BonusSpawnPoints [spawnPointIndex].rotation);
+	}
+    
     enemyObject.GetComponent<SarcophagusScript>().SetTarget(fenceTargets[spawnPointIndex]);
     addEnemyToWaveSize();
 

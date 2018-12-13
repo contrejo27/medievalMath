@@ -20,8 +20,13 @@ public class ZZtesting : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			Tester.RandomizeTestVar ();
-			Debug.Log ("test num" + testNumber.num + " den: " + testNumber.den);
+			foreach(GameObject enemies in GameObject.FindGameObjectsWithTag("Enemy"))
+			{
+				Debug.Log ("DiE");
+				enemies.GetComponent<EnemyBehavior> ().TakeDamage(5);	
+				//enemies.GetComponent<EnemyBehavior> ().hitPoints = -1;
+			}
+
 		}
 
 	}
