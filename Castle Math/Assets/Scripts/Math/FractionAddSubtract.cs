@@ -23,7 +23,7 @@ public class FractionAddSubtract : MonoBehaviour, Question {
     private int maxInt = 10;
 
     public FractionAddSubtract () {
-        
+
     }
 
     public void Start () {
@@ -95,7 +95,7 @@ public class FractionAddSubtract : MonoBehaviour, Question {
 			while (den == 0) {
 				den = Random.Range(0, 5);
 			}
-            
+
             operands[i] = new Rational(num, den);
         }
 
@@ -165,7 +165,7 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         /// <summary>
         /// Generates vaguely plausible answers.
         /// </summary>
-        
+
         Rational[] fakeAnswers = new Rational[num];
 
         for (int i = 0; i < fakeAnswers.Length; i++) {
@@ -200,7 +200,7 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         /// <summary>
         /// Shuffles array randomly
         /// </summary>
-        
+
         for (int i = 0; i < arr.Length; i++ ) {
             T temp = arr[i];
             int r = Random.Range(i, arr.Length);
@@ -215,7 +215,7 @@ public class FractionAddSubtract : MonoBehaviour, Question {
         /// <summary>
         /// Checks for duplicate values and shuffles array before returning.
         /// </summary>
-        
+
         HashSet<Rational> choiceSet = new HashSet<Rational> ();
         int size = choices.Length;
 
@@ -225,9 +225,9 @@ public class FractionAddSubtract : MonoBehaviour, Question {
 			if (!choices [i].ans) {
 				bool isDupe = true;
 				while (isDupe) {
-					
+
 					for (int j = 0; j < choices.Length; j++) {
-						if (choices [i] == choices [j] && i != j) {
+						if (choices [i] == choices [j] && i != j && (Double)choices [i] == (Double)choices [j]) {
 							isDupe = true;
 							break;
 						} else {
