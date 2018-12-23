@@ -37,7 +37,6 @@ public class ProjectileBehavior : MonoBehaviour {
 				}
 
 				if (root.tag == "Enemy") {
-					Debug.Log ("Oof");
                     EnemyBehavior eb = root.GetComponent<EnemyBehavior>();
 					SarcophagusScript sS = root.GetComponent<SarcophagusScript> ();
 					if (eb)

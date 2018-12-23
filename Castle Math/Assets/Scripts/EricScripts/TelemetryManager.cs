@@ -240,7 +240,7 @@ public class TelemetryManager : MonoBehaviour {
 
         string jsonPayload = "{" + payload + "}";
 
-        Debug.Log("JSON payload:\n" + jsonPayload);
+        //Debug.Log("JSON payload:\n" + jsonPayload);
 
         return jsonPayload;
     }

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class MathManager : MonoBehaviour {
 
-    public Text QuestionText;
-    public Text FeedbackText;
     public GameObject billboard;
     public WaveManager W_man;
     public AudioClip CorrectSound;
@@ -301,6 +299,7 @@ public class MathManager : MonoBehaviour {
             currentQuestion = fractions;
         }
         else if (selectedMath == 3) {
+            print("****doing algebra");
             algebraQuestion.GenerateQuestion (mathDifficultyAorS);
             A_Input.SetCorrectAnswer (algebraQuestion.GetCorrectAnswer ());
             currentQuestion = algebraQuestion;

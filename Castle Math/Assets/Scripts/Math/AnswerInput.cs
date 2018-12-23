@@ -32,7 +32,7 @@ public class AnswerInput : MonoBehaviour {
 
     private ArrowSupplier arrowSupplier;
     private PlayerMathStats mathStats;
-    private ManaBar manaBar;
+    //private ManaBar manaBar;
 
     [HideInInspector]
     public int interwaveQuestionsForWave = 2;
@@ -41,13 +41,12 @@ public class AnswerInput : MonoBehaviour {
 
     public void Awake() {
         // interwaveQuestionsForWave = 2;
-        questionTexts = GameObject.FindGameObjectsWithTag("Question");
         choiceBoxes = GameObject.FindGameObjectsWithTag("ChoiceBox");
 
     }
 
     public void Start () {
-        manaBar = FindObjectOfType<ManaBar> ();
+       // manaBar = FindObjectOfType<ManaBar> ();
         m_math = GameObject.FindObjectOfType<MathManager> ();
         arrowSupplier = GameObject.FindObjectOfType<ArrowSupplier> ();
         audioSource = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
@@ -168,7 +167,7 @@ public class AnswerInput : MonoBehaviour {
             GameStateManager.instance.tracker.AddCorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetIncorrectAnswersPerQuestion());
         }
 
-        manaBar.CorrectAnswer();
+        //manaBar.CorrectAnswer();
 
         CheckNumIncorrect();
     }
@@ -185,7 +184,7 @@ public class AnswerInput : MonoBehaviour {
         }
 
         ClearChoices();
-        manaBar.IncorrectAnswer();
+        //manaBar.IncorrectAnswer();
 
         CheckNumIncorrect();
 
@@ -300,11 +299,9 @@ public class AnswerInput : MonoBehaviour {
         /// Sets the question display.
         /// </summary>
         /// <param name="question">Question.</param>
-    
-        //Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + questionTexts.Length);
 
+        //Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + questionTexts.Length);
         Text QuestionText = questionTexts [index].GetComponent<Text>();
-        Debug.Log("(AInput) Setting Question to: " + question + " in " + QuestionText.name );
         QuestionText.text = question;
     }
 

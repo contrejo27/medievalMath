@@ -200,7 +200,6 @@ public class WaveManager : MonoBehaviour {
             else if (waveInfo.Length > 1)
             {
                 if (!waveInfo[0].StartsWith("*")) {
-                    print("**** reading: " + a);
                     //for footknights/horseknights/trolls of each wave (the current number), a new integer is declared with the wave type and amount of waves
                     footknightWaves[wave] = new int[] { int.Parse(waveInfo[2]), int.Parse(waveInfo[1]) };
                     horseknightWaves[wave] = new int[] { int.Parse(waveInfo[4]), int.Parse(waveInfo[3]) };
@@ -342,15 +341,17 @@ public class WaveManager : MonoBehaviour {
             }
         }
 
-        if (currentWave >= 3) 
-        {
-            for (int i = 0; i < waveType [currentWave] [1]; i++) 
+        if (bonusEnemy) { 
+            if (currentWave >= 3) 
             {
-                SpawnBonusEnemy (bonusEnemy, spawnSound, UnityEngine.Random.Range(0, 3));
-                yield return new WaitForSeconds (UnityEngine.Random.Range (3f, 6f));
+                for (int i = 0; i < waveType [currentWave] [1]; i++) 
+                {
+                    SpawnBonusEnemy (bonusEnemy, spawnSound, UnityEngine.Random.Range(0, 3));
+                    yield return new WaitForSeconds (UnityEngine.Random.Range (3f, 6f));
 
-                if (i >= 3) {
-                    break;
+                    if (i >= 3) {
+                        break;
+                    }
                 }
             }
         }
@@ -391,8 +392,8 @@ spawnEnemy(trollPrefab, trollSpawnSound);
 addEnemyToWaveSize();
 }
 */
-//leave the title up for another second
-yield return new WaitForSeconds (1);
+        //leave the title up for another second
+        yield return new WaitForSeconds (1);
 
 WaveTitle.text = "";
 //waveEffect.alpha = 1f;
@@ -450,10 +451,6 @@ public void SpawnBonusEnemy(GameObject enemy, AudioClip spawnSound, int spawn, b
 	} else {
 		pendingSpawnPoints.RemoveAt (0);
 	}
-
-
-
-
 	if (!enemy) {
 		Debug.LogError ("Enemy Doesn't exist. Will spawn from default position");
 		enemyObject = Instantiate (enemy, BonusSpawnPoints [0].position, BonusSpawnPoints [0].rotation);

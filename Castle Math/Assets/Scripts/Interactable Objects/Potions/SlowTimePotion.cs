@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlowTimePotion : Potion {
 
-	private GameObject Effect;
+	private GameObject EffectImage;
 
     protected override void Init()
     {
@@ -23,8 +23,8 @@ public class SlowTimePotion : Potion {
 	IEnumerator SlowTimeCD() {
 		yield return new WaitForSeconds (8f);
 
-		Effect = GameObject.Find ("EffectImage");
+        EffectImage = GameObject.Find ("EffectImage");
 
-		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+        EffectImage.GetComponent<SpriteRenderer> ().sprite = null;
 	}
 }
