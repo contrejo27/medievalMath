@@ -29,6 +29,6 @@ public class PauseMenu : MonoBehaviour {
     {
         SceneManager.LoadScene(0);
         yield return new WaitForSeconds(.5f);
-        UnityEngine.VR.VRSettings.enabled = false;
+        UnityEngine.XR.XRSettings.enabled = false;
     }
 }

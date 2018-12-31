@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LaunchProjectile : MonoBehaviour {
 
+    public bool isOG = false;
+
 	//player
 	DoorHealth health;
 
@@ -89,9 +91,26 @@ public class LaunchProjectile : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        bool fireCalled = false;
+
+        if (isOG)
+        {
+            if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+            {
+                fireCalled = true;
+            }
+        }
+        else
+        {
+            if(Input.GetButton("Fire1"))
+            {
+                fireCalled = true;
+            }
+        }
+
         if (!lookingAtMathInterface && isAlive && !GameStateManager.instance.levelManager.isGamePaused)
         { 
-            if (Input.GetButton("Fire1") && rapidFire)
+            if (fireCalled && rapidFire)
             {
                 if (A_Supply.NumberOfArrows > 0)
                 {
@@ -109,7 +128,7 @@ public class LaunchProjectile : MonoBehaviour {
                 }
                 
             }
-            else if (Input.GetButtonDown("Fire1"))
+            else if (fireCalled)
             {
 
                 if (A_Supply.NumberOfArrows > 0)

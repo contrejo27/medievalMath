@@ -28,7 +28,7 @@ public class GameStateManager : MonoBehaviour {
 
     // References
     [HideInInspector]
-    public PlayerController playerController;
+    public MM.PlayerController playerController;
     public PotionShop potionShop;
     [HideInInspector]
     public Inventory inventory;
@@ -191,9 +191,9 @@ public class GameStateManager : MonoBehaviour {
 
     public IEnumerator ActivatorVR(string vrToggle) {
         // TODO: Please explain yield
-        UnityEngine.VR.VRSettings.LoadDeviceByName(vrToggle);
+        UnityEngine.XR.XRSettings.LoadDeviceByName(vrToggle);
        // yield return null;
-        UnityEngine.VR.VRSettings.enabled = false;
+        UnityEngine.XR.XRSettings.enabled = false;
         yield return new WaitForSeconds(.1f);
         SceneManager.LoadScene (0);
     }
