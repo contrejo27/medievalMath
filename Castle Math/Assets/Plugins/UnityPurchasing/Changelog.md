@@ -1,4 +1,17 @@
-# [1.20.0] - 2018-06-29
+## []1.20.1] - 2018-10-5
+### Added
+- Added a callback function that allows developers to check the state of the upgrade/downgrade process of subscriptions on GooglePlay.
+
+### Fixed
+- Google Daydream - Correctly Displays IAP Prompt in 3d VR version instead of native 2D. 
+- Fixed issue where IAP catalog prevented deletion of Price under Google Configuration.
+- Amazon Store - Fixed bug where Amazon store could not correctly parse currencies for certain countries.
+- MacOS - Fixed bug that causes non-consumables to auto-restore on MacOS apps after re-install, instead of requiring the the Restore button to be clicked.
+- Updated Android Response Code to return correct message whenever an activity is cancelled.
+- Fixed Mono CIL linker error causing initialization failure in Unity 5.3 
+- Fixed inefficient Apple Receipt Parser that was slowing down when a large number of transactions were parsed on auto-restore.
+
+## [1.20.0] - 2018-06-29
 ### Added
 - API for developers to check SkuDetails for all GooglePlay store products, including those that have not been purchased.
 - Error Code Support for Amazon.
