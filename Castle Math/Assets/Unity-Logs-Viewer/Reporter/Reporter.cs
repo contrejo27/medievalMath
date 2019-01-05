@@ -8,7 +8,7 @@
 #define UNITY_CHANGE3
 #endif
 //use UNITY_CHANGE1 for unity older than "unity 5"
-//use UNITY_CHANGE2 for unity 5.0 -> 5.3 
+//use UNITY_CHANGE2 for unity 5.0 -> 5.3
 //use UNITY_CHANGE3 for unity 5.3 (fix for new SceneManger system  )
 
 
@@ -58,9 +58,9 @@ public class Images
 //To use Reporter just create reporter from menu (Reporter->Create) at first scene your game start.
 //then set the ” Scrip execution order ” in (Edit -> Project Settings ) of Reporter.cs to be the highest.
 
-//Now to view logs all what you have to do is to make a circle gesture using your mouse (click and drag) 
+//Now to view logs all what you have to do is to make a circle gesture using your mouse (click and drag)
 //or your finger (touch and drag) on the screen to show all these logs
-//no coding is required 
+//no coding is required
 
 public class Reporter : MonoBehaviour
 {
@@ -452,7 +452,7 @@ public class Reporter : MonoBehaviour
 		barStyle.alignment = TextAnchor.MiddleCenter;
 		barStyle.margin = new RectOffset(1, 1, 1, 1);
 
-		//barStyle.padding = new RectOffset(paddingX,paddingX,paddingY,paddingY); 
+		//barStyle.padding = new RectOffset(paddingX,paddingX,paddingY,paddingY);
 		//barStyle.wordWrap = true ;
 		barStyle.clipping = TextClipping.Clip;
 		barStyle.fontSize = (int)(size.y / 2);
@@ -1149,7 +1149,7 @@ public class Reporter : MonoBehaviour
 		int totalCount = currentLog.Count;
 		/*if( totalCount < 100 )
 			inGameLogsScrollerSkin.verticalScrollbarThumb.fixedHeight = 0;
-		else 
+		else
 			inGameLogsScrollerSkin.verticalScrollbarThumb.fixedHeight = 64;*/
 
 		totalVisibleCount = Mathf.Min(totalVisibleCount, totalCount - startIndex);
@@ -1814,7 +1814,7 @@ public class Reporter : MonoBehaviour
 		float elapsed2 = Time.realtimeSinceStartup - lastUpdate2;
 		if (elapsed2 > 1) {
 			lastUpdate2 = Time.realtimeSinceStartup;
-			//be sure no body else take control of log 
+			//be sure no body else take control of log
 			Application.RegisterLogCallback (new Application.LogCallback (CaptureLog));
 			Application.RegisterLogCallbackThreaded (new Application.LogCallback (CaptureLogThread));
 		}
@@ -1997,7 +1997,7 @@ public class Reporter : MonoBehaviour
 		PlayerPrefs.Save();
 	}
 
-	//read build information 
+	//read build information
 	IEnumerator readInfo()
 	{
 		string prefFile = "build_info.txt";
@@ -2010,7 +2010,7 @@ public class Reporter : MonoBehaviour
 			url = System.IO.Path.Combine(streamingAssetsPath, prefFile);
 		}
 
-		if (Application.platform != RuntimePlatform.OSXWebPlayer && Application.platform != RuntimePlatform.WindowsWebPlayer)
+//		if (Application.platform != RuntimePlatform.OSXWebPlayer && Application.platform != RuntimePlatform.WindowsWebPlayer)
 			if (!url.Contains("://"))
 				url = "file://" + url;
 
@@ -2029,5 +2029,3 @@ public class Reporter : MonoBehaviour
 		yield break;
 	}
 }
-
-

@@ -1,13 +1,14 @@
 /*
- * 
+ *
  * This Recorder is inspired by the Recorder class of the Moments plugin by Chman (Thomas Hourdel) at https://github.com/Chman/Moments.
- * 
+ *
  */
 using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Moments;
+using MinAttribute = Moments.MinAttribute;
 
 namespace EasyMobile
 {
@@ -146,7 +147,7 @@ namespace EasyMobile
                 Debug.LogWarning("Attempting to init the recorder while a recording is in process.");
                 return;
             }
-                
+
             // Start fresh
             FlushMemory();
 
