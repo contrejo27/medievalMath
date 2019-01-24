@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR;
 using UnityEngine.UI;
-using EasyMobile;
+
 
 public class MenuManager : MonoBehaviour
 {
@@ -31,7 +31,7 @@ public class MenuManager : MonoBehaviour
 
 	void Awake()
 	{
-		InAppPurchasing.InitializePurchasing ();
+		//InAppPurchasing.InitializePurchasing ();
 	}
 	private void Start()
     {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using EasyMobile;
 using System.Security.Cryptography;
 
 public class CreateProfile2Canvas : CanvasNavigation
@@ -16,7 +15,7 @@ public class CreateProfile2Canvas : CanvasNavigation
 
     private void Start()
     {
-        if (signUpButton) signUpButton.onClick.AddListener(SignUpPressed);
+        //if (signUpButton) signUpButton.onClick.AddListener(SignUpPressed);
     }
 
     void SignUpPressed()

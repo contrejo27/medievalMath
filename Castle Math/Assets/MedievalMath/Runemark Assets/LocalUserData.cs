@@ -1,11 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EasyMobile;
-#if EM_UIAP
-using UnityEngine.Purchasing;
-using UnityEngine.Purchasing.Security;
-#endif
 
 public static class LocalUserData
 {
@@ -13,77 +8,34 @@ public static class LocalUserData
 
     public static bool IsLoggedIn()
     {
-        return PlayerPrefs.HasKey(loggedInPref) && PlayerPrefs.GetString(loggedInPref) != "";
+        return false;
     }
 
     public static string GetUserEmail()
     {
-        return PlayerPrefs.GetString(loggedInPref);
+        return "0";
     }
 
     public static void SetUserEmail(string userEmail)
     {
-        PlayerPrefs.SetString(loggedInPref, userEmail);
+        //PlayerPrefs.SetString(loggedInPref, userEmail);
     }
 
     public static bool IsSubActive()
     {
-        // Check if logged in
-        if (IsLoggedIn() == false)
-        {
-            if (Application.isEditor) return true;
-            else return false;
-        }
-
-        Dictionary<string, string> dict = InAppPurchasing.StoreExtensionProvider.GetExtension<IAppleExtensions>().GetIntroductoryPriceDictionary();
-
-        foreach (Product item in InAppPurchasing.StoreController.products.all)
-        {
-            if (item.receipt != null)
-            {
-                if (item.definition.type == ProductType.Subscription)
-                {
-                    string intro_json = (dict == null || !dict.ContainsKey(item.definition.storeSpecificId)) ? null : dict[item.definition.storeSpecificId];
-
-                    SubscriptionManager p = new SubscriptionManager(item, intro_json);
-                    SubscriptionInfo info = p.getSubscriptionInfo();
-
-                    if (info.isExpired() == Result.False && info.isSubscribed() == Result.True && info.isCancelled() == Result.False)
-                        return true;
-                }
-            }
-        }
-
+       
         return false;
     }
 
     public static double GetDaysLeftOfSub()
     {
-        Dictionary<string, string> dict = InAppPurchasing.StoreExtensionProvider.GetExtension<IAppleExtensions>().GetIntroductoryPriceDictionary();
-
-        foreach (Product item in InAppPurchasing.StoreController.products.all)
-        {
-            if (item.receipt != null)
-            {
-                if (item.definition.type == ProductType.Subscription)
-                {
-                    string intro_json = (dict == null || !dict.ContainsKey(item.definition.storeSpecificId)) ? null : dict[item.definition.storeSpecificId];
-
-                    SubscriptionManager p = new SubscriptionManager(item, intro_json);
-                    SubscriptionInfo info = p.getSubscriptionInfo();
-
-                    if (info.isExpired() == Result.False && info.isSubscribed() == Result.True)
-                        return info.getRemainingTime().TotalDays;
-                }
-            }
-        }
-
+        
         return 0;
     }
 
     public static void DestroyPref()
     {
-        PlayerPrefs.DeleteKey(loggedInPref);
+       // PlayerPrefs.DeleteKey(loggedInPref);
     }
 
 //	static bool IsAppleReceiptActive()
