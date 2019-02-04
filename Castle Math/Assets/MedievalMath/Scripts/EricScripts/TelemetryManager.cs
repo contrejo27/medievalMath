@@ -118,26 +118,6 @@ public class TelemetryManager : MonoBehaviour {
         }
     }
 
-    public static void APIPost(string key, string jsonPayload) {
-        string url = "http://" + instance.API_URL + "log/" + key;
-        Debug.Log(url);
-        var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-        httpWebRequest.ContentType = "application/json";
-        httpWebRequest.Method = "POST";
-
-        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
-            streamWriter.Write(jsonPayload);
-            streamWriter.Flush();
-            streamWriter.Close();
-        }
-
-        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-        using (var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
-            var result = streamReader.ReadToEnd();
-            Debug.Log(result);
-        }
-    }
-
     public static List<string> APIRead(string propertyName, string dataRange) {
         //TODO: Implement Read()
         Debug.Log("TelemetryManager.APIRead() is not implemented yet...\nSorry o_o");
@@ -253,5 +233,15 @@ public class TelemetryManager : MonoBehaviour {
     public void LogSession() {
         StartCoroutine(NewAPIPost("session", SessionPayload()));
         // APIPost("session", SessionPayload());
+    }
+
+    public void StoreSession()
+    {
+
+    }
+
+    public void StoreRound()
+    {
+
     }
 }
