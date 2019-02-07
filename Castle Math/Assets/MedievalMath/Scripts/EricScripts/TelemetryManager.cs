@@ -8,10 +8,10 @@ using UnityEngine.Networking;
 
 public class TelemetryManager : MonoBehaviour {
     public static TelemetryManager instance;
-
+    
     // NOTE: DO NOT HARD CODE API login. Keep info private and outside git
     public string API_URL;
-
+    
     // Data hooks
     private MathManager m_mathmanager;
     private MathController m_mathcontroller;
@@ -19,6 +19,15 @@ public class TelemetryManager : MonoBehaviour {
     private WaveManager m_wavemanager;
     public PlayerMathStats m_playermathstats;
     public DoorHealth[] m_barriers;
+
+    //Local class variables for round and sesion
+    private GameRound gameRound;
+    private GameSession gameSession;
+
+    //Local Paths for storing round and session data
+    //TODO: On close, clear/wipe data in these text files.
+    string roundFilePath = Application.persistentDataPath + "/GameRound.json";
+    string sessionFilePath = Application.persistentDataPath + "/GameSession.json";
 
     private void Awake() {
         if (instance == null)
@@ -146,6 +155,7 @@ public class TelemetryManager : MonoBehaviour {
         string score = PlayerPrefs.GetInt("score").ToString();
         string levelsUnlocked = GameStateManager.instance.levelsUnlocked.ToString();
 
+        string jsonPayload;
         string payload = "";
         // Player Telemetry
         payload = addJson(payload, "playerName", playerName);
@@ -218,7 +228,7 @@ public class TelemetryManager : MonoBehaviour {
         // Debug.Log("m_playermathstats.hsWave:" + m_playermathstats.hsWave.ToString());
         // Debug.Log("m_playermathstats.hsName:" + m_playermathstats.hsName.ToString());
 
-        string jsonPayload = "{" + payload + "}";
+        jsonPayload = "{" + payload + "}";
 
         //Debug.Log("JSON payload:\n" + jsonPayload);
 
@@ -226,22 +236,52 @@ public class TelemetryManager : MonoBehaviour {
     }
 
     public void LogRound() {
+        StoreRound();
         StartCoroutine(NewAPIPost("round", RoundPayload()));
         // APIPost("round", RoundPayload());
     }
 
     public void LogSession() {
+        StoreSession();
         StartCoroutine(NewAPIPost("session", SessionPayload()));
         // APIPost("session", SessionPayload());
     }
 
+    public string ReadSession()
+    {
+        //TODO: Get json text value from session file
+        
+        return "session";
+    }
+
     public void StoreSession()
     {
+        //TODO: Assign class variables to GameSession and storing it locally.
+        //Not the same as logging, but it's to store locally on the persistent path 
+        
+    }
 
+    public string ReadRound()
+    {
+        //TODO: Get json text value from round file
+
+        return "round";
     }
 
     public void StoreRound()
     {
+        //TODO: Assign class variables to GameRound and storing it locally.
+    }
 
+    public void WipeRoundData()
+    {
+        //TODO: Delete all text data entry in the file for Round
+        //Only use this during game close or when leaving the map/level.
+    }
+
+    public void WipeSessionData()
+    {
+        //TODO: Delete all text data entry in the file for Session
+        //Only use this during game close.
     }
 }
