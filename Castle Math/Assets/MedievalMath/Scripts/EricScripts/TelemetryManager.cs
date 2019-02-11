@@ -19,6 +19,7 @@ public class TelemetryManager : MonoBehaviour {
     private WaveManager m_wavemanager;
     public PlayerMathStats m_playermathstats;
     public DoorHealth[] m_barriers;
+    private GameData m_gameData;
 
     //Local class variables for round and sesion
     private GameRound gameRound;
@@ -56,6 +57,7 @@ public class TelemetryManager : MonoBehaviour {
         m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
         m_playermathstats = m_mathmanager.GetComponent<PlayerMathStats>();
         m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
+        m_gameData = GameObject.FindObjectOfType<GameData>();
     }
 
     private void Start() {
@@ -152,20 +154,43 @@ public class TelemetryManager : MonoBehaviour {
         string tutorialDone = PlayerPrefs.GetString("tutorialDone");
         string skillLevel = PlayerPrefs.GetInt("Skill Level").ToString();
         string stopTime = Time.time.ToString();
+        m_gameData.gameSession.StopTime = stopTime;
         string score = PlayerPrefs.GetInt("score").ToString();
         string levelsUnlocked = GameStateManager.instance.levelsUnlocked.ToString();
 
         string jsonPayload;
         string payload = "";
+        string payloadSystem = "";
         // Player Telemetry
         payload = addJson(payload, "playerName", playerName);
         payload = addJson(payload, "score", score);
+        m_gameData.gameRound.score = PlayerPrefs.GetInt("score");
         payload = addJson(payload, "skillLevel", skillLevel);
         payload = addJson(payload, "tutorialDone", tutorialDone);
         payload = addJson(payload, "stopTime", stopTime);
         payload = addJson(payload, "levelsUnlocked", levelsUnlocked);
 
         // System Telemetry
+        payloadSystem = addJson(payloadSystem, "deviceUniqueIdentifier", SystemInfo.deviceUniqueIdentifier);
+        payloadSystem = addJson(payloadSystem, "deviceModel", SystemInfo.deviceModel);
+        payloadSystem = addJson(payloadSystem, "operatingSystem", SystemInfo.operatingSystem);
+        payloadSystem = addJson(payloadSystem, "graphicsDeviceVendorId", SystemInfo.graphicsDeviceVendorID);
+        payloadSystem = addJson(payloadSystem, "graphicsDeviceId", SystemInfo.graphicsDeviceID);
+        payloadSystem = addJson(payloadSystem, "graphicsDeviceVersion", SystemInfo.graphicsDeviceVersion);
+        payloadSystem = addJson(payloadSystem, "graphicsMultiThreaded", SystemInfo.graphicsMultiThreaded);
+        payloadSystem = addJson(payloadSystem, "graphicsShaderLevel", SystemInfo.graphicsShaderLevel);
+        payloadSystem = addJson(payloadSystem, "maxTextureSize", SystemInfo.maxTextureSize);
+        payloadSystem = addJson(payloadSystem, "systemMemorySize", SystemInfo.systemMemorySize);
+        payloadSystem = addJson(payloadSystem, "graphicsMemorySize", SystemInfo.graphicsMemorySize);
+        payloadSystem = addJson(payloadSystem, "graphicsDeviceVendor", SystemInfo.graphicsDeviceVendor);
+        payloadSystem = addJson(payloadSystem, "processorCount", SystemInfo.processorCount);
+        payloadSystem = addJson(payloadSystem, "processorType", SystemInfo.processorType);
+        payloadSystem = addJson(payloadSystem, "supportedRenderTargetCount", SystemInfo.supportedRenderTargetCount);
+        payloadSystem = addJson(payloadSystem, "supports2DArrayTextures", SystemInfo.supports2DArrayTextures);
+        payloadSystem = addJson(payloadSystem, "supports3DRenderTextures", SystemInfo.supports3DRenderTextures);
+        payloadSystem = addJson(payloadSystem, "supports3DTextures", SystemInfo.supports3DTextures);
+        payloadSystem = addJson(payloadSystem, "supportsComputeShaders", SystemInfo.supportsComputeShaders);
+        payloadSystem = addJson(payloadSystem, "supportsInstancing", SystemInfo.supportsInstancing);
         payload = addJson(payload, "deviceUniqueIdentifier", SystemInfo.deviceUniqueIdentifier);
         payload = addJson(payload, "deviceModel", SystemInfo.deviceModel);
         payload = addJson(payload, "operatingSystem", SystemInfo.operatingSystem);
@@ -186,11 +211,15 @@ public class TelemetryManager : MonoBehaviour {
         payload = addJson(payload, "supports3DTextures", SystemInfo.supports3DTextures);
         payload = addJson(payload, "supportsComputeShaders", SystemInfo.supportsComputeShaders);
         payload = addJson(payload, "supportsInstancing", SystemInfo.supportsInstancing);
+        m_gameData.gameSession.system_id = payloadSystem;
 
         // Math Telemetry
         payload = addJson(payload, "correct", m_playermathstats.correctAnswers.ToString());
+        m_gameData.gameRound.correct = m_playermathstats.correctAnswers;
         payload = addJson(payload, "incorrect", m_playermathstats.incorrectAnswers.ToString());
+        m_gameData.gameRound.incorrect = m_playermathstats.incorrectAnswers;
         payload = addJson(payload, "totalAnswers ", m_mathmanager.totalQuestionsAnswered.ToString());
+        m_gameData.gameRound.totalAnswers = m_mathmanager.totalQuestionsAnswered;
         payload = addJson(payload, "gradeNumber", m_playermathstats.gradeNumber.ToString());
         payload = addJson(payload, "personalHighScore", m_playermathstats.personalHighScore.ToString());
         payload = addJson(payload, "addOrSubtractScore", m_playermathstats.AddOrSubtractScore.ToString());
@@ -202,9 +231,13 @@ public class TelemetryManager : MonoBehaviour {
 
         // Current Telemetry
         payload = addJson(payload, "wave", m_wavemanager.currentWave.ToString());
+        m_gameData.gameRound.wave = m_wavemanager.currentWave;
         payload = addJson(payload, "barrier1Health", m_barriers[0].currentHealth.ToString());
+        m_gameData.gameRound.barrier_health1 = m_barriers[0].currentHealth;
         payload = addJson(payload, "barrier2Health", m_barriers[1].currentHealth.ToString());
+        m_gameData.gameRound.barrier_health2 = m_barriers[1].currentHealth;
         payload = addJson(payload, "barrier3Health", m_barriers[2].currentHealth.ToString());
+        m_gameData.gameRound.barrier_health3 = m_barriers[2].currentHealth;
         // IncorrectAnswersPerCurrentQuestion
         // Debug.Log("incorrectAnswersPerCurrentQuestion" + m_mathmanager.IncorrectAnswersPerQuestion.ToString());
         // Debug.Log("currentQuestion:" + Question m_mathmanager.currentQuestion.ToString());
@@ -212,16 +245,16 @@ public class TelemetryManager : MonoBehaviour {
 
         // Debug.Log("m_wavemathmanager.mathDifficulty:" + m_wavemathmanager.mathDifficulty.ToString());
         // Debug.Log("m_wavemathmanager.ProblemType:" + m_wavemathmanager.ProblemType.ToString());
-    
+
         // Debug.Log("aSupplier.NumberOfArrows:" + aSupplier.NumberOfArrows.ToString());
         // Debug.Log("Utility.SaveData PlayerData.questionTypesActive:" + Utility.SaveData PlayerData.questionTypesActive.ToString());
         // Debug.Log("player.PlayerMathStats:" + player.PlayerMathStats.ToString());
-    
+
         // Debug.Log("Level 1 Completed: " + m_mathcontroller.level1_Completed.ToString());
         // Debug.Log("Level 2 Completed: " + m_mathcontroller.level2_Completed.ToString());
         // Debug.Log("Level 3 Completed: " + m_mathcontroller.level3_Completed.ToString());
         // Debug.Log("Level 4 Completed: " + m_mathcontroller.level4_Completed.ToString());
-    
+
         // TODO: See if I can extract any useful information from these Unity Text Objects
         // Debug.Log("m_playermathstats.grade:" + m_playermathstats.grade.ToString());
         // Debug.Log("m_playermathstats.towerWave:" + m_playermathstats.towerWave.ToString());

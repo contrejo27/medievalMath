@@ -412,6 +412,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710160389}
   m_CullTransparentMesh: 0
+--- !u!1 &861166045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 861166047}
+  - component: {fileID: 861166046}
+  m_Layer: 0
+  m_Name: GameDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &861166046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861166045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ffa6278a5db9d04389c7ab816c1ab27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameRound:
+    barrier_health1: 1
+    barrier_health2: 1
+    barrier_health3: 1
+    wave: 0
+    level_name: 
+    score: 0
+    correct: 0
+    incorrect: 0
+    attempts: 0
+    mode: 
+  gameSession:
+    id: 
+    user_id: 
+    system_id: 
+    game_id: MedievalMath
+  fileName: TestRound
+  reload: 1
+  overwrite: 0
+--- !u!4 &861166047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861166045}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &940895707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,62 +775,6 @@ MonoBehaviour:
   Button4: {fileID: 0}
   CorrectSound: {fileID: 0}
   IncorrectSound: {fileID: 0}
---- !u!1 &1259989428
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1259989430}
-  - component: {fileID: 1259989429}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1259989429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259989428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ffa6278a5db9d04389c7ab816c1ab27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameRound:
-    id: 
-    session_id: 
-    username: 
-    barrier_health: 0
-    wave: 0
-    level_name: 
-    score: 5
-    correct: 0
-    incorrect: 0
-    attempts: 0
-    mode: 
-  reload: 1
---- !u!4 &1259989430
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259989428}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.175147, y: -7.716707, z: -74.909645}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1263307583
 GameObject:
   m_ObjectHideFlags: 0
