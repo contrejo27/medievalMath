@@ -7,9 +7,9 @@ using UnityEngine;
 public class GameRound
 {
 
-    private string id;
-    private string session_id;
-    private string username;
+    public string id;
+    public string session_id;
+    public string username;
     public int wave = 0;
     public string level_name;
     public int score = 0;
@@ -31,7 +31,6 @@ public class GameRound
         //All other variables will be set from telemetry
     }
 
-    
 
     void SetID()
     {

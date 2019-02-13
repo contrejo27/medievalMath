@@ -15,13 +15,11 @@ public class GameSession
     public GameSession()
     {
         SetID();
-        startTime = Time.time;
     }
 
     public void SetID()
     {
         //get IDs from server
-        id = "1234";
         user_id = "12345";
         system_id = "12345";
     }

@@ -6,6 +6,7 @@ public class GameData : MonoBehaviour
 {
     public GameRound gameRound;
     public GameSession gameSession;
+    public TelemetryManager telManager;
     public string roundFile = "TestRound";
     public string sessionFile = "TestSession";
     string roundPath;
@@ -35,6 +36,7 @@ public class GameData : MonoBehaviour
         //roundPath = Application.persistentDataPath + "/testRound.json";
         roundPath = System.IO.Path.Combine(Application.persistentDataPath, roundFile + ".json");
         sessionPath = System.IO.Path.Combine(Application.persistentDataPath, sessionFile + ".json");
+        telManager = Object.FindObjectOfType<TelemetryManager>();
         if (!load)
         {
             CreateRoundData();
@@ -48,10 +50,11 @@ public class GameData : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(Time.time);
         if (Input.GetKeyDown(KeyCode.A))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            Debug.Log("Logged Round");
+            telManager.LogRound();
+            
         }
     }
 
@@ -94,6 +97,13 @@ public class GameData : MonoBehaviour
         }
     }
 
+    public string GetRoundData()
+    {
+        string jsonData = System.IO.File.ReadAllText(roundPath);
+
+        return jsonData;
+    }
+
     //Session Functions******************************************************************
     public void CreateSessionData()
     {
@@ -103,7 +113,7 @@ public class GameData : MonoBehaviour
             //Loads default
             GameSession gameSession = new GameSession();     
             string gameSessionData = JsonUtility.ToJson(gameSession, true);
-
+            gameSession.startTime = Time.time;
             System.IO.File.WriteAllText(roundPath, gameSessionData);
             Debug.Log(sessionPath);
             Debug.Log(gameSessionData);
@@ -111,6 +121,7 @@ public class GameData : MonoBehaviour
         else
         {
             LoadSessionData();
+            gameSession.startTime = Time.time;
         }
     }
 
@@ -127,5 +138,12 @@ public class GameData : MonoBehaviour
         {
             Debug.LogError("File does not exist");
         }
+    }
+
+    public string GetSessionData()
+    {
+        string jsonData = System.IO.File.ReadAllText(sessionPath);
+
+        return jsonData;
     }
 }

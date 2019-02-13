@@ -27,8 +27,8 @@ public class TelemetryManager : MonoBehaviour {
 
     //Local Paths for storing round and session data
     //TODO: On close, clear/wipe data in these text files.
-    string roundFilePath = Application.persistentDataPath + "/GameRound.json";
-    string sessionFilePath = Application.persistentDataPath + "/GameSession.json";
+    string roundFilePath    ;
+    string sessionFilePath;
 
     private void Awake() {
         if (instance == null)
@@ -48,7 +48,9 @@ public class TelemetryManager : MonoBehaviour {
         }
 
         Init();
-   }
+        roundFilePath = Application.persistentDataPath + "/GameRound.json";
+        sessionFilePath = Application.persistentDataPath + "/GameSession.json";
+    }
 
    public void Init() {
         m_mathmanager = GameObject.FindObjectOfType<MathManager>();
@@ -109,22 +111,34 @@ public class TelemetryManager : MonoBehaviour {
     }
 
     IEnumerator NewAPIPost(string key, string jsonPayload) {
-        string url = "http://" + instance.API_URL + "log/" + key;
+        //string url = "http://" + instance.API_URL + "log/" + key;
+        string url = "http://" + instance.API_URL + key;
         Debug.Log("Server: " + url);
 
         var www = new UnityWebRequest(url, "POST");
+        //var www = UnityWebRequest.Post(url, jsonPayload);
         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
         www.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
         www.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
 
-        yield return www.Send();
+        //yield return www.Send();
+        yield return www.SendWebRequest();
 
         if(www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error);
         }
         else {
-            Debug.Log(www.downloadHandler.text);
+            string jsonString = www.downloadHandler.text;
+            Debug.Log(jsonString);
+            
+            if (key == "round")
+            {
+                gameRound = JsonUtility.FromJson<GameRound>(jsonString);
+            } else if(key == "session")
+            {
+                gameSession = JsonUtility.FromJson<GameSession>(jsonString);
+            }
             // byte[] results = www.downloadHandler.data;
         }
     }
