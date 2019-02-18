@@ -6,6 +6,7 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
 public class TelemetryManager : MonoBehaviour {
     public static TelemetryManager instance;
     
@@ -21,13 +22,9 @@ public class TelemetryManager : MonoBehaviour {
     public DoorHealth[] m_barriers;
     private GameData m_gameData;
 
-    //Local class variables for round and sesion
-    private GameRound gameRound;
-    private GameSession gameSession;
-
     //Local Paths for storing round and session data
     //TODO: On close, clear/wipe data in these text files.
-    string roundFilePath    ;
+    string roundFilePath;
     string sessionFilePath;
 
     private void Awake() {
@@ -62,7 +59,9 @@ public class TelemetryManager : MonoBehaviour {
         m_gameData = GameObject.FindObjectOfType<GameData>();
     }
 
-    private void Start() {
+    private void Start()
+    {
+        StartCoroutine(InitializeAPI());
         
     }
 
@@ -108,12 +107,52 @@ public class TelemetryManager : MonoBehaviour {
             PlayerPrefs.SetInt("score", Random.Range(2000,3000));
             Debug.Log("Score set to: " + PlayerPrefs.GetInt("score").ToString());
         }
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            StartCoroutine(APIPut("round", 5, RoundPayload()));
+        }
     }
+
+    IEnumerator InitializeAPI()
+    {
+        yield return new WaitForSeconds(0.5f);
+        yield return NewAPIPost("session", SessionPayload());
+        yield return NewAPIPost("round", RoundPayload());
+        m_gameData.InitializeID();
+    }
+    
+    /* For testing purposes to delete excess data logs
+    IEnumerator DeleteIt()
+    {
+        for (int i = 8; i <= 47; i++)
+        {
+            yield return StartCoroutine(DeleteAPIPosts("round", i));
+        }
+        Debug.Log("Completed deleting");
+    }
+    IEnumerator DeleteAPIPosts(string key, int id)
+    {
+        string url = "http://" + instance.API_URL + key + "/" + id;
+        Debug.Log(url);
+        using (UnityWebRequest www = UnityWebRequest.Delete(url))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Upload complete!");
+            }
+        }
+    }*/
 
     IEnumerator NewAPIPost(string key, string jsonPayload) {
         //string url = "http://" + instance.API_URL + "log/" + key;
         string url = "http://" + instance.API_URL + key;
-        Debug.Log("Server: " + url);
+        //Debug.Log("Server: " + url);
 
         var www = new UnityWebRequest(url, "POST");
         //var www = UnityWebRequest.Post(url, jsonPayload);
@@ -134,19 +173,48 @@ public class TelemetryManager : MonoBehaviour {
             
             if (key == "round")
             {
-                gameRound = JsonUtility.FromJson<GameRound>(jsonString);
+                m_gameData.SetRoundData(m_gameData.GetRoundServerData(jsonString), true);
+                
             } else if(key == "session")
             {
-                gameSession = JsonUtility.FromJson<GameSession>(jsonString);
+                m_gameData.SetSessionData(m_gameData.GetSessionServerData(jsonString), true);
+            } else if (key == "response")
+            {
+                m_gameData.SetResponseData(m_gameData.GetResponseServerData(jsonString), true);
             }
             // byte[] results = www.downloadHandler.data;
         }
     }
 
+    /*
     public static List<string> APIRead(string propertyName, string dataRange) {
         //TODO: Implement Read()
         Debug.Log("TelemetryManager.APIRead() is not implemented yet...\nSorry o_o");
         return new List<string>();
+    }*/
+    public IEnumerator APIPut(string key, int id, string jsonPayload)
+    {
+        string url = "http://" + instance.API_URL + key + "/" + id;
+        Debug.Log("Server: " + url);
+
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
+        using (UnityWebRequest www = UnityWebRequest.Put(url, data))
+        {
+            www.uploadHandler = (UploadHandler)new UploadHandlerRaw(data);
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Upload complete!");
+            }
+        }
     }
 
     public string addJson<T>(string old, string key, T val) {
@@ -159,7 +227,19 @@ public class TelemetryManager : MonoBehaviour {
 
     public string RoundPayload() {
         // TODO: Specialize RoundPayLoad()
-        return SessionPayload();
+
+        // Player Telemetry
+        m_gameData.gameRound.score = PlayerPrefs.GetInt("score");
+
+        // Current Telemetry
+        m_gameData.gameRound.max_wave = m_wavemanager.currentWave;
+        m_gameData.gameRound.barrier1_health = m_barriers[0].currentHealth;
+        m_gameData.gameRound.barrier2_health = m_barriers[1].currentHealth;
+        m_gameData.gameRound.barrier3_health = m_barriers[2].currentHealth;
+        m_gameData.gameRound.time_updated = m_gameData.GetCurrentTime();
+        m_gameData.UpdateRoundData();
+
+        return m_gameData.GetRoundData();
     }
 
     public string SessionPayload() {
@@ -169,7 +249,6 @@ public class TelemetryManager : MonoBehaviour {
         string skillLevel = PlayerPrefs.GetInt("Skill Level").ToString();
         string stopTime = Time.time.ToString();
         m_gameData.gameSession.StopTime = stopTime;
-        string score = PlayerPrefs.GetInt("score").ToString();
         string levelsUnlocked = GameStateManager.instance.levelsUnlocked.ToString();
 
         string jsonPayload;
@@ -177,8 +256,6 @@ public class TelemetryManager : MonoBehaviour {
         string payloadSystem = "";
         // Player Telemetry
         payload = addJson(payload, "playerName", playerName);
-        payload = addJson(payload, "score", score);
-        m_gameData.gameRound.score = PlayerPrefs.GetInt("score");
         payload = addJson(payload, "skillLevel", skillLevel);
         payload = addJson(payload, "tutorialDone", tutorialDone);
         payload = addJson(payload, "stopTime", stopTime);
@@ -205,35 +282,16 @@ public class TelemetryManager : MonoBehaviour {
         payloadSystem = addJson(payloadSystem, "supports3DTextures", SystemInfo.supports3DTextures);
         payloadSystem = addJson(payloadSystem, "supportsComputeShaders", SystemInfo.supportsComputeShaders);
         payloadSystem = addJson(payloadSystem, "supportsInstancing", SystemInfo.supportsInstancing);
-        payload = addJson(payload, "deviceUniqueIdentifier", SystemInfo.deviceUniqueIdentifier);
-        payload = addJson(payload, "deviceModel", SystemInfo.deviceModel);
-        payload = addJson(payload, "operatingSystem", SystemInfo.operatingSystem);
-        payload = addJson(payload, "graphicsDeviceVendorId", SystemInfo.graphicsDeviceVendorID);
-        payload = addJson(payload, "graphicsDeviceId", SystemInfo.graphicsDeviceID);
-        payload = addJson(payload, "graphicsDeviceVersion", SystemInfo.graphicsDeviceVersion);
-        payload = addJson(payload, "graphicsMultiThreaded", SystemInfo.graphicsMultiThreaded);
-        payload = addJson(payload, "graphicsShaderLevel", SystemInfo.graphicsShaderLevel);
-        payload = addJson(payload, "maxTextureSize", SystemInfo.maxTextureSize);
-        payload = addJson(payload, "systemMemorySize", SystemInfo.systemMemorySize);
-        payload = addJson(payload, "graphicsMemorySize", SystemInfo.graphicsMemorySize);
-        payload = addJson(payload, "graphicsDeviceVendor", SystemInfo.graphicsDeviceVendor);
-        payload = addJson(payload, "processorCount", SystemInfo.processorCount);
-        payload = addJson(payload, "processorType", SystemInfo.processorType);
-        payload = addJson(payload, "supportedRenderTargetCount", SystemInfo.supportedRenderTargetCount);
-        payload = addJson(payload, "supports2DArrayTextures", SystemInfo.supports2DArrayTextures);
-        payload = addJson(payload, "supports3DRenderTextures", SystemInfo.supports3DRenderTextures);
-        payload = addJson(payload, "supports3DTextures", SystemInfo.supports3DTextures);
-        payload = addJson(payload, "supportsComputeShaders", SystemInfo.supportsComputeShaders);
-        payload = addJson(payload, "supportsInstancing", SystemInfo.supportsInstancing);
+
         m_gameData.gameSession.system_id = payloadSystem;
 
         // Math Telemetry
         payload = addJson(payload, "correct", m_playermathstats.correctAnswers.ToString());
-        m_gameData.gameRound.correct = m_playermathstats.correctAnswers;
+        m_gameData.gameResponse.correct = m_playermathstats.correctAnswers;
         payload = addJson(payload, "incorrect", m_playermathstats.incorrectAnswers.ToString());
-        m_gameData.gameRound.incorrect = m_playermathstats.incorrectAnswers;
+        m_gameData.gameResponse.incorrect = m_playermathstats.incorrectAnswers;
         payload = addJson(payload, "totalAnswers ", m_mathmanager.totalQuestionsAnswered.ToString());
-        m_gameData.gameRound.totalAnswers = m_mathmanager.totalQuestionsAnswered;
+        m_gameData.gameResponse.totalAnswers = m_mathmanager.totalQuestionsAnswered;
         payload = addJson(payload, "gradeNumber", m_playermathstats.gradeNumber.ToString());
         payload = addJson(payload, "personalHighScore", m_playermathstats.personalHighScore.ToString());
         payload = addJson(payload, "addOrSubtractScore", m_playermathstats.AddOrSubtractScore.ToString());
@@ -241,17 +299,10 @@ public class TelemetryManager : MonoBehaviour {
         payload = addJson(payload, "compareScore", m_playermathstats.CompareScore.ToString());
         payload = addJson(payload, "trueOrFalseScore", m_playermathstats.TrueOrFalseScore.ToString());
         payload = addJson(payload, "fractionScore", m_playermathstats.FractionScore.ToString());
-        payload = addJson(payload, "question", m_mathmanager.currentQuestion.GetQuestionString());
 
-        // Current Telemetry
-        payload = addJson(payload, "wave", m_wavemanager.currentWave.ToString());
-        m_gameData.gameRound.wave = m_wavemanager.currentWave;
-        payload = addJson(payload, "barrier1Health", m_barriers[0].currentHealth.ToString());
-        m_gameData.gameRound.barrier_health1 = m_barriers[0].currentHealth;
-        payload = addJson(payload, "barrier2Health", m_barriers[1].currentHealth.ToString());
-        m_gameData.gameRound.barrier_health2 = m_barriers[1].currentHealth;
-        payload = addJson(payload, "barrier3Health", m_barriers[2].currentHealth.ToString());
-        m_gameData.gameRound.barrier_health3 = m_barriers[2].currentHealth;
+        //payload = addJson(payload, "question", m_mathmanager.currentQuestion.GetQuestionString());
+
+
         // IncorrectAnswersPerCurrentQuestion
         // Debug.Log("incorrectAnswersPerCurrentQuestion" + m_mathmanager.IncorrectAnswersPerQuestion.ToString());
         // Debug.Log("currentQuestion:" + Question m_mathmanager.currentQuestion.ToString());
@@ -275,11 +326,14 @@ public class TelemetryManager : MonoBehaviour {
         // Debug.Log("m_playermathstats.hsWave:" + m_playermathstats.hsWave.ToString());
         // Debug.Log("m_playermathstats.hsName:" + m_playermathstats.hsName.ToString());
 
-        jsonPayload = "{" + payload + "}";
+        //Debug.Log("JSON payload:\n" + payload);
+        //Debug.Log(m_gameData.GetRoundData());
 
-        //Debug.Log("JSON payload:\n" + jsonPayload);
+        //return jsonPayload;
+        m_gameData.gameSession.time_updated = m_gameData.GetCurrentTime();
+        m_gameData.UpdateSessionData();
 
-        return jsonPayload;
+        return m_gameData.GetSessionData();
     }
 
     public void LogRound() {
@@ -294,11 +348,22 @@ public class TelemetryManager : MonoBehaviour {
         // APIPost("session", SessionPayload());
     }
 
+    public IEnumerator ExitApplication()
+    {
+        Debug.Log("Exiting Application");
+        yield return StartCoroutine(NewAPIPost("session", SessionPayload()));
+        yield return StartCoroutine(NewAPIPost("round", RoundPayload()));
+        //TODO:Response
+        //yield return StartCoroutine(NewAPIPost("response", RoundPayload()));
+
+        Debug.Log("Completed Exiting application and uploaded analytics");
+    }
+
     public string ReadSession()
     {
         //TODO: Get json text value from session file
         
-        return "session";
+        return m_gameData.GetSessionData();
     }
 
     public void StoreSession()

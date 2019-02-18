@@ -442,24 +442,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameRound:
-    barrier_health1: 1
-    barrier_health2: 1
-    barrier_health3: 1
+    id: 1234
+    session_id: yes
+    username: default
     wave: 0
     level_name: 
     score: 0
     correct: 0
     incorrect: 0
+    totalAnswers: 0
     attempts: 0
     mode: 
+    barrier_health1: 1
+    barrier_health2: 1
+    barrier_health3: 1
   gameSession:
     id: 
     user_id: 
     system_id: 
+    startTime: 0
     game_id: MedievalMath
-  fileName: TestRound
-  reload: 1
-  overwrite: 0
+  telManager: {fileID: 0}
+  roundFile: TestRound
+  sessionFile: TestSession
+  create: 1
+  load: 0
 --- !u!4 &861166047
 Transform:
   m_ObjectHideFlags: 0

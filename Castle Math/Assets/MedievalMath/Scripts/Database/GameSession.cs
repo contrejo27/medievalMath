@@ -5,12 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class GameSession
 {
-    public string id;
-    public string user_id;
-    public string system_id;
-    public float startTime;
-    private string stopTime;
     public string game_id = "MedievalMath";
+    public int id;
+    public string system_id;
+    public string time_created;
+    public string time_updated;
+    public int user_id;
+    public float startTime;
+    public string stopTime;
 
     public GameSession()
     {
@@ -20,7 +22,7 @@ public class GameSession
     public void SetID()
     {
         //get IDs from server
-        user_id = "12345";
+        user_id = 12345;
         system_id = "12345";
     }
 

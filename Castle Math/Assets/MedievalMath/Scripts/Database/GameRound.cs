@@ -6,45 +6,35 @@ using UnityEngine;
 [System.Serializable]
 public class GameRound
 {
-
-    public string id;
-    public string session_id;
-    public string username;
-    public int wave = 0;
+    public int barrier1_health;
+    public int barrier2_health;
+    public int barrier3_health;
+    public string difficulty;
+    public int id;
     public string level_name;
-    public int score = 0;
-    public int correct = 0;
-    public int incorrect = 0;
-    public int totalAnswers = 0;
-    public int attempts = 0;
+    public int max_wave = 0;
     public string mode;
-    public int barrier_health1;
-    public int barrier_health2;
-    public int barrier_health3;
-
+    public int score = 0;
+    public int session_id;
+    public string time_created;
+    public string time_updated;
+    public bool won;
 
     public GameRound()
     {
         //set the session id, and username, and id of round
-        SetID(); 
-        
+        //SetID(); 
+        barrier1_health = 100;
+        barrier2_health = 100;
+        barrier3_health = 100;
         //All other variables will be set from telemetry
     }
 
-
-    void SetID()
-    {
-        //get id given from server
-        id = "1234";
-        session_id = "yes";
-        username = "default";
-    }
-
-    public void SetID(string idAsInit, string sessionIdAsInit, string usernameAsInit)
+    public void SetID(int idAsInit, int sessionIdAsInit, string usernameAsInit)
     {
         id = idAsInit;
         session_id = sessionIdAsInit;
-        username = usernameAsInit;
+        //username = usernameAsInit;
     }
 
     public string Level_name
