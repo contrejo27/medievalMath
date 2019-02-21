@@ -7,13 +7,11 @@ public class GameResponse
 {
     public string answer;
     public int attempts;
-    public int correct;
+    public bool correct;
     public int id;
     public string question;
     public int round_id;
     public string solution;
-    public string time_created;
-    public string time_updated;
 
     public int incorrect;
     public int totalAnswers;

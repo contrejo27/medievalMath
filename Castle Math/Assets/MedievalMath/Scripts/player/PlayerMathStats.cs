@@ -14,6 +14,8 @@ public class PlayerMathStats : MonoBehaviour {
     // stats
     public int correctAnswers;
     public int incorrectAnswers;
+    public bool isCorrect;
+    public int attempts;
     public int gradeNumber;
     public int personalHighScore;
     public List<string> globalHighScores = new List<string>();
@@ -49,10 +51,19 @@ public class PlayerMathStats : MonoBehaviour {
 
     public void CorrectlyAnswered() {
         correctAnswers += 1;
+        isCorrect = true;
     }
 
     public void IncorrectlyAnswered() {
         incorrectAnswers += 1;
+        Debug.Log("attempt: " + attempts);
+        if(isCorrect)
+        {
+            attempts = 0;
+            isCorrect = false;
+        } 
+        attempts += 1;
+        
     }
 
     void getHighScores() {

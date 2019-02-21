@@ -107,10 +107,11 @@ public class TelemetryManager : MonoBehaviour {
             PlayerPrefs.SetInt("score", Random.Range(2000,3000));
             Debug.Log("Score set to: " + PlayerPrefs.GetInt("score").ToString());
         }
+        /*
         if(Input.GetKeyDown(KeyCode.A))
         {
-            StartCoroutine(APIPut("round", 5, RoundPayload()));
-        }
+            StartCoroutine(APIPut("session", 92, SessionPayload()));
+        }*/
     }
 
     IEnumerator InitializeAPI()
@@ -118,6 +119,8 @@ public class TelemetryManager : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         yield return NewAPIPost("session", SessionPayload());
         yield return NewAPIPost("round", RoundPayload());
+        yield return new WaitForSeconds(0.1f);
+        yield return NewAPIPost("response", ResponsePayload());
         m_gameData.InitializeID();
     }
     
@@ -156,6 +159,7 @@ public class TelemetryManager : MonoBehaviour {
 
         var www = new UnityWebRequest(url, "POST");
         //var www = UnityWebRequest.Post(url, jsonPayload);
+        Debug.Log(jsonPayload);
         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
         www.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
         www.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
@@ -170,7 +174,8 @@ public class TelemetryManager : MonoBehaviour {
         else {
             string jsonString = www.downloadHandler.text;
             Debug.Log(jsonString);
-            
+            string updateJson;
+
             if (key == "round")
             {
                 m_gameData.SetRoundData(m_gameData.GetRoundServerData(jsonString), true);
@@ -178,6 +183,8 @@ public class TelemetryManager : MonoBehaviour {
             } else if(key == "session")
             {
                 m_gameData.SetSessionData(m_gameData.GetSessionServerData(jsonString), true);
+                //updateJson = JsonUtility.ToJson(m_gameData.gameSession, true);
+                //yield return StartCoroutine(APIPut("session", m_gameData.gameSession.id, updateJson));
             } else if (key == "response")
             {
                 m_gameData.SetResponseData(m_gameData.GetResponseServerData(jsonString), true);
@@ -196,9 +203,14 @@ public class TelemetryManager : MonoBehaviour {
     {
         string url = "http://" + instance.API_URL + key + "/" + id;
         Debug.Log("Server: " + url);
-
+        Debug.Log(jsonPayload);
         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
         //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
+
+        //Write data locally before uploading
+        m_gameData.UpdateRoundData();
+        m_gameData.UpdateResponseData();
+
         using (UnityWebRequest www = UnityWebRequest.Put(url, data))
         {
             www.uploadHandler = (UploadHandler)new UploadHandlerRaw(data);
@@ -236,7 +248,7 @@ public class TelemetryManager : MonoBehaviour {
         m_gameData.gameRound.barrier1_health = m_barriers[0].currentHealth;
         m_gameData.gameRound.barrier2_health = m_barriers[1].currentHealth;
         m_gameData.gameRound.barrier3_health = m_barriers[2].currentHealth;
-        m_gameData.gameRound.time_updated = m_gameData.GetCurrentTime();
+        //m_gameData.gameRound.time_updated = m_gameData.GetCurrentTime();
         m_gameData.UpdateRoundData();
 
         return m_gameData.GetRoundData();
@@ -248,7 +260,6 @@ public class TelemetryManager : MonoBehaviour {
         string tutorialDone = PlayerPrefs.GetString("tutorialDone");
         string skillLevel = PlayerPrefs.GetInt("Skill Level").ToString();
         string stopTime = Time.time.ToString();
-        m_gameData.gameSession.StopTime = stopTime;
         string levelsUnlocked = GameStateManager.instance.levelsUnlocked.ToString();
 
         string jsonPayload;
@@ -282,16 +293,13 @@ public class TelemetryManager : MonoBehaviour {
         payloadSystem = addJson(payloadSystem, "supports3DTextures", SystemInfo.supports3DTextures);
         payloadSystem = addJson(payloadSystem, "supportsComputeShaders", SystemInfo.supportsComputeShaders);
         payloadSystem = addJson(payloadSystem, "supportsInstancing", SystemInfo.supportsInstancing);
-
+        
         m_gameData.gameSession.system_id = payloadSystem;
 
         // Math Telemetry
         payload = addJson(payload, "correct", m_playermathstats.correctAnswers.ToString());
-        m_gameData.gameResponse.correct = m_playermathstats.correctAnswers;
         payload = addJson(payload, "incorrect", m_playermathstats.incorrectAnswers.ToString());
-        m_gameData.gameResponse.incorrect = m_playermathstats.incorrectAnswers;
         payload = addJson(payload, "totalAnswers ", m_mathmanager.totalQuestionsAnswered.ToString());
-        m_gameData.gameResponse.totalAnswers = m_mathmanager.totalQuestionsAnswered;
         payload = addJson(payload, "gradeNumber", m_playermathstats.gradeNumber.ToString());
         payload = addJson(payload, "personalHighScore", m_playermathstats.personalHighScore.ToString());
         payload = addJson(payload, "addOrSubtractScore", m_playermathstats.AddOrSubtractScore.ToString());
@@ -330,10 +338,32 @@ public class TelemetryManager : MonoBehaviour {
         //Debug.Log(m_gameData.GetRoundData());
 
         //return jsonPayload;
-        m_gameData.gameSession.time_updated = m_gameData.GetCurrentTime();
-        m_gameData.UpdateSessionData();
+
+        
 
         return m_gameData.GetSessionData();
+    }
+
+    public string ResponsePayload()
+    {
+
+        m_gameData.gameResponse.correct = m_mathmanager.GetComponent<AnswerInput>().GetIsCorrect();
+        m_gameData.gameResponse.question = m_mathmanager.GetComponent<AnswerInput>().currentQuestion;
+        m_gameData.gameResponse.incorrect = m_playermathstats.incorrectAnswers;
+        m_gameData.gameResponse.totalAnswers = m_mathmanager.totalQuestionsAnswered;
+        m_gameData.gameResponse.answer = m_mathmanager.GetComponent<AnswerInput>().selectedAnswer;
+        m_gameData.gameResponse.solution = m_mathmanager.GetComponent<AnswerInput>().GetCorrectAnswer();
+        m_gameData.gameResponse.attempts = m_mathmanager.GetComponent<PlayerMathStats>().attempts;
+
+
+        return m_gameData.GetResponseData();
+    }
+
+    IEnumerator MMAnalytics()
+    {
+        //shortcut to both
+        yield return StartCoroutine(NewAPIPost("round", RoundPayload()));
+        yield return StartCoroutine(NewAPIPost("response", ResponsePayload()));
     }
 
     public void LogRound() {
@@ -348,13 +378,18 @@ public class TelemetryManager : MonoBehaviour {
         // APIPost("session", SessionPayload());
     }
 
+    public void LogResponse()
+    {
+        StoreResponse();
+        StartCoroutine(NewAPIPost("response", ResponsePayload()));
+    }
+
     public IEnumerator ExitApplication()
     {
         Debug.Log("Exiting Application");
         yield return StartCoroutine(NewAPIPost("session", SessionPayload()));
         yield return StartCoroutine(NewAPIPost("round", RoundPayload()));
-        //TODO:Response
-        //yield return StartCoroutine(NewAPIPost("response", RoundPayload()));
+        yield return StartCoroutine(NewAPIPost("response", ResponsePayload()));
 
         Debug.Log("Completed Exiting application and uploaded analytics");
     }
@@ -370,19 +405,33 @@ public class TelemetryManager : MonoBehaviour {
     {
         //TODO: Assign class variables to GameSession and storing it locally.
         //Not the same as logging, but it's to store locally on the persistent path 
-        
+        m_gameData.UpdateSessionData();
     }
 
     public string ReadRound()
     {
         //TODO: Get json text value from round file
 
-        return "round";
+        return m_gameData.GetRoundData();
     }
 
     public void StoreRound()
     {
-        //TODO: Assign class variables to GameRound and storing it locally.
+        //TODO: Assign class variables to GameRound and storing it locally.\
+        m_gameData.UpdateRoundData();
+    }
+
+    public string ReadResponse()
+    {
+        //TODO: Get json text value from Response file
+
+        return m_gameData.GetResponseData();
+    }
+
+    public void StoreResponse()
+    {
+        //TODO: Assign class variables to GameResponse and storing it locally.\
+        m_gameData.UpdateResponseData();
     }
 
     public void WipeRoundData()

@@ -92,22 +92,25 @@ public class GameData : MonoBehaviour
     //Session Functions******************************************************************
     public void CreateSessionData()
     {
+        Debug.Log("Created the testing json file");
+        //Loads default
+        GameSession gameSession = new GameSession();
+        string gameSessionData = JsonUtility.ToJson(gameSession, true);
+        //gameSession.startTime = Time.time;
+        System.IO.File.WriteAllText(sessionPath, gameSessionData);
+        Debug.Log(sessionPath);
+        Debug.Log(gameSessionData);
+
+        /*
         if (!System.IO.File.Exists(roundPath) || create)
         {
-            Debug.Log("Created the testing json file");
-            //Loads default
-            GameSession gameSession = new GameSession();     
-            string gameSessionData = JsonUtility.ToJson(gameSession, true);
-            gameSession.startTime = Time.time;
-            System.IO.File.WriteAllText(roundPath, gameSessionData);
-            Debug.Log(sessionPath);
-            Debug.Log(gameSessionData);
+            //above function goes here
         }
         else
         {
             LoadSessionData();
             //gameSession.startTime = Time.time;
-        }
+        }*/
     }
 
     //Loads the variable from the file stored in persistent path
@@ -139,11 +142,9 @@ public class GameData : MonoBehaviour
         GameSession serverSession = new GameSession();
         var parsedServerInfo = JSON.Parse(serverJson);
 
-        serverSession.game_id = parsedServerInfo["game_id"].Value;
+        //serverSession.game_id = parsedServerInfo["game_id"].Value;
         serverSession.id = parsedServerInfo["id"].AsInt;
-        serverSession.system_id = parsedServerInfo["system_id"].Value;
-        serverSession.time_created = parsedServerInfo["time_created"].Value;
-        serverSession.time_updated = parsedServerInfo["time_updated"].Value;
+        //serverSession.system_id = parsedServerInfo["system_id"].Value;
         serverSession.user_id = parsedServerInfo["user_id"].AsInt;
 
         return serverSession;
@@ -151,12 +152,10 @@ public class GameData : MonoBehaviour
 
     public void SetSessionData(GameSession otherSessionData, bool canWriteID)
     {
-        gameSession.game_id = otherSessionData.game_id;
+        //gameSession.game_id = otherSessionData.game_id;
         if (canWriteID)
             gameSession.id = otherSessionData.id;
-        gameSession.system_id = otherSessionData.system_id;
-        gameSession.time_created = otherSessionData.time_created;
-        gameSession.time_updated = otherSessionData.time_updated;
+        //gameSession.system_id = otherSessionData.system_id;
         gameSession.user_id = otherSessionData.user_id;
 
         UpdateSessionData();
@@ -216,39 +215,40 @@ public class GameData : MonoBehaviour
         GameRound serverRound = new GameRound();
         var parsedServerInfo = JSON.Parse(serverJson);
 
+        serverRound.id = parsedServerInfo["id"].AsInt;
+        serverRound.session_id = parsedServerInfo["session_id"].AsInt;
+        /*
         serverRound.barrier1_health = parsedServerInfo["barrier1_health"].AsInt;
         serverRound.barrier2_health = parsedServerInfo["barrier2_health"].AsInt;
         serverRound.barrier3_health = parsedServerInfo["barrier2_health"].AsInt;
         serverRound.difficulty = parsedServerInfo["difficulty"].Value;
-        serverRound.id = parsedServerInfo["id"].AsInt;
+        
         serverRound.level_name = parsedServerInfo["level_name"].Value;
         serverRound.max_wave = parsedServerInfo["max_wave"].AsInt;
         serverRound.mode = parsedServerInfo["mode"].Value;
         serverRound.score = parsedServerInfo["score"].AsInt;
-        serverRound.session_id = parsedServerInfo["session_id"].AsInt;
-        serverRound.time_created = parsedServerInfo["time_created"].Value;
-        serverRound.time_updated = parsedServerInfo["time_updated"].Value;
-        serverRound.won = parsedServerInfo["won"].AsBool;
+        
+        serverRound.won = parsedServerInfo["won"].AsBool;*/
 
         return serverRound;
     }
 
     public void SetRoundData(GameRound otherRoundData, bool canWriteID)
     {
+        if (canWriteID)
+            gameRound.id = otherRoundData.id;
+        gameRound.session_id = otherRoundData.session_id;
+        /*
         gameRound.barrier1_health = otherRoundData.barrier1_health;
         gameRound.barrier2_health = otherRoundData.barrier2_health;
         gameRound.barrier3_health = otherRoundData.barrier3_health;
         gameRound.difficulty = otherRoundData.difficulty;
-        if (canWriteID)
-            gameRound.id = otherRoundData.id;
+        
         gameRound.level_name = otherRoundData.level_name;
         gameRound.max_wave = otherRoundData.max_wave;
         gameRound.mode = otherRoundData.mode;
         gameRound.score = otherRoundData.score;
-        gameRound.session_id = otherRoundData.session_id;
-        gameRound.time_created = otherRoundData.time_created;
-        gameRound.time_updated = otherRoundData.time_updated;
-        gameRound.won = otherRoundData.won;
+        gameRound.won = otherRoundData.won;*/
 
         UpdateRoundData();
     }
@@ -264,22 +264,25 @@ public class GameData : MonoBehaviour
     //Response Functions******************************************************************
     public void CreateResponseData()
     {
+        Debug.Log("Created the testing json file");
+        //Loads default
+        GameResponse gameResponse = new GameResponse();
+        string gameResponseData = JsonUtility.ToJson(gameResponse, true);
+
+        System.IO.File.WriteAllText(responsePath, gameResponseData);
+        Debug.Log(responsePath);
+        Debug.Log(gameResponseData);
+
+        /*
         if (!System.IO.File.Exists(roundPath) || create)
         {
-            Debug.Log("Created the testing json file");
-            //Loads default
-            GameResponse gameResponse = new GameResponse();
-            string gameResponseData = JsonUtility.ToJson(gameResponse, true);
-
-            System.IO.File.WriteAllText(roundPath, gameResponseData);
-            Debug.Log(responsePath);
-            Debug.Log(gameResponseData);
+            //above code goes here
         }
         else
         {
             LoadResponseData();
             //gameResponse.startTime = Time.time;
-        }
+        }*/
     }
 
     //Loads the variable from the file stored in persistent path
@@ -311,26 +314,28 @@ public class GameData : MonoBehaviour
         GameResponse serverResponse = new GameResponse();
         var parsedServerInfo = JSON.Parse(serverJson);
 
+        serverResponse.round_id = parsedServerInfo["round_id"].AsInt;
+        /*
         serverResponse.attempts = parsedServerInfo["attempts"].AsInt;
         serverResponse.correct = parsedServerInfo["correct"].AsInt;
         serverResponse.question = parsedServerInfo["question"].Value;
-        serverResponse.round_id = parsedServerInfo["round_id"].AsInt;
+        
         serverResponse.solution = parsedServerInfo["solution"].Value;
         serverResponse.time_created = parsedServerInfo["time_created"].Value;
         serverResponse.time_updated = parsedServerInfo["time_updated"].Value;
-
+        */
         return serverResponse;
     }
 
     public void SetResponseData(GameResponse otherResponseData, bool canWriteID)
     {
+        //if(canWriteID)
+            //gameResponse.round_id = otherResponseData.round_id;
+        /*
         gameResponse.attempts = otherResponseData.attempts;
         gameResponse.correct = otherResponseData.correct;
         gameResponse.question = otherResponseData.question;
-        gameResponse.round_id = otherResponseData.round_id;
-        gameResponse.solution = otherResponseData.solution;
-        gameResponse.time_created = otherResponseData.time_created;
-        gameResponse.time_updated = otherResponseData.time_updated;
+        gameResponse.solution = otherResponseData.solution;*/
 
         UpdateResponseData();
     }

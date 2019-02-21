@@ -80,11 +80,13 @@ public class AddOrSubtract : MonoBehaviour, Question {
             //Set textbox display to formatted question string
             //QuestionText.text = QuestionString;
             //Debug.Log("Setting question to: " + questionString);
+            
             aInput.SetQuestion(questionString);
+            aInput.currentQuestion = firstNum.ToString() + " - " + secondNum.ToString();
 
 
-			//Generate choices for possible answers 
-			this.GenerateChoices ();
+            //Generate choices for possible answers 
+            this.GenerateChoices ();
 		} 
 		else { //Generate addition question
 
@@ -103,19 +105,22 @@ public class AddOrSubtract : MonoBehaviour, Question {
                 correctAnswer = firstNum + NewSecondNum + ThirdNum;
 
 				questionString = firstNum.ToString () + " " + " + " + " " + NewSecondNum.ToString () + " " + " + " + " " + ThirdNum.ToString () + " =";
-			} else {
+                aInput.currentQuestion = firstNum.ToString() + " " + " + " + " " + NewSecondNum.ToString() + " " + " + " + " " + ThirdNum.ToString();
+            } else {
 				//Create formatted question string for display
 				questionString = firstNum.ToString () + " + " + secondNum.ToString () + " =";
-			}
+                aInput.currentQuestion = firstNum.ToString() + " + " + secondNum.ToString();
+
+            }
 
             //Set textbox display to formatted question string
             //QuestionText.text = QuestionString;
-            Debug.Log("Setting question to: " + questionString);
+            //Debug.Log("Setting question to: " + questionString);
 			aInput.SetQuestion(questionString);
+            
 
-
-			//Generate choices for possible answers
-			GenerateChoices ();
+            //Generate choices for possible answers
+            GenerateChoices ();
 
 		}
 	}

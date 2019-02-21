@@ -16,8 +16,7 @@ public class GameRound
     public string mode;
     public int score = 0;
     public int session_id;
-    public string time_created;
-    public string time_updated;
+
     public bool won;
 
     public GameRound()
@@ -46,7 +45,7 @@ public class GameRound
         set
         {
             this.level_name = value;
-            Debug.Log("Level Name in Game Round has been changed to: " + level_name);
+            //Debug.Log("Level Name in Game Round has been changed to: " + level_name);
         }
     }
 

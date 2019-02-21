@@ -5,14 +5,24 @@ using UnityEngine;
 [System.Serializable]
 public class GameSession
 {
-    public string game_id = "MedievalMath";
+    public string Game_id = "MedievalMath";
+    public string game_id
+    {
+        get
+        {
+            return Game_id;
+        }
+        set
+        {
+            Debug.Log("game id changed to: " + value);
+            Game_id = value;
+        }
+    }
     public int id;
     public string system_id;
-    public string time_created;
-    public string time_updated;
     public int user_id;
-    public float startTime;
-    public string stopTime;
+    //public float startTime;
+    //public string stopTime;
 
     public GameSession()
     {
@@ -24,17 +34,5 @@ public class GameSession
         //get IDs from server
         user_id = 12345;
         system_id = "12345";
-    }
-
-    public string StopTime
-    {
-        get
-        {
-            return (float.Parse(stopTime) - this.startTime).ToString();
-        }
-        set
-        {
-            stopTime = (float.Parse(value) - this.startTime).ToString();
-        }
     }
 }
