@@ -19,6 +19,8 @@ public class AnswerInput : MonoBehaviour {
     public GameObject[] questionTexts;
     public GameObject[] feedbackTexts;
     public GameObject[] choiceBoxes;
+    public string currentQuestion;
+    public string selectedAnswer;
 
     public Text choiceBox;
     public Text QuestionText_hud;
@@ -38,11 +40,13 @@ public class AnswerInput : MonoBehaviour {
     public int interwaveQuestionsForWave = 2;
     public int interwaveQuestions = 0;
     private int incorrectAnswersPerQuestion;
+    private bool isCorrect = false;
+    private TelemetryManager m_telemetry;
 
     public void Awake() {
         // interwaveQuestionsForWave = 2;
         choiceBoxes = GameObject.FindGameObjectsWithTag("ChoiceBox");
-
+        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
     }
 
     public void Start () {
@@ -62,6 +66,11 @@ public class AnswerInput : MonoBehaviour {
 	public string GetCorrectAnswer () {
 		return this.correctAnswer;
 	}
+
+    public bool GetIsCorrect()
+    {
+        return this.isCorrect;
+    }
 
     public void ClearAnswer () {
         // answerText.text = "";
@@ -136,10 +145,19 @@ public class AnswerInput : MonoBehaviour {
 			Debug.Log ("Really real correct 'answer': " + correctAnswer);
             // Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 
-            if (answerText == correctAnswer) OnCorrect();
-            else OnIncorrect();
-
+            if (answerText == correctAnswer)
+            {
+                OnCorrect();
+                isCorrect = true;
+            }
+            else
+            {
+                OnIncorrect();
+                isCorrect = false;
+            }
+            selectedAnswer = answerText;
             DisplayChoices(answerChoices);
+            m_telemetry.LogResponse();
         }
     }
 
@@ -303,6 +321,7 @@ public class AnswerInput : MonoBehaviour {
         //Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + questionTexts.Length);
         Text QuestionText = questionTexts [index].GetComponent<Text>();
         QuestionText.text = question;
+        Debug.Log("CURR QUESTION: " + currentQuestion);
     }
 
     public int GetCorrectOfType(System.Type type) {

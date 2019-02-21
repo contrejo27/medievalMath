@@ -5,7 +5,8 @@ using UnityEngine;
 public class TestStoreData : MonoBehaviour
 {
     string path;
-    public Round.GameRound gameRound;
+    public GameRound gameRound;
+    public GameSession gameSession;
     public bool reload = false;
 
     void Start()
@@ -19,7 +20,7 @@ public class TestStoreData : MonoBehaviour
         if (!System.IO.File.Exists(path) || reload)
         {
             Debug.Log("Created the testing json file");
-            Round.GameRound gameRound = new Round.GameRound();
+            GameRound gameRound = new GameRound();
             string gameRoundData = JsonUtility.ToJson(gameRound);
 
             System.IO.File.WriteAllText(path, gameRoundData);
@@ -31,7 +32,7 @@ public class TestStoreData : MonoBehaviour
         {
             string jsonData = System.IO.File.ReadAllText(path);
             Debug.Log("File exists");
-            gameRound = JsonUtility.FromJson<Round.GameRound>(jsonData);
+            gameRound = JsonUtility.FromJson<GameRound>(jsonData);
             
         }
     }
