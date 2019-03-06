@@ -92,7 +92,7 @@ public class GameData : MonoBehaviour
     //Session Functions******************************************************************
     public void CreateSessionData()
     {
-        Debug.Log("Created the testing json file");
+        //Debug.Log("Created the testing json file");
         //Loads default
         GameSession gameSession = new GameSession();
         string gameSessionData = JsonUtility.ToJson(gameSession, true);

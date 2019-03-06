@@ -107,11 +107,14 @@ public class TelemetryManager : MonoBehaviour {
             PlayerPrefs.SetInt("score", Random.Range(2000,3000));
             Debug.Log("Score set to: " + PlayerPrefs.GetInt("score").ToString());
         }
+        
         /*
         if(Input.GetKeyDown(KeyCode.A))
         {
-            StartCoroutine(APIPut("session", 92, SessionPayload()));
-        }*/
+            LogRound();
+            Debug.Log("LOGGED");
+        }
+        */
     }
 
     IEnumerator InitializeAPI()
@@ -120,7 +123,9 @@ public class TelemetryManager : MonoBehaviour {
         yield return NewAPIPost("session", SessionPayload());
         yield return NewAPIPost("round", RoundPayload());
         yield return new WaitForSeconds(0.1f);
-        yield return NewAPIPost("response", ResponsePayload());
+
+        //Responses will be managed in MathManager on GenerateProblem function
+        //yield return NewAPIPost("response", ResponsePayload());
         m_gameData.InitializeID();
     }
     
@@ -153,19 +158,15 @@ public class TelemetryManager : MonoBehaviour {
     }*/
 
     IEnumerator NewAPIPost(string key, string jsonPayload) {
-        //string url = "http://" + instance.API_URL + "log/" + key;
         string url = "http://" + instance.API_URL + key;
-        //Debug.Log("Server: " + url);
 
         var www = new UnityWebRequest(url, "POST");
-        //var www = UnityWebRequest.Post(url, jsonPayload);
-        Debug.Log(jsonPayload);
+        //Debug.Log(jsonPayload);
         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
         www.uploadHandler = (UploadHandler) new UploadHandlerRaw(data);
         www.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
 
-        //yield return www.Send();
         yield return www.SendWebRequest();
 
         if(www.isNetworkError || www.isHttpError) {
@@ -238,8 +239,6 @@ public class TelemetryManager : MonoBehaviour {
     }
 
     public string RoundPayload() {
-        // TODO: Specialize RoundPayLoad()
-
         // Player Telemetry
         m_gameData.gameRound.score = PlayerPrefs.GetInt("score");
 
@@ -247,8 +246,7 @@ public class TelemetryManager : MonoBehaviour {
         m_gameData.gameRound.max_wave = m_wavemanager.currentWave;
         m_gameData.gameRound.barrier1_health = m_barriers[0].currentHealth;
         m_gameData.gameRound.barrier2_health = m_barriers[1].currentHealth;
-        m_gameData.gameRound.barrier3_health = m_barriers[2].currentHealth;
-        //m_gameData.gameRound.time_updated = m_gameData.GetCurrentTime();
+        m_gameData.gameRound.barrier3_health = m_barriers[2].currentHealth;       
         m_gameData.UpdateRoundData();
 
         return m_gameData.GetRoundData();

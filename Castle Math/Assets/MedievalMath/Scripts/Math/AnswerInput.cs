@@ -60,7 +60,7 @@ public class AnswerInput : MonoBehaviour {
 
     public void SetCorrectAnswer (string answer) {
         this.correctAnswer = answer;
-		Debug.Log ("Answer is changed to: " + this.correctAnswer);
+		//Debug.Log ("Answer is changed to: " + this.correctAnswer);
     }
 
 	public string GetCorrectAnswer () {
@@ -141,8 +141,8 @@ public class AnswerInput : MonoBehaviour {
             }
 
             string answerText = answer.text.ToString();
-			Debug.Log ("You have selected: " + answer.text.ToString());
-			Debug.Log ("Really real correct 'answer': " + correctAnswer);
+			//Debug.Log ("You have selected: " + answer.text.ToString());
+			//Debug.Log ("Really real correct 'answer': " + correctAnswer);
             // Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 
             if (answerText == correctAnswer)
@@ -320,8 +320,7 @@ public class AnswerInput : MonoBehaviour {
 
         //Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + questionTexts.Length);
         Text QuestionText = questionTexts [index].GetComponent<Text>();
-        QuestionText.text = question;
-        Debug.Log("CURR QUESTION: " + currentQuestion);
+        QuestionText.text = question;   
     }
 
     public int GetCorrectOfType(System.Type type) {

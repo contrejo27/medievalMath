@@ -23,7 +23,7 @@ public class ProjectileBehavior : MonoBehaviour {
 	void OnCollisionEnter(Collision otherCollision)
 	{
         GameObject root = otherCollision.transform.root.gameObject;
-        Debug.Log(root.name);
+        //Debug.Log(root.name);
 		if (isGrounded == false) {
 				isGrounded = true;
 

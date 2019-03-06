@@ -438,7 +438,7 @@ public class WordProblem : MonoBehaviour, Question {
             Debug.Log("NULL QUESTION TXT JSON");
         }
         //GenerateQuestion(0);
-        Debug.Log(questionString);
+        //Debug.Log(questionString);
         yield return null;
     }
 

@@ -1899,12 +1899,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSession:
-    game_id: MedievalMath
+    Game_id: MedievalMath
     id: 0
     system_id: 12345
     user_id: 12345
-    startTime: 0.35333335
-    stopTime: 
   gameRound:
     barrier1_health: 0
     barrier2_health: 0
@@ -1925,8 +1923,6 @@ MonoBehaviour:
     question: 
     round_id: 0
     solution: 
-    time_created: 
-    time_updated: 
     incorrect: 0
     totalAnswers: 0
   telManager: {fileID: 0}
@@ -21595,6 +21591,8 @@ MonoBehaviour:
   questionTexts: []
   feedbackTexts: []
   choiceBoxes: []
+  currentQuestion: 
+  selectedAnswer: 
   choiceBox: {fileID: 0}
   QuestionText_hud: {fileID: 0}
   correctSound: {fileID: 0}
@@ -21760,6 +21758,8 @@ MonoBehaviour:
   LvlManager: {fileID: 2142880565}
   correctAnswers: 0
   incorrectAnswers: 0
+  isCorrect: 0
+  attempts: 0
   gradeNumber: 0
   personalHighScore: 0
   globalHighScores: []
@@ -21808,6 +21808,7 @@ MonoBehaviour:
   interMathCanvas: {fileID: 1662219269}
   interMathButtons: {fileID: 277194582}
   m_telemetry: {fileID: 0}
+  gameData: {fileID: 0}
 --- !u!4 &1852555323
 Transform:
   m_ObjectHideFlags: 0
@@ -21989,6 +21990,7 @@ MonoBehaviour:
   interMathCanvas: {fileID: 1662219269}
   interMathButtons: {fileID: 277194582}
   m_telemetry: {fileID: 0}
+  gameData: {fileID: 0}
 --- !u!4 &1869398078
 Transform:
   m_ObjectHideFlags: 0
@@ -22028,6 +22030,8 @@ MonoBehaviour:
   - {fileID: 1218951735}
   feedbackTexts: []
   choiceBoxes: []
+  currentQuestion: 
+  selectedAnswer: 
   choiceBox: {fileID: 0}
   QuestionText_hud: {fileID: 0}
   correctSound: {fileID: 0}
@@ -22054,6 +22058,8 @@ MonoBehaviour:
   LvlManager: {fileID: 2142880565}
   correctAnswers: 0
   incorrectAnswers: 0
+  isCorrect: 0
+  attempts: 0
   gradeNumber: 0
   personalHighScore: 0
   globalHighScores: []
