@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShaderRecovery : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -12,8 +13,8 @@ public class ShaderRecovery : MonoBehaviour
             Material mat = new Material(Shader.Find(r.material.shader.name));
 
             mat.CopyPropertiesFromMaterial(r.material);
-
-            r.material = mat;
+            if(r.name != "GvrReticlePointer")
+                r.material = mat;
         }
     }
 

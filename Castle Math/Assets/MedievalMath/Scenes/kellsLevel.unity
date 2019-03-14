@@ -1817,120 +1817,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 645062597}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &185475384
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 185475386}
-  - component: {fileID: 185475385}
-  - component: {fileID: 185475387}
-  - component: {fileID: 185475388}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &185475385
+--- !u!114 &185475385 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2762873205842658445, guid: 936d55e922f2aef479c971506b249706,
+    type: 3}
+  m_PrefabInstance: {fileID: 2762873205725881780}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185475384}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdf044f411574014c9f8c3ad0d3cca1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
-  currentDifficulty: 0
-  playerMathStats: {fileID: 1869398080}
-  player: {fileID: 0}
-  currentSkillLevel: 0
-  levelsUnlocked: 1
-  playerController: {fileID: 0}
-  potionShop: {fileID: 1412894187}
-  inventory: {fileID: 0}
-  waveManager: {fileID: 0}
-  mathManager: {fileID: 0}
-  levelManager: {fileID: 0}
---- !u!4 &185475386
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185475384}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.269642, y: 2.61, z: -34.42044}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &185475387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185475384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6c57145b90c6394b8623eb6140bfab9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &185475388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185475384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ffa6278a5db9d04389c7ab816c1ab27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameSession:
-    Game_id: MedievalMath
-    id: 0
-    system_id: 12345
-    user_id: 12345
-  gameRound:
-    barrier1_health: 0
-    barrier2_health: 0
-    barrier3_health: 0
-    difficulty: 
-    id: 0
-    level_name: 
-    max_wave: 0
-    mode: 
-    score: 0
-    session_id: 0
-    won: 0
-  gameResponse:
-    answer: 
-    attempts: 0
-    correct: 0
-    id: 0
-    question: 
-    round_id: 0
-    solution: 
-    incorrect: 0
-    totalAnswers: 0
-  telManager: {fileID: 0}
-  sessionFile: TestSession
-  roundFile: TestRound
-  responseFile: TestResponse
-  create: 0
-  load: 1
 --- !u!4 &204570808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4552243802719944, guid: 06feddaacfebcc845a71837d24b4ed20,
@@ -25731,3 +25629,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146596608}
   m_CullTransparentMesh: 0
+--- !u!1001 &2762873205725881780
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2762873205842658444, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.269642
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -34.42044
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658445, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: playerMathStats
+      value: 
+      objectReference: {fileID: 1869398080}
+    - target: {fileID: 2762873205842658445, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: potionShop
+      value: 
+      objectReference: {fileID: 1412894187}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 936d55e922f2aef479c971506b249706, type: 3}

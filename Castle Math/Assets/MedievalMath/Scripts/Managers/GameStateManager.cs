@@ -23,6 +23,7 @@ public class GameStateManager : MonoBehaviour {
     public LaunchProjectile player;
     private static bool loseState = false;
     public int currentSkillLevel;
+    public bool isVR = true;
     [HideInInspector]
     public int levelsUnlocked = 1;
 
@@ -171,6 +172,19 @@ public class GameStateManager : MonoBehaviour {
         SceneManager.LoadScene(sceneNum);
     }
 
+    public void LoadSceneByName(string sceneName)
+    {
+        if(sceneName == "kellsLevel")
+        {
+            StartCoroutine(ActivatorVR("Cardboard", isVR,sceneName));
+        } else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+        }
+        
+        
+    }
+
     public void Retry() {
         loseState = false;
         //Changing lighting back to normal
@@ -182,20 +196,31 @@ public class GameStateManager : MonoBehaviour {
         //m_telemetry.LogSession();
 
         //SaveData.SaveDataToJSon();
-        StartCoroutine(ActivatorVR("None"));
+        StartCoroutine(ActivatorVR("None", false, "None"));
     }
 
     void OnApplicationQuit() {
        // m_telemetry.LogSession();
     }
 
-    public IEnumerator ActivatorVR(string vrToggle) {
-        // TODO: Please explain yield
-        UnityEngine.XR.XRSettings.LoadDeviceByName(vrToggle);
-       // yield return null;
-        UnityEngine.XR.XRSettings.enabled = false;
-        yield return new WaitForSeconds(.1f);
-        SceneManager.LoadScene (0);
+    public IEnumerator ActivatorVR(string vrToggle, bool isVROn, string levelName)
+    {
+        if(isVROn)
+        {
+            yield return new WaitForSeconds(.5f);
+            UnityEngine.XR.XRSettings.LoadDeviceByName(vrToggle);
+            yield return null;
+            UnityEngine.XR.XRSettings.enabled = true;
+            yield return new WaitForSeconds(.5f);
+            if (levelName != "None")
+                SceneManager.LoadScene(levelName);
+        } else
+        {
+            yield return new WaitForSeconds(.5f);
+            if (levelName != "None")
+                SceneManager.LoadScene(levelName);
+        }
+        
     }
 
     /*
@@ -236,4 +261,57 @@ public class GameStateManager : MonoBehaviour {
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1;
     }
+
+    public void SetDifficulty(int mode)
+    {
+        switch(mode)
+        {
+            case 0:
+                currentDifficulty = EnumManager.GameplayMode.Easy;
+                break;
+            case 1:
+                currentDifficulty = EnumManager.GameplayMode.Medium;
+                break;
+            case 2:
+                currentDifficulty = EnumManager.GameplayMode.Hard;
+                break;
+            default:
+                currentDifficulty = EnumManager.GameplayMode.Easy;
+                break;
+        }
+
+        GetComponent<GameData>().gameRound.mode = currentDifficulty.ToString();
+    }
+
+    public void SetActiveWindow(GameObject otherMenu)
+    {
+        otherMenu.SetActive(true);
+    }
+
+    public void SetInactiveWindow(GameObject otherMenu)
+    {
+        otherMenu.SetActive(false);
+    }
+
+    public void SetStage(string stage)
+    {
+        GetComponent<GameData>().gameRound.level_name = stage;
+    }
+
+    public void ActivateNextButton(Button other)
+    {
+        other.interactable = true;
+    }
+
+    public void TestClick()
+    {
+        Debug.Log("Pressed the button");
+    }
+
+    public void SetVRMode(bool isVROn)
+    {
+        isVR = isVROn;
+    }
+
 }
+
