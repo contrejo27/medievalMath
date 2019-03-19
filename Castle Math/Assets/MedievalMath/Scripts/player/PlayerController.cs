@@ -43,6 +43,12 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector]
     LaunchProjectile launchProjectile;
 
+    //gyro controls
+    private bool gyroEnable;
+    private Gyroscope gyro;
+    private GameObject GyroControl;
+    private Quaternion rotation;
+
     void Awake()
     {
         //GameStateManager.instance.playerController = this;
@@ -50,7 +56,9 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        
         GameStateManager.instance.playerController = this;
+
         originalRotation = transform.localRotation;
         //launchProjectile = GameStateManager.instance.player;
         if (Application.isEditor)
@@ -61,7 +69,16 @@ public class PlayerController : MonoBehaviour {
         {
             controls = ControlMethod.keyboard;
         }
-	}
+        if (!GameStateManager.isVR && !Application.isEditor)
+        {
+            GyroControl = new GameObject("Gyro Control");
+            GyroControl.transform.position = transform.position;
+            transform.SetParent(GyroControl.transform);
+            gyroEnable = EnableGyro();
+            Quaternion calibratedRotation = Quaternion.Euler(90f, 0f, 0f) * Quaternion.Inverse(gyro.attitude);
+            transform.localRotation = calibratedRotation * gyro.attitude * rotation;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -123,7 +140,25 @@ public class PlayerController : MonoBehaviour {
         }
         #endregion
 
-        
+        #region Gyro Controls
+        if (gyroEnable)
+        {
+            transform.localRotation = gyro.attitude * rotation;
+        }
+        #endregion
+    }
+
+    private bool EnableGyro()
+    {
+        if (SystemInfo.supportsGyroscope)
+        {
+            gyro = Input.gyro;
+            gyro.enabled = true;
+            GyroControl.transform.rotation = Quaternion.Euler(90f, -90f, 0f);
+            rotation = new Quaternion(0, 0, 1, 0);
+            return true;
+        }
+        return false;
     }
 
     public static float ClampAngle(float angle, float min, float max)

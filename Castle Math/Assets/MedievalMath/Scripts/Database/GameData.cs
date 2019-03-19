@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
+using UnityEngine.Networking;
 
 public class GameData : MonoBehaviour
 {
@@ -12,9 +13,11 @@ public class GameData : MonoBehaviour
     public string sessionFile = "TestSession";
     public string roundFile = "TestRound";
     public string responseFile = "TestResponse";
-    string sessionPath;
-    string roundPath;
-    string responsePath;
+
+    public string sessionPath;
+    public string roundPath;
+    public string responsePath;
+    public string apiURL;
 
     //Debugging
     public bool create = false;
@@ -29,6 +32,7 @@ public class GameData : MonoBehaviour
             instance = this;
         } else if (instance != this)
         {
+            Debug.Log("Extra game data instance destroyed");
             Destroy(gameObject);
         }
         
@@ -42,8 +46,10 @@ public class GameData : MonoBehaviour
         roundPath = System.IO.Path.Combine(Application.persistentDataPath, roundFile + ".json");
         responsePath = System.IO.Path.Combine(Application.persistentDataPath, responseFile + ".json");
         InitializeFiles();
+        Debug.Log(responsePath);
         telManager = Object.FindObjectOfType<TelemetryManager>();
-        
+        apiURL = "lucerna-api.herokuapp.com/api/";
+        StartCoroutine(InitializeAPI());
         //gameRound.SetID("1234565", "yeet", PlayerPrefs.GetString("playerName"));
     }
 
@@ -63,7 +69,8 @@ public class GameData : MonoBehaviour
         UpdateSessionData();
         UpdateResponseData();
         UpdateRoundData();
-        StartCoroutine(telManager.ExitApplication());
+        if(telManager)
+            StartCoroutine(telManager.ExitApplication());
     }
 
     public string GetCurrentTime()
@@ -344,7 +351,98 @@ public class GameData : MonoBehaviour
     {
         //overwrites locally stored response data
         string gameResponseData = JsonUtility.ToJson(gameResponse, true);
-
+        Debug.Log("Response path: " + responsePath);
         System.IO.File.WriteAllText(responsePath, gameResponseData);
     }
+
+    //API Functions (same as telemetry)******************************************************************
+    
+    IEnumerator InitializeAPI()
+    {
+        yield return new WaitForSeconds(0.5f);
+        yield return NewAPIPost("session", GetSessionData());
+        yield return NewAPIPost("round", GetRoundData());
+        yield return new WaitForSeconds(0.1f);
+
+        //Responses will be managed in MathManager on GenerateProblem function
+        //yield return NewAPIPost("response", ResponsePayload());
+        InitializeID();
+    }
+    
+    IEnumerator NewAPIPost(string key, string jsonPayload)
+    {
+        string url = "http://" + apiURL + key;
+        Debug.Log(url);
+        var www = new UnityWebRequest(url, "POST");
+        //Debug.Log(jsonPayload);
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        www.uploadHandler = (UploadHandler)new UploadHandlerRaw(data);
+        www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+            Debug.Log("Failed to reach server data information for: " + key + ".... Restarting.");
+            StartCoroutine(NewAPIPost(key, jsonPayload));
+        }
+        else
+        {
+            string jsonString = www.downloadHandler.text;
+            Debug.Log(jsonString);
+            string updateJson;
+
+            if (key == "round")
+            {
+                SetRoundData(GetRoundServerData(jsonString), true);
+
+            }
+            else if (key == "session")
+            {
+                SetSessionData(GetSessionServerData(jsonString), true);
+                //updateJson = JsonUtility.ToJson(gameSession, true);
+                //yield return StartCoroutine(APIPut("session", gameSession.id, updateJson));
+            }
+            else if (key == "response")
+            {
+                SetResponseData(GetResponseServerData(jsonString), true);
+            }
+            // byte[] results = www.downloadHandler.data;
+        }
+    }
+
+    public IEnumerator APIPut(string key, int id, string jsonPayload)
+    {
+        string url = "http://" + apiURL + key + "/" + id;
+        Debug.Log("Server: " + url);
+        Debug.Log(jsonPayload);
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
+
+        //Write data locally before uploading
+        UpdateRoundData();
+        UpdateResponseData();
+
+        using (UnityWebRequest www = UnityWebRequest.Put(url, data))
+        {
+            www.uploadHandler = (UploadHandler)new UploadHandlerRaw(data);
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+                Debug.Log("Failed to modify server data information for: " + key + ".... Restarting.");
+                StartCoroutine(APIPut(key, id, jsonPayload));
+            }
+            else
+            {
+                Debug.Log("Upload complete!");
+            }
+        }
+    }
+
 }

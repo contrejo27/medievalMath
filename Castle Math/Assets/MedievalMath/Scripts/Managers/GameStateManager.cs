@@ -23,7 +23,7 @@ public class GameStateManager : MonoBehaviour {
     public LaunchProjectile player;
     private static bool loseState = false;
     public int currentSkillLevel;
-    public bool isVR = true;
+    public static bool isVR = true;
     [HideInInspector]
     public int levelsUnlocked = 1;
 
@@ -60,6 +60,15 @@ public class GameStateManager : MonoBehaviour {
         SaveData.LoadDataFromJSon();
     }
 
+
+    // Use this for initialization
+    void Start()
+    {
+        Init();
+
+    }
+
+
     void loadPlayerPrefs() {
       Debug.Log("PlayerName:" + PlayerPrefs.GetString("playerName"));
       if (!PlayerPrefs.HasKey("isFirstTime")) {
@@ -81,12 +90,6 @@ public class GameStateManager : MonoBehaviour {
       }
     }
 
-    // Use this for initialization
-    void Start () {
-        Init();
-
-    }
-
     void Init()
     {
         PlayerPrefs.SetInt("tutorialDone", 0); // temp to force tutorial
@@ -97,6 +100,8 @@ public class GameStateManager : MonoBehaviour {
         mathManager = GameObject.FindObjectOfType<MathManager>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
+        potionShop = GameObject.FindObjectOfType<PotionShop>();
+
 
         loadPlayerPrefs();
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
@@ -115,6 +120,13 @@ public class GameStateManager : MonoBehaviour {
 
             currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
         }
+
+        waveManager = GameObject.FindObjectOfType<WaveManager>();
+        mathManager = GameObject.FindObjectOfType<MathManager>();
+        levelManager = GameObject.FindObjectOfType<LevelManager>();
+        playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
+        potionShop = Resources.FindObjectsOfTypeAll<PotionShop>()[0];
+
     }
 
     public void SetTimeScale(float newTimeScale, float duration) {
@@ -211,23 +223,22 @@ public class GameStateManager : MonoBehaviour {
             UnityEngine.XR.XRSettings.LoadDeviceByName(vrToggle);
             yield return null;
             UnityEngine.XR.XRSettings.enabled = true;
-            yield return new WaitForSeconds(.5f);
             if (levelName != "None")
                 SceneManager.LoadScene(levelName);
         } else
         {
             yield return new WaitForSeconds(.5f);
+            UnityEngine.XR.XRSettings.LoadDeviceByName("none");
+            yield return null;
+            UnityEngine.XR.XRSettings.enabled = false;
+            //GvrCardboardHelpers.
             if (levelName != "None")
+            {
                 SceneManager.LoadScene(levelName);
+            }
         }
-        
     }
 
-    /*
-    public void LoadNextLevel() {
-        SceneManager.LoadScene("BossLevel", LoadSceneMode.Single);
-    }
-    */
 
     public void SaveGame() {
         playerMathStats.SaveState();
@@ -262,6 +273,9 @@ public class GameStateManager : MonoBehaviour {
         Time.timeScale = 1;
     }
 
+    /// <summary>
+    /// Menu functions 
+    /// </summary>
     public void SetDifficulty(int mode)
     {
         switch(mode)
@@ -312,6 +326,7 @@ public class GameStateManager : MonoBehaviour {
     {
         isVR = isVROn;
     }
+
 
 }
 
