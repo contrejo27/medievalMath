@@ -23,7 +23,7 @@ public class GameStateManager : MonoBehaviour {
     public LaunchProjectile player;
     private static bool loseState = false;
     public int currentSkillLevel;
-    public static bool isVR = true;
+    public static bool isVR = false;
     [HideInInspector]
     public int levelsUnlocked = 1;
 

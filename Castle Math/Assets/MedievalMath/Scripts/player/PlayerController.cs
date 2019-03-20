@@ -46,12 +46,17 @@ public class PlayerController : MonoBehaviour {
     //gyro controls
     private bool gyroEnable;
     private Gyroscope gyro;
-    private GameObject GyroControl;
+    private GameObject gyroControl;
+    private GameObject forwardLocation;
     private Quaternion rotation;
 
     void Awake()
     {
         //GameStateManager.instance.playerController = this;
+        
+        MSP_Input.GyroAccel.SetCameraHeadingOffset(transform.rotation.eulerAngles.y);
+        forwardLocation = new GameObject("Forward Camera Location");
+        Debug.Log(forwardLocation.transform.position);
     }
 
 	// Use this for initialization
@@ -69,20 +74,24 @@ public class PlayerController : MonoBehaviour {
         {
             controls = ControlMethod.keyboard;
         }
-        if (!GameStateManager.isVR && !Application.isEditor)
+        if (!GameStateManager.isVR || Application.isEditor)
         {
-            GyroControl = new GameObject("Gyro Control");
-            GyroControl.transform.position = transform.position;
-            transform.SetParent(GyroControl.transform);
+            
+            gyroControl = new GameObject("Gyro Control");
+            gyroControl.transform.position = transform.position;
+            transform.SetParent(gyroControl.transform);
+            
             gyroEnable = EnableGyro();
-            Quaternion calibratedRotation = Quaternion.Euler(90f, 0f, 0f) * Quaternion.Inverse(gyro.attitude);
-            transform.localRotation = calibratedRotation * gyro.attitude * rotation;
+            
+            //MSP_Input.GyroAccel.AddFloatToHeadingOffset(50);
         }
     }
 	
 	// Update is called once per frame
 	void Update () {
-
+        //Vector3 relativePos = forwardLocation.transform.position - transform.position;
+        //Quaternion LookAtRot = Quaternion.LookRotation(relativePos, Vector3.up);
+        //Debug.Log("Look at this: " + LookAtRot.eulerAngles);
         #region key controls
         if (controls == ControlMethod.keyboard)
         {
@@ -95,6 +104,10 @@ public class PlayerController : MonoBehaviour {
         }
         #endregion
 
+        //mouse control is not done by GyroAccel
+        Debug.Log(Input.gyro.attitude);
+
+        /*
         #region mouseControls
         else if (controls == ControlMethod.mouse)
         {
@@ -139,13 +152,22 @@ public class PlayerController : MonoBehaviour {
 
         }
         #endregion
-
+        
         #region Gyro Controls
         if (gyroEnable)
         {
             transform.localRotation = gyro.attitude * rotation;
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Quaternion calibratedRotation = Quaternion.Euler(90f, 0f, 0f) * Quaternion.Inverse(gyro.attitude);
+                transform.localRotation = calibratedRotation * gyro.attitude * rotation;
+                Debug.Log("Cal");
+                Debug.Log(calibratedRotation);
+            }
         }
         #endregion
+    */
     }
 
     private bool EnableGyro()
@@ -154,8 +176,9 @@ public class PlayerController : MonoBehaviour {
         {
             gyro = Input.gyro;
             gyro.enabled = true;
-            GyroControl.transform.rotation = Quaternion.Euler(90f, -90f, 0f);
-            rotation = new Quaternion(0, 0, 1, 0);
+            
+
+            
             return true;
         }
         return false;

@@ -1,0 +1,598 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &129928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 429202}
+  - component: {fileID: 5440596}
+  - component: {fileID: 13611432}
+  - component: {fileID: 11439224}
+  m_Layer: 0
+  m_Name: FPV_Rigidbody
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &429202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 452792}
+  m_Father: {fileID: 452114}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &5440596
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129928}
+  serializedVersion: 2
+  m_Mass: 75
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &13611432
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129928}
+  m_Material: {fileID: 13400000, guid: 049c5a52082fa41ecb162b57e598cad2, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11439224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd0424ff8b4554c36805bbaab463779c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSettings:
+    forwardSpeed: 3
+    strafeSpeed: 2.5
+    backwardSpeed: 1.5
+    runMultiplier: 2
+    maxVelocityChange: 1
+    jumpHeight: 2
+  inputSettings:
+    movementInputName: Move
+    runInputStyle: 2
+    runInputName: Move
+    jumpInputStyle: 5
+    jumpInputName: Jump
+  advancedSettings:
+    gravity: -9.8
+    groundCheckDistance: 0.01
+    slopeLimitMin: 0
+    slopeLimitMax: 60
+    allowAirControl: 1
+--- !u!1 &142594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452792}
+  - component: {fileID: 2063112}
+  - component: {fileID: 8155972}
+  m_Layer: 0
+  m_Name: Head (MainCamera)
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &452792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 429202}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &2063112
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142594}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_projectionMatrixMode: 1
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_GateFitMode: 2
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.01
+  far clip plane: 10000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &8155972
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142594}
+  m_Enabled: 1
+--- !u!1 &143172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452114}
+  m_Layer: 0
+  m_Name: MSP_First Person View (gyro+dual joystick+jumpbutton)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &452114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143172}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 407876}
+  - {fileID: 429202}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &163054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407876}
+  - component: {fileID: 11440964}
+  - component: {fileID: 11444686}
+  - component: {fileID: 11465982}
+  - component: {fileID: 11408540}
+  - component: {fileID: 11431482}
+  - component: {fileID: 11449650}
+  m_Layer: 0
+  m_Name: MSP_Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &407876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.750006, y: -6.7175293, z: 13.334226}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 452114}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11440964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814947eca76e14db6b3f9d384e26a8da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceAccelerometer: 0
+  smoothingTime: 0.1
+  headingOffset: 0
+  pitchOffset: 30
+  pitchOffsetMinimum: -70
+  pitchOffsetMaximum: 70
+  gyroHeadingAmplifier: 1
+  gyroPitchAmplifier: 1
+  heading: 0
+  pitch: 0
+  roll: 0
+  selfUpdate:
+    targetTransform: {fileID: 0}
+    copyHeading: 1
+    copyPitch: 1
+    copyRoll: 1
+    enabled: 1
+    headingMin: -180
+    headingMax: 180
+    headingDefault: 0
+    pitchMin: -90
+    pitchMax: 90
+    pitchDefault: 0
+    rollMin: -180
+    rollMax: 180
+    rollDefault: 0
+    smoothingTime: 0
+    pushEdge: 0
+    h: 0
+    p: 0
+    r: 0
+    rotOld: {x: 0, y: 0, z: 0, w: 1}
+    rotNew: {x: 0, y: 0, z: 0, w: 1}
+  autoUpdateList:
+  - targetTransform: {fileID: 429202}
+    copyHeading: 1
+    copyPitch: 0
+    copyRoll: 0
+    enabled: 1
+    headingMin: -180
+    headingMax: 180
+    headingDefault: 0
+    pitchMin: -90
+    pitchMax: 90
+    pitchDefault: 0
+    rollMin: -180
+    rollMax: 180
+    rollDefault: 0
+    smoothingTime: 0
+    pushEdge: 0
+    h: 0
+    p: 0
+    r: 0
+    rotOld: {x: 0, y: 0, z: 0, w: 1}
+    rotNew: {x: 0, y: 0, z: 0, w: 1}
+  - targetTransform: {fileID: 452792}
+    copyHeading: 1
+    copyPitch: 1
+    copyRoll: 1
+    enabled: 1
+    headingMin: -180
+    headingMax: 180
+    headingDefault: 0
+    pitchMin: -90
+    pitchMax: 90
+    pitchDefault: 0
+    rollMin: -180
+    rollMax: 180
+    rollDefault: 0
+    smoothingTime: 0
+    pushEdge: 0
+    h: 0
+    p: 0
+    r: 0
+    rotOld: {x: 0, y: 0, z: 0, w: 1}
+    rotNew: {x: 0, y: 0, z: 0, w: 1}
+  editorSimulation:
+    simulationMode: 1
+    mouseSenisitivity: {x: 175, y: 150}
+    invertMouseY: 0
+--- !u!114 &11444686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28e780bbc84c74e68895d788e90c246d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showInEditMode: 1
+--- !u!114 &11465982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89322ec80fb6492f8590887f390d17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11408540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ade84b75ba64a8e8e717fcab5d7819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualTouchpads: []
+--- !u!114 &11431482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df23c0ad18fb34256b66684c728a8d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualJoysticks:
+  - name: Move
+    type: 0
+    enabled: 1
+    backgroundTexture: {fileID: 2800000, guid: bce8e2a4aa5ca4b5a83cbc42100a7d6a, type: 3}
+    buttonTexture: {fileID: 2800000, guid: d20fd84b5288946d1901e3ce1e207c0b, type: 3}
+    backgroundSize: 0.2
+    buttonSize: 0.25
+    centerDefault: {x: 0.175, y: 0.25}
+    centerBackground: {x: 0.175, y: 0.25}
+    centerBackgroundNew: {x: 0.175, y: 0.25}
+    centerButton: {x: 0.175, y: 0.25}
+    centerButtonNew: {x: 0.175, y: 0.25}
+    backgroundRect:
+      serializedVersion: 2
+      x: 43
+      y: 214
+      width: 116
+      height: 116
+    buttonRect:
+      serializedVersion: 2
+      x: 86.5
+      y: 257.5
+      width: 29
+      height: 29
+    sensitivity: 0.5
+    smoothingTime: 0.1
+    axisMultiplier: {x: 1, y: 1}
+    alwaysVisible: 1
+    autoUpdateEnabled: 0
+    autoUpdateGyroAccelScript: 0
+    autoUpdateAxisMessageReceivers: []
+    autoUpdateDoubleTapMessageReceivers: []
+    autoUpdateDoubleTapHoldMessageReceivers: []
+    isActive: 0
+    axis: {x: 0, y: 0}
+    angle: 0
+    magnitude: 0
+    touchID: -1
+    sensitivityCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    time: 0
+    deltaTime: 0
+    doubleTap: 0
+    doubleTapHold: 0
+    showSettingsInInspector: 1
+    editorJoystickSimulation:
+      simulationMode: 1
+      keyCode_Left: 97
+      keyCode_Right: 100
+      keyCode_Up: 119
+      keyCode_Down: 115
+      keyCode_DoubleTap: 304
+  - name: VirtualJoystick
+    type: 0
+    enabled: 1
+    backgroundTexture: {fileID: 2800000, guid: bce8e2a4aa5ca4b5a83cbc42100a7d6a, type: 3}
+    buttonTexture: {fileID: 2800000, guid: d20fd84b5288946d1901e3ce1e207c0b, type: 3}
+    backgroundSize: 0.2
+    buttonSize: 0.25
+    centerDefault: {x: 0.825, y: 0.25}
+    centerBackground: {x: 0.825, y: 0.25}
+    centerBackgroundNew: {x: 0.825, y: 0.25}
+    centerButton: {x: 0.825, y: 0.25}
+    centerButtonNew: {x: 0.825, y: 0.25}
+    backgroundRect:
+      serializedVersion: 2
+      x: 421
+      y: 214
+      width: 116
+      height: 116
+    buttonRect:
+      serializedVersion: 2
+      x: 464.5
+      y: 257.5
+      width: 29
+      height: 29
+    sensitivity: 0.5
+    smoothingTime: 0.1
+    axisMultiplier: {x: 4, y: 1}
+    alwaysVisible: 1
+    autoUpdateEnabled: 1
+    autoUpdateGyroAccelScript: 1
+    autoUpdateAxisMessageReceivers: []
+    autoUpdateDoubleTapMessageReceivers: []
+    autoUpdateDoubleTapHoldMessageReceivers: []
+    isActive: 0
+    axis: {x: 0, y: 0}
+    angle: 0
+    magnitude: 0
+    touchID: -1
+    sensitivityCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    time: 0
+    deltaTime: 0
+    doubleTap: 0
+    doubleTapHold: 0
+    showSettingsInInspector: 1
+    editorJoystickSimulation:
+      simulationMode: 2
+      keyCode_Left: 276
+      keyCode_Right: 275
+      keyCode_Up: 273
+      keyCode_Down: 274
+      keyCode_DoubleTap: 32
+--- !u!114 &11449650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9007c093b2ac74666beeb90eff0f64e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualButtons:
+  - name: Jump
+    enabled: 1
+    textureUnpressed: {fileID: 2800000, guid: a2171981f88a34388a61c27f94c43b62, type: 3}
+    texturePressed: {fileID: 2800000, guid: 32f3e1d363a2e4c989e325a45eac7d66, type: 3}
+    buttonTexture: {fileID: 2800000, guid: a2171981f88a34388a61c27f94c43b62, type: 3}
+    centerDefault: {x: 0.9, y: 0.5}
+    center: {x: 0.9, y: 0.5}
+    centerNew: {x: 0.9, y: 0.5}
+    buttonSize: {x: 0.1, y: 0.1}
+    buttonRect:
+      serializedVersion: 2
+      x: 493
+      y: 152
+      width: 58
+      height: 58
+    forceSquareButton: 1
+    useAsSwitch: 0
+    moveWithTouch: 0
+    autoUpdateEnabled: 0
+    autoUpdateButtonDownMessageReceivers: []
+    autoUpdateButtonGoingDownMessageReceivers: []
+    autoUpdateButtonGoingUpMessageReceivers: []
+    autoUpdateButtonUpMessageReceivers: []
+    isActive: 0
+    status: 0
+    touchID: -1
+    showSettingsInInspector: 1
+    smoothingTime: 0.1
+    editorSimulationKey: 32
