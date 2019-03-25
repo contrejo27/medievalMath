@@ -192,7 +192,7 @@ public class LevelManager : MonoBehaviour {
         //billboard.GetComponent<Animator>().Play("show");
         PauseMenu.SetActive(true);
         MathScreen.SetActive(false);
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         
         isGamePaused = true;
         //StartCoroutine(FadeSky(.8f, .4f));
@@ -208,7 +208,8 @@ public class LevelManager : MonoBehaviour {
         MathScreen.SetActive(true);
 
         isGamePaused = false;
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
+        GameStateManager.instance.levelManager.isGamePaused = false;
         //StartCoroutine(FadeSky(.4f, .8f));
         foreach (EnemyBehavior eb in activeEnemies)
             eb.ResumeEnemy();

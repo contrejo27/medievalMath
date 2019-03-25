@@ -45,18 +45,20 @@ public class PlayerController : MonoBehaviour {
 
     //gyro controls
     private bool gyroEnable;
-    private Gyroscope gyro;
-    private GameObject gyroControl;
-    private GameObject forwardLocation;
-    private Quaternion rotation;
+    public GameObject GyroActivator;
 
     void Awake()
     {
         //GameStateManager.instance.playerController = this;
         
         MSP_Input.GyroAccel.SetCameraHeadingOffset(transform.rotation.eulerAngles.y);
-        forwardLocation = new GameObject("Forward Camera Location");
-        Debug.Log(forwardLocation.transform.position);
+
+        if (!GameStateManager.isVR || Application.isEditor)
+        {
+            gyroEnable = EnableGyro();
+
+            //MSP_Input.GyroAccel.AddFloatToHeadingOffset(50);
+        }
     }
 
 	// Use this for initialization
@@ -74,17 +76,7 @@ public class PlayerController : MonoBehaviour {
         {
             controls = ControlMethod.keyboard;
         }
-        if (!GameStateManager.isVR || Application.isEditor)
-        {
-            
-            gyroControl = new GameObject("Gyro Control");
-            gyroControl.transform.position = transform.position;
-            transform.SetParent(gyroControl.transform);
-            
-            gyroEnable = EnableGyro();
-            
-            //MSP_Input.GyroAccel.AddFloatToHeadingOffset(50);
-        }
+        
     }
 	
 	// Update is called once per frame
@@ -172,13 +164,10 @@ public class PlayerController : MonoBehaviour {
 
     private bool EnableGyro()
     {
-        if (SystemInfo.supportsGyroscope)
+        if (SystemInfo.supportsGyroscope || Application.isEditor)
         {
-            gyro = Input.gyro;
-            gyro.enabled = true;
-            
+            GyroActivator.SetActive(true);
 
-            
             return true;
         }
         return false;

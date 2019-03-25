@@ -12,7 +12,7 @@ public class GameStateManager : MonoBehaviour {
 
     public EnumManager.GameState currentState;
     public EnumManager.GameplayMode currentDifficulty;
-
+    public EnumManager.ActivationType currentSubscription;
 
     // Game statistics
     public QuestionTracker tracker = new QuestionTracker();
