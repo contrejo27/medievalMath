@@ -413,6 +413,7 @@ public class EnemyBehavior : MonoBehaviour {
     public void ResumeEnemy()
     {
         ResumeEnemyMovement();
+        animator.speed = 1.0f;
         animator.speed = prePauseAnimationSpeed;
     }
 

@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &164954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 464954}
+  - component: {fileID: 11464948}
+  - component: {fileID: 11412068}
+  - component: {fileID: 11461910}
+  - component: {fileID: 11464950}
+  - component: {fileID: 11464952}
+  - component: {fileID: 11464954}
+  m_Layer: 0
+  m_Name: MSP_Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &464954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11464948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814947eca76e14db6b3f9d384e26a8da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceAccelerometer: 0
+  smoothingTime: 0.05
+  headingOffset: 180
+  pitchOffset: 0
+  pitchOffsetMinimum: -89
+  pitchOffsetMaximum: 89
+  gyroHeadingAmplifier: 1
+  gyroPitchAmplifier: 1
+  heading: 0
+  pitch: 0
+  roll: 0
+  selfUpdate:
+    targetTransform: {fileID: 0}
+    copyHeading: 1
+    copyPitch: 1
+    copyRoll: 1
+    enabled: 1
+    headingMin: -180
+    headingMax: 180
+    headingDefault: 0
+    pitchMin: -90
+    pitchMax: 90
+    pitchDefault: 0
+    rollMin: -180
+    rollMax: 180
+    rollDefault: 0
+    smoothingTime: 0
+    pushEdge: 0
+    h: 0
+    p: 0
+    r: 0
+    rotOld: {x: 0, y: 0, z: 0, w: 1}
+    rotNew: {x: 0, y: 0, z: 0, w: 1}
+  autoUpdateList:
+  - targetTransform: {fileID: 0}
+    copyHeading: 1
+    copyPitch: 1
+    copyRoll: 1
+    enabled: 0
+    headingMin: -180
+    headingMax: 180
+    headingDefault: 0
+    pitchMin: -90
+    pitchMax: 90
+    pitchDefault: 0
+    rollMin: -180
+    rollMax: 180
+    rollDefault: 0
+    smoothingTime: 0
+    pushEdge: 0
+    h: 0
+    p: 0
+    r: 0
+    rotOld: {x: 0, y: 0, z: 0, w: 1}
+    rotNew: {x: 0, y: 0, z: 0, w: 1}
+  editorSimulation:
+    simulationMode: 1
+    mouseSenisitivity: {x: 150, y: 150}
+    invertMouseY: 0
+--- !u!114 &11412068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28e780bbc84c74e68895d788e90c246d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showInEditMode: 1
+--- !u!114 &11461910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89322ec80fb6492f8590887f390d17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11464950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ade84b75ba64a8e8e717fcab5d7819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualTouchpads: []
+--- !u!114 &11464952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df23c0ad18fb34256b66684c728a8d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualJoysticks: []
+--- !u!114 &11464954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9007c093b2ac74666beeb90eff0f64e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualButtons: []

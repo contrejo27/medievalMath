@@ -34,7 +34,6 @@ public class LaunchProjectile : MonoBehaviour {
 	bool reloading = false;
     [HideInInspector]
     public float reloadTime = .2f;
-
 	//Audio
 	AudioSource A_Source;
 	public AudioClip[] LaunchSounds;
@@ -111,7 +110,6 @@ public class LaunchProjectile : MonoBehaviour {
             }
             else if (Input.GetButtonDown("Fire1"))
             {
-
                 if (A_Supply.NumberOfArrows > 0)
                 {
 

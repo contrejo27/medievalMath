@@ -11,10 +11,8 @@ public class MathManager : MonoBehaviour {
     public AudioClip CorrectSound;
     public AudioClip IncorrectSound;
 
-    // private int ProblemType;
     private int mathDifficultyAorS = 6;
     private int mathDifficultyMorD = 5;
-    // private string CorrectAnswer;
     public int totalQuestionsAnswered= 0;
     private int maxDifficultyIncrease = 3;
     public bool interwaveMath;
@@ -34,8 +32,6 @@ public class MathManager : MonoBehaviour {
 
     public bool [] QuestionTypes;
     public List<int> intermathQTypeOptions;
-    // TODO: New variable: TotalIncorrectAnswers
-    // TODO: Better name: IncorrenctAnswersInCurrentQuestion
     public int IncorrectAnswersPerQuestion;
     public int QuestionType;
     public Question currentQuestion;
@@ -46,6 +42,7 @@ public class MathManager : MonoBehaviour {
     public UIEffects interMathCanvas;
     public UIEffects interMathButtons;
     public TelemetryManager m_telemetry;
+    public GameData gameData;
 
     public static MathManager instance;
 
@@ -61,7 +58,6 @@ public class MathManager : MonoBehaviour {
     void Start () {
         GameStateManager.instance.mathManager = this;
         m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
-
         A_Input = GetComponent<AnswerInput> ();
         multOrDiv = GetComponent<MultiplyOrDivide> ();
         // Comparision = GameObject.FindObjectOfType<Compare> ();
@@ -71,6 +67,9 @@ public class MathManager : MonoBehaviour {
         algebraQuestion = GetComponent<Algebra> ();
         orderOfOperations = GetComponent<OrderOfOperations> ();
 
+        gameData = GameObject.FindObjectOfType<GameData>();
+
+        //Math controller doesn't exist. 
         GameObject m_ControllerGO = GameObject.Find("MathController");
         if (m_ControllerGO) {
             m_Controller = m_ControllerGO.GetComponent<MathController>();
@@ -87,30 +86,82 @@ public class MathManager : MonoBehaviour {
         fractions.Start ();
         algebraQuestion.Start ();
 
-        // A_Input.Start ();
-
         QuestionTypes = new bool[4];
-        if (m_Controller != null) {
-            QuestionTypes [0] = m_Controller.add_sub;
-            if (m_Controller.add_sub) intermathQTypeOptions.Add(0);
-            QuestionTypes [1] = m_Controller.mult_divide;
-            if (m_Controller.mult_divide) intermathQTypeOptions.Add(1);
+        StartCoroutine(InitializeQuestionType());
+    }
+
+    IEnumerator InitializeQuestionType()
+    {
+        //Waits to receive API mode
+        while(gameData.gameRound.mode == "")
+            yield return null;
+        //yield return new WaitForSeconds(1.0f);
+
+        if (m_Controller != null)
+        {
+            QuestionTypes[0] = m_Controller.add_sub;
+            if (m_Controller.add_sub)
+                intermathQTypeOptions.Add(0);
+            QuestionTypes[1] = m_Controller.mult_divide;
+            if (m_Controller.mult_divide)
+                intermathQTypeOptions.Add(1);
             // QuestionTypes [2] = m_Controller.wordProblems;
             // QuestionTypes [3] = m_Controller.wordProblems;
-            QuestionTypes [2] = m_Controller.fractions;
-			if (m_Controller.fractions) intermathQTypeOptions.Add(2);
-            QuestionTypes [3] = m_Controller.preAlgebra;
-			if (m_Controller.preAlgebra) intermathQTypeOptions.Add(3);
+            QuestionTypes[2] = m_Controller.fractions;
+            if (m_Controller.fractions)
+                intermathQTypeOptions.Add(2);
+            QuestionTypes[3] = m_Controller.preAlgebra;
+            if (m_Controller.preAlgebra)
+                intermathQTypeOptions.Add(3);
         }
-        else {
-            QuestionTypes [0] = true;
+        else if (gameData)
+        {
+            //The mode has to be exactly as the strings provided, or make this into an enum
+            switch (gameData.gameRound.mode)
+            {
+                case "Add/Subtract":
+                    Debug.Log("It is an add/sub problem");
+                    QuestionType = 0;
+                    break;
+                case "Multiply/Divide":
+                    Debug.Log("It is mult/div problem");
+                    QuestionType = 1;
+                    break;
+                case "Fractions":
+                    Debug.Log("It is a fraction problem");
+                    QuestionType = 2;
+                    break;
+                case "PreAlgebra":
+                    Debug.Log("It is a pre alg problem");
+                    QuestionType = 3;
+                    break;
+                default:
+                    Debug.Log("Not known which problem");
+                    break;
+            }
+
+            intermathQTypeOptions.Add(QuestionType);
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (i != QuestionType)
+                    QuestionTypes[i] = false;
+                else
+                    QuestionTypes[i] = true;
+
+            }
+        }
+        else
+        {
+            QuestionTypes[0] = true;
+            QuestionTypes[1] = false;
+            QuestionTypes[2] = false;
+            QuestionTypes[3] = false;
             intermathQTypeOptions.Add(0);
-            QuestionTypes [1] = false;
-            QuestionTypes [2] = false;
-            QuestionTypes [3] = false;
         }
 
-        GenerateProblem (QuestionTypes);
+        GenerateProblem(QuestionTypes);
+
     }
 
     public void ActivateInterMath() {
@@ -275,6 +326,7 @@ public class MathManager : MonoBehaviour {
         if (selectedMath == 0) {
             addOrSub.GenerateQuestion (mathDifficultyAorS);
             A_Input.SetCorrectAnswer (addOrSub.GetCorrectAnswer ());
+            
             currentQuestion = addOrSub;
         }
         else if (selectedMath == 1) {
@@ -304,6 +356,10 @@ public class MathManager : MonoBehaviour {
             A_Input.SetCorrectAnswer (algebraQuestion.GetCorrectAnswer ());
             currentQuestion = algebraQuestion;
         }
+
+        //gameData.gameResponse.solution = A_Input.GetCorrectAnswer();
+        //gameData.gameResponse.question = A_Input.currentQuestion;
+        m_telemetry.LogResponse();
 
         totalQuestionsAnswered++;
         //m_telemetry.LogRound();
