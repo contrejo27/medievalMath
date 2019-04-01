@@ -297,6 +297,7 @@ public class LaunchProjectile : MonoBehaviour {
 
 		if (A_Supply.NumberOfArrows > 0) {
 			CreateShot();
+            A_Supply.UseArrow();
 		} else {
 			ArrowLoaded = false;
 		}

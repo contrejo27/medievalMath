@@ -64,7 +64,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 242
-  field of view: 26.991467
+  field of view: 65
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -129,6 +129,7 @@ MonoBehaviour:
   minY: -80
   maxY: 80
   frameCounter: 20
+  GyroActivator: {fileID: 5939823252652091502}
 --- !u!114 &6051531778809498709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2099,94 +2100,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].copyHeading
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].copyPitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].copyRoll
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].headingMin
-      value: -180
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].headingMax
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].pitchMin
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].pitchMax
+      propertyPath: headingOffset
       value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].rollMin
-      value: -180
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].rollMax
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].rotOld.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].rotNew.w
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
       propertyPath: autoUpdateList.Array.data[0].targetTransform
       value: 
       objectReference: {fileID: 5944212117110347053}
     - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: autoUpdateList.Array.data[0].smoothingTime
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: forceAccelerometer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: pitchOffset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: selfUpdate.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: pitchOffsetMinimum
-      value: -89
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: pitchOffsetMaximum
-      value: 89
-      objectReference: {fileID: 0}
-    - target: {fileID: 11464948, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
-      propertyPath: headingOffset
-      value: 0
+      propertyPath: autoUpdateList.Array.data[0].enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 116e5a45d352240b5b6ec5c581a7b601, type: 3}
 --- !u!4 &5939823252651865102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 464954, guid: 116e5a45d352240b5b6ec5c581a7b601,
+    type: 3}
+  m_PrefabInstance: {fileID: 5939823252651928628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5939823252652091502 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 164954, guid: 116e5a45d352240b5b6ec5c581a7b601,
     type: 3}
   m_PrefabInstance: {fileID: 5939823252651928628}
   m_PrefabAsset: {fileID: 0}

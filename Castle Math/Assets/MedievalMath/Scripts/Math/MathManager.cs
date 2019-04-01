@@ -23,7 +23,7 @@ public class MathManager : MonoBehaviour {
     AddOrSubtract addOrSub;
     // Compare Comparision;
     // TrueOrFalse True_False;
-    FractionAddSubtract fractions;
+    Fractions fractions;
     OrderOfOperations orderOfOperations;
     Algebra algebraQuestion;
     WordProblem wordProblem;
@@ -63,7 +63,7 @@ public class MathManager : MonoBehaviour {
         // Comparision = GameObject.FindObjectOfType<Compare> ();
         addOrSub = GetComponent<AddOrSubtract> ();
         // True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
-        fractions = GetComponent<FractionAddSubtract> ();
+        fractions = GetComponent<Fractions> ();
         algebraQuestion = GetComponent<Algebra> ();
         orderOfOperations = GetComponent<OrderOfOperations> ();
 

@@ -14,7 +14,7 @@ public class TelemetryManager : MonoBehaviour {
     public string API_URL;
     
     // Data hooks
-    private MathManager m_mathmanager;
+    public MathManager m_mathmanager;
     private MathController m_mathcontroller;
     private WaveMathManager m_wavemathmanager;
     private WaveManager m_wavemanager;
@@ -54,7 +54,7 @@ public class TelemetryManager : MonoBehaviour {
     }
 
     public void Init() {
-        m_mathmanager = GameObject.FindObjectOfType<MathManager>();
+        //m_mathmanager = GameObject.FindObjectOfType<MathManager>();
         m_mathcontroller = GameObject.FindObjectOfType<MathController>();
         m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
         m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
