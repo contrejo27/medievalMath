@@ -1983,8 +1983,9 @@ GameObject:
   m_Component:
   - component: {fileID: 208494096}
   - component: {fileID: 208494095}
+  - component: {fileID: 208494097}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Tester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2016,6 +2017,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &208494097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208494094}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfcf447e8ee628439b4663c1e84b3e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startButton: {fileID: 1693252936}
 --- !u!1 &210396035
 GameObject:
   m_ObjectHideFlags: 0
@@ -16008,6 +16022,10 @@ PrefabInstance:
     - target: {fileID: 95908616963361380, guid: 30d5f93892e02554dbe0760d1bd01799,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966563025199172, guid: 30d5f93892e02554dbe0760d1bd01799, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

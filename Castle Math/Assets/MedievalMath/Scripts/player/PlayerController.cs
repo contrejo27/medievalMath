@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour {
         #endregion
 
         //mouse control is not done by GyroAccel
-        Debug.Log(Input.gyro.attitude);
+        //Debug.Log(Input.gyro.attitude);
 
         /*
         #region mouseControls

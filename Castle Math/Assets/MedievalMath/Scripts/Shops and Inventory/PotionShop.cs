@@ -49,7 +49,7 @@ public class PotionShop : MonoBehaviour {
     void Start()
     {
         GameStateManager.instance.potionShop = this;
-        canvasFade = MathManager.instance.mathCanvas.GetComponent<UIEffects>();        
+        canvasFade = MathManager.instance.mathCanvas.GetComponent<UIEffects>();
     }
 
     // May casue issue in the future; see if this happens before Awake()/Start()

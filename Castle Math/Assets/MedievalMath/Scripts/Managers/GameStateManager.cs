@@ -101,7 +101,12 @@ public class GameStateManager : MonoBehaviour {
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
         potionShop = GameObject.FindObjectOfType<PotionShop>();
-
+        if (!potionShop)
+            potionShop = Resources.FindObjectsOfTypeAll<PotionShop>()[0];
+        if (!mathManager)
+            mathManager = Resources.FindObjectsOfTypeAll<MathManager>()[0];
+        if (!playerMathStats)
+            playerMathStats = Resources.FindObjectsOfTypeAll<PlayerMathStats>()[0];
 
         loadPlayerPrefs();
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();

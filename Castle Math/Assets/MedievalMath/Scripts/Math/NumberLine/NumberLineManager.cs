@@ -15,11 +15,8 @@ public class NumberLineManager : MonoBehaviour {
 
     [HideInInspector]
     public List<NumberLineTarget> targetObjects;
-    [HideInInspector]
     public int currentSliderPos;
-    [HideInInspector]
     public int currentValue;
-    [HideInInspector]
     public int targetValue;
     [HideInInspector]
     public int maxAttempts;
@@ -32,7 +29,10 @@ public class NumberLineManager : MonoBehaviour {
     {
         ShuffleList(targetSpots);
         currentValue = startNumber + initSliderPos;
+        Debug.Log("init slide pos: " + initSliderPos);
         currentSliderPos = initSliderPos;
+        Debug.Log("current slide pos: " + currentValue);
+        Debug.Log("target slide pos: " + targetValue);
         StartCoroutine(LerpSlider(initSliderPos));
        
         for(int i = 0; i< 10; i++)
