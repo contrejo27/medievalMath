@@ -63,6 +63,7 @@ public class LevelManager : MonoBehaviour {
     void Start () {
 
         GameStateManager.instance.levelManager = this;
+        GameStateManager.instance.GameplayInit();
         RenderSettings.skybox.SetFloat("_Exposure", .8f);
     }
 

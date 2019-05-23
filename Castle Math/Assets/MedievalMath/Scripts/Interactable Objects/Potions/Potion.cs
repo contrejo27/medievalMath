@@ -101,7 +101,8 @@ public class Potion : BaseInteractableObject {
     bool CheckPurchaseViability()
     {
         return true;/*
-        return cost + GameStateManager.instance.potionShop.GetSelectedCost()
+        return cost + GameStateManager.instance.
+        .GetSelectedCost()
                     <= GameStateManager.instance.levelManager.GetTotalMoney()
                     && GameStateManager.instance.inventory.numPotions
                     + GameStateManager.instance.potionShop.selectedPotions.Count

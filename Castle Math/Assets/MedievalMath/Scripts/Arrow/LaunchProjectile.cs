@@ -29,6 +29,7 @@ public class LaunchProjectile : MonoBehaviour {
 	bool ArrowLoaded;
 	int[] ModiferEffectCounter;
 	GameObject tempArrow;
+
 	bool firstShot = true;
 	Animator crossbowAnim;
 	bool reloading = false;
@@ -40,8 +41,6 @@ public class LaunchProjectile : MonoBehaviour {
 	public AudioClip LaunchSound;
 	public AudioClip ReloadSound;
 
-	public Camera camera;
-
 	private GameObject Effect;
 
     void Awake()
@@ -51,9 +50,8 @@ public class LaunchProjectile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-		//Raycasting for future use
-		/*
+        //Raycasting for future use
+        /*
 		camera = gameObject.GetComponent<Camera> ();
 
 		RaycastHit hit;
@@ -267,7 +265,6 @@ public class LaunchProjectile : MonoBehaviour {
 
 	public void Launch(float reloadModifier = 1){
 		crossbowAnim.Play("crossbowShot");
-		arrowToLaunch.transform.parent = null;
 		arrowToLaunch.GetComponent<ProjectileBehavior> ().isGrounded = false;
         ArrowClass[] arrowAttributes = arrowToLaunch.GetComponents<ArrowClass>();
         foreach(ArrowClass ac in arrowAttributes)
@@ -278,8 +275,12 @@ public class LaunchProjectile : MonoBehaviour {
 		if(burst) LaunchBurst();
 		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
 		arrowToLaunch.GetComponent<Rigidbody> ().useGravity = true;
-		arrowToLaunch.GetComponent<Rigidbody> ().AddForce (firePoint.transform.right * -5000);
-		arrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
+
+        arrowToLaunch.GetComponent<Rigidbody> ().AddForce (arrowToLaunch.transform.forward * -5000);
+        Vector3 OGPos = arrowToLaunch.transform.position;
+        arrowToLaunch.transform.parent = null;
+        //arrowToLaunch.transform.position = OGPos;
+        arrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
 		Destroy(arrowToLaunch, 1.2f);
 		StartCoroutine (ReloadTime (reloadModifier));
 	}

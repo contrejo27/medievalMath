@@ -90,6 +90,17 @@ public class GameStateManager : MonoBehaviour {
       }
     }
 
+    public void GameplayInit()
+    {
+        playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
+        potionShop = GameObject.FindObjectOfType<PotionShop>();
+        if (!potionShop && Resources.FindObjectsOfTypeAll<PotionShop>()[0] != null)
+            potionShop = Resources.FindObjectsOfTypeAll<PotionShop>()[0];
+        if (!mathManager)
+            mathManager = Resources.FindObjectsOfTypeAll<MathManager>()[0];
+        if (!playerMathStats)
+            playerMathStats = Resources.FindObjectsOfTypeAll<PlayerMathStats>()[0];
+    }
     void Init()
     {
         PlayerPrefs.SetInt("tutorialDone", 0); // temp to force tutorial
@@ -99,14 +110,7 @@ public class GameStateManager : MonoBehaviour {
         waveManager = GameObject.FindObjectOfType<WaveManager>();
         mathManager = GameObject.FindObjectOfType<MathManager>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
-        playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
-        potionShop = GameObject.FindObjectOfType<PotionShop>();
-        if (!potionShop)
-            potionShop = Resources.FindObjectsOfTypeAll<PotionShop>()[0];
-        if (!mathManager)
-            mathManager = Resources.FindObjectsOfTypeAll<MathManager>()[0];
-        if (!playerMathStats)
-            playerMathStats = Resources.FindObjectsOfTypeAll<PlayerMathStats>()[0];
+
 
         loadPlayerPrefs();
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
