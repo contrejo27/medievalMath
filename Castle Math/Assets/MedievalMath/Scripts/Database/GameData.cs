@@ -372,7 +372,7 @@ public class GameData : MonoBehaviour
     IEnumerator NewAPIPost(string key, string jsonPayload)
     {
         string url = "http://" + apiURL + key;
-        Debug.Log(url);
+        //Debug.Log(url);
         var www = new UnityWebRequest(url, "POST");
         //Debug.Log(jsonPayload);
         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
@@ -384,14 +384,14 @@ public class GameData : MonoBehaviour
 
         if (www.isNetworkError || www.isHttpError)
         {
-            Debug.Log(www.error);
-            Debug.Log("Failed to reach server data information for: " + key + ".... Restarting.");
+            //Debug.Log(www.error);
+           // Debug.Log("Failed to reach server data information for: " + key + ".... Restarting.");
             StartCoroutine(NewAPIPost(key, jsonPayload));
         }
         else
         {
             string jsonString = www.downloadHandler.text;
-            Debug.Log(jsonString);
+           // Debug.Log(jsonString);
             string updateJson;
 
             if (key == "round")

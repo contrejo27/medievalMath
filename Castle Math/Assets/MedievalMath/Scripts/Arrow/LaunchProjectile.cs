@@ -271,13 +271,25 @@ public class LaunchProjectile : MonoBehaviour {
         {
             ac.ArrowLaunched();
         }
-		setModifiers();
-		if(burst) LaunchBurst();
-		//we then access the rigidbody of the bullet and apply a strong forward force to it. 
-		arrowToLaunch.GetComponent<Rigidbody> ().useGravity = true;
 
-        arrowToLaunch.GetComponent<Rigidbody> ().AddForce (arrowToLaunch.transform.forward * -5000);
-        Vector3 OGPos = arrowToLaunch.transform.position;
+        setModifiers();
+		if(burst) LaunchBurst();
+        arrowToLaunch.GetComponent<Rigidbody>().useGravity = true;
+
+        Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, 150))
+        {
+            print("HIT SOMETHING " + hit.collider.gameObject.name);
+            arrowToLaunch.GetComponent<Rigidbody>().velocity = (hit.point - transform.position).normalized * 200;
+        }
+        else  
+            {
+            print("hitting nothing!");
+                arrowToLaunch.GetComponent<Rigidbody>().AddForce(arrowToLaunch.transform.forward * 5000);
+            }
+        //we then access the rigidbody of the bullet and apply a strong forward force to it. 
+        //Vector3 OGPos = arrowToLaunch.transform.position;
         arrowToLaunch.transform.parent = null;
         //arrowToLaunch.transform.position = OGPos;
         arrowToLaunch.GetComponent<BoxCollider> ().enabled = true; 
@@ -285,7 +297,8 @@ public class LaunchProjectile : MonoBehaviour {
 		StartCoroutine (ReloadTime (reloadModifier));
 	}
 
-	void playShootingSound(int soundNum){
+
+    void playShootingSound(int soundNum){
 		A_Source.clip = LaunchSounds [soundNum];
 		A_Source.Play();
 	}

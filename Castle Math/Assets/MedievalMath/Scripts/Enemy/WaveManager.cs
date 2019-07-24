@@ -244,7 +244,6 @@ public class WaveManager : MonoBehaviour {
             music.loop = false;
             music.Play();
             levelComplete = true;
-			Debug.Log ("WINNN");
         }
         else{
             ActivateWave(currentWave);
