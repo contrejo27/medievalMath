@@ -148,7 +148,7 @@ public class TelemetryManager : MonoBehaviour {
 
     IEnumerator NewAPIPost(string key, string jsonPayload) {
         string url = "http://" + instance.API_URL + key;
-        Debug.Log(url);
+        //Debug.Log(url);
         var www = new UnityWebRequest(url, "POST");
         //Debug.Log(jsonPayload);
         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
@@ -159,8 +159,8 @@ public class TelemetryManager : MonoBehaviour {
         yield return www.SendWebRequest();
 
         if(www.isNetworkError || www.isHttpError) {
-            Debug.Log(www.error);
-            Debug.Log("Failed to reach server data information for: " + key + ".... Restarting.");
+            //Debug.Log(www.error);
+            //Debug.Log("Failed to reach server data information for: " + key + ".... Restarting.");
             StartCoroutine(NewAPIPost(key, jsonPayload));
         }
         else {

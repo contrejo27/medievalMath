@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class AnimationHelper : MonoBehaviour {
     
-    public enum AnimationType { Rotate, SetLookAtCam };
+    public enum AnimationType { None, Rotate, SetLookAtCam };
     bool loopAnim = true;
     public AnimationType animationType;
     float x;
+    Animator anim;
 
-    // Use this for initialization
+    void Start()
+    {
+        anim = gameObject.GetComponent<Animator>();
+    }
     void OnEnable() {
         loopAnim = true;
         x = 0.0f;
@@ -37,8 +41,12 @@ public class AnimationHelper : MonoBehaviour {
             yield return new WaitForSeconds(.06f);
         }
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
+
+    /// <summary>
+    /// run animation sent through string
+    /// </summary>
+    public void TriggerAnimation (string selectedAnimation) {
+        anim.Play(selectedAnimation);
+
+    }
 }

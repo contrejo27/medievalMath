@@ -38,7 +38,6 @@ public class MathManager : MonoBehaviour {
 
 
     public GameObject mathCanvas;
-    public MathController m_Controller;
     public UIEffects interMathCanvas;
     public UIEffects interMathButtons;
     public TelemetryManager m_telemetry;
@@ -69,11 +68,7 @@ public class MathManager : MonoBehaviour {
 
         gameData = GameObject.FindObjectOfType<GameData>();
 
-        //Math controller doesn't exist. 
-        GameObject m_ControllerGO = GameObject.Find("MathController");
-        if (m_ControllerGO) {
-            m_Controller = m_ControllerGO.GetComponent<MathController>();
-        }
+
 
         wordProblem = GetComponent<WordProblem>();
         fractionTargets = GetComponent<FractionTargets>();
@@ -87,31 +82,31 @@ public class MathManager : MonoBehaviour {
         algebraQuestion.Start ();
 
         QuestionTypes = new bool[4];
-        StartCoroutine(InitializeQuestionType());
+        InitializeQuestionType();
     }
 
-    IEnumerator InitializeQuestionType()
+    void InitializeQuestionType()
     {
         //Waits to receive API mode
-        while(gameData.gameRound.mode == "")
-            yield return null;
+        /*while(gameData.gameRound.mode == "")
+            yield return null;*/
         //yield return new WaitForSeconds(1.0f);
 
-        if (m_Controller != null)
+        if (MathController.instance != null)
         {
-            QuestionTypes[0] = m_Controller.add_sub;
-            if (m_Controller.add_sub)
+            QuestionTypes[0] = MathController.instance.add_sub;
+            if (MathController.instance.add_sub)
                 intermathQTypeOptions.Add(0);
-            QuestionTypes[1] = m_Controller.mult_divide;
-            if (m_Controller.mult_divide)
+            QuestionTypes[1] = MathController.instance.mult_divide;
+            if (MathController.instance.mult_divide)
                 intermathQTypeOptions.Add(1);
-            // QuestionTypes [2] = m_Controller.wordProblems;
-            // QuestionTypes [3] = m_Controller.wordProblems;
-            QuestionTypes[2] = m_Controller.fractions;
-            if (m_Controller.fractions)
+            // QuestionTypes [2] = MathController.instance.wordProblems;
+            // QuestionTypes [3] = MathController.instance.wordProblems;
+            QuestionTypes[2] = MathController.instance.fractions;
+            if (MathController.instance.fractions)
                 intermathQTypeOptions.Add(2);
-            QuestionTypes[3] = m_Controller.preAlgebra;
-            if (m_Controller.preAlgebra)
+            QuestionTypes[3] = MathController.instance.preAlgebra;
+            if (MathController.instance.preAlgebra)
                 intermathQTypeOptions.Add(3);
         }
         else if (gameData)
@@ -215,13 +210,13 @@ public class MathManager : MonoBehaviour {
 
         interwaveMath = false;
         // Reset math settings
-        if(m_Controller != null) {
-            QuestionTypes [0] = m_Controller.add_sub;
-            QuestionTypes [1] = m_Controller.mult_divide;
-            // QuestionTypes [2] = m_Controller.wordProblems;
-            // QuestionTypes [3] = m_Controller.wordProblems;
-            QuestionTypes [2] = m_Controller.fractions;
-            QuestionTypes [3] = m_Controller.preAlgebra;
+        if(MathController.instance != null) {
+            QuestionTypes [0] = MathController.instance.add_sub;
+            QuestionTypes [1] = MathController.instance.mult_divide;
+            // QuestionTypes [2] = MathController.instance.wordProblems;
+            // QuestionTypes [3] = MathController.instance.wordProblems;
+            QuestionTypes [2] = MathController.instance.fractions;
+            QuestionTypes [3] = MathController.instance.preAlgebra;
         }
         else {
             QuestionTypes [0] = true;

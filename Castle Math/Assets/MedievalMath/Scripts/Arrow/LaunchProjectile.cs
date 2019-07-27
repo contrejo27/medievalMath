@@ -280,14 +280,12 @@ public class LaunchProjectile : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, 150))
         {
-            print("HIT SOMETHING " + hit.collider.gameObject.name);
-            arrowToLaunch.GetComponent<Rigidbody>().velocity = (hit.point - transform.position).normalized * 200;
+            arrowToLaunch.GetComponent<Rigidbody>().velocity = (hit.point - transform.position).normalized * 150;
         }
         else  
-            {
-            print("hitting nothing!");
-                arrowToLaunch.GetComponent<Rigidbody>().AddForce(arrowToLaunch.transform.forward * 5000);
-            }
+        {
+            arrowToLaunch.GetComponent<Rigidbody>().AddForce(arrowToLaunch.transform.forward * 5000);
+        }
         //we then access the rigidbody of the bullet and apply a strong forward force to it. 
         //Vector3 OGPos = arrowToLaunch.transform.position;
         arrowToLaunch.transform.parent = null;
@@ -307,7 +305,7 @@ public class LaunchProjectile : MonoBehaviour {
 		reloading = true;
 		yield return new WaitForSeconds (reloadTime*reloadModifier);
 
-		if(tutorialBehavior && tutorialBehavior.tutorialDone) A_Supply.UseArrow ();
+		//if(tutorialBehavior && tutorialBehavior.tutorialDone) A_Supply.UseArrow ();
 
 		if (A_Supply.NumberOfArrows > 0) {
 			CreateShot();
