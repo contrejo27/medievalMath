@@ -40,7 +40,7 @@ public class MathManager : MonoBehaviour {
     public GameObject mathCanvas;
     public UIEffects interMathCanvas;
     public UIEffects interMathButtons;
-    public TelemetryManager m_telemetry;
+    //public TelemetryManager m_telemetry;
     public GameData gameData;
 
     public static MathManager instance;
@@ -56,7 +56,7 @@ public class MathManager : MonoBehaviour {
 
     void Start () {
         GameStateManager.instance.mathManager = this;
-        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
+        //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
         A_Input = GetComponent<AnswerInput> ();
         multOrDiv = GetComponent<MultiplyOrDivide> ();
         // Comparision = GameObject.FindObjectOfType<Compare> ();
@@ -351,10 +351,10 @@ public class MathManager : MonoBehaviour {
             A_Input.SetCorrectAnswer (algebraQuestion.GetCorrectAnswer ());
             currentQuestion = algebraQuestion;
         }
-
+        print(currentQuestion);
         //gameData.gameResponse.solution = A_Input.GetCorrectAnswer();
         //gameData.gameResponse.question = A_Input.currentQuestion;
-        m_telemetry.LogResponse();
+        //m_telemetry.LogResponse();
 
         totalQuestionsAnswered++;
         //m_telemetry.LogRound();

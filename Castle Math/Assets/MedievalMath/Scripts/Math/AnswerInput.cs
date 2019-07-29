@@ -41,12 +41,12 @@ public class AnswerInput : MonoBehaviour {
     public int interwaveQuestions = 0;
     private int incorrectAnswersPerQuestion;
     private bool isCorrect = false;
-    private TelemetryManager m_telemetry;
+   // private TelemetryManager m_telemetry;
 
     public void Awake() {
         // interwaveQuestionsForWave = 2;
         choiceBoxes = GameObject.FindGameObjectsWithTag("ChoiceBox");
-        m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
+        //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
     }
 
     public void Start () {
@@ -157,7 +157,7 @@ public class AnswerInput : MonoBehaviour {
             }
             selectedAnswer = answerText;
             DisplayChoices(answerChoices);
-            m_telemetry.LogResponse();
+            //m_telemetry.LogResponse();
         }
     }
 

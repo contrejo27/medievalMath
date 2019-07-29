@@ -396,7 +396,7 @@ public class GameData : MonoBehaviour
 
             if (key == "round")
             {
-                SetRoundData(GetRoundServerData(jsonString), true);
+                //SetRoundData(GetRoundServerData(jsonString), true);
 
             }
             else if (key == "session")

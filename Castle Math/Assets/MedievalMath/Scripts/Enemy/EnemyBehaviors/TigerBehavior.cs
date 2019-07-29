@@ -6,7 +6,7 @@ public class TigerBehavior : EnemyBehavior{
 
     public GameObject tigerPrefab;
     bool pausedForHit;
-    bool firstHit = false;
+    //bool firstHit = false;
 	bool canDodge = true;
 
 	float cooldowntimer;
@@ -20,11 +20,11 @@ public class TigerBehavior : EnemyBehavior{
     protected override void OnStartAttacking()
     {
         base.OnStartAttacking();
-
-        if (!isTargetDummy && !firstHit && !isClone) 
+        
+        if (!isTargetDummy &&  !isClone) //!firstHit &&
         {
 			canDodge = false;
-            firstHit = true;
+            animator.SetBool("isAttacking", true);
             StartCoroutine(RoarAndSpawn());
         }
             
@@ -128,7 +128,7 @@ public class TigerBehavior : EnemyBehavior{
     {
         animator.Play("Roar");
         yield return new WaitForSeconds (3);
-        if (!GetIsDead())
+       /* if (!GetIsDead())
         {
             List<int> spawnPoints = new List<int>() { 0, 1, 2 };
             int i = Random.Range(0, spawnPoints.Count);
@@ -138,6 +138,5 @@ public class TigerBehavior : EnemyBehavior{
             spawnPoints.RemoveAt(i);
             i = Random.Range(0, spawnPoints.Count);
             GameStateManager.instance.waveManager.SpawnEnemy(tigerPrefab, footstepSound, spawnPoints[i], true);
-        }
-    }
+        }*/   }
 }
