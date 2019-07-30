@@ -7,7 +7,6 @@ using System;
 
 public class WaveManager : MonoBehaviour
 {
-
     //enemies
     public GameObject smallEnemyPrefab;
     public GameObject bigEnemyPrefab;
@@ -145,7 +144,6 @@ public class WaveManager : MonoBehaviour
         //Finds text file of the following name in waves folder for the use of the function
         string waveFileName = "waves/" + level.Replace("Level", "") + "_Wave" + GameStateManager.instance.currentDifficulty.ToString();
         TextAsset waveDat = Resources.Load(waveFileName, typeof(TextAsset)) as TextAsset;
-        print(waveFileName);
         //each row is split with a '\n' a.k.a an enter to a new row
         string[] data = waveDat.text.Split(new char[] { '\n' });
 

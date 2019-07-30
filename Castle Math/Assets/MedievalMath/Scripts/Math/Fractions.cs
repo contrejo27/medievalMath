@@ -108,7 +108,9 @@ public class Fractions : MonoBehaviour, Question {
 
 	public void GenerateOperands(int maxDifficulty)
 	{
-		if (maxDifficulty != -1)
+        fraction = new Rational(Random.Range(1, 13), Random.Range(2, 13));
+
+        if (maxDifficulty != -1)
 		{
 			maxInt = maxDifficulty;
 		}

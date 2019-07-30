@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MathController : MonoBehaviour {
+public class MathController : MonoBehaviour
+{
     public static MathController instance;
 
     public bool add_sub;
@@ -29,18 +30,22 @@ public class MathController : MonoBehaviour {
     //Gets Current Scene and assigns a string to it
 
     // Use this for initialization
-    void Awake() {
-        if(instance == null) {
+    void Awake()
+    {
+        if (instance == null)
+        {
             instance = this;
         }
-        else {
+        else
+        {
             Destroy(gameObject);
         }
-		Debug.Log ("m cont: " + gameObject.name);
+        Debug.Log("m cont: " + gameObject.name);
         // SaveData.LoadDataFromJSon();
     }
 
-    void Start () {
+    void Start()
+    {
         DontDestroyOnLoad(this.gameObject);
 
         level1_Completed = false;
@@ -77,16 +82,19 @@ public class MathController : MonoBehaviour {
             textColor = mathInstructions.color;
             mathInstructions.color = new Color(.62f,.2f,.27f);
         }
-        else {*/
+        else {*///}
+        if (SceneManager.GetActiveScene().name == "LevelSelection")
+        {
             GameObject addSubGO = GameObject.Find("add/sub");
             addSubGO.GetComponent<Toggle>().isOn = true;
             add_sub = addSubGO.GetComponent<Toggle>().interactable = true;
-       //}
+        }
 
-        hasStarted = true;
+            hasStarted = true;
     }
 
-    public void unlockMath() {
+    public void unlockMath()
+    {
         Color mathOrange = new Color(0.91F, 0.58F, 0.264F, 1.0F);
 
         GameObject addGO = GameObject.Find("add/sub");
@@ -114,30 +122,40 @@ public class MathController : MonoBehaviour {
 
     }
 
-    public void Update() {
-        if (SceneManager.GetActiveScene().name == "MathTest") {
-            if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+    public void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "MathTest")
+        {
+            if (GameObject.Find("WaveManager").GetComponent<WaveManager>().levelComplete)
+            {
                 level1_Completed = true;
             }
         }
-        if (SceneManager.GetActiveScene().name == "frostLevel") {
-            if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+        if (SceneManager.GetActiveScene().name == "frostLevel")
+        {
+            if (GameObject.Find("WaveManager").GetComponent<WaveManager>().levelComplete)
+            {
                 level2_Completed = true;
             }
         }
-        if (SceneManager.GetActiveScene().name == "desertLevel") {
-            if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+        if (SceneManager.GetActiveScene().name == "desertLevel")
+        {
+            if (GameObject.Find("WaveManager").GetComponent<WaveManager>().levelComplete)
+            {
                 level3_Completed = true;
             }
         }
-        if (SceneManager.GetActiveScene().name == "bossLevel") {
-            if (GameObject.Find ("WaveManager").GetComponent<WaveManager> ().levelComplete) {
+        if (SceneManager.GetActiveScene().name == "bossLevel")
+        {
+            if (GameObject.Find("WaveManager").GetComponent<WaveManager>().levelComplete)
+            {
                 level4_Completed = true;
             }
         }
     }
 
-    public void UpdateSelection() {
+    public void UpdateSelection()
+    {
         add_sub = GameObject.Find("add/sub").GetComponent<Toggle>().isOn;
         print("addsub " + add_sub);
         mult_divide = GameObject.Find("mult/divide").GetComponent<Toggle>().isOn;
@@ -147,7 +165,8 @@ public class MathController : MonoBehaviour {
         preAlgebra = GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn;
         print("preAlgebra " + preAlgebra);
 
-        if (hasStarted) {
+        if (hasStarted)
+        {
             SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract] = add_sub;
             SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.MultiplyOrDivide] = mult_divide;
             SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra] = preAlgebra;

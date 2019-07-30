@@ -74,8 +74,6 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 	/// <param name="maxDifficulty">The range of numbers from which to generate the question.</param>
 	public void GenerateQuestion (int maxDifficulty) {
 		GenerateOperands (maxDifficulty);
-
-		print("MAX DIFFICULTY  = " + maxDifficulty);
 		//check for division
 		if (isDivide == 0) {
 			//Generate formatted question string and set text box text

@@ -90,7 +90,6 @@ public class ArrowSupplier : MonoBehaviour {
 
 	public void UseArrow()
 	{
-        print("Arrow used " + NumberOfArrows);
 		if (NumberOfArrows > 0 && GameStateManager.instance.currentState ==EnumManager.GameState.Wave) {
 			NumberOfArrows -= 1;
 /*

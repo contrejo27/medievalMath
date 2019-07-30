@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
-public class MathManager : MonoBehaviour {
-
+public class MathManager : MonoBehaviour
+{ 
     public GameObject billboard;
     public WaveManager W_man;
     public AudioClip CorrectSound;
@@ -13,7 +14,7 @@ public class MathManager : MonoBehaviour {
 
     private int mathDifficultyAorS = 6;
     private int mathDifficultyMorD = 5;
-    public int totalQuestionsAnswered= 0;
+    public int totalQuestionsAnswered = 0;
     private int maxDifficultyIncrease = 3;
     public bool interwaveMath;
 
@@ -30,7 +31,7 @@ public class MathManager : MonoBehaviour {
     FractionTargets fractionTargets;
     NumberLineQuestion numberLineQuestion;
 
-    public bool [] QuestionTypes;
+    public bool[] QuestionTypes;
     public List<int> intermathQTypeOptions;
     public int IncorrectAnswersPerQuestion;
     public int QuestionType;
@@ -45,26 +46,30 @@ public class MathManager : MonoBehaviour {
 
     public static MathManager instance;
 
-    void Awake() {
-        if (instance == null) {
+    void Awake()
+    {
+        if (instance == null)
+        {
             instance = this;
         }
-        else if (instance != this) {
+        else if (instance != this)
+        {
             Destroy(gameObject);
         }
     }
 
-    void Start () {
+    void Start()
+    {
         GameStateManager.instance.mathManager = this;
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
-        A_Input = GetComponent<AnswerInput> ();
-        multOrDiv = GetComponent<MultiplyOrDivide> ();
+        A_Input = GetComponent<AnswerInput>();
+        multOrDiv = GetComponent<MultiplyOrDivide>();
         // Comparision = GameObject.FindObjectOfType<Compare> ();
-        addOrSub = GetComponent<AddOrSubtract> ();
+        addOrSub = GetComponent<AddOrSubtract>();
         // True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
-        fractions = GetComponent<Fractions> ();
-        algebraQuestion = GetComponent<Algebra> ();
-        orderOfOperations = GetComponent<OrderOfOperations> ();
+        fractions = GetComponent<Fractions>();
+        algebraQuestion = GetComponent<Algebra>();
+        orderOfOperations = GetComponent<OrderOfOperations>();
 
         gameData = GameObject.FindObjectOfType<GameData>();
 
@@ -74,15 +79,18 @@ public class MathManager : MonoBehaviour {
         fractionTargets = GetComponent<FractionTargets>();
         numberLineQuestion = GetComponent<NumberLineQuestion>();
 
-        multOrDiv.Start ();
-        addOrSub.Start ();
+        multOrDiv.Start();
+        addOrSub.Start();
         // Comparision.Start ();
         // True_False.Start ();
-        fractions.Start ();
-        algebraQuestion.Start ();
+        fractions.Start();
+        algebraQuestion.Start();
 
         QuestionTypes = new bool[4];
+
         InitializeQuestionType();
+
+
     }
 
     void InitializeQuestionType()
@@ -95,6 +103,7 @@ public class MathManager : MonoBehaviour {
         if (MathController.instance != null)
         {
             QuestionTypes[0] = MathController.instance.add_sub;
+
             if (MathController.instance.add_sub)
                 intermathQTypeOptions.Add(0);
             QuestionTypes[1] = MathController.instance.mult_divide;
@@ -155,11 +164,32 @@ public class MathManager : MonoBehaviour {
             intermathQTypeOptions.Add(0);
         }
 
+        /*
+        StartCoroutine("outputQuestions");
+        StartCoroutine("increaseDifficulty");
+        */
         GenerateProblem(QuestionTypes);
-
+    }
+    IEnumerator increaseDifficulty()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(.1f);
+    mathDifficultyAorS ++;
+    mathDifficultyMorD ++;
+        }
     }
 
-    public void ActivateInterMath() {
+    IEnumerator outputQuestions()
+    {
+        while (true) { 
+        yield return new WaitForSeconds(.01f);
+            GenerateProblem(QuestionTypes);
+        }
+
+    }
+    public void ActivateInterMath()
+    {
         /// <summary>
         /// Activates the in-between math functionality. Called between waves
         /// </summary>
@@ -169,15 +199,19 @@ public class MathManager : MonoBehaviour {
         ActivateBillboard();
     }
 
-    public void GenerateInterMathQuestion() {
-        switch (intermathQTypeOptions[Random.Range(0, intermathQTypeOptions.Count)]) {
+    public void GenerateInterMathQuestion()
+    {
+        switch (intermathQTypeOptions[Random.Range(0, intermathQTypeOptions.Count)])
+        {
             case 0:
                 float randomFloat = Random.Range(0, 1f);
-                if(randomFloat < .5f) {
+                if (randomFloat < .5f)
+                {
                     GenerateQuestionForInterMath(numberLineQuestion);
                     // GenerateQuestionForInterMath(wordProblem);
                 }
-                else {
+                else
+                {
                     GenerateQuestionForInterMath(numberLineQuestion);
                 }
                 break;
@@ -192,7 +226,8 @@ public class MathManager : MonoBehaviour {
 
     }
 
-    private void GenerateQuestionForInterMath(Question q) {
+    private void GenerateQuestionForInterMath(Question q)
+    {
         /// <summary>
         /// Generates a fraction question for the interwave math question
         /// </summary>
@@ -203,52 +238,58 @@ public class MathManager : MonoBehaviour {
         currentQuestion = q;
     }
 
-    public void DeactivateInterMath() {
+    public void DeactivateInterMath()
+    {
         /// <summary>
         /// Deactivates the in-between math functionality.
         /// </summary>
 
         interwaveMath = false;
         // Reset math settings
-        if(MathController.instance != null) {
-            QuestionTypes [0] = MathController.instance.add_sub;
-            QuestionTypes [1] = MathController.instance.mult_divide;
+        if (MathController.instance != null)
+        {
+            QuestionTypes[0] = MathController.instance.add_sub;
+            QuestionTypes[1] = MathController.instance.mult_divide;
             // QuestionTypes [2] = MathController.instance.wordProblems;
             // QuestionTypes [3] = MathController.instance.wordProblems;
-            QuestionTypes [2] = MathController.instance.fractions;
-            QuestionTypes [3] = MathController.instance.preAlgebra;
+            QuestionTypes[2] = MathController.instance.fractions;
+            QuestionTypes[3] = MathController.instance.preAlgebra;
         }
-        else {
-            QuestionTypes [0] = true;
-            QuestionTypes [1] = false;
-            QuestionTypes [2] = false;
-            QuestionTypes [3] = false;
+        else
+        {
+            QuestionTypes[0] = true;
+            QuestionTypes[1] = false;
+            QuestionTypes[2] = false;
+            QuestionTypes[3] = false;
         }
 
         currentQuestion.OnEndQuestion();
         // Debug.Log("AS Difficulty: " + mathDifficultyAorS);
         // Debug.Log("MD Difficulty: " + mathDifficultyMorD);
 
-        GenerateProblem (QuestionTypes);
+        GenerateProblem(QuestionTypes);
         DeactivateBillboard();
     }
 
-    public void ActivateBillboard() {
+    public void ActivateBillboard()
+    {
         mathCanvas.GetComponent<UIEffects>().fadeOut(1);
         billboard.SetActive(true);
-        billboard.GetComponent<Animator> ().Play("show");
+        billboard.GetComponent<Animator>().Play("show");
         interMathCanvas.fadeIn(1);
         interMathButtons.fadeIn(1);
     }
 
-    public void DeactivateBillboard() {
-        billboard.GetComponent<Animator> ().Play("hide");
+    public void DeactivateBillboard()
+    {
+        billboard.GetComponent<Animator>().Play("hide");
         interMathCanvas.fadeOut(1);
         mathCanvas.GetComponent<UIEffects>().fadeIn(1);
         interMathButtons.fadeOut(1);
     }
 
-    public void SetDifficulty() {
+    public void SetDifficulty()
+    {
         /// <summary>
         /// Sets the math difficulty based on previous performance. Adds correct and incorrect
         /// answers to generate aggregate score to be used in order to increase difficulty
@@ -261,38 +302,47 @@ public class MathManager : MonoBehaviour {
         int increaseMorD;
 
         // Don't increase difficulty beyond set point
-        if (aggregateScoreAorS > maxDifficultyIncrease) {
+        if (aggregateScoreAorS > maxDifficultyIncrease)
+        {
             increaseAorS = maxDifficultyIncrease;
         }
-        else {
+        else
+        {
             increaseAorS = aggregateScoreAorS;
         }
 
         // Don't increase difficulty beyond set point
-        if (aggregateScoreMorD > maxDifficultyIncrease-2) {
-            increaseMorD = maxDifficultyIncrease-2;
+        if (aggregateScoreMorD > maxDifficultyIncrease - 2)
+        {
+            increaseMorD = maxDifficultyIncrease - 2;
         }
-        else {
+        else
+        {
             increaseMorD = aggregateScoreMorD;
         }
 
         // Check to see if difficulty will fall below zero, else reset to default value
-        if (mathDifficultyAorS + increaseAorS > 0) {
+        if (mathDifficultyAorS + increaseAorS > 0)
+        {
             mathDifficultyAorS += increaseAorS;
         }
-        else {
+        else
+        {
             mathDifficultyAorS = 5;
         }
 
-        if (mathDifficultyMorD + increaseMorD > 0) {
+        if (mathDifficultyMorD + increaseMorD > 0)
+        {
             mathDifficultyMorD += increaseMorD;
         }
-        else {
+        else
+        {
             mathDifficultyMorD = 5;
         }
     }
 
-    public void GenerateProblem(bool [] QuestionTypes) {
+    public void GenerateProblem(bool[] QuestionTypes)
+    {
         /// <summary>
         /// Generates the corresponding problem based on selected question options and a random variable.
         /// </summary>
@@ -303,30 +353,34 @@ public class MathManager : MonoBehaviour {
             print(questionT);
         }*/
 
-        A_Input.ClearChoices ();
+        A_Input.ClearChoices();
         IncorrectAnswersPerQuestion = 0;
 
         List<int> currentQuestionTypes = new List<int>();
 
         // find the currently selected question types and put indices in list
         int i = 0;
-        foreach(bool question in QuestionTypes) {
-            if(question) {
+        foreach (bool question in QuestionTypes)
+        {
+            if (question)
+            {
                 currentQuestionTypes.Add(i);
             }
             i++;
         }
 
-        int selectedMath = currentQuestionTypes[Random.Range (0, currentQuestionTypes.Count)];
-        if (selectedMath == 0) {
-            addOrSub.GenerateQuestion (mathDifficultyAorS);
-            A_Input.SetCorrectAnswer (addOrSub.GetCorrectAnswer ());
-            
+        int selectedMath = currentQuestionTypes[Random.Range(0, currentQuestionTypes.Count)];
+        if (selectedMath == 0)
+        {
+            addOrSub.GenerateQuestion(mathDifficultyAorS);
+            A_Input.SetCorrectAnswer(addOrSub.GetCorrectAnswer());
+
             currentQuestion = addOrSub;
         }
-        else if (selectedMath == 1) {
-            multOrDiv.GenerateQuestion (mathDifficultyMorD);
-            A_Input.SetCorrectAnswer (multOrDiv.GetCorrectAnswer ());
+        else if (selectedMath == 1)
+        {
+            multOrDiv.GenerateQuestion(mathDifficultyMorD);
+            A_Input.SetCorrectAnswer(multOrDiv.GetCorrectAnswer());
             currentQuestion = multOrDiv;
         }
         /* else if (selectedMath == 2) {
@@ -339,19 +393,20 @@ public class MathManager : MonoBehaviour {
             A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
             currentQuestion = True_False;
         }*/
-        else if (selectedMath == 2) {
+        else if (selectedMath == 2)
+        {
             // TODO: Remove hot fix
-            fractions.GenerateQuestion (-1);//-1 => temp fix
-            A_Input.SetCorrectAnswer (fractions.GetCorrectAnswer ());
+            fractions.GenerateQuestion(-1);//-1 => temp fix
+            A_Input.SetCorrectAnswer(fractions.GetCorrectAnswer());
             currentQuestion = fractions;
         }
-        else if (selectedMath == 3) {
-            print("****doing algebra");
-            algebraQuestion.GenerateQuestion (mathDifficultyAorS);
-            A_Input.SetCorrectAnswer (algebraQuestion.GetCorrectAnswer ());
+        else if (selectedMath == 3)
+        {
+            algebraQuestion.GenerateQuestion(mathDifficultyAorS);
+            A_Input.SetCorrectAnswer(algebraQuestion.GetCorrectAnswer());
             currentQuestion = algebraQuestion;
         }
-        print(currentQuestion);
+        Debug.Log(currentQuestion.GetQuestionString());
         //gameData.gameResponse.solution = A_Input.GetCorrectAnswer();
         //gameData.gameResponse.question = A_Input.currentQuestion;
         //m_telemetry.LogResponse();
@@ -372,19 +427,23 @@ public class MathManager : MonoBehaviour {
     }
     */
 
-    public bool [] GetQuestionTypes() {
+    public bool[] GetQuestionTypes()
+    {
         return QuestionTypes;
     }
 
-    public int GetIncorrectAnswersPerQuestion() {
+    public int GetIncorrectAnswersPerQuestion()
+    {
         return IncorrectAnswersPerQuestion;
     }
 
-    public void IncorrectAnswer() {
+    public void IncorrectAnswer()
+    {
         IncorrectAnswersPerQuestion++;
     }
 
-    public Question GetCurrentQuestion() {
+    public Question GetCurrentQuestion()
+    {
         Debug.Log("IsCurrentQuestion Null?: " + (currentQuestion == null));
         return this.currentQuestion;
     }
