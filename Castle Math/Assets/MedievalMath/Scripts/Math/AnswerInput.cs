@@ -195,7 +195,8 @@ public class AnswerInput : MonoBehaviour {
         m_math.IncorrectAnswer();
         if (m_math.interwaveMath) {
             InterWaveIncorrectFeedback();
-            interwaveQuestions++;
+            GameStateManager.instance.waveManager.NextWave();
+            //interwaveQuestions++;
         }
         else {
             IncorrectFeedback(feedbackTexts);

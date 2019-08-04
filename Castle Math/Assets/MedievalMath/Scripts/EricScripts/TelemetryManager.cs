@@ -337,8 +337,8 @@ public class TelemetryManager : MonoBehaviour {
 
     //Don't use this unless necessary
     public void LogSession() {
-        StoreSession();
-        StartCoroutine(NewAPIPost("session", SessionPayload()));
+        //StoreSession();
+        //StartCoroutine(NewAPIPost("session", SessionPayload()));
         // APIPost("session", SessionPayload());
     }
 
@@ -350,12 +350,13 @@ public class TelemetryManager : MonoBehaviour {
 
     public IEnumerator ExitApplication()
     {
-        Debug.Log("Exiting Application");
+        yield return null;
+        /*ebug.Log("Exiting Application");
         yield return StartCoroutine(NewAPIPost("session", SessionPayload()));
         yield return StartCoroutine(NewAPIPost("round", RoundPayload()));
         yield return StartCoroutine(NewAPIPost("response", ResponsePayload()));
 
-        Debug.Log("Completed Exiting application and uploaded analytics");
+        Debug.Log("Completed Exiting application and uploaded analytics");*/
     }
 
     public string ReadSession()

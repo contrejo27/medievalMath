@@ -371,7 +371,8 @@ public class GameData : MonoBehaviour
     
     IEnumerator NewAPIPost(string key, string jsonPayload)
     {
-        string url = "http://" + apiURL + key;
+        yield return null;
+        /* string url = "http://" + apiURL + key;
         //Debug.Log(url);
         var www = new UnityWebRequest(url, "POST");
         //Debug.Log(jsonPayload);
@@ -410,7 +411,7 @@ public class GameData : MonoBehaviour
                 SetResponseData(GetResponseServerData(jsonString), true);
             }
             // byte[] results = www.downloadHandler.data;
-        }
+        }*/
     }
 
     public IEnumerator APIPut(string key, int id, string jsonPayload)
@@ -420,29 +421,29 @@ public class GameData : MonoBehaviour
         Debug.Log(jsonPayload);
         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
         //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
-
+        yield return null;
         //Write data locally before uploading
-        UpdateRoundData();
-        UpdateResponseData();
+        /* UpdateRoundData();
+         UpdateResponseData();
 
-        using (UnityWebRequest www = UnityWebRequest.Put(url, data))
-        {
-            www.uploadHandler = (UploadHandler)new UploadHandlerRaw(data);
-            www.SetRequestHeader("Content-Type", "application/json");
+         using (UnityWebRequest www = UnityWebRequest.Put(url, data))
+         {
+             www.uploadHandler = (UploadHandler)new UploadHandlerRaw(data);
+             www.SetRequestHeader("Content-Type", "application/json");
 
-            yield return www.SendWebRequest();
+             yield return www.SendWebRequest();
 
-            if (www.isNetworkError || www.isHttpError)
-            {
-                Debug.Log(www.error);
-                Debug.Log("Failed to modify server data information for: " + key + ".... Restarting.");
-                StartCoroutine(APIPut(key, id, jsonPayload));
-            }
-            else
-            {
-                Debug.Log("Upload complete!");
-            }
-        }
+             if (www.isNetworkError || www.isHttpError)
+             {
+                 Debug.Log(www.error);
+                 Debug.Log("Failed to modify server data information for: " + key + ".... Restarting.");
+                 StartCoroutine(APIPut(key, id, jsonPayload));
+             }
+             else
+             {
+                 Debug.Log("Upload complete!");
+             }
+         }*/
     }
 
 }

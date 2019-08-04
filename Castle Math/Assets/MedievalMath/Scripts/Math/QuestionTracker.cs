@@ -9,8 +9,6 @@ using System.Linq;
 
 
 public class QuestionTracker {
-
-
     List<Question> incorrectQuestions;
     List<Question> correctQuestions;
     PlayerMathStats PlayerStats;

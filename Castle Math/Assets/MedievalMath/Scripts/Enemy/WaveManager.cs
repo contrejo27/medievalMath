@@ -80,7 +80,6 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < BonusSpawnPoints.Length; i++)
         {
             tempList.Add(i);
-            Debug.Log("ADDED TEMP LIST");
         }
         pendingSpawnPoints.Clear();
         for (int i = 0; i < BonusSpawnPoints.Length; i++)
@@ -108,9 +107,6 @@ public class WaveManager : MonoBehaviour
         music = GameObject.Find("Music").GetComponent<AudioSource>();
         GameStateManager.instance.waveManager = this;
         m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
-        //first integer in array is type of launch (0 all at once/1 staggered/2 waves/3 singles) second is number of enemies per lane
-
-
         readLevel(SceneManager.GetActiveScene().name);
     }
 
@@ -144,6 +140,8 @@ public class WaveManager : MonoBehaviour
         //Finds text file of the following name in waves folder for the use of the function
         string waveFileName = "waves/" + level.Replace("Level", "") + "_Wave" + GameStateManager.instance.currentDifficulty.ToString();
         TextAsset waveDat = Resources.Load(waveFileName, typeof(TextAsset)) as TextAsset;
+        print("Loading : " + waveFileName);
+        
         //each row is split with a '\n' a.k.a an enter to a new row
         string[] data = waveDat.text.Split(new char[] { '\n' });
 
