@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TutorialBehavior : MonoBehaviour {
 
@@ -21,7 +22,15 @@ public class TutorialBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		tutorialImage = GetComponent<Image>();
-        tutorialDone = Convert.ToBoolean(PlayerPrefs.GetInt("tutorialDone"));
+
+        // Return the current Active Scene in order to get the current Scene name.
+        Scene scene = SceneManager.GetActiveScene();
+
+        // Check if the name of the current Active Scene is your first Scene.
+        if (scene.name == "kellsLevel")
+        {
+            tutorialDone = Convert.ToBoolean(PlayerPrefs.GetInt("tutorialDone"));
+        }
 
         if (tutorialDone){
 			//if(bossLevel){

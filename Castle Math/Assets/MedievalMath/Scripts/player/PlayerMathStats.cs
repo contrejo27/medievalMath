@@ -40,7 +40,7 @@ public class PlayerMathStats : MonoBehaviour {
     public Text towerWave;
     public GameObject tower;
     public GameObject winUI;
-    public GameObject statScreen;
+    public GameObject ChooseLevelEndUI;
     public Animator Anim;
 
     public void Start() {
@@ -189,7 +189,7 @@ public class PlayerMathStats : MonoBehaviour {
         
         yield return new WaitForSeconds(4f);
         winUI.SetActive(false);
-        statScreen.SetActive(true);
+        ChooseLevelEndUI.SetActive(true);
         yield return new WaitForSeconds(1f);
         LvlManager.unlockNextGameMode();
     }
