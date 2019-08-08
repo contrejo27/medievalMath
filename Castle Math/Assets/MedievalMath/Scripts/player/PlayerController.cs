@@ -50,8 +50,11 @@ public class PlayerController : MonoBehaviour {
     void Awake()
     {
         //GameStateManager.instance.playerController = this;
-        
-        MSP_Input.GyroAccel.SetCameraHeadingOffset(transform.rotation.eulerAngles.y);
+        if (!GameStateManager.isVR)
+        {
+            MSP_Input.GyroAccel.SetCameraHeadingOffset(transform.rotation.eulerAngles.y);
+        }
+        else GameObject.Find("MSP_Input").SetActive(false);
 
         if (!GameStateManager.isVR || Application.isEditor)
         {
@@ -68,14 +71,14 @@ public class PlayerController : MonoBehaviour {
 
         originalRotation = transform.localRotation;
         //launchProjectile = GameStateManager.instance.player;
-        if (Application.isEditor)
-        {
+        //if (Application.isEditor || Application.platform == RuntimePlatform.WindowsEditor)
+        //{
             controls = ControlMethod.mouse;
-        }
-        else
+       // }
+       /* else
         {
             controls = ControlMethod.keyboard;
-        }
+        }*/
         
     }
 	
@@ -91,7 +94,7 @@ public class PlayerController : MonoBehaviour {
             float CurrentY = this.transform.rotation.eulerAngles.y + Input.GetAxis("Horizontal");
 
             float CurrentX = this.transform.rotation.eulerAngles.x - Input.GetAxis("Vertical");
-
+            
             this.transform.rotation = Quaternion.Euler(new Vector3(CurrentX, CurrentY, 0));
         }
         #endregion

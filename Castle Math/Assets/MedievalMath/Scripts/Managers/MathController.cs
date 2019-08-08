@@ -53,36 +53,7 @@ public class MathController : MonoBehaviour
         level3_Completed = false;
         level4_Completed = false;
 
-        /*if (Debug.isDebugBuild || Application.isEditor) {
-            Debug.Log("IN EDITOR/DEBUG");
-          //  GameObject.Find("add/sub").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract];
-        //    GameObject.Find("mult/divide").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.MultiplyOrDivide];
-         //   GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn = SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra];
-        }
-        else if (LocalUserData.IsLoggedIn() == false) {
-            GameObject.Find("add/sub").GetComponent<Toggle>().isOn = true;
 
-            GameObject multGO = GameObject.Find("mult/divide");
-            mult_divide = multGO.GetComponent<Toggle>().interactable = false;
-            multGO.transform.Find("Text").GetComponent<Text>().color = Color.grey;
-
-            GameObject fractionGO = GameObject.Find("Fractions");
-            fractions = fractionGO.GetComponent<Toggle>().interactable = false;
-            fractionGO.transform.Find("Text").GetComponent<Text>().color = Color.grey;
-
-            // GameObject wordGO = GameObject.Find("Word Problems");
-            // wordProblems = wordGO.GetComponent<Toggle>().interactable = false;
-            // wordGO.transform.Find("Text").GetComponent<Text>().color = Color.grey;
-
-            GameObject PreAlgGO = GameObject.Find("Pre-Algebra");
-            preAlgebra = PreAlgGO.GetComponent<Toggle>().interactable = false;
-            PreAlgGO.transform.Find("Text").GetComponent<Text>().color = Color.grey;
-
-            mathInstructions.text = "Subscribe to unlock all lessons";
-            textColor = mathInstructions.color;
-            mathInstructions.color = new Color(.62f,.2f,.27f);
-        }
-        else {*///}
         if (SceneManager.GetActiveScene().name == "LevelSelection")
         {
             GameObject addSubGO = GameObject.Find("add/sub");
@@ -90,7 +61,7 @@ public class MathController : MonoBehaviour
             add_sub = addSubGO.GetComponent<Toggle>().interactable = true;
         }
 
-            hasStarted = true;
+        hasStarted = true;
     }
 
     public void unlockMath()

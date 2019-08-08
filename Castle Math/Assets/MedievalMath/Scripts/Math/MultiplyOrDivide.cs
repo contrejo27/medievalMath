@@ -6,30 +6,37 @@ using UnityEngine.UI;
 
 public class MultiplyOrDivide : MonoBehaviour, Question {
 
+    //UI
 	public Text questionText;
 	public Text questionTextHUD;
+    private string[] answerChoices;
+    private string questionString;
 
-	private int firstNum;
+    //math
+    private int firstNum;
 	private int secondNum;
 	private int correctAnswer;
 	public int isDivide;
 	private int incorrectAnswers = 0;
-	private string [] answerChoices;
-	private string questionString;
 	int maxInt = 10;
-	private AnswerInput aInput;
 
-	public MultiplyOrDivide() {
+    //Settings
+	private AnswerInput aInput;
+    public bool mathEnabled;
+
+    public MultiplyOrDivide() {
 		
 	}
 
 	// Use this for initialization
 	public void Start () {
-
-		aInput = GameObject.FindObjectOfType<AnswerInput> ();
-		questionText = GameObject.Find ("question").GetComponent<Text>();
-
+        if (GameStateManager.instance.currentState != EnumManager.GameState.MainMenu)
+        {
+            aInput = GameObject.FindObjectOfType<AnswerInput>();
+            questionText = GameObject.Find("question").GetComponent<Text>();
+        }
 	}
+
 
 	public void GenerateOperands(int maxDifficulty) {
 		//Generate random 0 or 1 to determine whether question is to be multiplication or divison

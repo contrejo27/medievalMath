@@ -89,8 +89,6 @@ public class MathManager : MonoBehaviour
         QuestionTypes = new bool[4];
 
         InitializeQuestionType();
-
-
     }
 
     void InitializeQuestionType()

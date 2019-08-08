@@ -125,10 +125,6 @@ public class WaveManager : MonoBehaviour
         }
         //set at -1 because in NextWave it adds +1. 
         GameStateManager.instance.Retry();
-        /* currentWave = -1;
-           readLevel(SceneManager.GetActiveScene().name);
-           statCanvas.SetActive(false);
-           NextWave();*/
     }
 
     public void readLevel(string level)
@@ -141,9 +137,11 @@ public class WaveManager : MonoBehaviour
         string waveFileName = "waves/" + level.Replace("Level", "") + "_Wave" + GameStateManager.instance.currentDifficulty.ToString();
         TextAsset waveDat = Resources.Load(waveFileName, typeof(TextAsset)) as TextAsset;
         print("Loading : " + waveFileName);
-        
+        debugText.instance.AddDebugText(waveDat.ToString() + "\n");
+
         //each row is split with a '\n' a.k.a an enter to a new row
         string[] data = waveDat.text.Split(new char[] { '\n' });
+        debugText.instance.AddDebugText(data[0] + data[1]);
 
         //skip first line reading
         bool first = true;

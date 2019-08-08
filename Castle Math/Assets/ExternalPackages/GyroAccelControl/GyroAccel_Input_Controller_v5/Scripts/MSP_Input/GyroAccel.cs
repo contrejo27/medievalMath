@@ -118,8 +118,8 @@ namespace MSP_Input
 				MSP_Input.ErrorHandling.LogError("Warning [GyroAccel]: There seems to be a problem reading the gyroscope: did you set up Unity Remote correctly?");
 			}
 			//
-			if (Application.isEditor && editorSimulation.simulationMode == SimulationMode.Mouse)
-			{
+			if (SystemInfo.deviceType == DeviceType.Desktop && editorSimulation.simulationMode == SimulationMode.Mouse)//Application.isEditor && 
+            {
 				AddFloatToHeadingOffset(Input.GetAxis("Mouse X")*editorSimulation.mouseSenisitivity.x*Time.deltaTime);
 				if (!editorSimulation.invertMouseY)
 				{

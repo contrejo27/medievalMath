@@ -13,7 +13,7 @@ public class TigerBehavior : EnemyBehavior
     float cooldowntimer;
     float cooldowntime = 3f;
 
-    float lerpTime = 1.2f;
+    float lerpTime = .1f;
     float currentlerp = 0f;
 
     private Vector3 velocity = Vector3.zero;
@@ -69,10 +69,7 @@ public class TigerBehavior : EnemyBehavior
             while (currentlerp <= lerpTime)
             {
                 currentlerp += Time.deltaTime;
-
-
-                transform.localPosition = Vector3.Lerp(transform.localPosition, transform.localPosition + (transform.right * Random.Range(-1f, 1f)), currentlerp / lerpTime);
-
+                transform.localPosition = Vector3.Lerp(transform.localPosition, transform.localPosition + (transform.right * .56f), currentlerp / lerpTime);
                 yield return null;
             }
 

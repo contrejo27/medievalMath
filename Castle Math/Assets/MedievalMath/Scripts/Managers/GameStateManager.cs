@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 // This script should contain anything that activates or deactivates things
 // between state changes like lose or next wave
-public class GameStateManager : MonoBehaviour {
+public class GameStateManager : MonoBehaviour
+{
 
     public EnumManager.GameState currentState;
     public EnumManager.GameplayMode currentDifficulty;
@@ -47,11 +48,14 @@ public class GameStateManager : MonoBehaviour {
     // Singleton
     public static GameStateManager instance;
 
-    void Awake() {
-        if (instance == null) {
+    void Awake()
+    {
+        if (instance == null)
+        {
             instance = this;
         }
-        else if (instance != this) {
+        else if (instance != this)
+        {
             Destroy(gameObject);
         }
 
@@ -69,25 +73,28 @@ public class GameStateManager : MonoBehaviour {
     }
 
 
-    void loadPlayerPrefs() {
-      Debug.Log("PlayerName:" + PlayerPrefs.GetString("playerName"));
-      if (!PlayerPrefs.HasKey("isFirstTime")) {
-          PlayerPrefs.SetInt("tutorialDone", 0);
+    void loadPlayerPrefs()
+    {
+        Debug.Log("PlayerName:" + PlayerPrefs.GetString("playerName"));
+        if (!PlayerPrefs.HasKey("isFirstTime"))
+        {
+            PlayerPrefs.SetInt("tutorialDone", 0);
 
-          // Set and save all your PlayerPrefs here.
-          // Now set the value of isFirstTime to be false in the PlayerPrefs.
-          PlayerPrefs.SetInt("isFirstTime", 1);
-          PlayerPrefs.SetString("globalHS1", "JGC,3,8");
-          PlayerPrefs.SetString("globalHS2", "HBK,2,5");
-          PlayerPrefs.SetString("globalHS3", "JGC,2,3");
-          // TODO: Why save before skill level?
-          PlayerPrefs.Save();
-          PlayerPrefs.SetInt("Skill Level", 1);
-          currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
-      }
-      else {
-          currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
-      }
+            // Set and save all your PlayerPrefs here.
+            // Now set the value of isFirstTime to be false in the PlayerPrefs.
+            PlayerPrefs.SetInt("isFirstTime", 1);
+            PlayerPrefs.SetString("globalHS1", "JGC,3,8");
+            PlayerPrefs.SetString("globalHS2", "HBK,2,5");
+            PlayerPrefs.SetString("globalHS3", "JGC,2,3");
+            // TODO: Why save before skill level?
+            PlayerPrefs.Save();
+            PlayerPrefs.SetInt("Skill Level", 1);
+            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+        }
+        else
+        {
+            currentSkillLevel = PlayerPrefs.GetInt("Skill Level");
+        }
     }
 
     public void GameplayInit()
@@ -118,8 +125,10 @@ public class GameStateManager : MonoBehaviour {
         numStars = SaveData.numStars;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (scene.buildIndex > 0) {
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex > 0)
+        {
             //RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
 
             // TODO: Why change exposure?
@@ -138,23 +147,29 @@ public class GameStateManager : MonoBehaviour {
 
     }
 
-    public void SetTimeScale(float newTimeScale, float duration) {
+    public void SetTimeScale(float newTimeScale, float duration)
+    {
         StartCoroutine(ChangeTimeScale(newTimeScale, duration));
     }
 
-    public bool IsLost() {
+    public bool IsLost()
+    {
         return loseState;
     }
 
-    public void UnlockNextLevel() {
-        if (currentDifficulty == EnumManager.GameplayMode.Medium) {
+    public void UnlockNextLevel()
+    {
+        if (currentDifficulty == EnumManager.GameplayMode.Medium)
+        {
             levelsUnlocked++;
         }
     }
 
-    public void LoseState() {
-        if(!loseState) {
-                loseState = true;
+    public void LoseState()
+    {
+        if (!loseState)
+        {
+            loseState = true;
         }
         /*
         SaveGame();
@@ -189,44 +204,49 @@ public class GameStateManager : MonoBehaviour {
         TelemetryManager.instance.LogRound();
     }
 
-    public void LoadScene(int sceneNum) {
+    public void LoadScene(int sceneNum)
+    {
         SceneManager.LoadScene(sceneNum);
     }
 
     public void LoadSceneByName(string sceneName)
     {
-        if(sceneName == "kellsLevel")
+        if (sceneName == "kellsLevel")
         {
-            StartCoroutine(ActivatorVR("Cardboard", isVR,sceneName));
-        } else
+            StartCoroutine(ActivatorVR("Cardboard", isVR, sceneName));
+        }
+        else
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
         }
-        
-        
+
+
     }
 
-    public void Retry() {
+    public void Retry()
+    {
         loseState = false;
         //Changing lighting back to normal
         RenderSettings.skybox.SetFloat("_Exposure", 0.8f);
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void Quit() {
+    public void Quit()
+    {
         //m_telemetry.LogSession();
 
         //SaveData.SaveDataToJSon();
         StartCoroutine(ActivatorVR("None", false, "None"));
     }
 
-    void OnApplicationQuit() {
-       // m_telemetry.LogSession();
+    void OnApplicationQuit()
+    {
+        // m_telemetry.LogSession();
     }
 
     public IEnumerator ActivatorVR(string vrToggle, bool isVROn, string levelName)
     {
-        if(isVROn)
+        if (isVROn)
         {
             yield return new WaitForSeconds(.5f);
             UnityEngine.XR.XRSettings.LoadDeviceByName(vrToggle);
@@ -234,7 +254,8 @@ public class GameStateManager : MonoBehaviour {
             UnityEngine.XR.XRSettings.enabled = true;
             if (levelName != "None")
                 SceneManager.LoadScene(levelName);
-        } else
+        }
+        else
         {
             yield return new WaitForSeconds(.5f);
             UnityEngine.XR.XRSettings.LoadDeviceByName("none");
@@ -249,26 +270,31 @@ public class GameStateManager : MonoBehaviour {
     }
 
 
-    public void SaveGame() {
+    public void SaveGame()
+    {
         playerMathStats.SaveState();
         SaveData.SaveDataToJSon();
     }
 
-    public void ActivatePotionShop() {
+    public void ActivatePotionShop()
+    {
         potionShop.gameObject.SetActive(true);
     }
 
-    public int GetStars() {
+    public int GetStars()
+    {
         return numStars;
     }
 
-    public void AddStars(int n) {
+    public void AddStars(int n)
+    {
         SaveData.numStars += n;
         SaveData.SaveDataToJSon();
         numStars += n;
     }
 
-    public void SpendStars(int n) {
+    public void SpendStars(int n)
+    {
         SaveData.numStars -= n;
         SaveData.SaveDataToJSon();
         // TODO: Why numStars after?
@@ -276,7 +302,8 @@ public class GameStateManager : MonoBehaviour {
     }
 
     // TODO: Why change time scale?
-    IEnumerator ChangeTimeScale(float timeScale, float duration) {
+    IEnumerator ChangeTimeScale(float timeScale, float duration)
+    {
         Time.timeScale = timeScale;
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1;
@@ -287,7 +314,7 @@ public class GameStateManager : MonoBehaviour {
     /// </summary>
     public void SetDifficulty(int mode)
     {
-        switch(mode)
+        switch (mode)
         {
             case 0:
                 currentDifficulty = EnumManager.GameplayMode.Easy;
