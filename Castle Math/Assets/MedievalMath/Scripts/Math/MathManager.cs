@@ -88,14 +88,15 @@ public class MathManager : MonoBehaviour
 
         QuestionTypes = new bool[4];
 
-        InitializeQuestionType();
+        GenerateProblem();
     }
 
+    /*
     void InitializeQuestionType()
     {
         //Waits to receive API mode
-        /*while(gameData.gameRound.mode == "")
-            yield return null;*/
+        //while(gameData.gameRound.mode == "")
+        //    yield return null;
         //yield return new WaitForSeconds(1.0f);
 
         if (MathController.instance != null)
@@ -162,30 +163,11 @@ public class MathManager : MonoBehaviour
             intermathQTypeOptions.Add(0);
         }
 
-        /*
-        StartCoroutine("outputQuestions");
-        StartCoroutine("increaseDifficulty");
-        */
+
         GenerateProblem(QuestionTypes);
-    }
-    IEnumerator increaseDifficulty()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(.1f);
-    mathDifficultyAorS ++;
-    mathDifficultyMorD ++;
-        }
-    }
+    }*/
 
-    IEnumerator outputQuestions()
-    {
-        while (true) { 
-        yield return new WaitForSeconds(.01f);
-            GenerateProblem(QuestionTypes);
-        }
 
-    }
     public void ActivateInterMath()
     {
         /// <summary>
@@ -243,29 +225,8 @@ public class MathManager : MonoBehaviour
         /// </summary>
 
         interwaveMath = false;
-        // Reset math settings
-        if (MathController.instance != null)
-        {
-            QuestionTypes[0] = MathController.instance.add_sub;
-            QuestionTypes[1] = MathController.instance.mult_divide;
-            // QuestionTypes [2] = MathController.instance.wordProblems;
-            // QuestionTypes [3] = MathController.instance.wordProblems;
-            QuestionTypes[2] = MathController.instance.fractions;
-            QuestionTypes[3] = MathController.instance.preAlgebra;
-        }
-        else
-        {
-            QuestionTypes[0] = true;
-            QuestionTypes[1] = false;
-            QuestionTypes[2] = false;
-            QuestionTypes[3] = false;
-        }
 
-        currentQuestion.OnEndQuestion();
-        // Debug.Log("AS Difficulty: " + mathDifficultyAorS);
-        // Debug.Log("MD Difficulty: " + mathDifficultyMorD);
-
-        GenerateProblem(QuestionTypes);
+        GenerateProblem();
         DeactivateBillboard();
     }
 
@@ -339,7 +300,7 @@ public class MathManager : MonoBehaviour
         }
     }
 
-    public void GenerateProblem(bool[] QuestionTypes)
+    public void GenerateProblem()
     {
         /// <summary>
         /// Generates the corresponding problem based on selected question options and a random variable.
@@ -354,56 +315,48 @@ public class MathManager : MonoBehaviour
         A_Input.ClearChoices();
         IncorrectAnswersPerQuestion = 0;
 
-        List<int> currentQuestionTypes = new List<int>();
+        List<MathController.MathType> currentQuestionTypes = new List<MathController.MathType>();
 
         // find the currently selected question types and put indices in list
-        int i = 0;
-        foreach (bool question in QuestionTypes)
+        foreach (MathController.MathType question in MathController.instance.mathList)
         {
-            if (question)
+            if (question.isEnabled)
             {
-                currentQuestionTypes.Add(i);
+                currentQuestionTypes.Add(question);
             }
-            i++;
         }
 
-        int selectedMath = currentQuestionTypes[Random.Range(0, currentQuestionTypes.Count)];
-        if (selectedMath == 0)
+        MathController.MathType selectedMath = currentQuestionTypes[Random.Range(0, currentQuestionTypes.Count)];
+        switch (selectedMath.questionCategory)
         {
-            addOrSub.GenerateQuestion(mathDifficultyAorS);
-            A_Input.SetCorrectAnswer(addOrSub.GetCorrectAnswer());
+            case EnumManager.QuestionCategories.AddOrSubtract:
+                addOrSub.GenerateQuestion(mathDifficultyAorS);
+                A_Input.SetCorrectAnswer(addOrSub.GetCorrectAnswer());
+                currentQuestion = addOrSub;
+                break;
 
-            currentQuestion = addOrSub;
+            case EnumManager.QuestionCategories.MultiplyOrDivide:
+                multOrDiv.GenerateQuestion(mathDifficultyMorD);
+                A_Input.SetCorrectAnswer(multOrDiv.GetCorrectAnswer());
+                currentQuestion = multOrDiv;
+                break;
+
+            case EnumManager.QuestionCategories.Fractions:
+                // TODO: Remove hot fix
+                fractions.GenerateQuestion(-1);//-1 => temp fix
+                A_Input.SetCorrectAnswer(fractions.GetCorrectAnswer());
+                currentQuestion = fractions;
+                break;
+            case EnumManager.QuestionCategories.Algebra:
+                algebraQuestion.GenerateQuestion(mathDifficultyAorS);
+                A_Input.SetCorrectAnswer(algebraQuestion.GetCorrectAnswer());
+                currentQuestion = algebraQuestion;
+                break;
+            default:
+                Debug.LogError("Error: No MathType Found");
+                break;
         }
-        else if (selectedMath == 1)
-        {
-            multOrDiv.GenerateQuestion(mathDifficultyMorD);
-            A_Input.SetCorrectAnswer(multOrDiv.GetCorrectAnswer());
-            currentQuestion = multOrDiv;
-        }
-        /* else if (selectedMath == 2) {
-            Comparision.GenerateQuestion (-1); //-1 => temp fix
-            A_Input.SetCorrectAnswer (Comparision.getCorrectAnswer ());
-            currentQuestion = Comparision;
-        }
-        else if (selectedMath == 3) {
-            True_False.GenerateQuestion (-1);//-1 => temp fix
-            A_Input.SetCorrectAnswer (True_False.getCorrectAnswer ());
-            currentQuestion = True_False;
-        }*/
-        else if (selectedMath == 2)
-        {
-            // TODO: Remove hot fix
-            fractions.GenerateQuestion(-1);//-1 => temp fix
-            A_Input.SetCorrectAnswer(fractions.GetCorrectAnswer());
-            currentQuestion = fractions;
-        }
-        else if (selectedMath == 3)
-        {
-            algebraQuestion.GenerateQuestion(mathDifficultyAorS);
-            A_Input.SetCorrectAnswer(algebraQuestion.GetCorrectAnswer());
-            currentQuestion = algebraQuestion;
-        }
+       
         Debug.Log(currentQuestion.GetQuestionString());
         //gameData.gameResponse.solution = A_Input.GetCorrectAnswer();
         //gameData.gameResponse.question = A_Input.currentQuestion;

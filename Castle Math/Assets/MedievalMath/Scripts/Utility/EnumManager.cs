@@ -16,6 +16,8 @@ public static class EnumManager{
 
     public enum ActiveQuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra}
 
+    public enum QuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra, Fractions }
+
     public enum Controls { keyboard, vr, mouse};
 
     public enum GameState { MainMenu, LevelSelect, Wave, PotionShop, Intermath}

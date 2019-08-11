@@ -30,11 +30,10 @@ public class MultiplyOrDivide : MonoBehaviour, Question {
 
 	// Use this for initialization
 	public void Start () {
-        if (GameStateManager.instance.currentState != EnumManager.GameState.MainMenu)
-        {
+
             aInput = GameObject.FindObjectOfType<AnswerInput>();
             questionText = GameObject.Find("question").GetComponent<Text>();
-        }
+        
 	}
 
 

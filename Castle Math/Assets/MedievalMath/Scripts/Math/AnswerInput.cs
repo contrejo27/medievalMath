@@ -171,7 +171,7 @@ public class AnswerInput : MonoBehaviour {
         else {
             CorrectFeedback(feedbackTexts);
             // ("correct answer generating new problem");
-            m_math.GenerateProblem(m_math.GetQuestionTypes());
+            m_math.GenerateProblem();
 
         }
 
@@ -243,7 +243,7 @@ public class AnswerInput : MonoBehaviour {
             GameStateManager.instance.tracker.ShowIncorrectQestions();
             //print("incorrect answers generating new problem");
 
-            m_math.GenerateProblem(m_math.GetQuestionTypes());
+            m_math.GenerateProblem();
         }
     }
 

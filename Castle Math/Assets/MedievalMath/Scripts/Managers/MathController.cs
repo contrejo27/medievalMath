@@ -1,33 +1,46 @@
 ﻿using System.Collections;
-//using System;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//using System;
+using UnityEngine.UI;
 
+/// <summary>
+///holds math settings.
+///NOTE: To add a new question type add a 'MathType' variable to current MathController MathTypes, add 'MathType' to mathList array and add questionCategory to enumManager
+/// </summary>
 public class MathController : MonoBehaviour
 {
+    public class MathType
+    {
+        public string mathName;
+        public bool isEnabled;
+        public EnumManager.QuestionCategories questionCategory;
+
+        public MathType(string lMathName, bool lIsEnabled, EnumManager.QuestionCategories lQuestionCategory)
+        {
+            mathName = lMathName;
+            isEnabled = lIsEnabled;
+            questionCategory = lQuestionCategory;
+        }
+
+    }
+
     public static MathController instance;
 
-    public bool add_sub;
-    public bool mult_divide;
-    public bool fractions;
-    public bool preAlgebra;
-    //public bool wordProblems;
+    //current MathTypes
+    MathType add_sub = new MathType("add_sub", false, EnumManager.QuestionCategories.AddOrSubtract);
+    MathType mult_divide = new MathType("mult_divide", false, EnumManager.QuestionCategories.MultiplyOrDivide);
+    MathType fractions = new MathType("fractions", false, EnumManager.QuestionCategories.Fractions);
+    MathType preAlgebra = new MathType("preAlgebra", false, EnumManager.QuestionCategories.Algebra);
+
     public Text mathInstructions;
     public float startTime;
 
+    public MathType[] mathList = new MathType[4];
     bool hasStarted;
 
     Color textColor;
 
-    //temp bools just to see if level is completed
-    public bool level1_Completed;
-    public bool level2_Completed;
-    public bool level3_Completed;
-    public bool level4_Completed;
-
-    //Gets Current Scene and assigns a string to it
 
     // Use this for initialization
     void Awake()
@@ -40,32 +53,35 @@ public class MathController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log("m cont: " + gameObject.name);
-        // SaveData.LoadDataFromJSon();
+
+        mathList[0] = add_sub;
+        mathList[1] = mult_divide;
+        mathList[2] = fractions;
+        mathList[3] = preAlgebra;
+
     }
 
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-
-        level1_Completed = false;
-        level2_Completed = false;
-        level3_Completed = false;
-        level4_Completed = false;
-
-
-        if (SceneManager.GetActiveScene().name == "LevelSelection")
-        {
-            GameObject addSubGO = GameObject.Find("add/sub");
-            addSubGO.GetComponent<Toggle>().isOn = true;
-            add_sub = addSubGO.GetComponent<Toggle>().interactable = true;
-        }
-
         hasStarted = true;
     }
 
-    public void unlockMath()
+    public MathType selectMathType(EnumManager.QuestionCategories mathCategory)
     {
+        MathType selectedMathType = null;
+        foreach (MathType m in mathList)
+        {
+            if (m.questionCategory == mathCategory)
+            {
+                selectedMathType = m;
+            }
+        }
+        return selectedMathType;
+    }
+
+    public void unlockMath()
+    {/*
         Color mathOrange = new Color(0.91F, 0.58F, 0.264F, 1.0F);
 
         GameObject addGO = GameObject.Find("add/sub");
@@ -90,62 +106,9 @@ public class MathController : MonoBehaviour
 
         mathInstructions.text = "Select in-game lessons";
         mathInstructions.color = textColor;
-
+        */
     }
 
-    public void Update()
-    {
-        if (SceneManager.GetActiveScene().name == "MathTest")
-        {
-            if (GameObject.Find("WaveManager").GetComponent<WaveManager>().levelComplete)
-            {
-                level1_Completed = true;
-            }
-        }
-        if (SceneManager.GetActiveScene().name == "frostLevel")
-        {
-            if (GameObject.Find("WaveManager").GetComponent<WaveManager>().levelComplete)
-            {
-                level2_Completed = true;
-            }
-        }
-        if (SceneManager.GetActiveScene().name == "desertLevel")
-        {
-            if (GameObject.Find("WaveManager").GetComponent<WaveManager>().levelComplete)
-            {
-                level3_Completed = true;
-            }
-        }
-        if (SceneManager.GetActiveScene().name == "bossLevel")
-        {
-            if (GameObject.Find("WaveManager").GetComponent<WaveManager>().levelComplete)
-            {
-                level4_Completed = true;
-            }
-        }
-    }
-
-    public void UpdateSelection()
-    {
-        add_sub = GameObject.Find("add/sub").GetComponent<Toggle>().isOn;
-        print("addsub " + add_sub);
-        mult_divide = GameObject.Find("mult/divide").GetComponent<Toggle>().isOn;
-        print("mult_divide " + mult_divide);
-        fractions = GameObject.Find("Fractions").GetComponent<Toggle>().isOn;
-        print("fractions " + fractions);
-        preAlgebra = GameObject.Find("Pre-Algebra").GetComponent<Toggle>().isOn;
-        print("preAlgebra " + preAlgebra);
-
-        if (hasStarted)
-        {
-            SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.AddOrSubtract] = add_sub;
-            SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.MultiplyOrDivide] = mult_divide;
-            SaveData.activeQuestionCategories[EnumManager.ActiveQuestionCategories.Algebra] = preAlgebra;
-        }
-
-        SaveData.SaveDataToJSon();
-        // wordProblems = GameObject.Find("Word Problems").GetComponent<Toggle>().isOn;
-    }
 
     public IEnumerator ActivatorVR(string vrToggle)
     {

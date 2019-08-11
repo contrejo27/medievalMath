@@ -23,28 +23,7 @@ public class LevelSelect : MonoBehaviour {
 		level4.interactable = false;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if (level1.interactable == true && GameObject.Find("mathController").GetComponent<MathController>().level1_Completed) 
-		{
-			level1.image.sprite = Complete;
-			level2.interactable = true;
-		}
-		if (level1.interactable == true && GameObject.Find("mathController").GetComponent<MathController>().level2_Completed) 
-		{
-			level2.image.sprite = Complete;
-			level3.interactable = true;
-		}
-		if (level1.interactable == true && GameObject.Find("mathController").GetComponent<MathController>().level3_Completed) 
-		{
-			level3.image.sprite = Complete;
-			level4.interactable = true;
-		}
-		if (level1.interactable == true && GameObject.Find("mathController").GetComponent<MathController>().level4_Completed) 
-		{
-			//make level 4 completed
-		}
-	}
+
 
     
 }
