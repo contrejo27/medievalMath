@@ -34,11 +34,12 @@ public class MathController : MonoBehaviour
     MathType preAlgebra = new MathType("preAlgebra", false, EnumManager.QuestionCategories.Algebra);
     MathType factFamilies = new MathType("factFamilies", false, EnumManager.QuestionCategories.FactFamilies);
 
+    public int startingGrade = 1;
+
     public Text mathInstructions;
     public float startTime;
 
     public MathType[] mathList = new MathType[5];
-    bool hasStarted;
 
     Color textColor;
 
@@ -65,7 +66,6 @@ public class MathController : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        hasStarted = true;
     }
 
     public MathType selectMathType(EnumManager.QuestionCategories mathCategory)

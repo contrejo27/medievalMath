@@ -13,6 +13,7 @@ public class FactFamilies : MonoBehaviour, Question
     int maxInt;
     AnswerInput aInput;
     private int incorrectAnswers = 0;
+    List<int[]> correctFacts = new List<int[]>();
     string currentMathType;
 
     public Text questionText;
@@ -48,38 +49,21 @@ public class FactFamilies : MonoBehaviour, Question
 
     public void GenerateQuestion(int maxDifficulty)
     {
-        //NEXT STEP: check if this prints a number family then figure out how to make the right math out of it.
         //list of numbers in family
         int[] fFamilyNums = GetFactFamily();
-        foreach(int num in fFamilyNums)
-        {
-            print (num);
-        }
 
-        randomQuestion = Random.Range(0, 2); //1 => Add, 2 => subtract
 
-        if (randomQuestion == 0)
-        {
-            string questionString = "templateQuestion";
+        string questionString = "templateQuestion";
+        questionString = CreateQuestion(fFamilyNums);
 
-            aInput.SetQuestion(questionString);
 
-            correctAnswer = -1;
-            //Generate choices for possible answers 
-            GenerateChoices();
+        aInput.SetQuestion(questionString);
 
-        }
-        else
-        {
-            string questionString = "templateQuestion2";
-            //Set textbox display to formatted question string
-            //QuestionText.text = QuestionString;
-            aInput.SetQuestion(questionString);
+        //Generate choices for possible answers 
+        GenerateChoices();
 
-            correctAnswer = -1;
-            //Generate choices for possible answers 
-            GenerateChoices();
-        }
+
+
 
     }
 
@@ -97,18 +81,84 @@ public class FactFamilies : MonoBehaviour, Question
             if (!splitLine[0].StartsWith("*"))
             {
                 //if it's the correct grade put it in a list
-                if(int.Parse(splitLine[1]) == currentGrade)
+                if (int.Parse(splitLine[1]) == currentGrade)
                 {
                     int[] currentFam = new int[] { int.Parse(splitLine[2]), int.Parse(splitLine[3]), int.Parse(splitLine[4]) };
+
                     currentGradeFams.Add(currentFam);
                 }
                 currentMathType = splitLine[0];
-                
+
             }
 
         }
         //pick random family from list
         return currentGradeFams[Random.Range(0, currentGradeFams.Count)];
+    }
+
+    //creates question and answer depending on operation.
+    string CreateQuestion(int[] numList)
+    {
+        string qString = "";
+
+        randomQuestion = Random.Range(0, 2); //1 => Add, 2 => subtract
+
+        if (randomQuestion == 0)
+        {
+            correctFacts.Clear();
+            Permute(numList, 0, numList.Length - 1, "add");
+            int[] selectedFact = correctFacts[Random.Range(0, correctFacts.Count)];
+            qString = selectedFact[0] + " + " + selectedFact[1] + " = ";
+            correctAnswer = selectedFact[2];
+        }
+        else
+        {
+            correctFacts.Clear();
+            Permute(numList, 0, numList.Length - 1, "sub");
+            int[] selectedFact = correctFacts[Random.Range(0, correctFacts.Count)];
+            qString = selectedFact[0] + " - " + selectedFact[1] + " = ";
+            correctAnswer = selectedFact[2];
+        }
+
+
+        return qString;
+    }
+
+    //used to swap variables to recursively find all permutations of array of ints
+    private static void Swap(ref int a, ref int b)
+    {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
+
+    //recursively goes through each variation in the fact numbers and picks the ones that work with current math operation. 
+    private void Permute(int[] elements, int recursionDepth, int maxDepth, string operation)
+    {
+        if (recursionDepth == maxDepth)
+        {
+            if (operation == "add" && elements[0] + elements[1] == elements[2])
+            {
+                correctFacts.Add(new int[] { elements[0], elements[1], elements[2] });
+                print("added " + elements[0] + " + " + elements[1] + " = " + elements[2]);
+
+            }
+            else if (operation == "sub" && elements[0] - elements[1] == elements[2])
+            {
+                correctFacts.Add(new int[] { elements[0], elements[1], elements[2] });
+                print("added " + elements[0] + " - " + elements[1] + " = " + elements[2]);
+            }
+
+            return;
+        }
+
+        for (int i = recursionDepth; i <= maxDepth; i++)
+        {
+            Swap(ref elements[recursionDepth], ref elements[i]);
+            Permute(elements, recursionDepth + 1, maxDepth, operation);
+            // backtrack
+            Swap(ref elements[recursionDepth], ref elements[i]);
+        }
     }
 
     public void GenerateChoices()

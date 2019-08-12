@@ -1,12 +1,8 @@
-
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.IO;
 
 public class MathManager : MonoBehaviour
-{ 
+{
     public GameObject billboard;
     public WaveManager W_man;
     public AudioClip CorrectSound;
@@ -320,12 +316,19 @@ public class MathManager : MonoBehaviour
         List<MathController.MathType> currentQuestionTypes = new List<MathController.MathType>();
 
         // find the currently selected question types and put indices in list
+
         foreach (MathController.MathType question in MathController.instance.mathList)
         {
             if (question.isEnabled)
             {
                 currentQuestionTypes.Add(question);
             }
+        }
+
+        //if we haven't initialized the mathlist because we start mid program add a mathType to list
+        if (currentQuestionTypes == null || currentQuestionTypes.Count == 0)
+        {
+            currentQuestionTypes.Add( new MathController.MathType("factFamilies", true, EnumManager.QuestionCategories.FactFamilies));
         }
 
         MathController.MathType selectedMath = currentQuestionTypes[Random.Range(0, currentQuestionTypes.Count)];
@@ -355,16 +358,16 @@ public class MathManager : MonoBehaviour
                 currentQuestion = algebraQuestion;
                 break;
             case EnumManager.QuestionCategories.FactFamilies:
-                algebraQuestion.GenerateQuestion(mathDifficultyAorS);
-                A_Input.SetCorrectAnswer(algebraQuestion.GetCorrectAnswer());
+                FactFamilies.instance.GenerateQuestion(mathDifficultyAorS);
+                A_Input.SetCorrectAnswer(FactFamilies.instance.GetCorrectAnswer());
                 currentQuestion = algebraQuestion;
                 break;
-                
+
             default:
                 Debug.LogError("Error: No MathType Found");
                 break;
         }
-       
+
         Debug.Log(currentQuestion.GetQuestionString());
         //gameData.gameResponse.solution = A_Input.GetCorrectAnswer();
         //gameData.gameResponse.question = A_Input.currentQuestion;
