@@ -32,11 +32,12 @@ public class MathController : MonoBehaviour
     MathType mult_divide = new MathType("mult_divide", false, EnumManager.QuestionCategories.MultiplyOrDivide);
     MathType fractions = new MathType("fractions", false, EnumManager.QuestionCategories.Fractions);
     MathType preAlgebra = new MathType("preAlgebra", false, EnumManager.QuestionCategories.Algebra);
+    MathType factFamilies = new MathType("factFamilies", false, EnumManager.QuestionCategories.FactFamilies);
 
     public Text mathInstructions;
     public float startTime;
 
-    public MathType[] mathList = new MathType[4];
+    public MathType[] mathList = new MathType[5];
     bool hasStarted;
 
     Color textColor;
@@ -58,7 +59,7 @@ public class MathController : MonoBehaviour
         mathList[1] = mult_divide;
         mathList[2] = fractions;
         mathList[3] = preAlgebra;
-
+        mathList[4] = factFamilies;
     }
 
     void Start()

@@ -1,32 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 
-public static class EnumManager{
+public static class EnumManager
+{
 
-	public enum QuestionType { Add, Subtract, Multiply, Divide, Algebra, Compare, Fraction, TrueOrFalse };
+    public enum QuestionType { Add, Subtract, Multiply, Divide, Algebra, Compare, Fraction, TrueOrFalse };
 
-    public enum Upgrades { Barrricade1, Barricade2, IceArrows1, IceArrows2A, IceArrows2B,
-        FireArrows1, FireArrows2A, FireArrows2B, ShockArrows1, ShockArrows2A, ShockArrows2B, 
+    public enum Upgrades
+    {
+        Barrricade1, Barricade2, IceArrows1, IceArrows2A, IceArrows2B,
+        FireArrows1, FireArrows2A, FireArrows2B, ShockArrows1, ShockArrows2A, ShockArrows2B,
         Inventory1, Inventory2
     }
 
     public enum Loadout { IceArrowsA, IceArrowsB, FireArrowsA, FireArrowsB, ShockArrowsA, ShockArrowsB };
 
-    public enum ActiveQuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra}
+    public enum ActiveQuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra }
 
-    public enum QuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra, Fractions }
+    public enum QuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra, Fractions, FactFamilies }
 
-    public enum Controls { keyboard, vr, mouse};
+    public enum Controls { keyboard, vr, mouse };
 
-    public enum GameState { MainMenu, LevelSelect, Wave, PotionShop, Intermath}
+    public enum GameState { MainMenu, LevelSelect, Wave, PotionShop, Intermath }
 
-    public enum GameplayMode { Easy, Medium, Hard}
+    public enum GameplayMode { Easy, Medium, Hard }
 
     public enum PotionState { shop, menu, inventory }
 
-    public enum GemType { Penny, Nickel, Dime, Quarter, Dollar}
+    public enum GemType { Penny, Nickel, Dime, Quarter, Dollar }
 
     public enum ActivationType { Free, Paid, Special }
 

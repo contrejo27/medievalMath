@@ -27,6 +27,7 @@ public class MathManager : MonoBehaviour
     Fractions fractions;
     OrderOfOperations orderOfOperations;
     Algebra algebraQuestion;
+    FactFamilies factFamilies;
     WordProblem wordProblem;
     FractionTargets fractionTargets;
     NumberLineQuestion numberLineQuestion;
@@ -69,6 +70,7 @@ public class MathManager : MonoBehaviour
         // True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
         fractions = GetComponent<Fractions>();
         algebraQuestion = GetComponent<Algebra>();
+        factFamilies = GetComponent<FactFamilies>();
         orderOfOperations = GetComponent<OrderOfOperations>();
 
         gameData = GameObject.FindObjectOfType<GameData>();
@@ -352,6 +354,12 @@ public class MathManager : MonoBehaviour
                 A_Input.SetCorrectAnswer(algebraQuestion.GetCorrectAnswer());
                 currentQuestion = algebraQuestion;
                 break;
+            case EnumManager.QuestionCategories.FactFamilies:
+                algebraQuestion.GenerateQuestion(mathDifficultyAorS);
+                A_Input.SetCorrectAnswer(algebraQuestion.GetCorrectAnswer());
+                currentQuestion = algebraQuestion;
+                break;
+                
             default:
                 Debug.LogError("Error: No MathType Found");
                 break;

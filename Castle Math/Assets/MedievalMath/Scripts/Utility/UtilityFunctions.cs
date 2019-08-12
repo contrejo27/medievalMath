@@ -1,14 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UtilityFunctions : MonoBehaviour {
-
+public class UtilityFunctions : MonoBehaviour
+{
     public static UtilityFunctions instance;
 
     void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -26,10 +25,10 @@ public class UtilityFunctions : MonoBehaviour {
     IEnumerator UIPositionLerpCoroutine(RectTransform rt, float time, Vector3 initPos, Vector3 targetPos, bool setInactive)
     {
         float timer = 0;
-        while(timer < time && rt.gameObject.activeSelf)
+        while (timer < time && rt.gameObject.activeSelf)
         {
             timer += Time.deltaTime;
-            rt.anchoredPosition = Vector3.Lerp(initPos, targetPos, timer/time);
+            rt.anchoredPosition = Vector3.Lerp(initPos, targetPos, timer / time);
             yield return null;
         }
         if (setInactive)
@@ -38,16 +37,25 @@ public class UtilityFunctions : MonoBehaviour {
         }
     }
 
-    //IEnumerator UITextFadeCoroutine
-    
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    /// <summary>
+    /// used to read documents from resource folder
+    /// </summary>
+    /// <param name="path">path to file in resource folder without extension. example: waves/kells_WaveEasy</param>
+    /// <returns>Returns an array of strings that have text divided by newlines</returns>
+    public string[] ReadDoc(string path)
+    {
+        TextAsset Dat = Resources.Load(path, typeof(TextAsset)) as TextAsset;
+
+        //each row is split with a '\n' a.k.a an enter to a new row
+        string[] data = Dat.text.Split(new char[] { '\n' });
+
+        return data;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
