@@ -57,7 +57,6 @@ public class MathManager : MonoBehaviour
 
     void Start()
     {
-        GameStateManager.instance.mathManager = this;
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
         A_Input = GetComponent<AnswerInput>();
         multOrDiv = GetComponent<MultiplyOrDivide>();

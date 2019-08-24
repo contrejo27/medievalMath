@@ -10,10 +10,10 @@ using UnityEngine.UI;
 // between state changes like lose or next wave
 public class GameStateManager : MonoBehaviour
 {
+    public bool isTestBuild;
 
     public EnumManager.GameState currentState;
     public EnumManager.GameplayMode currentDifficulty;
-    public EnumManager.ActivationType currentSubscription;
 
     // Game statistics
     public QuestionTracker tracker = new QuestionTracker();
@@ -36,8 +36,6 @@ public class GameStateManager : MonoBehaviour
     public Inventory inventory;
     //[HideInInspector]
     public WaveManager waveManager;
-    //[HideInInspector]
-    public MathManager mathManager;
     //[HideInInspector]
     public LevelManager levelManager;
 
@@ -103,8 +101,6 @@ public class GameStateManager : MonoBehaviour
         potionShop = GameObject.FindObjectOfType<PotionShop>();
         if (!potionShop && Resources.FindObjectsOfTypeAll<PotionShop>()[0] != null)
             potionShop = Resources.FindObjectsOfTypeAll<PotionShop>()[0];
-        if (!mathManager)
-            mathManager = Resources.FindObjectsOfTypeAll<MathManager>()[0];
         if (!playerMathStats)
             playerMathStats = Resources.FindObjectsOfTypeAll<PlayerMathStats>()[0];
     }
@@ -115,7 +111,6 @@ public class GameStateManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         waveManager = GameObject.FindObjectOfType<WaveManager>();
-        mathManager = GameObject.FindObjectOfType<MathManager>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
 
 
@@ -140,7 +135,6 @@ public class GameStateManager : MonoBehaviour
         }
 
         waveManager = GameObject.FindObjectOfType<WaveManager>();
-        mathManager = GameObject.FindObjectOfType<MathManager>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
         potionShop = Resources.FindObjectsOfTypeAll<PotionShop>()[0];
@@ -363,6 +357,9 @@ public class GameStateManager : MonoBehaviour
         isVR = isVROn;
     }
 
+    public void UnlockContent()
+    {
 
+    }
 }
 

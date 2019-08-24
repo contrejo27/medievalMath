@@ -14,7 +14,6 @@ public class TelemetryManager : MonoBehaviour {
     public string API_URL;
     
     // Data hooks
-    public MathManager m_mathmanager;
     private MathController m_mathcontroller;
     private WaveMathManager m_wavemathmanager;
     private WaveManager m_wavemanager;
@@ -58,7 +57,7 @@ public class TelemetryManager : MonoBehaviour {
         m_mathcontroller = GameObject.FindObjectOfType<MathController>();
         m_wavemathmanager = GameObject.FindObjectOfType<WaveMathManager>();
         m_wavemanager = GameObject.FindObjectOfType<WaveManager>();
-        m_playermathstats = m_mathmanager.GetComponent<PlayerMathStats>();
+        m_playermathstats = GameObject.FindObjectOfType<PlayerMathStats>();
         m_barriers = GameObject.FindObjectsOfType<DoorHealth>();
         m_gameData = GameData.instance;
         roundFilePath = m_gameData.roundPath;
@@ -295,7 +294,7 @@ public class TelemetryManager : MonoBehaviour {
         // Math Telemetry (more correctly to response payload, but currently not part of session)
         payload = addJson(payload, "correct", m_playermathstats.correctAnswers.ToString());
         payload = addJson(payload, "incorrect", m_playermathstats.incorrectAnswers.ToString());
-        payload = addJson(payload, "totalAnswers ", m_mathmanager.totalQuestionsAnswered.ToString());
+        payload = addJson(payload, "totalAnswers ", MathManager.instance.totalQuestionsAnswered.ToString());
         payload = addJson(payload, "gradeNumber", m_playermathstats.gradeNumber.ToString());
         payload = addJson(payload, "personalHighScore", m_playermathstats.personalHighScore.ToString());
         payload = addJson(payload, "addOrSubtractScore", m_playermathstats.AddOrSubtractScore.ToString());
@@ -310,13 +309,13 @@ public class TelemetryManager : MonoBehaviour {
     public string ResponsePayload()
     {
 
-        m_gameData.gameResponse.correct = m_mathmanager.GetComponent<AnswerInput>().GetIsCorrect();
-        m_gameData.gameResponse.question = m_mathmanager.GetComponent<AnswerInput>().currentQuestion;
+        m_gameData.gameResponse.correct = MathManager.instance.GetComponent<AnswerInput>().GetIsCorrect();
+        m_gameData.gameResponse.question = MathManager.instance.GetComponent<AnswerInput>().currentQuestion;
         m_gameData.gameResponse.incorrect = m_playermathstats.incorrectAnswers;
-        m_gameData.gameResponse.totalAnswers = m_mathmanager.totalQuestionsAnswered;
-        m_gameData.gameResponse.answer = m_mathmanager.GetComponent<AnswerInput>().selectedAnswer;
-        m_gameData.gameResponse.solution = m_mathmanager.GetComponent<AnswerInput>().GetCorrectAnswer();
-        m_gameData.gameResponse.attempts = m_mathmanager.GetComponent<PlayerMathStats>().attempts;
+        m_gameData.gameResponse.totalAnswers = MathManager.instance.totalQuestionsAnswered;
+        m_gameData.gameResponse.answer = MathManager.instance.GetComponent<AnswerInput>().selectedAnswer;
+        m_gameData.gameResponse.solution = MathManager.instance.GetComponent<AnswerInput>().GetCorrectAnswer();
+        m_gameData.gameResponse.attempts = MathManager.instance.GetComponent<PlayerMathStats>().attempts;
 
 
         return m_gameData.GetResponseData();

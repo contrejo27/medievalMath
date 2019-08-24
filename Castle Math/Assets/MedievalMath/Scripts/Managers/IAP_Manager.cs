@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class IAP_Manager : MonoBehaviour
@@ -19,39 +18,38 @@ public class IAP_Manager : MonoBehaviour
         {
             //IAP was successfully initialized
             //loop through all products
-            for (int i = 0; i < shopProducts.Count; i++)
-            {
-                if (shopProducts[i].productName == "YourProductName")
-                {
-                    //if active variable is true, means that user had bought that product
-                    //so enable access
-                    if (shopProducts[i].active)
-                    {
-                        GameStateManager.instance.currentSubscription = EnumManager.ActivationType.Paid;
-                    }
-                }
-            }
+            /* for (int i = 0; i < shopProducts.Count; i++)
+             {
+                 if (shopProducts[i].productName == "YourProductName")
+                 {
+                     //if active variable is true, means that user had bought that product
+                     //so enable access
+                     if (shopProducts[i].active)
+                     {*/
+           // UserManager.instance.UpdateActivation(EnumManager.ActivationType.Paid);
+                   //}
+               //}
+            //}
         }
         else
         {
-            Debug.Log("Error occurred "+message);
+            Debug.Log("Error occurred " + message);
         }
     }
 
     public void PurchaseContent()
     {
+        if(GameStateManager.instance.isTestBuild) UserManager.instance.UpdateActivation(EnumManager.ActivationType.Paid);
+
         IAPManager.Instance.BuyProduct(ShopProductNames.UnlockAllContent, ProductBoughtCallback);
     }
 
     // automatically called after one product is bought
-    // this is an example of product bought callback
-    private void ProductBoughtCallback(IAPOperationStatus status, string message, StoreProduct
-    product)
+    private void ProductBoughtCallback(IAPOperationStatus status, string message, StoreProduct product)
     {
         if (status == IAPOperationStatus.Success)
         {
-            if (product.productName == "UnlockLevel1")
-                GameStateManager.instance.currentSubscription = EnumManager.ActivationType.Paid;
+            UserManager.instance.UpdateActivation(EnumManager.ActivationType.Paid);
         }
         else
         {

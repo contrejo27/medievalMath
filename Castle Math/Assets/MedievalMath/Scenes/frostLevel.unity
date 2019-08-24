@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 935472010}
-  m_IndirectSpecularColor: {r: 0.3514313, g: 0.5807275, b: 0.7949346, a: 1}
+  m_IndirectSpecularColor: {r: 0.35148954, g: 0.5802327, b: 0.79598, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -736,7 +736,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   API_URL: 
-  m_mathmanager: {fileID: 1102821707}
   m_playermathstats: {fileID: 1102821706}
   m_barriers: []
   m_gameData: {fileID: 0}
@@ -828,7 +827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &95783386
 RectTransform:
   m_ObjectHideFlags: 0
@@ -876,7 +875,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95783385}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -7749,7 +7748,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323348673}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.03}
   m_LocalScale: {x: -0.005550009, y: 0.0055500004, z: 0.0055500125}
   m_Children: []
   m_Father: {fileID: 2107752589}
@@ -7757,7 +7756,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.011989087, y: -2.43}
+  m_AnchoredPosition: {x: 0.01, y: -2.43}
   m_SizeDelta: {x: 832.42, y: 435.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &323348675
@@ -18580,10 +18579,8 @@ MonoBehaviour:
   - {fileID: 1090992092}
   - {fileID: 584160139}
   - {fileID: 291008271}
-  Mathm: {fileID: 1102821707}
   billboard: {fileID: 1118659230}
   gManager: {fileID: 0}
-  mManager: {fileID: 1102821707}
   gemSpawnPoint: {fileID: 1769334302}
   AnotherWave: {fileID: 8300000, guid: 5b328eff29efc45b6b58915737cfc7a5, type: 3}
   enemySounds: {fileID: 255433344}
@@ -19885,16 +19882,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b3981a1f13fe24587f26953eb8f051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  add_sub: 0
-  mult_divide: 1
-  fractions: 0
-  preAlgebra: 0
+  unlockMathNotice: {fileID: 0}
+  startingGrade: 1
   mathInstructions: {fileID: 0}
   startTime: 0
-  level1_Completed: 0
-  level2_Completed: 0
-  level3_Completed: 0
-  level4_Completed: 0
 --- !u!1 &1110596522
 GameObject:
   m_ObjectHideFlags: 0
@@ -33098,28 +33089,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 95783387}
-        m_MethodName: fadeIn
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: SetLookingAtInterface
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 255433341}
         m_MethodName: SetActive
         m_Mode: 6
@@ -33164,6 +33133,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 95783385}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null

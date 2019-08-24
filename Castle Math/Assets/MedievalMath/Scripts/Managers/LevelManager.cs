@@ -87,7 +87,6 @@ public class LevelManager : MonoBehaviour {
         {
             GameStateManager.instance.currentState = EnumManager.GameState.Wave;
             billboard.GetComponent<Animator>().Play("hide");
-            Debug.Log("Hiding billboard");
             tutorialImage.SetActive(false);
             target.SetActive(false);
             notificationEffects.fadeIn(1.5f);

@@ -24,6 +24,8 @@ public class MathController : MonoBehaviour
         }
 
     }
+    public GameObject contentUnlockedNotice;
+    public GameObject unlockMathNotice;
 
     public static MathController instance;
 
@@ -82,32 +84,15 @@ public class MathController : MonoBehaviour
     }
 
     public void unlockMath()
-    {/*
-        Color mathOrange = new Color(0.91F, 0.58F, 0.264F, 1.0F);
+    {
+        contentUnlockedNotice.SetActive(true);
 
-        GameObject addGO = GameObject.Find("add/sub");
-        add_sub = addGO.GetComponent<Toggle>().interactable = true;
-        addGO.transform.Find("Text").GetComponent<Text>().color = mathOrange;
-
-        GameObject multGO = GameObject.Find("mult/divide");
-        mult_divide = multGO.GetComponent<Toggle>().interactable = true;
-        multGO.transform.Find("Text").GetComponent<Text>().color = mathOrange;
-
-        GameObject fractionGO = GameObject.Find("Fractions");
-        fractions = fractionGO.GetComponent<Toggle>().interactable = true;
-        fractionGO.transform.Find("Text").GetComponent<Text>().color = mathOrange;
-
-        // GameObject wordGO = GameObject.Find("Word Problems");
-        // wordProblems = wordGO.GetComponent<Toggle>().interactable = true;
-        // wordGO.transform.Find("Text").GetComponent<Text>().color = mathOrange;
-
-        GameObject PreAlgGO = GameObject.Find("Pre-Algebra");
-        preAlgebra = PreAlgGO.GetComponent<Toggle>().interactable = true;
-        PreAlgGO.transform.Find("Text").GetComponent<Text>().color = mathOrange;
-
-        mathInstructions.text = "Select in-game lessons";
-        mathInstructions.color = textColor;
-        */
+        GameObject[] mathSkills = GameObject.FindGameObjectsWithTag("MathSkillButton");
+        foreach (GameObject GO in mathSkills)
+        {
+            GO.GetComponent<Toggle>().interactable = true;
+        }
+        unlockMathNotice.SetActive(false);
     }
 
 

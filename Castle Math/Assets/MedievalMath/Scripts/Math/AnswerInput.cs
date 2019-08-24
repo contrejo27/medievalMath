@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 
 public class AnswerInput : MonoBehaviour {
 
-    private MathManager m_math;
     public GameObject[] feedbackMarks;
     public Sprite xMark;
     public Sprite checkMark;
@@ -51,7 +50,6 @@ public class AnswerInput : MonoBehaviour {
 
     public void Start () {
        // manaBar = FindObjectOfType<ManaBar> ();
-        m_math = GameObject.FindObjectOfType<MathManager> ();
         arrowSupplier = GameObject.FindObjectOfType<ArrowSupplier> ();
         audioSource = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
         mathStats = GameObject.FindObjectOfType<PlayerMathStats> ();
@@ -162,7 +160,7 @@ public class AnswerInput : MonoBehaviour {
     }
 
     public void OnCorrect() {
-        if (m_math.interwaveMath) {
+        if (MathManager.instance.interwaveMath) {
             GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
             GameStateManager.instance.ActivatePotionShop();
             InterWaveCorrectFeedback();
@@ -171,18 +169,18 @@ public class AnswerInput : MonoBehaviour {
         else {
             CorrectFeedback(feedbackTexts);
             // ("correct answer generating new problem");
-            m_math.GenerateProblem();
+            MathManager.instance.GenerateProblem();
 
         }
 
         mathStats.CorrectlyAnswered ();
 
         // If answered incorrectly more than once, place in incorrect question tracker
-        if (m_math.GetIncorrectAnswersPerQuestion() >= 1) {
-            GameStateManager.instance.tracker.AddIncorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetIncorrectAnswersPerQuestion());
+        if (MathManager.instance.GetIncorrectAnswersPerQuestion() >= 1) {
+            GameStateManager.instance.tracker.AddIncorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
         }
         else {
-            GameStateManager.instance.tracker.AddCorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetIncorrectAnswersPerQuestion());
+            GameStateManager.instance.tracker.AddCorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
         }
 
         //manaBar.CorrectAnswer();
@@ -192,8 +190,8 @@ public class AnswerInput : MonoBehaviour {
 
     public void OnIncorrect () {
         mathStats.IncorrectlyAnswered();
-        m_math.IncorrectAnswer();
-        if (m_math.interwaveMath) {
+        MathManager.instance.IncorrectAnswer();
+        if (MathManager.instance.interwaveMath) {
             InterWaveIncorrectFeedback();
             GameStateManager.instance.waveManager.NextWave();
             //interwaveQuestions++;
@@ -210,7 +208,7 @@ public class AnswerInput : MonoBehaviour {
     }
 
     public void CheckNumIncorrect () {
-        if (m_math.GetIncorrectAnswersPerQuestion() == 2) {
+        if (MathManager.instance.GetIncorrectAnswersPerQuestion() == 2) {
             // TODO: display tip graphic
 
             // Find random index at which to remove an answer choice
@@ -237,13 +235,11 @@ public class AnswerInput : MonoBehaviour {
             //Resassign answer choices to new array
             this.answerChoices = answerChoicesCopy;
         }
-        else if (m_math.GetIncorrectAnswersPerQuestion() == 3) {
-            GameStateManager.instance.tracker.AddIncorrectQuestion(m_math.GetCurrentQuestion(), m_math.GetIncorrectAnswersPerQuestion());
-            //Debug.Log("Current Question: " + m_math.GetCurrentQuestion().GetQuestionString());
+        else if (MathManager.instance.GetIncorrectAnswersPerQuestion() == 3) {
+            GameStateManager.instance.tracker.AddIncorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
             GameStateManager.instance.tracker.ShowIncorrectQestions();
-            //print("incorrect answers generating new problem");
 
-            m_math.GenerateProblem();
+            MathManager.instance.GenerateProblem();
         }
     }
 
@@ -342,7 +338,7 @@ public class AnswerInput : MonoBehaviour {
 
     IEnumerator delayDeactivateMath() {
         yield return new WaitForSeconds (.7f);
-        m_math.DeactivateInterMath();
+        MathManager.instance.DeactivateInterMath();
         yield return new WaitForSeconds (1f);
         foreach(GameObject mark in feedbackMarks) {
             mark.SetActive(false);		

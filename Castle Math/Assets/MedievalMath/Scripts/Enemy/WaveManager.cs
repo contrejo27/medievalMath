@@ -24,10 +24,8 @@ public class WaveManager : MonoBehaviour
     public Transform[] SpawnPoints;
     public Transform[] BonusSpawnPoints;
     public Transform[] fenceTargets;
-    public MathManager Mathm;
     public GameObject billboard;
     public GameStateManager gManager;
-    public MathManager mManager;
     public Transform gemSpawnPoint;
 
 
@@ -182,7 +180,7 @@ public class WaveManager : MonoBehaviour
 
         if (currentWave % 2 == 0)
         {
-            Mathm.SetDifficulty();
+            MathManager.instance.SetDifficulty();
         }
 
         if (currentWave == finalWave / 2)
@@ -492,10 +490,10 @@ addEnemyToWaveSize();
 
     */
 
-            if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (mManager.QuestionTypes[1] || mManager.QuestionTypes[0]))
+            if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (MathManager.instance.QuestionTypes[1] || MathManager.instance.QuestionTypes[0]))
             {
                 GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
-                Mathm.ActivateInterMath();
+                MathManager.instance.ActivateInterMath();
             }
             else
             {
