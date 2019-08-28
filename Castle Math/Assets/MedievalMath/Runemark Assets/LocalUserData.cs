@@ -13,24 +13,23 @@ public static class LocalUserData
 
     public static string GetUserEmail()
     {
-        return "0";
+        if(PlayerPrefs.HasKey(loggedInPref)) return PlayerPrefs.GetString(loggedInPref); 
+        else return "No email found"; 
     }
 
     public static void SetUserEmail(string userEmail)
     {
-        //PlayerPrefs.SetString(loggedInPref, userEmail);
+        PlayerPrefs.SetString(loggedInPref, userEmail);
     }
 
     public static bool IsSubActive()
     {
-       
         return false;
     }
 
     public static double GetDaysLeftOfSub()
     {
-        
-        return 0;
+            return 0;
     }
 
     public static void DestroyPref()

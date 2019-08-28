@@ -45,7 +45,7 @@ public class IAP_Manager : MonoBehaviour
         }
         else
         {
-            IAPManager.Instance.BuyProduct(ShopProductNames.UnlockAllContent, ProductBoughtCallback);
+            IAPManager.Instance.BuyProduct(ShopProductNames.oneMonthSubscription, ProductBoughtCallback);
         }
     }
 

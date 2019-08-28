@@ -5,7 +5,7 @@ public class MathToggleBehavior : MonoBehaviour
 {
     Toggle toggle;
     public EnumManager.QuestionCategories questionCategory;
-
+    public GameObject mathLocked;
 
     void Start()
     {
@@ -14,6 +14,7 @@ public class MathToggleBehavior : MonoBehaviour
         UpdateToggle(toggle.isOn);
         toggle.onValueChanged.AddListener(OnToggleValueChanged);
     }
+
 
     //updates button and if math is enabled
     private void OnToggleValueChanged(bool isOn)
