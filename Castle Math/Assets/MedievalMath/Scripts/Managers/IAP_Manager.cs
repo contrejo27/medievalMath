@@ -26,9 +26,9 @@ public class IAP_Manager : MonoBehaviour
                      //so enable access
                      if (shopProducts[i].active)
                      {*/
-           // UserManager.instance.UpdateActivation(EnumManager.ActivationType.Paid);
-                   //}
-               //}
+            // UserManager.instance.UpdateActivation(EnumManager.ActivationType.Paid);
+            //}
+            //}
             //}
         }
         else
@@ -39,9 +39,14 @@ public class IAP_Manager : MonoBehaviour
 
     public void PurchaseContent()
     {
-        if(GameStateManager.instance.isTestBuild) UserManager.instance.UpdateActivation(EnumManager.ActivationType.Paid);
-
-        IAPManager.Instance.BuyProduct(ShopProductNames.UnlockAllContent, ProductBoughtCallback);
+        if (GameStateManager.instance.isTestBuild)
+        {
+            UserManager.instance.UpdateActivation(EnumManager.ActivationType.Paid);
+        }
+        else
+        {
+            IAPManager.Instance.BuyProduct(ShopProductNames.UnlockAllContent, ProductBoughtCallback);
+        }
     }
 
     // automatically called after one product is bought
@@ -49,6 +54,7 @@ public class IAP_Manager : MonoBehaviour
     {
         if (status == IAPOperationStatus.Success)
         {
+            Debug.Log("Buy product completed");
             UserManager.instance.UpdateActivation(EnumManager.ActivationType.Paid);
         }
         else

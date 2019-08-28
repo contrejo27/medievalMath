@@ -473,10 +473,16 @@ addEnemyToWaveSize();
         }
     }
 
+    public void KillAllEnemies()
+    {
+        CurrentEnemies = 1;
+        EnemyKilled();
+    }
 
     public void EnemyKilled()
     {
         CurrentEnemies -= 1;
+
         //if all enemies were killed
         if (CurrentEnemies <= 0)
         {
@@ -490,7 +496,8 @@ addEnemyToWaveSize();
 
     */
 
-            if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13 && (MathManager.instance.QuestionTypes[1] || MathManager.instance.QuestionTypes[0]))
+            //load intermath
+            if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13)
             {
                 GameStateManager.instance.currentState = EnumManager.GameState.Intermath;
                 MathManager.instance.ActivateInterMath();

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2762873205842658447}
   - component: {fileID: 5916552212503717837}
   - component: {fileID: 2762873205842658440}
+  - component: {fileID: 2277723209018285900}
   - component: {fileID: 663164260}
   m_Layer: 0
   m_Name: GameManager
@@ -47,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf044f411574014c9f8c3ad0d3cca1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTestBuild: 0
   currentState: 0
   currentDifficulty: 0
-  currentSubscription: 0
   playerMathStats: {fileID: 0}
   player: {fileID: 0}
   currentSkillLevel: 0
@@ -58,7 +59,6 @@ MonoBehaviour:
   potionShop: {fileID: 0}
   inventory: {fileID: 0}
   waveManager: {fileID: 0}
-  mathManager: {fileID: 0}
   levelManager: {fileID: 0}
 --- !u!114 &2762873205842658447
 MonoBehaviour:
@@ -133,6 +133,19 @@ MonoBehaviour:
   apiURL: 
   create: 0
   load: 1
+--- !u!114 &2277723209018285900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2762873205842658444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed0c07b7444a6044adaf317ccad2c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BASE_URL: https://docs.google.com/forms/d/e/1FAIpQLSf5z-8z6BgWcCWTMvGIYkqQvHnwvZjuHeY3_NfYd0iQJrTeSA/formResponse
 --- !u!114 &663164260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,5 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b3981a1f13fe24587f26953eb8f051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  contentUnlockedNotice: {fileID: 0}
+  unlockMathNotice: {fileID: 0}
+  startingGrade: 1
   mathInstructions: {fileID: 0}
   startTime: 0

@@ -337,6 +337,7 @@ public class EnemyBehavior : MonoBehaviour {
         navMeshAgent.enabled = false;
 
         currentAudioSource = Random.Range(0, audioSource.Length);
+
         audioSource[currentAudioSource].loop = false;
         audioSource[currentAudioSource].clip = deathSounds[Random.Range(0, deathSounds.Length)];
         audioSource[currentAudioSource].Play ();
@@ -361,7 +362,8 @@ public class EnemyBehavior : MonoBehaviour {
         //Anim.Play("death");
 
         wManager.EnemyKilled ();
-        StartCoroutine (WaitToDestroy());
+
+        StartCoroutine(WaitToDestroy());
     }
 
     //wait to 

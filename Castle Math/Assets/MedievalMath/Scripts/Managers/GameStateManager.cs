@@ -57,6 +57,8 @@ public class GameStateManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", Launched Game, " + SystemInfo.deviceName.ToString()+",-,-");
+                  
         // TODO: What does tracker do?
         tracker.ReadCSV();
         SaveData.LoadDataFromJSon();
@@ -122,6 +124,8 @@ public class GameStateManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + scene.name + ", LoadedScene,-,-,-");
+
         if (scene.buildIndex > 0)
         {
             //RenderSettings.skybox.SetFloat("_Exposure", 0.8f);

@@ -36,11 +36,6 @@ public class FactFamilies : MonoBehaviour, Question
         {
             Destroy(gameObject);
         }
-    }
-
-    // Use this for initialization
-    public void Start()
-    {
         factFamilyArray = UtilityFunctions.instance.ReadDoc("Math\\FactFamilies");
 
         aInput = GameObject.FindObjectOfType<AnswerInput>();
@@ -51,7 +46,6 @@ public class FactFamilies : MonoBehaviour, Question
     {
         //list of numbers in family
         int[] fFamilyNums = GetFactFamily();
-
 
         string questionString = "templateQuestion";
         questionString = CreateQuestion(fFamilyNums);

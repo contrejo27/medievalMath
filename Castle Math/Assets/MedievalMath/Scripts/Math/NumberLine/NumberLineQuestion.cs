@@ -11,7 +11,6 @@ public class NumberLineQuestion : MonoBehaviour, Question {
     public Text QuestionText_hud;
     // This is messy, but it's honestly easier than calculating the 
     // Billboard's off-center position.
-    public Transform billboardCenter;
     public NumberLineManager nlm;
     
     private int lowerBound;
@@ -41,7 +40,6 @@ public class NumberLineQuestion : MonoBehaviour, Question {
         lowerBound = Random.Range(-20, 1);
         upperBound = lowerBound + 20;
         intAnswer = Random.Range(lowerBound, upperBound + 1);
-        A_Input.interwaveQuestionsForWave = 0;
 
         int initPos;
         if (intAnswer - 5 <= lowerBound)
@@ -59,14 +57,10 @@ public class NumberLineQuestion : MonoBehaviour, Question {
 
         QuestionText.text = "Move the slider to " +  intAnswer + " by shooting the ballons to match the value!";
 
-        nlm.gameObject.SetActive(true);
         nlm.SpawnTargets(lowerBound, initPos - lowerBound);
         nlm.maxAttempts = maxAttempts;
         nlm.targetValue = intAnswer;
 
-
-        // StringAnswer = numerator.ToString() + "/" + denominator.ToString();
-        GenerateChoices();
     }
 
     public void CheckAnswer(int currentPos, bool maxAttemptsSurpased)
@@ -92,10 +86,7 @@ public class NumberLineQuestion : MonoBehaviour, Question {
     /// </summary>
     public void GenerateChoices()
     {
-        string[] AnswerChoices = {"","","",""};
-
-        A_Input.DisplayChoices(AnswerChoices);
-
+        //no choices
     }
     
 

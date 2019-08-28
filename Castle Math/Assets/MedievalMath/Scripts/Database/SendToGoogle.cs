@@ -27,6 +27,19 @@ public class SendToGoogle : MonoBehaviour
         StartCoroutine(Post(student, strand, standard, question, answer, result));
     }
 
+    public void SendCustom(string cmd)
+    {
+        string[] cmds = cmd.Split(',');
+        student = cmds[0];
+        strand = cmds[1];
+        standard = cmds[2];
+        question = cmds[3];
+        answer = cmds[4];
+        result = cmds[5];
+
+        StartCoroutine(Post(student, strand, standard, question, answer, result));
+    }
+
     IEnumerator Post(string lStudent, string lStrand, string lStandard, string lQuestion, string lAnswer, string lResult)
     {
         WWWForm form = new WWWForm();

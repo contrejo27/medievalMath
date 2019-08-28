@@ -28,6 +28,8 @@ public class UserManager : MonoBehaviour
 
     public void UpdateActivation(EnumManager.ActivationType newActivation)
     {
+        GameStateManager.instance.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", ContentUnlocked, " + SystemInfo.deviceName.ToString() + ",-,-");
+
         currentActivation = newActivation;
         if(currentActivation == EnumManager.ActivationType.Paid)
         {

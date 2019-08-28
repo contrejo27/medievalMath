@@ -3,16 +3,10 @@ using UnityEngine;
 
 public class MathManager : MonoBehaviour
 {
-    public GameObject billboard;
-    public WaveManager W_man;
-    public AudioClip CorrectSound;
-    public AudioClip IncorrectSound;
-
     private int mathDifficultyAorS = 6;
     private int mathDifficultyMorD = 5;
     public int totalQuestionsAnswered = 0;
     private int maxDifficultyIncrease = 3;
-    public bool interwaveMath;
 
     AnswerInput A_Input;
 
@@ -26,22 +20,31 @@ public class MathManager : MonoBehaviour
     FactFamilies factFamilies;
     WordProblem wordProblem;
     FractionTargets fractionTargets;
-    NumberLineQuestion numberLineQuestion;
 
+    //MathPuzzlePrefabs
+    [Header("Math Puzzle Prefabs")]
+    public GameObject NumberLinePrefab;
+
+    [Header("Math Functionality")]
     public bool[] QuestionTypes;
     public List<int> intermathQTypeOptions;
     public int IncorrectAnswersPerQuestion;
     public int QuestionType;
     public Question currentQuestion;
+    public GameData gameData;
+    public bool interwaveMath;
 
-
+    [Header("Math UI")]
     public GameObject mathCanvas;
     public UIEffects interMathCanvas;
     public UIEffects interMathButtons;
-    //public TelemetryManager m_telemetry;
-    public GameData gameData;
-
+    public GameObject billboard;
+    public AudioClip CorrectSound;
+    public AudioClip IncorrectSound;
+    public GameObject billboardCenter;
     public static MathManager instance;
+
+    List<MathController.MathType> currentQuestionTypes = new List<MathController.MathType>();
 
     void Awake()
     {
@@ -70,11 +73,8 @@ public class MathManager : MonoBehaviour
 
         gameData = GameObject.FindObjectOfType<GameData>();
 
-
-
         wordProblem = GetComponent<WordProblem>();
         fractionTargets = GetComponent<FractionTargets>();
-        numberLineQuestion = GetComponent<NumberLineQuestion>();
 
         multOrDiv.Start();
         addOrSub.Start();
@@ -174,32 +174,40 @@ public class MathManager : MonoBehaviour
         interwaveMath = true;
         GenerateInterMathQuestion();
         ActivateBillboard();
+
     }
 
     public void GenerateInterMathQuestion()
     {
-        switch (intermathQTypeOptions[Random.Range(0, intermathQTypeOptions.Count)])
+
+        MathController.MathType selectedMath = currentQuestionTypes[Random.Range(0, currentQuestionTypes.Count)];
+        switch (selectedMath.questionCategory)
         {
-            case 0:
-                float randomFloat = Random.Range(0, 1f);
-                if (randomFloat < .5f)
-                {
-                    GenerateQuestionForInterMath(numberLineQuestion);
-                    // GenerateQuestionForInterMath(wordProblem);
-                }
-                else
-                {
-                    GenerateQuestionForInterMath(numberLineQuestion);
-                }
+            case EnumManager.QuestionCategories.AddOrSubtract:
+                Instantiate(NumberLinePrefab, billboardCenter.transform);
                 break;
-            case 1:
-                GenerateQuestionForInterMath(fractionTargets);
-                // GenerateQuestionForInterMath(multOrDiv);
+
+            case EnumManager.QuestionCategories.MultiplyOrDivide:
+                Instantiate(NumberLinePrefab, billboardCenter.transform);
                 break;
+
+            case EnumManager.QuestionCategories.Fractions:
+                Instantiate(NumberLinePrefab, billboardCenter.transform);
+                break;
+
+            case EnumManager.QuestionCategories.Algebra:
+                Instantiate(NumberLinePrefab, billboardCenter.transform);
+                break;
+
+            case EnumManager.QuestionCategories.FactFamilies:
+                Instantiate(NumberLinePrefab, billboardCenter.transform);
+                break;
+
             default:
+                Debug.LogError("Error: No MathType Found");
                 break;
         }
-
+        
 
     }
 
@@ -312,7 +320,6 @@ public class MathManager : MonoBehaviour
         A_Input.ClearChoices();
         IncorrectAnswersPerQuestion = 0;
 
-        List<MathController.MathType> currentQuestionTypes = new List<MathController.MathType>();
 
         // find the currently selected question types and put indices in list
 

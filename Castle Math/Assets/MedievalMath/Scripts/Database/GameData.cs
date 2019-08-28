@@ -55,13 +55,6 @@ public class GameData : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            //Debug.Log("Logged Round");
-            //telManager.LogRound();
-            //StartCoroutine(telManager.APIPut("round", 5, telManager.RoundPayload()));
-            
-        }
     }
 
     private void OnApplicationQuit()
@@ -351,7 +344,6 @@ public class GameData : MonoBehaviour
     {
         //overwrites locally stored response data
         string gameResponseData = JsonUtility.ToJson(gameResponse, true);
-        Debug.Log("Response path: " + responsePath);
         System.IO.File.WriteAllText(responsePath, gameResponseData);
     }
 

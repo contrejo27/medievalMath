@@ -1,0 +1,300 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2994771073425204048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2994771073425204050}
+  - component: {fileID: 2994771073425204049}
+  - component: {fileID: 2994771073425204051}
+  - component: {fileID: 2994771073425204012}
+  - component: {fileID: 2994771073425204013}
+  - component: {fileID: 2994771073425204014}
+  - component: {fileID: 2994771073425204015}
+  - component: {fileID: 2994771073425204008}
+  - component: {fileID: 2994771073425204009}
+  - component: {fileID: 2994771073425204010}
+  - component: {fileID: 2994771073425204011}
+  - component: {fileID: 2994771073425204004}
+  - component: {fileID: 2994771073425204006}
+  - component: {fileID: 2994771073425204007}
+  m_Layer: 0
+  m_Name: MathManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2994771073425204050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_LocalRotation: {x: -0.045457054, y: 0.9609444, z: -0.21584158, w: 0.16712846}
+  m_LocalPosition: {x: 978.6922, y: 1625.3156, z: 1215.6293}
+  m_LocalScale: {x: 197.56485, y: 197.56479, z: 197.56485}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 23.555, y: 158.173, z: -10.021001}
+--- !u!114 &2994771073425204049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2358f6893f3498188f3932c01a9bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalQuestionsAnswered: 0
+  NumberLinePrefab: {fileID: 163836711084635171, guid: dc07a459224584543918dce23bfa7ddd,
+    type: 3}
+  QuestionTypes: 
+  intermathQTypeOptions: 
+  IncorrectAnswersPerQuestion: 0
+  QuestionType: 0
+  gameData: {fileID: 0}
+  interwaveMath: 0
+  mathCanvas: {fileID: 0}
+  interMathCanvas: {fileID: 0}
+  interMathButtons: {fileID: 0}
+  billboard: {fileID: 0}
+  CorrectSound: {fileID: 8300000, guid: aa6f712a54631438b9066bebfd85b754, type: 3}
+  IncorrectSound: {fileID: 8300000, guid: c04a518f3dde342f8bb6092c152190ef, type: 3}
+  billboardCenter: {fileID: 0}
+--- !u!114 &2994771073425204051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b7e84ade16443269edd17a96f055da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  feedbackMarks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  xMark: {fileID: 21300000, guid: d7f2669ee4a8e1e45b0b530002afe2ae, type: 3}
+  checkMark: {fileID: 21300000, guid: 1e9d9a89af9f10b48b11d6a62b0f031c, type: 3}
+  tutorial: {fileID: 0}
+  mathCanvas: {fileID: 0}
+  questionTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  feedbackTexts: []
+  choiceBoxes: []
+  currentQuestion: 
+  selectedAnswer: 
+  choiceBox: {fileID: 0}
+  QuestionText_hud: {fileID: 0}
+  correctSound: {fileID: 0}
+  incorrectSound: {fileID: 0}
+  interwaveCorrectSounds:
+  - {fileID: 8300000, guid: bb810ec9249897c4fa48f79d646c47d5, type: 3}
+  - {fileID: 8300000, guid: a341cc62e604d26459633ea7d5a84e8f, type: 3}
+  - {fileID: 8300000, guid: 87e0918da608d1c4a89f2da8643845c1, type: 3}
+  interwaveQuestionsForWave: 2
+  interwaveQuestions: 0
+--- !u!114 &2994771073425204012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eae2265125fa4989b63e80591813e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wManager: {fileID: 0}
+  LvlManager: {fileID: 0}
+  correctAnswers: 0
+  incorrectAnswers: 0
+  isCorrect: 0
+  attempts: 0
+  gradeNumber: 0
+  personalHighScore: 0
+  globalHighScores: []
+  AddOrSubtractScore: 0
+  MultiOrDivideScore: 0
+  CompareScore: 0
+  TrueOrFalseScore: 0
+  FractionScore: 0
+  aSupplier: {fileID: 0}
+  correctText: {fileID: 0}
+  incorrectText: {fileID: 0}
+  wave: {fileID: 0}
+  hsName: {fileID: 0}
+  hsWave: {fileID: 0}
+  hsAnswers: {fileID: 0}
+  grade: {fileID: 0}
+  towerWave: {fileID: 0}
+  tower: {fileID: 0}
+  winUI: {fileID: 0}
+  ChooseLevelEndUI: {fileID: 0}
+  Anim: {fileID: 0}
+--- !u!114 &2994771073425204013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1043d9b49241c49f3abcf20d7b939f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  questionTextHUD: {fileID: 0}
+  isDivide: 0
+  mathEnabled: 0
+--- !u!114 &2994771073425204014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e133c8dbfec947128963b69f2d0e9fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  questionTextHUD: {fileID: 0}
+  isSubtract: 0
+--- !u!114 &2994771073425204015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee83ee0eac31fc49b831cbbc9dbb9be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  questionTextHUD: {fileID: 0}
+--- !u!114 &2994771073425204008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8728e8cfa27084e86a5654f9f3456f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  questionTextHUD: {fileID: 0}
+--- !u!114 &2994771073425204009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bdd79df4c7484a8195df6946e4da98c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestionText: {fileID: 0}
+  QuestionText_hud: {fileID: 0}
+  fractionItem: {fileID: 1922125774873540, guid: df744a210ce934140aacb392b61be12b,
+    type: 3}
+--- !u!114 &2994771073425204010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08dca5e1387549c4a0e37e094b18826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  questionTextHUD: {fileID: 0}
+--- !u!114 &2994771073425204011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f02aad17c36db4a90b3df2bf964fbc1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  questionTextHUD: {fileID: 0}
+--- !u!114 &2994771073425204004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64858e14019f32940b01df588bc70cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestionText: {fileID: 0}
+  QuestionText_hud: {fileID: 0}
+  flipperPrefab: {fileID: 1753534538413082, guid: a425178315b4f0b409fc8f2396c459ec,
+    type: 3}
+  billboardCenter: {fileID: 0}
+  flipperSpacing: 0.15
+  flipperSize: 0.75
+  currentFlips: 0
+--- !u!114 &2994771073425204006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5419803a8f9dc4abf8e1385a030c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  questionTextHUD: {fileID: 0}
+--- !u!114 &2994771073425204007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994771073425204048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c341c19996b76e4d8347cfb7acf357e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  questionTextHUD: {fileID: 0}

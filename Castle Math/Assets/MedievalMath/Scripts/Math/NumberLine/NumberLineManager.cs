@@ -23,16 +23,16 @@ public class NumberLineManager : MonoBehaviour {
 
     int currentAttempts = 0;
 
-
+    private void Start()
+    {
+        nlq.GenerateQuestion(-1);
+    }
 
     public void SpawnTargets(int startNumber, int initSliderPos)
     {
         ShuffleList(targetSpots);
         currentValue = startNumber + initSliderPos;
-        Debug.Log("init slide pos: " + initSliderPos);
         currentSliderPos = initSliderPos;
-        Debug.Log("current slide pos: " + currentValue);
-        Debug.Log("target slide pos: " + targetValue);
         StartCoroutine(LerpSlider(initSliderPos));
        
         for(int i = 0; i< 10; i++)
@@ -99,14 +99,10 @@ public class NumberLineManager : MonoBehaviour {
             currentValue += amountToSlide;
             currentSliderPos += amountToSlide;
 
-            Debug.Log("(in manager) CurrentValue: " + currentValue + ", target value: " + targetValue);
-
             StartCoroutine(LerpSlider(Mathf.Clamp(currentSliderPos, 0, 21)));
-
-           
         } else
         {
-			Debug.Log ("Invalid!");
+			Debug.Log ("Invalid!"); 
             // some kind of feedback that shows this is invalid
         }
         
@@ -127,7 +123,7 @@ public class NumberLineManager : MonoBehaviour {
         while(timer < speed)
         {
             timer += Time.deltaTime;
-            slider.anchoredPosition3D = new Vector3(Mathf.SmoothStep(initPos, sliderTicks[slideToPos].anchoredPosition3D.x + 0.45f, timer/speed),slider.anchoredPosition3D.y,slider.anchoredPosition3D.z);
+            slider.anchoredPosition3D = new Vector3(Mathf.SmoothStep(initPos, sliderTicks[slideToPos].anchoredPosition3D.x, timer/speed),slider.anchoredPosition3D.y,slider.anchoredPosition3D.z);
 
             yield return null;
         }

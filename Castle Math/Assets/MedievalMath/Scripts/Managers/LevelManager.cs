@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.UI;
 
 
 // Mostly contains functions formerly in the GameStateManager
 // This is specifically for the levels rather than the full game
 
-public class LevelManager : MonoBehaviour {
+public class LevelManager : MonoBehaviour
+{
 
     [Header("UI")]
     public UIEffects notificationEffects;
@@ -60,23 +60,25 @@ public class LevelManager : MonoBehaviour {
         };
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         GameStateManager.instance.levelManager = this;
         GameStateManager.instance.GameplayInit();
         RenderSettings.skybox.SetFloat("_Exposure", .8f);
     }
 
-	private GameObject Effect;
+    private GameObject Effect;
 
     void Update()
     {
-        if (Application.isEditor)
+        if (Application.platform == RuntimePlatform.Android)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKey(KeyCode.Escape))
             {
-                gemsOwned[EnumManager.GemType.Dollar]++;
-                GameStateManager.instance.potionShop.UpdateTotalMoney();
+                GameStateManager.instance.LoadSceneByName("LevelSelection");
+
+                return;
             }
         }
     }
@@ -94,7 +96,7 @@ public class LevelManager : MonoBehaviour {
             music.loop = true;
             music.Play();
             pauseButton.SetActive(true);
-			//FadeWorldIn ();
+            //FadeWorldIn ();
         }
     }
 
@@ -104,7 +106,7 @@ public class LevelManager : MonoBehaviour {
         music.clip = LostTheCastle;
         music.loop = false;
         music.Play();
-        
+
 
         //set UI
         LoseScreen.SetActive(true);
@@ -165,7 +167,7 @@ public class LevelManager : MonoBehaviour {
 
     public void SlowAllEnemeies(float slowScale, float duration)
     {
-        foreach(EnemyBehavior eb in activeEnemies)
+        foreach (EnemyBehavior eb in activeEnemies)
         {
             eb.SlowsEnemy(slowScale, duration);
         }
@@ -193,11 +195,13 @@ public class LevelManager : MonoBehaviour {
         PauseMenu.SetActive(true);
         MathScreen.SetActive(false);
         //Time.timeScale = 0;
-        
+
         isGamePaused = true;
         //StartCoroutine(FadeSky(.8f, .4f));
         foreach (EnemyBehavior eb in activeEnemies)
+        {
             eb.PauseEnemy();
+        }
     }
 
     public void ResumeGame()
@@ -212,7 +216,9 @@ public class LevelManager : MonoBehaviour {
         GameStateManager.instance.levelManager.isGamePaused = false;
         //StartCoroutine(FadeSky(.4f, .8f));
         foreach (EnemyBehavior eb in activeEnemies)
+        {
             eb.ResumeEnemy();
+        }
     }
 
     public float GetTotalMoney()
@@ -275,17 +281,18 @@ public class LevelManager : MonoBehaviour {
 
         yield return new WaitForSeconds(duration);
 
-        foreach(EnemyBehavior eb in activeEnemies)
+        foreach (EnemyBehavior eb in activeEnemies)
         {
             eb.UpdateTarget(eb.fenceTarget);
         }
 
-		Effect = GameObject.Find ("EffectImage");
+        Effect = GameObject.Find("EffectImage");
 
-		Effect.GetComponent<SpriteRenderer> ().sprite = null;
+        Effect.GetComponent<SpriteRenderer>().sprite = null;
 
         // do extra stuff if it explodes
         dummy.GetComponent<DummyScript>().DoOnDestroy();
     }
+
 
 }
