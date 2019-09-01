@@ -11,7 +11,9 @@ public class MathManager : MonoBehaviour
     AnswerInput A_Input;
 
     MultiplyOrDivide multOrDiv;
-    AddOrSubtract addOrSub;
+    Add add;
+    Subtract sub;
+
     // Compare Comparision;
     // TrueOrFalse True_False;
     Fractions fractions;
@@ -26,7 +28,6 @@ public class MathManager : MonoBehaviour
     public GameObject NumberLinePrefab;
 
     [Header("Math Functionality")]
-    public bool[] QuestionTypes;
     public List<int> intermathQTypeOptions;
     public int IncorrectAnswersPerQuestion;
     public int QuestionType;
@@ -64,7 +65,9 @@ public class MathManager : MonoBehaviour
         A_Input = GetComponent<AnswerInput>();
         multOrDiv = GetComponent<MultiplyOrDivide>();
         // Comparision = GameObject.FindObjectOfType<Compare> ();
-        addOrSub = GetComponent<AddOrSubtract>();
+        add = GetComponent<Add>();
+        sub = GetComponent<Subtract>();
+
         // True_False = GameObject.FindObjectOfType<TrueOrFalse> ();
         fractions = GetComponent<Fractions>();
         algebraQuestion = GetComponent<Algebra>();
@@ -77,13 +80,14 @@ public class MathManager : MonoBehaviour
         fractionTargets = GetComponent<FractionTargets>();
 
         multOrDiv.Start();
-        addOrSub.Start();
+        add.Start();
+        sub.Start();
+
         // Comparision.Start ();
         // True_False.Start ();
         fractions.Start();
         algebraQuestion.Start();
 
-        QuestionTypes = new bool[4];
 
         GenerateProblem();
     }
@@ -183,10 +187,12 @@ public class MathManager : MonoBehaviour
         MathController.MathType selectedMath = currentQuestionTypes[Random.Range(0, currentQuestionTypes.Count)];
         switch (selectedMath.questionCategory)
         {
-            case EnumManager.QuestionCategories.AddOrSubtract:
+            case EnumManager.QuestionCategories.Add:
                 Instantiate(NumberLinePrefab, billboardCenter.transform);
                 break;
-
+            case EnumManager.QuestionCategories.Subtract:
+                Instantiate(NumberLinePrefab, billboardCenter.transform);
+                break;
             case EnumManager.QuestionCategories.MultiplyOrDivide:
                 Instantiate(NumberLinePrefab, billboardCenter.transform);
                 break;
@@ -259,7 +265,7 @@ public class MathManager : MonoBehaviour
         /// answers to generate aggregate score to be used in order to increase difficulty
         /// </summary>
 
-        int aggregateScoreAorS = A_Input.GetIncorrectOfType(typeof(AddOrSubtract)) + A_Input.GetCorrectOfType(typeof(AddOrSubtract));
+        int aggregateScoreAorS = A_Input.GetIncorrectOfType(typeof(Add)) + A_Input.GetCorrectOfType(typeof(Add));
         int aggregateScoreMorD = A_Input.GetIncorrectOfType(typeof(MultiplyOrDivide)) + A_Input.GetCorrectOfType(typeof(MultiplyOrDivide));
 
         int increaseAorS;
@@ -340,12 +346,16 @@ public class MathManager : MonoBehaviour
         MathController.MathType selectedMath = currentQuestionTypes[Random.Range(0, currentQuestionTypes.Count)];
         switch (selectedMath.questionCategory)
         {
-            case EnumManager.QuestionCategories.AddOrSubtract:
-                addOrSub.GenerateQuestion(mathDifficultyAorS);
-                A_Input.SetCorrectAnswer(addOrSub.GetCorrectAnswer());
-                currentQuestion = addOrSub;
+            case EnumManager.QuestionCategories.Add:
+                add.GenerateQuestion(mathDifficultyAorS);
+                A_Input.SetCorrectAnswer(add.GetCorrectAnswer());
+                currentQuestion = add;
                 break;
-
+            case EnumManager.QuestionCategories.Subtract:
+                sub.GenerateQuestion(mathDifficultyAorS);
+                A_Input.SetCorrectAnswer(sub.GetCorrectAnswer());
+                currentQuestion = sub;
+                break;
             case EnumManager.QuestionCategories.MultiplyOrDivide:
                 multOrDiv.GenerateQuestion(mathDifficultyMorD);
                 A_Input.SetCorrectAnswer(multOrDiv.GetCorrectAnswer());
@@ -373,8 +383,6 @@ public class MathManager : MonoBehaviour
                 Debug.LogError("Error: No MathType Found");
                 break;
         }
-
-        Debug.Log(currentQuestion.GetQuestionString());
         //gameData.gameResponse.solution = A_Input.GetCorrectAnswer();
         //gameData.gameResponse.question = A_Input.currentQuestion;
         //m_telemetry.LogResponse();
@@ -395,9 +403,9 @@ public class MathManager : MonoBehaviour
     }
     */
 
-    public bool[] GetQuestionTypes()
+    public List<MathController.MathType> GetQuestionTypes()
     {
-        return QuestionTypes;
+        return currentQuestionTypes;
     }
 
     public int GetIncorrectAnswersPerQuestion()

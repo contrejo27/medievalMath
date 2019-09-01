@@ -17,7 +17,7 @@ public static class EnumManager
 
     public enum ActiveQuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra }
 
-    public enum QuestionCategories { AddOrSubtract, MultiplyOrDivide, Algebra, Fractions, FactFamilies }
+    public enum QuestionCategories { Add, Subtract, MultiplyOrDivide, Algebra, Fractions, FactFamilies }
 
     public enum Controls { keyboard, vr, mouse };
 

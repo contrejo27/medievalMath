@@ -11,6 +11,21 @@ public static class LocalUserData
         return false;
     }
 
+    public static void ActivateSubscription()
+    {
+        PlayerPrefs.SetInt("Subscribed", 1);
+    }
+
+    public static void DeactivateSubscription()
+    {
+        PlayerPrefs.SetInt("Subscribed", 0);
+    }
+
+    public static int GetSubscription()
+    {
+        return PlayerPrefs.GetInt("Subscribed");
+    }
+
     public static string GetUserEmail()
     {
         if(PlayerPrefs.HasKey(loggedInPref)) return PlayerPrefs.GetString(loggedInPref); 

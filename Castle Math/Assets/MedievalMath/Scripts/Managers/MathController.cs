@@ -30,7 +30,8 @@ public class MathController : MonoBehaviour
     public static MathController instance;
 
     //current MathTypes
-    MathType add_sub = new MathType("add_sub", false, EnumManager.QuestionCategories.AddOrSubtract);
+    MathType add = new MathType("add", false, EnumManager.QuestionCategories.Add);
+    MathType sub = new MathType("sub", false, EnumManager.QuestionCategories.Subtract);
     MathType mult_divide = new MathType("mult_divide", false, EnumManager.QuestionCategories.MultiplyOrDivide);
     MathType fractions = new MathType("fractions", false, EnumManager.QuestionCategories.Fractions);
     MathType preAlgebra = new MathType("preAlgebra", false, EnumManager.QuestionCategories.Algebra);
@@ -41,7 +42,7 @@ public class MathController : MonoBehaviour
     public Text mathInstructions;
     public float startTime;
 
-    public MathType[] mathList = new MathType[5];
+    public MathType[] mathList = new MathType[6];
 
     Color textColor;
 
@@ -58,11 +59,12 @@ public class MathController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        mathList[0] = add_sub;
-        mathList[1] = mult_divide;
-        mathList[2] = fractions;
-        mathList[3] = preAlgebra;
-        mathList[4] = factFamilies;
+        mathList[0] = add;
+        mathList[1] = sub;
+        mathList[2] = mult_divide;
+        mathList[3] = fractions;
+        mathList[4] = preAlgebra;
+        mathList[5] = factFamilies;
     }
 
     void Start()

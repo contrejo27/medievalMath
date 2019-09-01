@@ -150,6 +150,8 @@ public class LevelManager : MonoBehaviour
         }
         if (GameStateManager.instance.currentDifficulty == EnumManager.GameplayMode.Medium)
         {
+            medium.interactable = true;
+            mediumGemEffect.unlockGem();
             nextLevel.interactable = true;
             nLevelGemEffect.unlockGem();
         }

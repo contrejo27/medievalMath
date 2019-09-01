@@ -27,16 +27,16 @@ public class GameStateManager : MonoBehaviour
     public static bool isVR = false;
     [HideInInspector]
     public int levelsUnlocked = 1;
-
     // References
     [HideInInspector]
     public PlayerController playerController;
+    [HideInInspector]
     public PotionShop potionShop;
     [HideInInspector]
     public Inventory inventory;
-    //[HideInInspector]
+    [HideInInspector]
     public WaveManager waveManager;
-    //[HideInInspector]
+    [HideInInspector]
     public LevelManager levelManager;
 
 
@@ -57,12 +57,13 @@ public class GameStateManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", Launched Game, " + SystemInfo.deviceName.ToString()+",-,-");
+        gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", Launched Game, " + SystemInfo.deviceName.ToString()+",-,-");
                   
         // TODO: What does tracker do?
         tracker.ReadCSV();
         SaveData.LoadDataFromJSon();
     }
+
 
 
     // Use this for initialization
@@ -100,9 +101,6 @@ public class GameStateManager : MonoBehaviour
     public void GameplayInit()
     {
         playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
-        potionShop = GameObject.FindObjectOfType<PotionShop>();
-        if (!potionShop && Resources.FindObjectsOfTypeAll<PotionShop>()[0] != null)
-            potionShop = Resources.FindObjectsOfTypeAll<PotionShop>()[0];
         if (!playerMathStats)
             playerMathStats = Resources.FindObjectsOfTypeAll<PlayerMathStats>()[0];
     }
@@ -124,7 +122,7 @@ public class GameStateManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + scene.name + ", LoadedScene,-,-,-");
+        gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", LoadedScene: " + scene.name + "," + SystemInfo.deviceName.ToString() + ",-,-");
 
         if (scene.buildIndex > 0)
         {
@@ -141,8 +139,6 @@ public class GameStateManager : MonoBehaviour
         waveManager = GameObject.FindObjectOfType<WaveManager>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
-        potionShop = Resources.FindObjectsOfTypeAll<PotionShop>()[0];
-
     }
 
     public void SetTimeScale(float newTimeScale, float duration)
@@ -276,7 +272,8 @@ public class GameStateManager : MonoBehaviour
 
     public void ActivatePotionShop()
     {
-        potionShop.gameObject.SetActive(true);
+        potionShop = GameObject.FindObjectOfType<PotionShop>();
+        potionShop.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public int GetStars()
@@ -306,7 +303,7 @@ public class GameStateManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1;
     }
-
+   
     /// <summary>
     /// Menu functions 
     /// </summary>

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 
 /// <summary>
@@ -11,10 +8,6 @@ public class UserManager : MonoBehaviour
 {
     [HideInInspector]
     public EnumManager.ActivationType currentActivation;
-
-    public InputField emailInput;
-    public Text warningText;
-    public AnimationHelper subscribeMenu;
 
     // Singleton
     public static UserManager instance;
@@ -30,29 +23,24 @@ public class UserManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-    }
-
-    public void EmailCreatedAttempt()
-    {
-        if (!emailInput.text.Contains("@") || emailInput.text == "" || emailInput.text == null)
+        if (LocalUserData.GetSubscription() == 1)
         {
-            warningText.text = "Please enter valid email.";
+            currentActivation = EnumManager.ActivationType.Paid;
         }
         else
         {
-            LocalUserData.SetUserEmail(emailInput.text.ToLower());
-            subscribeMenu.TriggerAnimation("slideOut");
-            gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", EmailCreated, " + SystemInfo.deviceName.ToString() + ","+ LocalUserData.GetUserEmail() +",-");
+            currentActivation = EnumManager.ActivationType.Free;
         }
     }
 
     public void UpdateActivation(EnumManager.ActivationType newActivation)
     {
-        GameStateManager.instance.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", ContentUnlocked, " + SystemInfo.deviceName.ToString() + ",-,-");
+        GameStateManager.instance.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", ContentUnlocked, " + SystemInfo.deviceName.ToString() + ",-,-");
 
         currentActivation = newActivation;
-        if(currentActivation == EnumManager.ActivationType.Paid)
+        if (currentActivation == EnumManager.ActivationType.Paid)
         {
+            LocalUserData.ActivateSubscription();
             MathController.instance.unlockMath();
         }
     }

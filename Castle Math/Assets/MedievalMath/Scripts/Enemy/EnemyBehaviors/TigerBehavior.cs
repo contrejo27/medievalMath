@@ -63,8 +63,6 @@ public class TigerBehavior : EnemyBehavior
 
             float leftRight = Random.Range(0, 2);
 
-            Debug.Log(transform.position.x);
-
             //move right
             while (currentlerp <= lerpTime)
             {

@@ -297,7 +297,9 @@ public class TelemetryManager : MonoBehaviour {
         payload = addJson(payload, "totalAnswers ", MathManager.instance.totalQuestionsAnswered.ToString());
         payload = addJson(payload, "gradeNumber", m_playermathstats.gradeNumber.ToString());
         payload = addJson(payload, "personalHighScore", m_playermathstats.personalHighScore.ToString());
-        payload = addJson(payload, "addOrSubtractScore", m_playermathstats.AddOrSubtractScore.ToString());
+        payload = addJson(payload, "SubtractScore", m_playermathstats.SubtractScore.ToString());
+        payload = addJson(payload, "addScore", m_playermathstats.AddScore.ToString());
+
         payload = addJson(payload, "multiOrDivideScore", m_playermathstats.MultiOrDivideScore.ToString());
         payload = addJson(payload, "compareScore", m_playermathstats.CompareScore.ToString());
         payload = addJson(payload, "trueOrFalseScore", m_playermathstats.TrueOrFalseScore.ToString());

@@ -139,10 +139,13 @@ public class AnswerInput : MonoBehaviour {
             }
 
             string answerText = answer.text.ToString();
-			//Debug.Log ("You have selected: " + answer.text.ToString());
-			//Debug.Log ("Really real correct 'answer': " + correctAnswer);
+            //Debug.Log ("You have selected: " + answer.text.ToString());
+            //Debug.Log ("Really real correct 'answer': " + correctAnswer);
             // Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 
+
+            GameStateManager.instance.gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", Question:" + GameObject.Find("question").GetComponent<Text>().text+  ", "  + SystemInfo.deviceName.ToString() + ",Student Answer: " + answerText + ", Right Answer: " + correctAnswer.ToString());
+            
             if (answerText == correctAnswer)
             {
                 OnCorrect();
@@ -168,6 +171,7 @@ public class AnswerInput : MonoBehaviour {
         }
         else {
             CorrectFeedback(feedbackTexts);
+
             // ("correct answer generating new problem");
             MathManager.instance.GenerateProblem();
 

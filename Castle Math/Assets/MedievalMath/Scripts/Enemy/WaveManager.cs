@@ -13,7 +13,7 @@ public class WaveManager : MonoBehaviour
     public GameObject midEnemyPrefab;
     public GameObject bonusEnemy;
     public int currentWave;
-    public int finalWave;
+    int finalWave;
     public GameObject storyText;
 
     //temp
@@ -25,7 +25,6 @@ public class WaveManager : MonoBehaviour
     public Transform[] BonusSpawnPoints;
     public Transform[] fenceTargets;
     public GameObject billboard;
-    public GameStateManager gManager;
     public Transform gemSpawnPoint;
 
 
@@ -495,6 +494,7 @@ addEnemyToWaveSize();
                else if (currentWave == 14) AwardGems(2, EnumManager.GemType.Dollar);
 
     */
+            GameStateManager.instance.gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time Since Launch" + Time.time.ToString() + ", Beat Wave" + currentWave + ", "+ SystemInfo.deviceName.ToString() + ", -,-");
 
             //load intermath
             if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13)

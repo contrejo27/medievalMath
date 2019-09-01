@@ -46,7 +46,7 @@ public class AnimationHelper : MonoBehaviour {
     /// run animation sent through string
     /// </summary>
     public void TriggerAnimation (string selectedAnimation) {
+        anim = gameObject.GetComponent<Animator>();
         anim.Play(selectedAnimation);
-
     }
 }

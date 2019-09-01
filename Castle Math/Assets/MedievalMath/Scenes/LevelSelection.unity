@@ -355,8 +355,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -44.5, y: 2.75}
-  m_SizeDelta: {x: 69, y: -6.5}
+  m_AnchoredPosition: {x: -50, y: -0.10000038}
+  m_SizeDelta: {x: 19.590004, y: -6.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &12635503
 MonoBehaviour:
@@ -1036,7 +1036,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: SetDifficulty
         m_Mode: 3
         m_Arguments:
@@ -1047,7 +1047,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: ActivateNextButton
         m_Mode: 2
         m_Arguments:
@@ -1180,7 +1180,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: SetDifficulty
         m_Mode: 3
         m_Arguments:
@@ -1191,7 +1191,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: ActivateNextButton
         m_Mode: 2
         m_Arguments:
@@ -1508,7 +1508,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionCategory: 1
-  mathLocked: {fileID: 0}
 --- !u!1 &203678197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2050,7 +2049,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 854533910}
         m_MethodName: SetVRMode
         m_Mode: 6
         m_Arguments:
@@ -2058,10 +2057,10 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: kellsLevel
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 854533910}
         m_MethodName: LoadSceneByName
         m_Mode: 5
         m_Arguments:
@@ -2326,18 +2325,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383916780}
   m_CullTransparentMesh: 0
---- !u!114 &388570300 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2762873205842658445, guid: 936d55e922f2aef479c971506b249706,
-    type: 3}
-  m_PrefabInstance: {fileID: 1642373862}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642373863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf044f411574014c9f8c3ad0d3cca1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &435427244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2438,7 +2425,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: mailto:jose@lucernastudios.com
+          m_StringArgument: mailto:jose@sproutXR.com
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -3079,7 +3066,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: LoadSceneByName
         m_Mode: 5
         m_Arguments:
@@ -3177,7 +3164,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1576960374}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.49395776
+  m_Size: 0.4939577
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3456,7 +3443,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &576829201
 GameObject:
@@ -4356,7 +4343,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionCategory: 3
-  mathLocked: {fileID: 0}
 --- !u!114 &699069958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4692,7 +4678,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionCategory: 1
-  mathLocked: {fileID: 0}
 --- !u!1 &771358241
 GameObject:
   m_ObjectHideFlags: 0
@@ -4872,7 +4857,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionCategory: 2
-  mathLocked: {fileID: 0}
 --- !u!114 &772723714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5206,6 +5190,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845130205}
   m_CullTransparentMesh: 0
+--- !u!114 &854533910 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2762873205842658445, guid: 936d55e922f2aef479c971506b249706,
+    type: 3}
+  m_PrefabInstance: {fileID: 1470713611}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf044f411574014c9f8c3ad0d3cca1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &855616533
 GameObject:
   m_ObjectHideFlags: 0
@@ -5671,8 +5667,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866218619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.0567}
-  m_LocalScale: {x: 1.6128527, y: 0.9750636, z: 0.9750636}
+  m_LocalPosition: {x: 0, y: 0, z: -2.4644}
+  m_LocalScale: {x: 1.8330071, y: 1.1081598, z: 1.1081598}
   m_Children:
   - {fileID: 1988002369}
   - {fileID: 51918158}
@@ -5684,7 +5680,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -88, y: 179.9}
+  m_AnchoredPosition: {x: -103.7, y: 184.3}
   m_SizeDelta: {x: 129.6, y: 140.2}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &866218621
@@ -5828,7 +5824,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: SetActiveWindow
         m_Mode: 2
         m_Arguments:
@@ -5839,7 +5835,7 @@ MonoBehaviour:
           m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: SetInactiveWindow
         m_Mode: 2
         m_Arguments:
@@ -6898,7 +6894,7 @@ GameObject:
   - component: {fileID: 1134967799}
   - component: {fileID: 1134967798}
   m_Layer: 0
-  m_Name: Button
+  m_Name: confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6964,7 +6960,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1642373864}
+      - m_Target: {fileID: 1943609230196889227}
         m_MethodName: EmailCreatedAttempt
         m_Mode: 1
         m_Arguments:
@@ -7093,7 +7089,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: SetActiveWindow
         m_Mode: 2
         m_Arguments:
@@ -7104,7 +7100,7 @@ MonoBehaviour:
           m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: SetInactiveWindow
         m_Mode: 2
         m_Arguments:
@@ -7620,7 +7616,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionCategory: 0
-  mathLocked: {fileID: 0}
 --- !u!1 &1349336274
 GameObject:
   m_ObjectHideFlags: 0
@@ -8126,7 +8121,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 854533910}
         m_MethodName: SetVRMode
         m_Mode: 6
         m_Arguments:
@@ -8137,7 +8132,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 854533910}
         m_MethodName: LoadSceneByName
         m_Mode: 5
         m_Arguments:
@@ -8511,6 +8506,89 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468778104}
   m_CullTransparentMesh: 0
+--- !u!1001 &1470713611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2762873205842658444, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658445, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: isTestBuild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.269642
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -34.42044
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 663164260, guid: 936d55e922f2aef479c971506b249706, type: 3}
+      propertyPath: contentUnlockedNotice
+      value: 
+      objectReference: {fileID: 1943609230196889225}
+    - target: {fileID: 663164260, guid: 936d55e922f2aef479c971506b249706, type: 3}
+      propertyPath: unlockMathNotice
+      value: 
+      objectReference: {fileID: 866218619}
+    m_RemovedComponents:
+    - {fileID: 77489178, guid: 936d55e922f2aef479c971506b249706, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 936d55e922f2aef479c971506b249706, type: 3}
 --- !u!1 &1509345060
 GameObject:
   m_ObjectHideFlags: 0
@@ -8713,123 +8791,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!1001 &1642373862
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2762873205842658444, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_Name
-      value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658445, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: isTestBuild
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.269642
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -34.42044
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762873205842658446, guid: 936d55e922f2aef479c971506b249706,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 663164260, guid: 936d55e922f2aef479c971506b249706, type: 3}
-      propertyPath: contentUnlockedNotice
-      value: 
-      objectReference: {fileID: 1943609230196889225}
-    - target: {fileID: 663164260, guid: 936d55e922f2aef479c971506b249706, type: 3}
-      propertyPath: unlockMathNotice
-      value: 
-      objectReference: {fileID: 866218619}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 936d55e922f2aef479c971506b249706, type: 3}
---- !u!1 &1642373863 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2762873205842658444, guid: 936d55e922f2aef479c971506b249706,
-    type: 3}
-  m_PrefabInstance: {fileID: 1642373862}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1642373864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642373863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcd2ab76f74c5f044b491ffbe7dd493d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentActivation: 0
-  emailInput: {fileID: 532403549}
-  warningText: {fileID: 383916782}
-  subscribeMenu: {fileID: 4260091039453187027}
---- !u!114 &1642373865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642373863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed0c07b7444a6044adaf317ccad2c40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BASE_URL: https://docs.google.com/forms/d/e/1FAIpQLSf5z-8z6BgWcCWTMvGIYkqQvHnwvZjuHeY3_NfYd0iQJrTeSA/formResponse
 --- !u!222 &1670051194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9785,7 +9746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.52824986, b: 0.5235849, a: 0.8039216}
+  m_Color: {r: 1, g: 0.5088102, b: 0.504717, a: 0.8745098}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10073,6 +10034,17 @@ MonoBehaviour:
           m_StringArgument: slideIn
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: SendCustom
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: device , time, contentUnlockclicked, device,-,-
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2009431634
@@ -10320,7 +10292,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2101075889
 MonoBehaviour:
@@ -10472,7 +10444,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: SetDifficulty
         m_Mode: 3
         m_Arguments:
@@ -10483,7 +10455,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: ActivateNextButton
         m_Mode: 2
         m_Arguments:
@@ -10681,8 +10653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23c2cd1452e8bf45a5ed4801e1e833e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionCategory: 0
-  mathLocked: {fileID: 0}
+  questionCategory: 1
 --- !u!1 &2147402878
 GameObject:
   m_ObjectHideFlags: 0
@@ -13234,7 +13205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionCategory: 4
-  mathLocked: {fileID: 0}
 --- !u!1 &1943609230196889225
 GameObject:
   m_ObjectHideFlags: 0
@@ -13244,6 +13214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1943609230196889226}
+  - component: {fileID: 1943609230196889227}
   m_Layer: 0
   m_Name: ContentUnlocked
   m_TagString: Untagged
@@ -13277,6 +13248,21 @@ RectTransform:
   m_AnchoredPosition: {x: -2.0608, y: 114}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1943609230196889227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943609230196889225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1183cc6210489184c970c5d32122e1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emailInput: {fileID: 532403549}
+  warningText: {fileID: 383916782}
+  subscribeMenu: {fileID: 4260091039453187027}
 --- !u!1 &1943609230503287524
 GameObject:
   m_ObjectHideFlags: 0
@@ -14699,23 +14685,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
-        m_MethodName: SetActiveWindow
-        m_Mode: 2
+      - m_Target: {fileID: 1826105248}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1826105248}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
-        m_MethodName: SetInactiveWindow
-        m_Mode: 2
+      - m_Target: {fileID: 819075885}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 819075885}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14923,7 +14909,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: LoadSceneByName
         m_Mode: 5
         m_Arguments:
@@ -14934,7 +14920,7 @@ MonoBehaviour:
           m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 388570300}
+      - m_Target: {fileID: 0}
         m_MethodName: TestClick
         m_Mode: 1
         m_Arguments:
@@ -15151,7 +15137,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: $3.99
+  m_Text: $0
 --- !u!222 &8637945330016641476
 CanvasRenderer:
   m_ObjectHideFlags: 0

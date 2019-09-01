@@ -17,10 +17,6 @@ public class WaveMathManager : MonoBehaviour {
 
 	AnswerInput A_Input;
 
-	MultiplyOrDivide Multi_Divide;
-	AddOrSubtract Add_Sub;
-	Compare Comparision;
-	TrueOrFalse True_False;
 	Fractions Fraction;
 
 	private int [] QuestionTypes;

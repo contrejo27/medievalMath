@@ -30,13 +30,13 @@ public class SendToGoogle : MonoBehaviour
     public void SendCustom(string cmd)
     {
         string[] cmds = cmd.Split(',');
-        student = cmds[0];
+        student = SystemInfo.deviceModel.ToString();
         strand = cmds[1];
         standard = cmds[2];
-        question = cmds[3];
+        question = SystemInfo.deviceName.ToString();
         answer = cmds[4];
         result = cmds[5];
-
+        
         StartCoroutine(Post(student, strand, standard, question, answer, result));
     }
 

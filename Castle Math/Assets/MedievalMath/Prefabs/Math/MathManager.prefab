@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: 2994771073425204012}
   - component: {fileID: 2994771073425204013}
   - component: {fileID: 2994771073425204014}
-  - component: {fileID: 2994771073425204015}
-  - component: {fileID: 2994771073425204008}
+  - component: {fileID: 959789900767571703}
   - component: {fileID: 2994771073425204009}
   - component: {fileID: 2994771073425204010}
   - component: {fileID: 2994771073425204011}
@@ -39,7 +38,8 @@ Transform:
   m_LocalRotation: {x: -0.045457054, y: 0.9609444, z: -0.21584158, w: 0.16712846}
   m_LocalPosition: {x: 978.6922, y: 1625.3156, z: 1215.6293}
   m_LocalScale: {x: 197.56485, y: 197.56479, z: 197.56485}
-  m_Children: []
+  m_Children:
+  - {fileID: 5711461310144511955}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 23.555, y: 158.173, z: -10.021001}
@@ -129,7 +129,8 @@ MonoBehaviour:
   gradeNumber: 0
   personalHighScore: 0
   globalHighScores: []
-  AddOrSubtractScore: 0
+  AddScore: 0
+  SubtractScore: 0
   MultiOrDivideScore: 0
   CompareScore: 0
   TrueOrFalseScore: 0
@@ -177,31 +178,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionText: {fileID: 0}
   questionTextHUD: {fileID: 0}
-  isSubtract: 0
---- !u!114 &2994771073425204015
+--- !u!114 &959789900767571703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2994771073425204048}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ee83ee0eac31fc49b831cbbc9dbb9be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionText: {fileID: 0}
-  questionTextHUD: {fileID: 0}
---- !u!114 &2994771073425204008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2994771073425204048}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8728e8cfa27084e86a5654f9f3456f0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 36b74959b6681ae49811c1230cfdca20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   questionText: {fileID: 0}
@@ -298,3 +284,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionText: {fileID: 0}
   questionTextHUD: {fileID: 0}
+--- !u!1 &6049250201528226476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5711461310144511955}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5711461310144511955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049250201528226476}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2994771073425204050}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

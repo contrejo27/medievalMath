@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using UnityEngine;
 //using System;
 
 
-public class QuestionTracker {
+public class QuestionTracker
+{
     List<Question> incorrectQuestions;
     List<Question> correctQuestions;
     PlayerMathStats PlayerStats;
@@ -17,50 +16,74 @@ public class QuestionTracker {
 
     public Dictionary<string, QuestionData> questionData = new Dictionary<string, QuestionData>();
 
-    public QuestionTracker() {
+    public QuestionTracker()
+    {
         incorrectQuestions = new List<Question>();
         correctQuestions = new List<Question>();
         PlayerStats = new PlayerMathStats();
     }
-    
 
-	/// <summary>
-	/// Adds the incorrect question to a list of all incorect questions.
-	/// </summary>
-	/// <param name="question">The question that was answered</param>
-	/// <param name="incorrectAnswers">number of times the question has been answered incorrectly.</param>
-	public void AddIncorrectQuestion(Question question, int incorrectAnswers) {
-		Question q;
 
-		//Check object type and instanitate a Question object accordingly
-		if (Object.ReferenceEquals (question.GetType (), typeof(AddOrSubtract))) {
-			q = new AddOrSubtract ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(MultiplyOrDivide))) {
-			q = new MultiplyOrDivide ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(Fractions))) {
-			q = new Fractions ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(Compare))) {
-			q = new Compare ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(TrueOrFalse))) {
-			q = new TrueOrFalse ();	
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(Algebra))) {
-			q = new Algebra ();
-		} else if (Object.ReferenceEquals(question.GetType(), typeof(WordProblem))){
+    /// <summary>
+    /// Adds the incorrect question to a list of all incorect questions.
+    /// </summary>
+    /// <param name="question">The question that was answered</param>
+    /// <param name="incorrectAnswers">number of times the question has been answered incorrectly.</param>
+    public void AddIncorrectQuestion(Question question, int incorrectAnswers)
+    {
+        Question q;
+
+        //Check object type and instanitate a Question object accordingly
+        if (Object.ReferenceEquals(question.GetType(), typeof(Add)))
+        {
+            q = new Add();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(Subtract)))
+        {
+            q = new Subtract();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(MultiplyOrDivide)))
+        {
+            q = new MultiplyOrDivide();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(Fractions)))
+        {
+            q = new Fractions();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(Compare)))
+        {
+            q = new Compare();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(TrueOrFalse)))
+        {
+            q = new TrueOrFalse();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(Algebra)))
+        {
+            q = new Algebra();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(WordProblem)))
+        {
             q = new WordProblem();
-        } else if (Object.ReferenceEquals(question.GetType(), typeof(FractionTargets))){
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(FractionTargets)))
+        {
             q = new FractionTargets();
-        } else if (Object.ReferenceEquals(question.GetType(), typeof(NumberLineQuestion))){
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(NumberLineQuestion)))
+        {
             q = new NumberLineQuestion();
         }
-        else {
-			q = null;
-		}
+        else
+        {
+            q = null;
+        }
 
-		//Set the question to add's values based on Question passed to the function
-		q.SetQuestionString (question.GetQuestionString());
-		q.SetCorrectAnswer (question.GetCorrectAnswer());
-		q.SetIncorrectAnswers (incorrectAnswers);
-		PlayerStats.UpdateScores (q, isIncorrect);
+        //Set the question to add's values based on Question passed to the function
+        q.SetQuestionString(question.GetQuestionString());
+        q.SetCorrectAnswer(question.GetCorrectAnswer());
+        q.SetIncorrectAnswers(incorrectAnswers);
+        PlayerStats.UpdateScores(q, isIncorrect);
         //Debug.Log ("Question to add: " + q.GetQuestionString());
 
         // Update Library
@@ -87,48 +110,73 @@ public class QuestionTracker {
 
         // CHANGE THIS IN THE FUTURE (way too frequent here)
         SaveToCSV();
-    
-		incorrectQuestions.Add (q);
-	}
 
-	public void RemoveIncorrectQuestion(Question question) {
-		incorrectQuestions.Remove (question);
-	}
+        incorrectQuestions.Add(q);
+    }
 
-	/// <summary>
-	/// Adds the correct question to a list of all correctly answered questions.
-	/// </summary>
-	/// <param name="question">The question that was answered</param>
-	/// <param name="incorrectAnswers">number of times the question has been answered incorrectly.</param>
-	public void AddCorrectQuestion(Question question, int incorrectAnswers) {
-		Question q;
+    public void RemoveIncorrectQuestion(Question question)
+    {
+        incorrectQuestions.Remove(question);
+    }
 
-		if (Object.ReferenceEquals (question.GetType (), typeof(AddOrSubtract))) {
-			q = new AddOrSubtract ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(MultiplyOrDivide))) {
-			q = new MultiplyOrDivide ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(Fractions))) {
-			q = new Fractions ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(Compare))) {
-			q = new Compare ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(TrueOrFalse))) {
-			q = new TrueOrFalse ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(Algebra))) {
-			q = new Algebra ();
-		} else if (Object.ReferenceEquals (question.GetType (), typeof(WordProblem))) {
+    /// <summary>
+    /// Adds the correct question to a list of all correctly answered questions.
+    /// </summary>
+    /// <param name="question">The question that was answered</param>
+    /// <param name="incorrectAnswers">number of times the question has been answered incorrectly.</param>
+    public void AddCorrectQuestion(Question question, int incorrectAnswers)
+    {
+        Question q;
+
+        if (Object.ReferenceEquals(question.GetType(), typeof(Add)))
+        {
+            q = new Add();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(Subtract)))
+        {
+            q = new Subtract();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(MultiplyOrDivide)))
+        {
+            q = new MultiplyOrDivide();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(Fractions)))
+        {
+            q = new Fractions();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(Compare)))
+        {
+            q = new Compare();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(TrueOrFalse)))
+        {
+            q = new TrueOrFalse();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(Algebra)))
+        {
+            q = new Algebra();
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(WordProblem)))
+        {
             q = new WordProblem();
-        } else if (Object.ReferenceEquals(question.GetType(), typeof(FractionTargets))) {
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(FractionTargets)))
+        {
             q = new FractionTargets();
-        } else if (Object.ReferenceEquals(question.GetType(), typeof(NumberLineQuestion))) {
+        }
+        else if (Object.ReferenceEquals(question.GetType(), typeof(NumberLineQuestion)))
+        {
             q = new NumberLineQuestion();
-        } else {
-			q = null;
-		}
+        }
+        else
+        {
+            q = null;
+        }
 
-		q.SetQuestionString (question.GetQuestionString());
-		q.SetCorrectAnswer (question.GetCorrectAnswer());
-		q.SetIncorrectAnswers (incorrectAnswers);
-		PlayerStats.UpdateScores (q, isCorrect);
+        q.SetQuestionString(question.GetQuestionString());
+        q.SetCorrectAnswer(question.GetCorrectAnswer());
+        q.SetIncorrectAnswers(incorrectAnswers);
+        PlayerStats.UpdateScores(q, isCorrect);
 
         // Update Library
         string questionType = question.GetQuestionCategory();
@@ -155,12 +203,12 @@ public class QuestionTracker {
         // CHANGE THIS IN THE FUTURE (way too frequent here)
         SaveToCSV();
 
-        correctQuestions.Add (q);
-        
-	}
+        correctQuestions.Add(q);
+
+    }
 
     #region CSV functions
-    
+
     // Reference:
     // https://sushanta1991.blogspot.com/2015/02/how-to-write-data-to-csv-file-in-unity.html
 
@@ -185,16 +233,16 @@ public class QuestionTracker {
             }
         }
         */
-        foreach(string s in questionData.Keys)
+        foreach (string s in questionData.Keys)
         {
             csv.AppendLine(s + "," + questionData[s].data.Count);
-            foreach(QuestionData.DataLine dl in questionData[s].data.Values)
+            foreach (QuestionData.DataLine dl in questionData[s].data.Values)
             {
                 csv.AppendLine(dl.subCat + "," + dl.numCorrect + "," + dl.numIncorrect);
                 //Debug.Log(csv.ToString());
             }
         }
-        
+
         StreamWriter outStr = File.CreateText(GetCSVPath());
         outStr.WriteLine(csv);
         outStr.Close();
@@ -203,33 +251,42 @@ public class QuestionTracker {
     public void ReadCSV()
     {
         //Debug.Log("Pre-CSV");
-        if (!File.Exists(GetCSVPath())) return;
+        if (!File.Exists(GetCSVPath()))
+        {
+            return;
+        }
         //Debug.Log("Reading CSV");
 
-        using(var reader = new StreamReader(GetCSVPath()))
+        using (var reader = new StreamReader(GetCSVPath()))
         {
-            
+
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                
+
                 //Debug.Log("Line: " + line);
                 var values = line.Split(',');
-                if(values.Count() <= 1)
+                if (values.Count() <= 1)
                 {
                     break;
                 }
-                
+
                 string category = values[0];
                 int numSubCats = int.Parse(values[1]);
 
                 //Debug.Log("Cat: " + category + " subcats: " + numSubCats);
 
                 QuestionData qd;
-                if (questionData.ContainsKey(category)) qd = questionData[category];
-                else qd = new QuestionData(category);
-                
-                for(int i = 0; i<numSubCats; i++)
+                if (questionData.ContainsKey(category))
+                {
+                    qd = questionData[category];
+                }
+                else
+                {
+                    qd = new QuestionData(category);
+                }
+
+                for (int i = 0; i < numSubCats; i++)
                 {
                     var sLine = reader.ReadLine();
                     var sValues = sLine.Split(',');
@@ -239,24 +296,26 @@ public class QuestionTracker {
                     int numCorrect = int.Parse(sValues[1]);
                     int numIncorrect = int.Parse(sValues[2]);
 
-                    if (qd.data.ContainsKey(subCat)){
+                    if (qd.data.ContainsKey(subCat))
+                    {
                         QuestionData.DataLine dl = qd.data[subCat];
                         dl.numCorrect += numIncorrect;
                         dl.numIncorrect += numCorrect;
-                        dl.percentCorrect = (int)Mathf.Round(100*(float)dl.numCorrect / (dl.numCorrect + dl.numIncorrect));
+                        dl.percentCorrect = (int)Mathf.Round(100 * (float)dl.numCorrect / (dl.numCorrect + dl.numIncorrect));
                         qd.data[subCat] = dl;
 
                     }
                     else
                     {
-                        qd.data.Add(subCat, new QuestionData.DataLine(subCat, numCorrect, numIncorrect, (int)Mathf.Round(100*(float)numCorrect/(numCorrect+numIncorrect))));
+                        qd.data.Add(subCat, new QuestionData.DataLine(subCat, numCorrect, numIncorrect, (int)Mathf.Round(100 * (float)numCorrect / (numCorrect + numIncorrect))));
                     }
-                    
+
                 }
 
-                if (!questionData.ContainsKey(category)) questionData.Add(category, qd);
-
-
+                if (!questionData.ContainsKey(category))
+                {
+                    questionData.Add(category, qd);
+                }
             }
         }
 
@@ -276,82 +335,95 @@ public class QuestionTracker {
 
     private string GetCSVPath()
     {
-        #if UNITY_EDITOR
-            return Application.dataPath + "/MedievalMath/CSV/" + "Question_Tracker.csv";
-        #elif UNITY_ANDROID
+#if UNITY_EDITOR
+        return Application.dataPath + "/MedievalMath/CSV/" + "Question_Tracker.csv";
+#elif UNITY_ANDROID
             return Application.persistentDataPath+"Question_Tracker.csv";
-        #elif UNITY_IPHONE
+#elif UNITY_IPHONE
             return Application.persistentDataPath+"/"+"Question_Tracker.csv";
-        #else
+#else
             return Application.dataPath +"/"+"Question_Tracker.csv";
-        #endif
+#endif
     }
 
     #endregion
 
-    public void RemoveCorrectQuestion(Question question) {
-		correctQuestions.Remove (question);
-	}
+    public void RemoveCorrectQuestion(Question question)
+    {
+        correctQuestions.Remove(question);
+    }
 
-	public List<Question> GetIncorrectQuestions() {
-		return this.incorrectQuestions;
-	}
+    public List<Question> GetIncorrectQuestions()
+    {
+        return this.incorrectQuestions;
+    }
 
-    
-	public List <Question> GetCorrectQuestions() {
-		return this.correctQuestions;
-	}
 
-	public void ShowIncorrectQestions() {
-		//Debug.Log ("Question List: " );
-/*
-		for (int i = 0; i < incorrectQuestions.Count; i++) {
-			Debug.Log(incorrectQuestions [i].GetQuestionString ());
-			Debug.Log ("Incorrect attempts: " + incorrectQuestions [i].GetIncorrectAnswers ());
-		}*/
-	}
+    public List<Question> GetCorrectQuestions()
+    {
+        return this.correctQuestions;
+    }
 
-	public int GetIncorrectQuestionCount() {
-		return this.incorrectQuestions.Count;
-	}
+    public void ShowIncorrectQestions()
+    {
+        //Debug.Log ("Question List: " );
+        /*
+                for (int i = 0; i < incorrectQuestions.Count; i++) {
+                    Debug.Log(incorrectQuestions [i].GetQuestionString ());
+                    Debug.Log ("Incorrect attempts: " + incorrectQuestions [i].GetIncorrectAnswers ());
+                }*/
+    }
 
-	public int GetCorrectQuestionCount() {
-		return this.correctQuestions.Count;
-	}
+    public int GetIncorrectQuestionCount()
+    {
+        return this.incorrectQuestions.Count;
+    }
 
-	public int GetIncorrectOfType(System.Type type) {
-		int count = 0;
-		foreach (Question question in incorrectQuestions) {
-			if (Object.ReferenceEquals(question.GetType(), type)) {
-				count++;
-			}
-		}
-		return count;
-	}
+    public int GetCorrectQuestionCount()
+    {
+        return this.correctQuestions.Count;
+    }
 
-	public int GetCorrectOfType(System.Type type) {
-		int count = 0;
-		foreach (Question question in correctQuestions) {
-			if (Object.ReferenceEquals(question.GetType(), type)) {
-				count++;
-			}
-		}
-		return count;
-	}
+    public int GetIncorrectOfType(System.Type type)
+    {
+        int count = 0;
+        foreach (Question question in incorrectQuestions)
+        {
+            if (Object.ReferenceEquals(question.GetType(), type))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int GetCorrectOfType(System.Type type)
+    {
+        int count = 0;
+        foreach (Question question in correctQuestions)
+        {
+            if (Object.ReferenceEquals(question.GetType(), type))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
 
     public void updateQuestionHistory()
     {
-        foreach(Question question in correctQuestions)
+        foreach (Question question in correctQuestions)
         {
             Debug.Log("Saving: " + question.GetQuestionString());
         }
     }
 }
 
-public class QuestionData{
+public class QuestionData
+{
     public string type;
     public Dictionary<string, DataLine> data = new Dictionary<string, DataLine>();
-    
+
     public struct DataLine
     {
         public string subCat;
@@ -369,7 +441,7 @@ public class QuestionData{
 
         public override string ToString()
         {
-            return string.Format("{0,6}{1,20}{2,16}{3,10}", subCat, numCorrect.ToString(), numIncorrect.ToString(), (percentCorrect.ToString()+"%")); 
+            return string.Format("{0,6}{1,20}{2,16}{3,10}", subCat, numCorrect.ToString(), numIncorrect.ToString(), (percentCorrect.ToString() + "%"));
         }
     }
 
