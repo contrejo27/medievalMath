@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,6 +38,11 @@ public static class LocalUserData
         PlayerPrefs.SetString(loggedInPref, userEmail);
     }
 
+    public static void SetAgeRestriction(int SetAgeRestricted)
+    {
+        PlayerPrefs.SetInt("ageRestricted", SetAgeRestricted);
+    }
+
     public static bool IsSubActive()
     {
         return false;
@@ -52,225 +58,241 @@ public static class LocalUserData
        // PlayerPrefs.DeleteKey(loggedInPref);
     }
 
-//	static bool IsAppleReceiptActive()
-//	{
-//#if EM_UIAP
-//		AppleInAppPurchaseReceipt receipt = null;
+    internal static void SetBirthYear(int birthYear)
+    {
+        if (birthYear > 2006)
+        {
+            Debug.Log("age restriciton 1");
 
-//		// Checked if user has ever purchased a sub
-//		// If a receipt is valid for a sub, check if it is currently valid 
+            SetAgeRestriction(1);
+        }
+        else
+        {
+            SetAgeRestriction(0);
+            Debug.Log("age restriciton 0");
 
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_1_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_1_Month_Subscription);
+        }
+    }
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
-//				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
-//					return true;
-//			}
-//		}
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_6_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_6_Month_Subscription);
+    //	static bool IsAppleReceiptActive()
+    //	{
+    //#if EM_UIAP
+    //		AppleInAppPurchaseReceipt receipt = null;
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
-//				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
-//					return true;
-//			}
-//		}
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_12_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_12_Month_Subscription);
+    //		// Checked if user has ever purchased a sub
+    //		// If a receipt is valid for a sub, check if it is currently valid 
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
-//				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
-//					return true;
-//			}
-//		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_1_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_1_Month_Subscription);
 
-//#endif
-//		if (Application.isEditor)
-//			return true;
-		
-//		return false;
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
+    //				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
+    //					return true;
+    //			}
+    //		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_6_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_6_Month_Subscription);
 
-//	}
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
+    //				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
+    //					return true;
+    //			}
+    //		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_12_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_12_Month_Subscription);
 
-//	static int GetAppleReceiptDaysLeft()
-//	{
-//#if EM_UIAP
-//		AppleInAppPurchaseReceipt receipt = null;
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
+    //				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
+    //					return true;
+    //			}
+    //		}
 
-//		// Checked if user has ever purchased a sub
-//		// If a receipt is valid for a sub, check if it is currently valid 
+    //#endif
+    //		if (Application.isEditor)
+    //			return true;
 
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_1_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_1_Month_Subscription);
+    //		return false;
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
-//				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
-//				{
-//					Debug.Log(receipt.subscriptionExpirationDate.TimeOfDay);
-//					Debug.Log(receipt.subscriptionExpirationDate.Date.Subtract(System.DateTime.Today).TotalDays);
-//					return (int)receipt.subscriptionExpirationDate.Subtract(System.DateTime.Today).TotalDays;
-//				}
-//			}
-//		}
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_6_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_6_Month_Subscription);
+    //	}
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
-//				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
-//				{
-//					Debug.Log(receipt.subscriptionExpirationDate.Date.TimeOfDay);
-//					Debug.Log(receipt.subscriptionExpirationDate.Date.Subtract(System.DateTime.Today).TotalDays);
-//					return (int)receipt.subscriptionExpirationDate.Subtract(System.DateTime.Today).TotalDays;
-//				}
-//			}
-//		}
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_12_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_12_Month_Subscription);
+    //	static int GetAppleReceiptDaysLeft()
+    //	{
+    //#if EM_UIAP
+    //		AppleInAppPurchaseReceipt receipt = null;
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
-//				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
-//				{
-//					Debug.Log(receipt.subscriptionExpirationDate.Date.TimeOfDay);
-//					Debug.Log(receipt.subscriptionExpirationDate.Date.Subtract(System.DateTime.Today).TotalDays);
-//					return (int)receipt.subscriptionExpirationDate.Subtract(System.DateTime.Today).TotalDays;
-//				}
-//			}
-//		}
+    //		// Checked if user has ever purchased a sub
+    //		// If a receipt is valid for a sub, check if it is currently valid 
 
-//#endif
-//		if (Application.isEditor)
-//			return 0;
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_1_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_1_Month_Subscription);
 
-//		return 0;
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
+    //				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
+    //				{
+    //					Debug.Log(receipt.subscriptionExpirationDate.TimeOfDay);
+    //					Debug.Log(receipt.subscriptionExpirationDate.Date.Subtract(System.DateTime.Today).TotalDays);
+    //					return (int)receipt.subscriptionExpirationDate.Subtract(System.DateTime.Today).TotalDays;
+    //				}
+    //			}
+    //		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_6_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_6_Month_Subscription);
 
-//	}
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
+    //				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
+    //				{
+    //					Debug.Log(receipt.subscriptionExpirationDate.Date.TimeOfDay);
+    //					Debug.Log(receipt.subscriptionExpirationDate.Date.Subtract(System.DateTime.Today).TotalDays);
+    //					return (int)receipt.subscriptionExpirationDate.Subtract(System.DateTime.Today).TotalDays;
+    //				}
+    //			}
+    //		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_12_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetAppleIAPReceipt(EM_IAPConstants.Product_12_Month_Subscription);
 
-//	static bool IsGoogleReceiptActive()
-//	{
-//#if EM_UIAP
-//		GooglePlayReceipt receipt = null;
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Subscription Expiration Date: " + receipt.subscriptionExpirationDate.ToShortDateString());
+    //				if (receipt.subscriptionExpirationDate.Date >= System.DateTime.Today.Date)
+    //				{
+    //					Debug.Log(receipt.subscriptionExpirationDate.Date.TimeOfDay);
+    //					Debug.Log(receipt.subscriptionExpirationDate.Date.Subtract(System.DateTime.Today).TotalDays);
+    //					return (int)receipt.subscriptionExpirationDate.Subtract(System.DateTime.Today).TotalDays;
+    //				}
+    //			}
+    //		}
 
-//		// Checked if user has ever purchased a sub
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_1_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_1_Month_Subscription);
+    //#endif
+    //		if (Application.isEditor)
+    //			return 0;
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Purchase Token: " + receipt.purchaseToken);
-//				Debug.Log("Purchase State: " + receipt.purchaseState);
-//				Debug.Log("Purchase Date: " + receipt.purchaseDate);
-//				return System.DateTime.Today.Date <= receipt.purchaseDate.AddDays(31); 
+    //		return 0;
 
-//			}
-//		}
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_6_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_6_Month_Subscription);
+    //	}
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Purchase Token: " + receipt.purchaseToken);
-//				Debug.Log("Purchase State: " + receipt.purchaseState);
-//				Debug.Log("Purchase Date: " + receipt.purchaseDate);
-//				return System.DateTime.Today.Date <= receipt.purchaseDate.AddDays(186); 
+    //	static bool IsGoogleReceiptActive()
+    //	{
+    //#if EM_UIAP
+    //		GooglePlayReceipt receipt = null;
 
-//			}
-//		}
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_12_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_12_Month_Subscription);
+    //		// Checked if user has ever purchased a sub
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_1_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_1_Month_Subscription);
 
-//			if (receipt != null) 
-//			{
-//				Debug.Log("Purchase Token: " + receipt.purchaseToken);
-//				Debug.Log("Purchase State: " + receipt.purchaseState);
-//				Debug.Log("Purchase Date: " + receipt.purchaseDate);
-//				return System.DateTime.Today.Date <= receipt.purchaseDate.AddDays(365); 
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Purchase Token: " + receipt.purchaseToken);
+    //				Debug.Log("Purchase State: " + receipt.purchaseState);
+    //				Debug.Log("Purchase Date: " + receipt.purchaseDate);
+    //				return System.DateTime.Today.Date <= receipt.purchaseDate.AddDays(31); 
 
-//			}
-//		}
+    //			}
+    //		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_6_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_6_Month_Subscription);
 
-//#endif
-//		if (Application.isEditor)
-//			return true;
-		
-//		return false;
-//	}
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Purchase Token: " + receipt.purchaseToken);
+    //				Debug.Log("Purchase State: " + receipt.purchaseState);
+    //				Debug.Log("Purchase Date: " + receipt.purchaseDate);
+    //				return System.DateTime.Today.Date <= receipt.purchaseDate.AddDays(186); 
 
-//	static int GetGoogleReceiptDaysLeft()
-//	{
-//#if EM_UIAP
-//		GooglePlayReceipt receipt = null;
+    //			}
+    //		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_12_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_12_Month_Subscription);
 
-//		// Checked if user has ever purchased a sub
-//		// If a receipt is valid for a sub, check if it is currently valid 
+    //			if (receipt != null) 
+    //			{
+    //				Debug.Log("Purchase Token: " + receipt.purchaseToken);
+    //				Debug.Log("Purchase State: " + receipt.purchaseState);
+    //				Debug.Log("Purchase Date: " + receipt.purchaseDate);
+    //				return System.DateTime.Today.Date <= receipt.purchaseDate.AddDays(365); 
 
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_1_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_1_Month_Subscription);
+    //			}
+    //		}
 
-//			if (receipt != null) 
-//			{
-//				System.DateTime expirationDate = receipt.purchaseDate.AddDays(31); 
-//				int daysLeft = (int)expirationDate.Subtract(System.DateTime.Today).TotalDays;
-//				if(daysLeft < 0) daysLeft = 0;
+    //#endif
+    //		if (Application.isEditor)
+    //			return true;
 
-//				return daysLeft;
-//			}
-//		}
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_6_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_6_Month_Subscription);
+    //		return false;
+    //	}
 
-//			if (receipt != null) 
-//			{
-//				System.DateTime expirationDate = receipt.purchaseDate.AddDays(186); 
-//				int daysLeft = (int)expirationDate.Subtract(System.DateTime.Today).TotalDays;
-//				if(daysLeft < 0) daysLeft = 0;
+    //	static int GetGoogleReceiptDaysLeft()
+    //	{
+    //#if EM_UIAP
+    //		GooglePlayReceipt receipt = null;
 
-//				return daysLeft;
-//			}
-//		}
-//		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_12_Month_Subscription))
-//		{
-//			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_12_Month_Subscription);
+    //		// Checked if user has ever purchased a sub
+    //		// If a receipt is valid for a sub, check if it is currently valid 
 
-//			if (receipt != null) 
-//			{
-//				System.DateTime expirationDate = receipt.purchaseDate.AddDays(365); 
-//				int daysLeft = (int)expirationDate.Subtract(System.DateTime.Today).TotalDays;
-//				if(daysLeft < 0) daysLeft = 0;
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_1_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_1_Month_Subscription);
 
-//				return daysLeft;
-//			}
-//		}
+    //			if (receipt != null) 
+    //			{
+    //				System.DateTime expirationDate = receipt.purchaseDate.AddDays(31); 
+    //				int daysLeft = (int)expirationDate.Subtract(System.DateTime.Today).TotalDays;
+    //				if(daysLeft < 0) daysLeft = 0;
 
-//#endif
-	//	if (Application.isEditor)
-	//		return 0;
+    //				return daysLeft;
+    //			}
+    //		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_6_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_6_Month_Subscription);
 
-	//	return 0;
+    //			if (receipt != null) 
+    //			{
+    //				System.DateTime expirationDate = receipt.purchaseDate.AddDays(186); 
+    //				int daysLeft = (int)expirationDate.Subtract(System.DateTime.Today).TotalDays;
+    //				if(daysLeft < 0) daysLeft = 0;
 
-	//}
-	
+    //				return daysLeft;
+    //			}
+    //		}
+    //		if (InAppPurchasing.IsProductOwned (EM_IAPConstants.Product_12_Month_Subscription))
+    //		{
+    //			receipt = InAppPurchasing.GetGooglePlayReceipt(EM_IAPConstants.Product_12_Month_Subscription);
+
+    //			if (receipt != null) 
+    //			{
+    //				System.DateTime expirationDate = receipt.purchaseDate.AddDays(365); 
+    //				int daysLeft = (int)expirationDate.Subtract(System.DateTime.Today).TotalDays;
+    //				if(daysLeft < 0) daysLeft = 0;
+
+    //				return daysLeft;
+    //			}
+    //		}
+
+    //#endif
+    //	if (Application.isEditor)
+    //		return 0;
+
+    //	return 0;
+
+    //}
+
 }
