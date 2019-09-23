@@ -158,7 +158,7 @@ public class PotionShop : MonoBehaviour {
             float animationLength = potionRays_anim.GetCurrentAnimatorStateInfo(0).length;
             yield return new WaitForSeconds(animationLength);
 
-            gameObject.SetActive(false);
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 

@@ -1,12 +1,11 @@
 using System.Collections;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
-public class AnswerInput : MonoBehaviour {
+public class AnswerInput : MonoBehaviour
+{
 
     public GameObject[] feedbackMarks;
     public Sprite xMark;
@@ -40,52 +39,60 @@ public class AnswerInput : MonoBehaviour {
     public int interwaveQuestions = 0;
     private int incorrectAnswersPerQuestion;
     private bool isCorrect = false;
-   // private TelemetryManager m_telemetry;
+    // private TelemetryManager m_telemetry;
 
-    public void Awake() {
+    public void Awake()
+    {
         // interwaveQuestionsForWave = 2;
         choiceBoxes = GameObject.FindGameObjectsWithTag("ChoiceBox");
         //m_telemetry = GameObject.FindObjectOfType<TelemetryManager>();
     }
 
-    public void Start () {
-       // manaBar = FindObjectOfType<ManaBar> ();
-        arrowSupplier = GameObject.FindObjectOfType<ArrowSupplier> ();
-        audioSource = GameObject.Find ("PlayerAudio").GetComponent<AudioSource> ();
-        mathStats = GameObject.FindObjectOfType<PlayerMathStats> ();
-        feedbackTexts = GameObject.FindGameObjectsWithTag ("Feedback");
+    public void Start()
+    {
+        // manaBar = FindObjectOfType<ManaBar> ();
+        arrowSupplier = GameObject.FindObjectOfType<ArrowSupplier>();
+        audioSource = GameObject.Find("PlayerAudio").GetComponent<AudioSource>();
+        mathStats = GameObject.FindObjectOfType<PlayerMathStats>();
+        feedbackTexts = GameObject.FindGameObjectsWithTag("Feedback");
     }
 
-    public void SetCorrectAnswer (string answer) {
+    public void SetCorrectAnswer(string answer)
+    {
         this.correctAnswer = answer;
-		//Debug.Log ("Answer is changed to: " + this.correctAnswer);
+        //Debug.Log ("Answer is changed to: " + this.correctAnswer);
     }
 
-	public string GetCorrectAnswer () {
-		return this.correctAnswer;
-	}
+    public string GetCorrectAnswer()
+    {
+        return this.correctAnswer;
+    }
 
     public bool GetIsCorrect()
     {
         return this.isCorrect;
     }
 
-    public void ClearAnswer () {
+    public void ClearAnswer()
+    {
         // answerText.text = "";
     }
 
-    public void ClearChoices () {
+    public void ClearChoices()
+    {
         /// <summary>
         /// Clears the choices and sets choiceBox text to empty.
         /// </summary>
-        
-        if (answerChoices == null) {
+
+        if (answerChoices == null)
+        {
             answerChoices = new string[] { "" };
         }
 
         // choiceBoxes = GameObject.FindGameObjectsWithTag ("choiceBox");
 
-        for (int i = 1; i <= choiceBoxes.Length; i++) {
+        for (int i = 1; i <= choiceBoxes.Length; i++)
+        {
             //Iterate through each choice box and set text to empty string
             choiceBoxes[i - 1].transform.parent.gameObject.SetActive(true);
             choiceBox = choiceBoxes[i - 1].GetComponent<Text>();
@@ -94,7 +101,8 @@ public class AnswerInput : MonoBehaviour {
         }
     }
 
-    public void DisplayChoices (string [] answerChoices) {
+    public void DisplayChoices(string[] answerChoices)
+    {
         /// <summary>
         /// Displays the choices on choiceBoxes.
         /// </summary>
@@ -102,18 +110,23 @@ public class AnswerInput : MonoBehaviour {
 
         this.answerChoices = answerChoices;
 
-        for (int i = 1; i <= answerChoices.Length; i++) {
+        for (int i = 1; i <= answerChoices.Length; i++)
+        {
             // iterate through choices boxes, assigning each text component
             // dynamically according to answerChoices
             string boxName = "answer" + i;
-            for (int j = 0; j < choiceBoxes.Length; j++) {
-                if (choiceBoxes[j].name == boxName) {
+            for (int j = 0; j < choiceBoxes.Length; j++)
+            {
+                if (choiceBoxes[j].name == boxName)
+                {
                     choiceBoxes[j].transform.parent.gameObject.SetActive(true);
                     choiceBox = choiceBoxes[j].GetComponent<Text>();
-					if (answerChoices[i - 1].ToString() == "") {
+                    if (answerChoices[i - 1].ToString() == "")
+                    {
                         choiceBox.transform.parent.gameObject.SetActive(false);
                     }
-                    else {
+                    else
+                    {
                         choiceBox.transform.parent.gameObject.SetActive(true);
                         choiceBox.text = answerChoices[i - 1].ToString();
                     }
@@ -124,16 +137,19 @@ public class AnswerInput : MonoBehaviour {
 
     }
 
-    public void CheckAnswer(Text answer) {
+    public void CheckAnswer(Text answer)
+    {
         /// <summary>
         /// Checks the answer on the Text field against correct answer.
         /// </summary>
         /// <param name="answer">The given answer</param>
 
-        if (!GameStateManager.instance.levelManager.isGamePaused) {
+        if (!GameStateManager.instance.levelManager.isGamePaused)
+        {
             // int answerAsInt = int.Parse(answer.text.ToString());
             // check if we're in tutorial
-            if (!tutorial.tutorialDone) {
+            if (!tutorial.tutorialDone)
+            {
                 mathCanvas.fadeOut(1.0f);
                 tutorial.Next();
             }
@@ -144,8 +160,8 @@ public class AnswerInput : MonoBehaviour {
             // Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 
 
-            GameStateManager.instance.gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", Question:" + GameObject.Find("question").GetComponent<Text>().text+  ", "  + SystemInfo.deviceName.ToString() + ",Student Answer: " + answerText + ", Right Answer: " + correctAnswer.ToString());
-            
+            GameStateManager.instance.gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", Question:" + GameObject.Find("question").GetComponent<Text>().text + ", " + SystemInfo.deviceName.ToString() + ",Student Answer: " + answerText + ", Right Answer: " + correctAnswer.ToString());
+
             if (answerText == correctAnswer)
             {
                 OnCorrect();
@@ -162,14 +178,17 @@ public class AnswerInput : MonoBehaviour {
         }
     }
 
-    public void OnCorrect() {
-        if (MathManager.instance.interwaveMath) {
+    public void OnCorrect()
+    {
+        if (MathManager.instance.interwaveMath)
+        {
             GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
             GameStateManager.instance.ActivatePotionShop();
             InterWaveCorrectFeedback();
             interwaveQuestions++;
         }
-        else {
+        else
+        {
             CorrectFeedback(feedbackTexts);
 
             // ("correct answer generating new problem");
@@ -177,13 +196,15 @@ public class AnswerInput : MonoBehaviour {
 
         }
 
-        mathStats.CorrectlyAnswered ();
+        mathStats.CorrectlyAnswered();
 
         // If answered incorrectly more than once, place in incorrect question tracker
-        if (MathManager.instance.GetIncorrectAnswersPerQuestion() >= 1) {
+        if (MathManager.instance.GetIncorrectAnswersPerQuestion() >= 1)
+        {
             GameStateManager.instance.tracker.AddIncorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
         }
-        else {
+        else
+        {
             GameStateManager.instance.tracker.AddCorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
         }
 
@@ -192,15 +213,18 @@ public class AnswerInput : MonoBehaviour {
         CheckNumIncorrect();
     }
 
-    public void OnIncorrect () {
+    public void OnIncorrect()
+    {
         mathStats.IncorrectlyAnswered();
         MathManager.instance.IncorrectAnswer();
-        if (MathManager.instance.interwaveMath) {
+        if (MathManager.instance.interwaveMath)
+        {
             InterWaveIncorrectFeedback();
             GameStateManager.instance.waveManager.NextWave();
             //interwaveQuestions++;
         }
-        else {
+        else
+        {
             IncorrectFeedback(feedbackTexts);
         }
 
@@ -211,24 +235,29 @@ public class AnswerInput : MonoBehaviour {
 
     }
 
-    public void CheckNumIncorrect () {
-        if (MathManager.instance.GetIncorrectAnswersPerQuestion() == 2) {
+    public void CheckNumIncorrect()
+    {
+        if (MathManager.instance.GetIncorrectAnswersPerQuestion() == 2)
+        {
             // TODO: display tip graphic
 
             // Find random index at which to remove an answer choice
             int index = Random.Range(0, answerChoices.Length);
 
             // Check that the answer at that index is not the correct one
-            while (answerChoices[index] == correctAnswer) {
+            while (answerChoices[index] == correctAnswer)
+            {
                 index = Random.Range(0, answerChoices.Length);
             }
 
             // Create new array, one index shorter than answerChoices
             string[] answerChoicesCopy = new string[answerChoices.Length - 1];
 
-            for (int i = 0, j = 0; i < answerChoicesCopy.Length; i++, j++) {
+            for (int i = 0, j = 0; i < answerChoicesCopy.Length; i++, j++)
+            {
                 // Skip if that is the element to remove
-                if (i == index) {
+                if (i == index)
+                {
                     j++;
                 }
 
@@ -239,7 +268,8 @@ public class AnswerInput : MonoBehaviour {
             //Resassign answer choices to new array
             this.answerChoices = answerChoicesCopy;
         }
-        else if (MathManager.instance.GetIncorrectAnswersPerQuestion() == 3) {
+        else if (MathManager.instance.GetIncorrectAnswersPerQuestion() == 3)
+        {
             GameStateManager.instance.tracker.AddIncorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
             GameStateManager.instance.tracker.ShowIncorrectQestions();
 
@@ -247,7 +277,8 @@ public class AnswerInput : MonoBehaviour {
         }
     }
 
-    void InterWaveCorrectFeedback() {
+    void InterWaveCorrectFeedback()
+    {
         Debug.Log("Interwave questions: " + interwaveQuestions + " Interwave questions for wave: " + interwaveQuestionsForWave);
         feedbackMarks[interwaveQuestions].SetActive(true);
         feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = checkMark;
@@ -264,7 +295,8 @@ public class AnswerInput : MonoBehaviour {
 
     }
 
-    void InterWaveIncorrectFeedback() {
+    void InterWaveIncorrectFeedback()
+    {
         //feedbackMarks[interwaveQuestions].SetActive(true);
         //feedbackMarks[interwaveQuestions].GetComponent<Image>().sprite = xMark;
         audioSource.clip = incorrectSound;
@@ -285,68 +317,86 @@ public class AnswerInput : MonoBehaviour {
 
     }
 
-    void CorrectFeedback(GameObject[] Feedback) {
-        for (int i = 0; i < feedbackTexts.Length; i++) {
-            Text FeedbackText = feedbackTexts [i].GetComponent<Text>();
+    void CorrectFeedback(GameObject[] Feedback)
+    {
+        for (int i = 0; i < feedbackTexts.Length; i++)
+        {
+            Text FeedbackText = feedbackTexts[i].GetComponent<Text>();
             FeedbackText.text = "Correct";
-            FeedbackText.color =  new Color(.188f, .44f, .1f);
-            FeedbackText.gameObject.SetActive (true);
+            FeedbackText.color = new Color(.188f, .44f, .1f);
+            FeedbackText.gameObject.SetActive(true);
         }
 
-        StartCoroutine (DisplayFeedback ());
-        arrowSupplier.CreateArrow ();
+        StartCoroutine(DisplayFeedback());
+        arrowSupplier.CreateArrow();
         audioSource.clip = correctSound;
-        audioSource.Play ();
+        audioSource.Play();
     }
 
-    void IncorrectFeedback(GameObject[] Feedback) {
-        for (int i = 0; i < feedbackTexts.Length; i++) {
-            Text FeedbackText = feedbackTexts [i].GetComponent<Text>();
-            Debug.Log ("Incorrect");
+    void IncorrectFeedback(GameObject[] Feedback)
+    {
+        for (int i = 0; i < feedbackTexts.Length; i++)
+        {
+            Text FeedbackText = feedbackTexts[i].GetComponent<Text>();
+            Debug.Log("Incorrect");
             FeedbackText.text = "Incorrect";
-            FeedbackText.color =  new Color(.756f,.278f, .29f);
-            FeedbackText.gameObject.SetActive (true);
+            FeedbackText.color = new Color(.756f, .278f, .29f);
+            FeedbackText.gameObject.SetActive(true);
         }
 
-        StartCoroutine (DisplayFeedback ());
+        StartCoroutine(DisplayFeedback());
         audioSource.clip = incorrectSound;
-        audioSource.Play ();
+        audioSource.Play();
     }
 
-    public void SetQuestion(string question, int index = 0) {
+    public void SetQuestion(string question, int index = 0)
+    {
         /// <summary>
         /// Sets the question display.
         /// </summary>
         /// <param name="question">Question.</param>
 
         //Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + questionTexts.Length);
-        Text QuestionText = questionTexts [index].GetComponent<Text>();
-        QuestionText.text = question;   
+        Text QuestionText = questionTexts[index].GetComponent<Text>();
+        QuestionText.text = question;
     }
 
-    public int GetCorrectOfType(System.Type type) {
-        return GameStateManager.instance.tracker.GetCorrectOfType (type);
+    public int GetCorrectOfType(System.Type type)
+    {
+        return GameStateManager.instance.tracker.GetCorrectOfType(type);
     }
 
-    public int GetIncorrectOfType(System.Type type) {
-        return GameStateManager.instance.tracker.GetIncorrectOfType (type);
+    public int GetIncorrectOfType(System.Type type)
+    {
+        return GameStateManager.instance.tracker.GetIncorrectOfType(type);
     }
 
-    IEnumerator DisplayFeedback() {
-        yield return new WaitForSeconds (2);
-        for (int i = 0; i < feedbackTexts.Length; i++) {
-            Text FeedbackText = feedbackTexts [i].GetComponent<Text> ();
-            FeedbackText.gameObject.SetActive (false);
+    IEnumerator DisplayFeedback()
+    {
+        yield return new WaitForSeconds(2);
+        for (int i = 0; i < feedbackTexts.Length; i++)
+        {
+            Text FeedbackText = feedbackTexts[i].GetComponent<Text>();
+            FeedbackText.gameObject.SetActive(false);
         }
     }
 
-    IEnumerator delayDeactivateMath() {
-        yield return new WaitForSeconds (.7f);
+    IEnumerator delayDeactivateMath()
+    {
+        yield return new WaitForSeconds(.7f);
         MathManager.instance.DeactivateInterMath();
-        yield return new WaitForSeconds (1f);
-        foreach(GameObject mark in feedbackMarks) {
-            mark.SetActive(false);		
+        yield return new WaitForSeconds(1f);
+        foreach (GameObject mark in feedbackMarks)
+        {
+            mark.SetActive(false);
         }
+        yield return new WaitForSeconds(1f);
+        GameObject[] intermathBoards = GameObject.FindGameObjectsWithTag("IntermathBoard");
+        foreach (GameObject board in intermathBoards)
+        {
+            Destroy(board);
+        }
+
     }
 
 }

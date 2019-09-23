@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 
 /// <summary>
@@ -8,6 +10,8 @@ public class UserManager : MonoBehaviour
 {
     [HideInInspector]
     public EnumManager.ActivationType currentActivation;
+    Double freeTrialLeft;
+    DateTime subscriptionStartTime;
 
     // Singleton
     public static UserManager instance;
@@ -33,6 +37,7 @@ public class UserManager : MonoBehaviour
         }
     }
 
+
     public void UpdateActivation(EnumManager.ActivationType newActivation)
     {
         GameStateManager.instance.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", ContentUnlocked, " + SystemInfo.deviceName.ToString() + ",-,-");
@@ -43,5 +48,21 @@ public class UserManager : MonoBehaviour
             LocalUserData.ActivateSubscription();
             MathController.instance.unlockMath();
         }
+    }
+
+    public void StartFreeTrialTime()
+    {
+        subscriptionStartTime = DateTime.Now;
+        CheckFreeTrialimeLeft();
+    }
+
+    public void CheckFreeTrialimeLeft()
+    {
+        if (subscriptionStartTime != null)
+        {
+            freeTrialLeft = 14d - (subscriptionStartTime - DateTime.Now).TotalDays;
+            GameObject.Find("FreeTrialInfo").GetComponent<Text>().text = "Free Trial Left \n" + freeTrialLeft + " Days";
+        }
+
     }
 }

@@ -97,7 +97,7 @@ public class InAppPurchase : MonoBehaviour
         {
             return false;
         }
-        return true;
+        else return true;
     }
 
     private void ProductBought(IAPOperationStatus status, string message, StoreProduct product)
@@ -110,8 +110,6 @@ public class InAppPurchase : MonoBehaviour
                 GleyEasyIAP.ScreenWriter.Write("Buy product completed: " + product.localizedTitle + " receive value: " + product.value);
             }
             
-
-
             if (product.productType == ProductType.Subscription)
             {
                 SetSubscription(1);
