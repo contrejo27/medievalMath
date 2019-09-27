@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MathManager : MonoBehaviour
 {
@@ -265,50 +266,7 @@ public class MathManager : MonoBehaviour
         /// answers to generate aggregate score to be used in order to increase difficulty
         /// </summary>
 
-        int aggregateScoreAorS = A_Input.GetIncorrectOfType(typeof(Add)) + A_Input.GetCorrectOfType(typeof(Add));
-        int aggregateScoreMorD = A_Input.GetIncorrectOfType(typeof(MultiplyOrDivide)) + A_Input.GetCorrectOfType(typeof(MultiplyOrDivide));
-
-        int increaseAorS;
-        int increaseMorD;
-
-        // Don't increase difficulty beyond set point
-        if (aggregateScoreAorS > maxDifficultyIncrease)
-        {
-            increaseAorS = maxDifficultyIncrease;
-        }
-        else
-        {
-            increaseAorS = aggregateScoreAorS;
-        }
-
-        // Don't increase difficulty beyond set point
-        if (aggregateScoreMorD > maxDifficultyIncrease - 2)
-        {
-            increaseMorD = maxDifficultyIncrease - 2;
-        }
-        else
-        {
-            increaseMorD = aggregateScoreMorD;
-        }
-
-        // Check to see if difficulty will fall below zero, else reset to default value
-        if (mathDifficultyAorS + increaseAorS > 0)
-        {
-            mathDifficultyAorS += increaseAorS;
-        }
-        else
-        {
-            mathDifficultyAorS = 5;
-        }
-
-        if (mathDifficultyMorD + increaseMorD > 0)
-        {
-            mathDifficultyMorD += increaseMorD;
-        }
-        else
-        {
-            mathDifficultyMorD = 5;
-        }
+        //TODO: ADD DIFFICULTY INCREAE
     }
 
     public void GenerateProblem()
@@ -387,6 +345,8 @@ public class MathManager : MonoBehaviour
         //gameData.gameResponse.question = A_Input.currentQuestion;
         //m_telemetry.LogResponse();
 
+        GameStateManager.instance.simpleGameData.NewQuestionInput(GameObject.Find("question").GetComponent<Text>().text, A_Input.GetCorrectAnswer(), selectedMath.questionCategory.ToString());
+
         totalQuestionsAnswered++;
         //m_telemetry.LogRound();
     }
@@ -422,5 +382,9 @@ public class MathManager : MonoBehaviour
     {
         Debug.Log("IsCurrentQuestion Null?: " + (currentQuestion == null));
         return this.currentQuestion;
+    }
+    public string GetCurrentQuestionString()
+    {
+        return GameObject.Find("question").GetComponent<Text>().text;
     }
 }

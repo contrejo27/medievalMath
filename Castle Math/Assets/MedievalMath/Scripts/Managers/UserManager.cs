@@ -40,7 +40,7 @@ public class UserManager : MonoBehaviour
 
     public void UpdateActivation(EnumManager.ActivationType newActivation)
     {
-        GameStateManager.instance.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", ContentUnlocked, " + SystemInfo.deviceName.ToString() + ",-,-");
+        GameStateManager.instance.GetComponent<SendToWeb>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", ContentUnlocked, " + SystemInfo.deviceName.ToString() + ",-,-");
 
         currentActivation = newActivation;
         if (currentActivation == EnumManager.ActivationType.Paid)

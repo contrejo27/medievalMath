@@ -143,7 +143,6 @@ public class AnswerInput : MonoBehaviour
         /// Checks the answer on the Text field against correct answer.
         /// </summary>
         /// <param name="answer">The given answer</param>
-
         if (!GameStateManager.instance.levelManager.isGamePaused)
         {
             // int answerAsInt = int.Parse(answer.text.ToString());
@@ -159,19 +158,22 @@ public class AnswerInput : MonoBehaviour
             //Debug.Log ("Really real correct 'answer': " + correctAnswer);
             // Loop through all FeedBack texts and check answers. Currently Length == 1, but in a loop to account for expansion
 
-
-            GameStateManager.instance.gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", Question:" + GameObject.Find("question").GetComponent<Text>().text + ", " + SystemInfo.deviceName.ToString() + ",Student Answer: " + answerText + ", Right Answer: " + correctAnswer.ToString());
-
+            GameStateManager.instance.gameObject.GetComponent<SendToWeb>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", Question:" + GameObject.Find("question").GetComponent<Text>().text + ", " + SystemInfo.deviceName.ToString() + ",Student Answer: " + answerText + ", Right Answer: " + correctAnswer.ToString());
             if (answerText == correctAnswer)
             {
-                OnCorrect();
                 isCorrect = true;
+                //NewAnswer has to happen before OnCorrect() because it generates a new question
+                GameStateManager.instance.simpleGameData.NewAnswer(answerText, isCorrect);
+                OnCorrect();
             }
             else
             {
+                isCorrect = false; 
+                //NewAnswer has to happen before OnIncorrect() because it generates a new question
+                GameStateManager.instance.simpleGameData.NewAnswer(answerText, isCorrect);
                 OnIncorrect();
-                isCorrect = false;
             }
+
             selectedAnswer = answerText;
             DisplayChoices(answerChoices);
             //m_telemetry.LogResponse();
@@ -180,6 +182,7 @@ public class AnswerInput : MonoBehaviour
 
     public void OnCorrect()
     {
+
         if (MathManager.instance.interwaveMath)
         {
             GameStateManager.instance.currentState = EnumManager.GameState.PotionShop;
@@ -197,24 +200,12 @@ public class AnswerInput : MonoBehaviour
         }
 
         mathStats.CorrectlyAnswered();
-
-        // If answered incorrectly more than once, place in incorrect question tracker
-        if (MathManager.instance.GetIncorrectAnswersPerQuestion() >= 1)
-        {
-            GameStateManager.instance.tracker.AddIncorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
-        }
-        else
-        {
-            GameStateManager.instance.tracker.AddCorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
-        }
-
-        //manaBar.CorrectAnswer();
-
         CheckNumIncorrect();
     }
 
     public void OnIncorrect()
     {
+
         mathStats.IncorrectlyAnswered();
         MathManager.instance.IncorrectAnswer();
         if (MathManager.instance.interwaveMath)
@@ -270,8 +261,8 @@ public class AnswerInput : MonoBehaviour
         }
         else if (MathManager.instance.GetIncorrectAnswersPerQuestion() == 3)
         {
-            GameStateManager.instance.tracker.AddIncorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
-            GameStateManager.instance.tracker.ShowIncorrectQestions();
+            //GameStateManager.instance.tracker.AddIncorrectQuestion(MathManager.instance.GetCurrentQuestion(), MathManager.instance.GetIncorrectAnswersPerQuestion());
+            //GameStateManager.instance.tracker.ShowIncorrectQestions();
 
             MathManager.instance.GenerateProblem();
         }
@@ -359,16 +350,6 @@ public class AnswerInput : MonoBehaviour
         //Debug.Log("SHOULD BE SETTING QUESTION. QUESTIONTEXT LENGTH: " + questionTexts.Length);
         Text QuestionText = questionTexts[index].GetComponent<Text>();
         QuestionText.text = question;
-    }
-
-    public int GetCorrectOfType(System.Type type)
-    {
-        return GameStateManager.instance.tracker.GetCorrectOfType(type);
-    }
-
-    public int GetIncorrectOfType(System.Type type)
-    {
-        return GameStateManager.instance.tracker.GetIncorrectOfType(type);
     }
 
     IEnumerator DisplayFeedback()

@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.VR;
 using UnityEngine.UI;
 
 
@@ -16,8 +14,11 @@ public class GameStateManager : MonoBehaviour
     public EnumManager.GameplayMode currentDifficulty;
 
     // Game statistics
-    public QuestionTracker tracker = new QuestionTracker();
+    [HideInInspector]
+    public SimpleGameData simpleGameData;
     public PlayerMathStats playerMathStats;
+
+
 
     // Environment
     [HideInInspector]
@@ -57,10 +58,8 @@ public class GameStateManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", Launched Game, " + SystemInfo.deviceName.ToString()+",-,-");
-                  
-        // TODO: What does tracker do?
-        tracker.ReadCSV();
+        GetComponent<SendToWeb>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", Launched Game, " + SystemInfo.deviceName.ToString() + ",-,-");
+        simpleGameData = GetComponent<SimpleGameData>();
         SaveData.LoadDataFromJSon();
     }
 
@@ -76,7 +75,6 @@ public class GameStateManager : MonoBehaviour
 
     void loadPlayerPrefs()
     {
-        Debug.Log("PlayerName:" + PlayerPrefs.GetString("playerName"));
         if (!PlayerPrefs.HasKey("isFirstTime"))
         {
             PlayerPrefs.SetInt("tutorialDone", 0);
@@ -102,7 +100,9 @@ public class GameStateManager : MonoBehaviour
     {
         playerMathStats = GameObject.FindObjectOfType<PlayerMathStats>();
         if (!playerMathStats)
+        {
             playerMathStats = Resources.FindObjectsOfTypeAll<PlayerMathStats>()[0];
+        }
     }
     void Init()
     {
@@ -122,7 +122,7 @@ public class GameStateManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", LoadedScene: " + scene.name + "," + SystemInfo.deviceName.ToString() + ",-,-");
+        gameObject.GetComponent<SendToWeb>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time since launch: " + Time.time.ToString() + ", LoadedScene: " + scene.name + "," + SystemInfo.deviceName.ToString() + ",-,-");
 
         if (scene.buildIndex > 0)
         {
@@ -165,6 +165,8 @@ public class GameStateManager : MonoBehaviour
         {
             loseState = true;
         }
+        simpleGameData.SaveMathToCSV();
+
         /*
         SaveGame();
 
@@ -235,6 +237,7 @@ public class GameStateManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
+        simpleGameData.SaveMathToCSV();
         // m_telemetry.LogSession();
     }
 
@@ -247,7 +250,9 @@ public class GameStateManager : MonoBehaviour
             yield return null;
             UnityEngine.XR.XRSettings.enabled = true;
             if (levelName != "None")
+            {
                 SceneManager.LoadScene(levelName);
+            }
         }
         else
         {
@@ -303,7 +308,7 @@ public class GameStateManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1;
     }
-   
+
     /// <summary>
     /// Menu functions 
     /// </summary>

@@ -79,7 +79,6 @@ public static class SaveData {
             levelsCompleted = pd.levelsCompleted;
             numStars = pd.numStars;
             loaded = true;
-            Debug.Log("Save data loaded");
         }
     }
 

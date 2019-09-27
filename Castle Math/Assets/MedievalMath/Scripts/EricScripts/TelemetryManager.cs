@@ -62,7 +62,6 @@ public class TelemetryManager : MonoBehaviour {
         m_gameData = GameData.instance;
         roundFilePath = m_gameData.roundPath;
         sessionFilePath = m_gameData.sessionPath;
-        Debug.Log("new instance of game data is set");
     }
 
     private void Update() {

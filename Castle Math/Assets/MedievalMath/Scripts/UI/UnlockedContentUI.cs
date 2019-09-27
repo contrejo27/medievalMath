@@ -17,7 +17,7 @@ public class UnlockedContentUI : MonoBehaviour
         {
             LocalUserData.SetUserEmail(emailInput.text.ToLower());
             subscribeMenu.TriggerAnimation("slideOut");
-            GameStateManager.instance.gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", EmailCreated, " + SystemInfo.deviceName.ToString() + "," + LocalUserData.GetUserEmail() + ",-");
+            GameStateManager.instance.gameObject.GetComponent<SendToWeb>().SendCustom(SystemInfo.deviceModel.ToString() + "," + Time.time.ToString() + ", EmailCreated, " + SystemInfo.deviceName.ToString() + "," + LocalUserData.GetUserEmail() + ",-");
         }
     }
 }

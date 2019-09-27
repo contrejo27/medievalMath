@@ -202,6 +202,7 @@ public class WaveManager : MonoBehaviour
             music.loop = false;
             music.Play();
             levelComplete = true;
+            GameStateManager.instance.simpleGameData.SaveMathToCSV();
         }
         else
         {
@@ -494,7 +495,7 @@ addEnemyToWaveSize();
                else if (currentWave == 14) AwardGems(2, EnumManager.GemType.Dollar);
 
     */
-            GameStateManager.instance.gameObject.GetComponent<SendToGoogle>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time Since Launch" + Time.time.ToString() + ", Beat Wave" + currentWave + ", "+ SystemInfo.deviceName.ToString() + ", -,-");
+            GameStateManager.instance.gameObject.GetComponent<SendToWeb>().SendCustom(SystemInfo.deviceModel.ToString() + ",Time Since Launch" + Time.time.ToString() + ", Beat Wave" + currentWave + ", "+ SystemInfo.deviceName.ToString() + ", -,-");
 
             //load intermath
             if ((currentWave + 2) % 3 == 0 && currentWave + 2 > 1 && currentWave != 19 && currentWave != 13)

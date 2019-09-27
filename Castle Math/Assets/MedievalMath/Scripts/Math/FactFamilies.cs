@@ -134,13 +134,10 @@ public class FactFamilies : MonoBehaviour, Question
             if (operation == "add" && elements[0] + elements[1] == elements[2])
             {
                 correctFacts.Add(new int[] { elements[0], elements[1], elements[2] });
-                print("added " + elements[0] + " + " + elements[1] + " = " + elements[2]);
-
             }
             else if (operation == "sub" && elements[0] - elements[1] == elements[2])
             {
                 correctFacts.Add(new int[] { elements[0], elements[1], elements[2] });
-                print("added " + elements[0] + " - " + elements[1] + " = " + elements[2]);
             }
 
             return;

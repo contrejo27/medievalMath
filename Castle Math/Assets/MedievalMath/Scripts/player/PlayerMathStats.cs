@@ -61,7 +61,6 @@ public class PlayerMathStats : MonoBehaviour
     public void IncorrectlyAnswered()
     {
         incorrectAnswers += 1;
-        Debug.Log("attempt: " + attempts);
         if (isCorrect)
         {
             attempts = 0;
